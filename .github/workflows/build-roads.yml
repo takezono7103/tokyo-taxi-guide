@@ -1,1 +1,18 @@
+name: Build Tokyo Roads
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Test workflow
+        run: echo "Tokyo roads workflow is ready
 
