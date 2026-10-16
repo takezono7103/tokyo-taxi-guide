@@ -43,4 +43,10 @@ const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition
 if(!SpeechRecognition){mic.textContent='🎤 キーボードのマイクを使用';mic.onclick=()=>{q.focus();status.textContent='iPhoneキーボードのマイクをタップして音声入力してください。'}}else{mic.onclick=()=>{try{const rec=new SpeechRecognition();rec.lang='ja-JP';rec.interimResults=false;rec.maxAlternatives=1;status.textContent='音声を聞き取っています…';rec.onresult=e=>{q.value=e.results[0][0].transcript;search()};rec.onerror=e=>{status.textContent='音声認識に失敗しました（'+e.error+'）。文字入力も使えます。'};rec.start()}catch(e){status.textContent='音声入力を開始できません。キーボードのマイクをご利用ください。'}}}
 drawHistory();
 })();
-</script></body></html>
+</script>
+
+<script src="roads-fix.js"></script>
+
+</body>
+
+</html>
