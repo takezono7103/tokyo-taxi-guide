@@ -1,0 +1,25 @@
+{
+  "format": "tokyo-taxi-cockpit-manual-backup",
+  "version": 1,
+  "createdAt": "2026-10-18T16:11:09.924Z",
+  "data": {
+    "taxi_config": {
+      "voice": true,
+      "distance": 300,
+      "rate": 1,
+      "mode": "free"
+    },
+    "taxi_rest_points_v1": [
+      {
+        "id": "1792268608479-1nm0xe0zyi6",
+        "name": "テスト",
+        "lat": 35.621383,
+        "lon": 139.751265,
+        "category": "parking",
+        "verified": "unconfirmed",
+        "note": "",
+        "updatedAt": "2026-10-17T20:23:28.481Z"
+      }
+    ]
+  }
+}
