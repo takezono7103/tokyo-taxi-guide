@@ -1,0 +1,663 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1524"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><title>東京タクシー・コックピット v4.16 データ保護テスト版</title><style>
+:root{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',Meiryo,sans-serif;color:#eaf2ff;background:#0b1524;font-size:16px}*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button{cursor:pointer;border:0}a{color:#91d4ff}header{padding:18px 22px 12px;background:#101e31;position:sticky;top:0;z-index:4;border-bottom:1px solid #34445a}.head{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:clamp(19px,2.4vw,28px);font-weight:800}.muted{color:#b1c2d8;font-size:13px}.pill{padding:7px 11px;border-radius:100px;background:#26394e;font-size:12px;white-space:nowrap}.tabs{display:flex;gap:8px;overflow:auto;padding:12px 0 0}.tab{background:#213248;color:#d2e1f5;padding:10px 16px;border-radius:10px;white-space:nowrap}.tab.active{background:#9de9bd;color:#10241a;font-weight:800}main{max-width:1250px;margin:auto;padding:16px 20px 80px}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}.card{background:#19293d;border:1px solid #2d425b;border-radius:16px;padding:18px;min-width:0}.span6{grid-column:span 6}.span4{grid-column:span 4}.span8{grid-column:span 8}.span12{grid-column:span 12}h2{margin:0 0 14px;font-size:18px}h3{margin:0 0 8px;font-size:16px}.big{font-size:clamp(23px,3.2vw,38px);font-weight:800;line-height:1.3;overflow-wrap:anywhere}.medium{font-size:22px;font-weight:750}.value{font-weight:750;color:#a9f2c8}.sub{color:#b8c9de;font-size:14px;line-height:1.7}.btn{padding:12px 15px;border-radius:11px;background:#344a65;color:white;font-weight:700}.btn.primary{background:#a3ebc1;color:#10271c}.btn.warn{background:#6d4141}.btn:disabled{opacity:.45}.controls{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}.stat{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0}.linkgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.link{display:block;text-decoration:none;background:#263b54;padding:13px;border-radius:11px;font-weight:700;color:#e6f3ff}.link small{display:block;color:#b2c8df;font-size:12px;font-weight:400;margin-top:5px}.notice{border-left:4px solid #e8c77d;background:#293044;padding:11px 14px;border-radius:7px;font-size:13px;line-height:1.7;margin:10px 0}.ok{color:#9cebc2}.error{color:#ffb4a9}.section{display:none}.section.active{display:block}select,input{background:#263b54;border:1px solid #516985;color:white;border-radius:9px;padding:10px;max-width:100%}label{display:block;font-size:13px;color:#c8d6e8;margin:8px 0}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{padding:10px;background:#22364d;border-radius:9px}.metric b{display:block;font-size:22px}.metric span{font-size:12px;color:#b5c9e1}table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:10px 6px;border-bottom:1px solid #3a4a60;text-align:left}#map{width:100%;height:275px;border:0;border-radius:12px;background:#26394e}.footer{margin-top:20px;font-size:12px;color:#a9bad0;line-height:1.8}.clock{font-variant-numeric:tabular-nums}@media(max-width:720px){main{padding:12px 11px 60px}.card{padding:14px}.span6,.span4,.span8{grid-column:span 12}.linkgrid{grid-template-columns:1fr 1fr}header{padding:12px}.brand{font-size:19px}}
+
+/* 終電ダッシュボード */
+.lasttrain {margin:14px 0 20px;padding:17px;border:1px solid #47627e;border-radius:16px;background:#12263a}
+.lt-head{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.lt-tabs{display:flex;gap:7px;margin:12px 0;flex-wrap:wrap}
+.lt-tabs button{padding:10px 13px;border-radius:10px;background:#344a65;color:white}
+.lt-tabs button.on{background:#a3ebc1;color:#11271d;font-weight:800}
+.lt-filter{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0}
+.lt-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:9px}
+.lt-item{background:#23384e;border:1px solid #3a516b;padding:13px;border-radius:11px}
+.lt-item b{font-size:18px}.lt-item .lt-time{font-size:21px;font-weight:800}
+.lt-item .lt-count{color:#9cebc2;font-weight:700}
+.lt-item .lt-count.warn{color:#ffd27c}
+.lt-item .lt-count.past{color:#b9c3d0}
+.lt-item .btn{padding:8px 12px;margin-top:8px;font-size:13px}
+.lt-editor{background:#1b324a;border-radius:12px;padding:13px;margin-top:14px;border:1px solid #526b86}
+.lt-editor input,.lt-editor select{min-width:0}.lt-editor .lt-field{width:100%}
+.lt-editor .two{align-items:end}
+.lt-note{font-size:12px;color:#c6d4e5;line-height:1.7}
+@media(max-width:720px){.lt-list{grid-template-columns:1fr}.lt-editor .two{grid-template-columns:1fr}}
+
+/* 休憩マップ v3.4 */
+#restMap{height:420px;width:100%;border-radius:12px;background:#243b52;z-index:0;touch-action:pan-x pan-y}
+.rest-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,1fr);gap:14px}
+.rest-list{display:grid;gap:10px;margin-top:10px}
+.rest-item{background:#24384e;border:1px solid #48617c;border-radius:12px;padding:13px;overflow-wrap:anywhere}
+.rest-item strong{font-size:17px}.rest-item small{color:#bdcfe1}.rest-item .controls{margin:7px 0 0}
+.rest-item .btn{padding:8px 10px;font-size:13px}
+.rest-form label{margin:9px 0}.rest-form input,.rest-form select,.rest-form textarea{width:100%;background:#263b54;border:1px solid #516985;color:white;border-radius:9px;padding:10px;font:inherit}
+.rest-form textarea{min-height:66px;resize:vertical}
+.rest-muted{font-size:13px;color:#bfcfe0;line-height:1.6}
+.rest-status{color:#a3ebc1;font-size:13px;min-height:22px}
+#restMap .leaflet-popup-content{color:#15283a;font-size:14px}
+@media(max-width:800px){.rest-grid{grid-template-columns:1fr}#restMap{height:350px}}
+
+.integrated-details{margin:16px 0;border:1px solid #48617c;border-radius:16px;padding:15px;background:#14263a}.integrated-details summary{cursor:pointer;font-size:18px;font-weight:800;list-style-position:inside;padding:8px 0}.integrated-details>.grid{margin-top:13px}.integrated-history{margin-top:22px}.integrated-history>h2{margin-bottom:13px}.integrated-links{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}.integrated-links a{text-decoration:none}.integrated-history .card{margin-bottom:14px}
+</style></head><body><header><div class="head"><div><div class="brand">🚕 東京タクシー・コックピット</div><div class="muted">東京23区 営業支援｜iPad mini / iPhone対応</div></div><div class="pill clock" id="clock">--:--</div></div><nav class="tabs" aria-label="機能"><button class="tab active" data-tab="home">🏠 総合</button><button class="tab" data-tab="places">🔎 場所検索</button><button class="tab" data-tab="weather">🌦 天気</button><button class="tab" data-tab="intel">🚦 交通・鉄道</button><button class="tab" data-tab="events">🎪 イベント</button><button class="tab" data-tab="rests">🅿️ 休憩マップ</button><button class="tab" data-tab="go">🚕 営業戦略・GO分析</button><button class="tab" data-tab="settings">⚙️ 設定</button></nav></header><main>
+<section id="home" class="section active"><div class="grid"><div class="card span8"><h2>🧭 現在地・道路案内</h2><div class="muted" id="gpsState">GPS停止中</div><div class="big" id="roadName">案内待機中</div><div class="sub">進行方向の名前付き交差点（推定）</div><div class="medium" id="crossName">—</div><div class="value" id="crossDistance">—</div><div class="card" style="margin:14px 0;background:#173047;border-color:#42667a" aria-live="polite"><div class="sub">🛣️ 前方交差点・交差する通り（推定）</div><div class="big" id="homeCrossRoad">進行方向の確認待ち</div><div class="value" style="font-size:24px" id="homeCrossMeters">—</div><div class="sub" id="homeCrossHint">道路案内と同じ保存済み道路データから推定します。</div></div><div class="controls"><button class="btn primary" id="start">▶ GPS案内開始</button><button class="btn warn" id="stop" disabled>■ 停止</button><button class="btn" id="speakTest">🔊 音声テスト</button></div><div class="notice">交差点の名称・進行方向は推定です。実際の標識・道路状況を優先してください。走行中の操作・注視は禁止です。</div></div><div class="card span4"><h2>⚡ 営業情報ワンタップ</h2><div class="linkgrid"><a class="link" target="_blank" rel="noopener" href="https://www.jartic.or.jp/">🚗 JARTIC<small>渋滞・規制・事故</small></a><a class="link" target="_blank" rel="noopener" href="https://www.shutoko.jp/traffic/">🛣 首都高<small>交通情報</small></a><a class="link" target="_blank" rel="noopener" href="https://traininfo.jreast.co.jp/train_info/">🚃 JR東日本<small>運行情報</small></a><a class="link" target="_blank" rel="noopener" href="https://www.tokyometro.jp/unkou/">🚇 東京メトロ<small>運行情報</small></a><a class="link" target="_blank" rel="noopener" href="https://www.jma.go.jp/bosai/nowc/">🌧 気象庁<small>雨雲・雷</small></a><a class="link" target="_blank" rel="noopener" href="https://www.tokyo-dome.co.jp/dome/event/">🎤 東京ドーム<small>イベント予定</small></a></div></div><div class="card span12"><h2>🚕 配車判断</h2><p id="advice" class="sub">「流し」で営業計測を開始。15分配車がなければお知らせします。迎車先に到着したら「実車配車あり」を押してください。途中キャンセルは受付ログ内から記録できます。操作は安全に停止してから行ってください。</p><div class="controls"><button class="btn primary" id="homeGoAccepted" type="button" style="font-size:19px;min-height:60px;background:#1769d2;color:#fff">🚕 実車配車あり</button><button class="btn primary" id="homeGoStart" type="button" style="font-size:19px;min-height:60px">▶ 流し（営業開始）</button><button class="btn" id="homeGoBreak" type="button" style="font-size:19px;min-height:60px">☕ 回送（休憩）</button><button class="btn" id="homeGoOpen" type="button" style="font-size:19px;min-height:60px">📋 受付ログ</button></div><div class="metric" style="margin-top:12px"><b id="homeGoTimer" class="clock">00:00</b><span id="homeGoTimerState">計測停止中</span></div><div class="shift-close" style="margin:14px 0 4px;padding:13px;border:1px solid #62758e;border-radius:12px;background:#122236"><div class="sub" style="margin-bottom:8px">営業を終えたら、停車して締め作業を実施してください。記録を消さずに終了時刻を保存し、バックアップファイルをダウンロードします。</div><button class="btn" id="shiftCloseButton" type="button" style="background:#c9d5e4;color:#101f2d;min-height:54px;font-size:18px">🏁 営業終了・締め作業</button><div id="shiftCloseStatus" class="sub" style="margin-top:8px" role="status" aria-live="polite">未実施（データは端末内に保存されています）</div></div><div id="homeGoAlert" class="notice" style="display:none" role="alert">⏰ 配車なしで15分経過しました。安全な場所で営業エリアを見直してください。</div><div id="homeGoStatus" class="sub" role="status" aria-live="polite">「実車」で15分計測開始、「GO配車あり」で迎車到着、「回送」で休憩・計測停止。</div><div class="sub">GO通知を受けた後、迎車中にキャンセルされた場合は「受付ログ」の「途中キャンセル」を使います。記録はこの端末内に保存されます。</div></div><div class="card span12" id="decisionPanelV414">
+<h2>🧠 営業判断アシスタント <span class="muted">v4.16 データ保護テスト版</span></h2>
+<div class="notice">過去の自分の操作ログを参考に「待機・流し・移動検討」を案内します。GOの実需要・空車台数・交通状況は取得していません。実車・休憩中は提案しません。走行中は操作・注視しないでください。</div>
+<div class="two">
+<div class="metric"><span>現在の判断</span><b id="decisionAction">確認中…</b></div>
+<div class="metric"><span>根拠の確かさ</span><b id="decisionConfidence">—</b></div>
+</div>
+<p class="sub" id="decisionReason" aria-live="polite">ログを確認しています。</p>
+<div id="decisionCandidates" class="sub"></div>
+<div class="controls"><button type="button" class="btn primary" id="decisionRefresh">🔄 判断を更新</button></div>
+<p class="muted">同じ曜日区分・時間帯の「迎車先到着」と「15分配車なし」の操作件数を比較します。受付率や配車確率を意味しません。GPS未取得時は移動先を推薦しません。</p>
+</div><div class="card span6"><h2>📍 現在地マップ</h2><iframe id="map" title="現在地付近のOpenStreetMap" loading="lazy" referrerpolicy="no-referrer" src="https://www.openstreetmap.org/export/embed.html?bbox=139.69%2C35.65%2C139.75%2C35.70&layer=mapnik"></iframe><div class="sub">© OpenStreetMap contributors。GPSを開始すると周辺地図に切り替わります。</div></div><div class="card span6"><h2>🌤 現在地の天気</h2><div class="big" id="weatherMain">未取得</div><div class="sub" id="weatherSub">GPS開始後に取得</div><div class="controls"><button class="btn" id="refreshWeather">天気を更新</button></div><div class="muted" id="weatherTime">Open-Meteo</div></div></div>
+<details id="homeRoadDetails" class="integrated-details"><summary>🧭 道路・交差点 詳細案内／道路データ管理</summary><p class="sub">日常の道路・前方交差点表示は上の「現在地・道路案内」に統合しました。保存データ・音声・GPS詳細の操作はこちらから開けます。</p><div class="grid"><div class="card span8"><h2>🧭 道路・交差点案内</h2><div class="sub" id="roadStatus">GPSを開始してください。</div><label>営業モード <select id="mode"><option value="free">流し営業</option><option value="ride">実車（交差点名のみ）</option></select></label><div class="sub">現在の道路（推定）</div><div class="big" id="roadBig">—</div><div class="sub">前方の名前付き交差点（推定）</div><div class="big" id="crossBig">—</div><div class="value" id="distBig">—</div><div class="card" style="margin:14px 0;background:#173047;border-color:#42667a" aria-live="polite"><div class="sub">🛣️ 前方で交差する通り（推定）</div><div class="big" id="crossRoadBig">進行方向の確認待ち</div><div class="value" style="font-size:24px" id="crossRoadMeters">—</div><div class="sub" id="crossRoadHint">道路の形状から推定します。立体交差や側道は区別できない場合があります。</div></div><div class="controls"><button class="btn primary" id="start2">▶ 案内開始</button><button class="btn" id="announceNow">🔊 現在の案内を読む</button></div><div class="card" style="background:#102a30;margin-top:14px"><h3>🗺 東京道路データ（v3）</h3>
+<div class="sub">GPS開始時にGitHub Pages上の生成済み道路データを読み込み、可能ならiPad内にも保存します。初回読み込みは通信が必要です。従来のエリア手動保存も利用できます。</div>
+<label>保存するエリア<select id="saveArea"><option value="gps">📍 現在地周辺（約1km）</option><option value="35.6812,139.7671">東京駅・日本橋周辺</option><option value="35.6655,139.7582">新橋・銀座周辺</option><option value="35.6726,139.7377">赤坂・六本木周辺</option><option value="35.6590,139.7016">渋谷周辺</option><option value="35.6938,139.7034">新宿周辺</option><option value="35.6285,139.7388">品川周辺</option><option value="35.6502,139.7955">豊洲・有明周辺</option><option value="35.7066,139.7519">水道橋・東京ドーム周辺</option><option value="35.7167,139.7760">上野周辺</option><option value="35.7101,139.8107">押上周辺</option></select></label>
+<div class="controls"><button id="loadStaticRoads" class="btn primary">🗺 生成済み道路データを読み込む</button><button id="saveRoads" class="btn primary">⬇ 選んだエリアを保存</button><button id="reloadRoads" class="btn">🔄 保存データを読み直す</button><button id="exportRoads" class="btn">📤 バックアップ保存</button></div>
+<label>保存データを復元（JSON）<input id="importRoads" type="file" accept=".json,application/json"></label>
+<div id="cacheState" class="sub" aria-live="polite">保存状況を確認中…</div>
+<div class="notice">⚠ GitHub道路データが未取得、またはデータに道路名が存在しない地域では表示できません。地図の色や背景画像は通信を使います。GPS案内・音声は画面ロック中に停止する場合があります。</div>
+</div><div class="notice">目的地入力・右左折ルート案内は未実装です。「実車」は道路・交差点の参考表示モードです。</div></div><div class="card span4"><h2>📡 GPS情報</h2><div class="stat"><span>緯度・経度</span><span id="coords">—</span></div><div class="stat"><span>精度</span><span id="accuracy">—</span></div><div class="stat"><span>速度</span><span id="speed">—</span></div><div class="stat"><span>進行方向</span><span id="heading">—</span></div><div class="stat"><span>交差点データ</span><span id="mapData">未取得</span></div><div class="sub">Safariを閉じたりiPadをロックしたりすると、GPS・音声案内が停止する場合があります。</div></div></div></details>
+</section>
+<section id="places" class="section"><div class="grid"><div class="card span6"><h2>🔎 場所検索</h2><label>場所・通り名・交差点名<input id="placeQuery" style="width:100%" placeholder="例：青山一丁目交差点"></label><div class="controls"><button class="btn primary" id="placeSearch">検索</button><button class="btn" id="placeClear">消去</button></div><div class="sub" id="placeStatus">停車中に検索してください。</div><div id="placeResults"></div></div><div class="card span6"><h2>検索地点</h2><iframe id="placeMap" title="検索結果地図" style="width:100%;height:350px;border:0;border-radius:12px" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=139.69%2C35.65%2C139.75%2C35.70&amp;layer=mapnik"></iframe><p class="sub">検索結果は候補です。実際の標識・目的地を確認してください。</p></div></div></section><section id="weather" class="section"><div class="grid"><div class="card span6"><h2>🌤 現在地の天気</h2><div class="big" id="weatherBig">未取得</div><div class="sub" id="weatherDetails">GPSを開始してください。</div><div class="controls"><button class="btn" id="refreshWeather2">🔄 更新</button><a class="btn" style="text-decoration:none" target="_blank" rel="noopener" href="https://www.jma.go.jp/bosai/nowc/">気象庁の雨雲を見る ↗</a></div></div><div class="card span6"><h2>🕒 この先の降水確率</h2><div id="hourly" class="sub">未取得</div><div class="sub">Open-Meteoの予報値。気象庁の警報・注意報とは異なります。</div></div></div></section>
+<section id="intel" class="section"><div class="lasttrain" id="lastTrainPanel">
+<div class="lt-head"><h2 style="margin:0">🚆 終電ダッシュボード</h2><span class="pill">主要駅 / GPS近隣駅</span></div>
+<p class="lt-note">終電は路線・方面・曜日によって異なります。公式・許諾済みのデータを一括読込します。登録済み時刻がない駅は「未登録」と表示します。リアルタイム運行情報ではありません。</p>
+<div class="lt-tabs"><button id="ltAll" class="on" type="button">🏙 主要駅一覧</button><button id="ltNear" type="button">📍 GPS近隣駅</button></div>
+<div class="lt-filter"><label style="margin:0">時刻表の区分 <select id="ltDay"><option value="weekday">平日</option><option value="sat">土曜</option><option value="holiday">日曜・祝日</option></select></label><button class="btn" id="ltReload" type="button">↻ 表示更新</button></div>
+<div class="sub" id="ltState" aria-live="polite">表示準備中…</div>
+<div id="ltAutoStatus" class="lt-note" aria-live="polite">ODPT承認待ち／終電データを確認中…</div>
+<div class="controls"><label style="margin:0">📂 検証済み終電JSONを読み込む <input id="ltDataImport" type="file" accept=".json,application/json" style="max-width:255px"></label><button id="ltDataReset" type="button" class="btn">ローカル取込を解除</button></div><div class="lt-note">公開データファイル ./data/last_trains.json → 端末に読み込んだ検証済みJSON の順に自動表示します。終電の正しい時刻には路線・方向・平日/土日・ダイヤ更新日が必要です。ODPT承認待ちの間、未確認の時刻は自動補完しません。</div>
+<div id="ltList" class="lt-list" style="margin:12px 0"></div>
+<div class="lt-editor" id="ltEditor" style="display:none">
+<h3 id="ltEditTitle">終電を登録</h3>
+<div class="two"><label>路線 <input class="lt-field" id="ltLine" placeholder="例：JR山手線" maxlength="60"></label><label>方面・行先 <input class="lt-field" id="ltDirection" placeholder="例：品川方面" maxlength="80"></label></div>
+<div class="two"><label>終電の発時刻 <input class="lt-field" id="ltTime" type="time"></label><label>公式時刻表のURL（任意）<input class="lt-field" id="ltSource" type="url" placeholder="https://…"></label></div>
+<div class="controls"><button class="btn primary" id="ltSave" type="button">この区分で保存</button><button class="btn" id="ltCancel" type="button">閉じる</button></div>
+<div class="lt-note">登録値は利用者が確認するためのメモです。発時刻・行先・運行日の変更に注意してください。入力内容はSafari内だけに保存します。</div>
+</div>
+<p class="lt-note">残り時間は日本時間で計算。午前4時までは前日の営業日扱いです。祝日・臨時ダイヤは自動判定しません。停車中に確認してください。</p>
+<div class="controls"><a class="btn" target="_blank" rel="noopener" href="https://www.jreast-timetable.jp/">JR時刻表 ↗</a><a class="btn" target="_blank" rel="noopener" href="https://www.tokyometro.jp/station/">東京メトロ駅情報 ↗</a><a class="btn" target="_blank" rel="noopener" href="https://www.kotsu.metro.tokyo.jp/subway/timetable/index.html">都営時刻表 ↗</a></div>
+</div><div class="grid"><div class="card span6"><h2>🚗 道路・工事・規制</h2><div class="linkgrid"><a class="link" href="https://www.jartic.or.jp/" target="_blank" rel="noopener">JARTIC<small>全国の道路交通情報</small></a><a class="link" href="https://www.shutoko.jp/traffic/" target="_blank" rel="noopener">首都高<small>渋滞・通行止め</small></a><a class="link" href="https://www.keishicho.metro.tokyo.lg.jp/kotsu/doro/kisei/index.html" target="_blank" rel="noopener">警視庁<small>交通規制情報</small></a><a class="link" href="https://www.google.com/maps/@35.6812,139.7671,12z/data=!5m1!1e1" target="_blank" rel="noopener">Googleマップ<small>交通状況レイヤー</small></a></div></div><div class="card span6"><h2>🚆 鉄道運行・終電</h2><div class="linkgrid"><a class="link" href="https://traininfo.jreast.co.jp/train_info/" target="_blank" rel="noopener">JR東日本<small>遅延・運転見合わせ</small></a><a class="link" href="https://www.tokyometro.jp/unkou/" target="_blank" rel="noopener">東京メトロ<small>運行情報</small></a><a class="link" href="https://www.kotsu.metro.tokyo.jp/subway/schedule/" target="_blank" rel="noopener">都営地下鉄<small>時刻表・終電</small></a><a class="link" href="https://transit.yahoo.co.jp/" target="_blank" rel="noopener">Yahoo!乗換案内<small>終電検索</small></a></div></div><div class="card span12"><div class="notice">この画面は公式・関連サイトへのリンク集です。遅延、渋滞、通行止めをアプリ内でリアルタイム自動取得しているわけではありません。</div></div></div></section>
+<section id="events" class="section"><div class="card"><h2>🎪 主要会場のイベント情報</h2><p class="sub">終演・終了時刻を確認して営業判断の参考にしてください。イベントがあることとタクシー需要が増えることは同義ではありません。</p><div class="linkgrid"><a class="link" href="https://www.tokyo-dome.co.jp/dome/event/" target="_blank" rel="noopener">東京ドーム<small>公演・試合</small></a><a class="link" href="https://www.nipponbudokan.or.jp/" target="_blank" rel="noopener">日本武道館<small>催事案内</small></a><a class="link" href="https://www.japan-sports.or.jp/kokuritu/" target="_blank" rel="noopener">国立競技場関連<small>施設情報</small></a><a class="link" href="https://www.bigsight.jp/visitor/event/" target="_blank" rel="noopener">東京ビッグサイト<small>展示会</small></a><a class="link" href="https://www.m-messe.co.jp/event/" target="_blank" rel="noopener">幕張メッセ<small>大型イベント</small></a><a class="link" href="https://www.tokyo-odaiba.net/" target="_blank" rel="noopener">お台場<small>周辺イベント</small></a></div></div></section>
+<section id="rests" class="section"><div class="grid"><div class="card span12">
+<h2>🅿️ 休憩専用マップ</h2>
+<p class="sub">休憩した場所・候補を自分だけの地図に記録します。地図タップで位置を指定、またはGPS現在地から登録できます。</p>
+<div class="controls"><button type="button" class="btn primary" id="restCurrent">📍 現在地を登録</button><button type="button" class="btn" id="restMapPick">🗺 地図をタップして登録：オフ</button><button type="button" class="btn" id="restLocate">◎ 現在地を表示</button></div>
+<div class="rest-grid"><div><div id="restMap" role="region" aria-label="休憩ポイントの地図"></div><p id="restMapState" class="rest-muted">地図の読み込みには通信が必要です。保存済み休憩ポイントは下の一覧から確認できます。</p>
+<div class="controls"><label>表示分類 <select id="restFilter"><option value="all">すべて</option><option value="parking">🅿️ 駐車・停車候補</option><option value="toilet">🚻 トイレ</option><option value="shop">🏪 コンビニ・店舗</option><option value="quiet">🌙 静かな場所</option><option value="other">📌 その他</option></select></label><button type="button" class="btn" id="restFit">全ポイントを表示</button></div></div>
+<div class="rest-form"><h3>休憩ポイント登録・編集</h3>
+<label>地点名 <input id="restName" maxlength="80" placeholder="例：〇〇公園横の休憩候補"></label>
+<div class="two"><label>分類<select id="restCategory"><option value="parking">🅿️ 駐車・停車候補</option><option value="toilet">🚻 トイレ</option><option value="shop">🏪 コンビニ・店舗</option><option value="quiet">🌙 静かな場所</option><option value="other">📌 その他</option></select></label><label>利用確認<select id="restVerified"><option value="unconfirmed">未確認</option><option value="confirmed">自分で確認済み</option></select></label></div>
+<label>メモ（トイレ、料金、利用可能時間、注意点など）<textarea id="restNote" maxlength="700" placeholder="例：夜間は閉鎖／駐車可否は現地標識を確認"></textarea></label>
+<div class="two"><label>緯度 <input id="restLat" inputmode="decimal" placeholder="35.6812"></label><label>経度 <input id="restLon" inputmode="decimal" placeholder="139.7671"></label></div>
+<div class="controls"><button type="button" class="btn primary" id="restSave">💾 地点を保存</button><button type="button" class="btn" id="restReset">入力をクリア</button></div><div class="rest-status" id="restStatus" aria-live="polite"></div>
+<p class="rest-muted">登録内容はこのブラウザの端末内に保存されます。端末を替えると自動同期されません。定期的にバックアップしてください。</p></div></div>
+</div><div class="card span12"><h2>📌 登録した休憩ポイント <span id="restCount" class="muted"></span></h2><div class="controls"><button type="button" id="restExport" class="btn">⬇ JSONバックアップ</button><label style="margin:0">📂 復元（JSON）<input id="restImport" type="file" accept=".json,application/json" style="font-size:13px"></label></div><div class="rest-list" id="restList"></div>
+<div class="notice">⚠ 登録地点は休憩・駐停車が許可されているという意味ではありません。実際の標識、道路交通法、施設ルールを現地で確認してください。走行中は操作しないでください。</div>
+</div></div></section><section id="go" class="section"><div class="integrated-links"><a class="btn" href="#go" id="goQuick">🚕 GO営業判断</a><a class="btn" href="#historyInGo">📊 過去乗務分析へ ↓</a></div><div class="grid">
+<div class="card span12"><h2>🚕 GO配車・予測型営業</h2><div class="notice">「配車あり」はタップ時刻を自動保存（GPS取得済みなら座標も保存）。GOの注文データには接続していません。表示は時間帯・近さ・手入力の実績から計算する営業候補であり、実際の配車確率ではありません。走行中の操作・画面注視はしないでください。</div>
+<div class="two"><label>曜日区分<select id="goDay"><option value="auto">今日の曜日を自動判定</option><option value="wk">月〜木</option><option value="fri">金曜</option><option value="sat">土曜</option><option value="sun">日曜</option></select></label><label>時間帯<select id="goHour"><option value="auto">現在時刻を使用</option><option value="19">19時</option><option value="20">20時</option><option value="21">21時</option><option value="22">22時</option><option value="23">23時</option><option value="0">0時</option><option value="1">1時</option><option value="2">2時</option></select></label></div>
+<div class="controls"><button class="btn primary" id="goAnalyze">📊 候補を更新</button><button class="btn" id="goCopy">📋 GO営業判断をコピー</button></div><div id="goGps" class="sub">現在地取得には総合タブのGPS案内開始が必要です。</div>
+<div id="goSuggestions"></div><div class="sub">実績件数が少ないエリアの順位は不確実です。遠距離への空車移動を無条件に勧めません。</div></div>
+<div class="card span6"><h2>📍 受付ログ</h2><div class="sub">「GO配車あり」は迎車先到着時の記録です。通知を受けた時刻と異なるため、GO通知件数を正確に計測するものではありません。途中キャンセルは別に記録してください。</div>
+<label>エリア<select id="goArea"><option value="auto">GPSから最寄り候補を選択</option><option value="shimbashi">新橋</option><option value="akasaka">赤坂</option><option value="roppongi">六本木</option><option value="shibuya">渋谷</option><option value="shinjuku">新宿</option><option value="shinagawa">品川</option><option value="tokyo">東京駅</option><option value="other">その他・エリア外</option></select></label>
+<div class="controls"><button class="btn primary" id="goAccepted" style="background:#1769d2;color:#fff">🚕 実車配車あり（迎車先到着）</button><button class="btn" id="goNoOrder">⏳ 15分配車なし（手動）</button><button class="btn warn" id="goCancel">↩ 途中キャンセル</button></div>
+<label>メモ（任意）<input id="goNote" placeholder="例：迎車6分、客待ちなし" style="width:100%" maxlength="100"></label><div class="sub" id="goLogStatus">まだ記録していません。</div></div>
+<div class="card span12"><h2>📋 日報との照合</h2><p class="sub">日報の乗車件数と「配車あり」記録を日付ごとに比較します。GO迎車先到着時刻と乗車時刻は異なるため、完全一致とは限りません。</p><div class="two"><label>乗務開始日（朝の出庫日）<input type="date" id="goCompareDate"></label><label>日報の乗車回数<input type="number" id="goReportCount" min="0" max="100" placeholder="例：32"></label></div><div class="controls"><button type="button" class="btn primary" id="goCompareSave">日報件数を保存・比較</button><button type="button" class="btn" id="goCompareCSV">⬇ 日報照合CSV</button></div><div id="goCompareResult" class="sub">乗務開始日を指定してください。</div></div><div class="card span6"><h2>📈 自分のGO実績</h2><div id="goStats" class="sub">記録待ち</div><div class="controls"><button class="btn" id="goExport">⬇ CSV保存</button><label style="margin:0">📂 CSV復元<input type="file" id="goImport" accept=".csv,text/csv" style="max-width:185px"></label></div><div class="sub">ブラウザ内に保存します。ブラウザデータ削除に備えCSV保存してください。日報やGO本体とは自動連携しません。</div></div>
+<div class="card span12"><h2>🧾 最近の受付記録</h2><div id="goHistory" class="sub">記録なし</div><div class="controls"><button class="btn warn" id="goUndo">直近1件を削除</button></div></div>
+</div>
+<div id="historyInGo" class="integrated-history"><h2>📊 過去乗務分析・20時以降の受付ログ</h2><div class="grid"><div class="card span12"><h2>📊 過去乗務分析 v4.12</h2><p class="sub">確認済みの過去日報の集計と、この端末に保存された配車判断ログを別々に表示します。日報合計をGO配車売上とみなすことはありません。ODPTは承認待ちのため未接続です。終電ダッシュボードは従来どおり「交通・鉄道」にあります。</p><div class="controls"><button class="btn primary" id="historySeed">📚 受領済み10乗務を登録（重複除外）</button><label>📂 日報集計JSONを追加 <input type="file" id="historyImport" accept=".json,application/json"></label><button class="btn" id="historyExport">⬇ 集計JSON保存</button><button class="btn" id="historyRefresh">🔄 更新</button></div><div id="historyStatus" class="sub" role="status">未登録の場合は「10乗務を登録」を押してください。既存の記録は上書きしません。</div></div><div class="card span12"><h2>💴 日報の全日売上（税込）</h2><div id="historyMetrics" class="two"></div><div style="overflow:auto"><table><thead><tr><th>乗務日</th><th>税込売上</th><th>乗車人数</th><th>出典</th></tr></thead><tbody id="historyTable"></tbody></table></div><p class="sub">売上は全日集計であり、20時以降の売上ではありません。乗車人数と実車回数は異なります。税抜売上はこの表では算出しません。</p></div><div class="card span12"><h2>🌙 20時以降の受付ログ分析</h2><div class="controls"><label>集計対象 <select id="historyHour"><option value="night">20時〜翌2:30</option><option value="late">22時〜翌2:30</option><option value="all">全時間</option></select></label></div><div id="historyGoMetrics" class="two"></div><div id="historyGoTable" style="overflow:auto"></div><p class="sub">コックピットの「実車配車あり」は迎車先到着時のボタン操作です。GO通知時刻・配車確率・乗車成立件数とは異なります。タイマーと受付ログを比較する場合は走行・実車・休憩を区別してください。件数が少ないときは順位を出しません。</p></div><div class="card span12"><h2>🚆 ODPT連携準備</h2><div class="notice">API承認待ち／未接続。公開GitHub PagesにAPIキーを直接書き込まないでください。終電の実時刻は従来の登録値・公式時刻表リンクを利用します。</div></div></div></div>
+</section><section id="sales" class="section" hidden aria-hidden="true"><div class="grid"><div class="card span6"><h2>💴 売上・実車記録</h2><div class="two"><label>売上（円）<input type="number" id="fare" min="0" inputmode="numeric" placeholder="例 2300"></label><label>乗車エリア<input id="area" placeholder="例 新橋"></label></div><div class="two"><label>降車エリア<input id="destination" placeholder="例 六本木"></label><label>メモ<input id="memo" placeholder="任意"></label></div><div class="controls"><button class="btn primary" id="saveTrip">＋ 実車記録を追加</button><button class="btn" id="exportCsv">CSV保存</button></div><div class="sub">データはこの端末のブラウザ内に保存されます。削除・機種変更に備えCSVを定期保存してください。</div></div><div class="card span6"><h2>📊 本日の記録</h2><div class="two"><div class="metric"><b id="totalFare">¥0</b><span>本日の記録売上</span></div><div class="metric"><b id="totalTrips">0回</b><span>本日の実車回数</span></div></div><div class="sub">タクシーメーター・業務日報とは連動していません。</div></div><div class="card span12"><h2>直近の実車記録</h2><div style="overflow:auto"><table><thead><tr><th>日時</th><th>乗車</th><th>降車</th><th>金額</th><th>操作</th></tr></thead><tbody id="tripRows"></tbody></table></div></div>
+<div class="card span12" id="dailyImportPanel"><h2>🧾 日報から売上を登録</h2>
+<p class="sub">乗務日報の合計欄を登録します。上の「実車記録」とは別集計なので二重計上しません。日報が画像PDFの場合は、下のプレビューで確認して入力してください。</p>
+<div class="controls"><button class="btn primary" id="dailySeed">📚 過去12乗務の日報を一括登録</button><button class="btn" id="dailyExport">📤 日報集計CSVを保存</button></div>
+<div class="two"><label>日報PDFを表示（端末内で確認）<input type="file" id="dailyPdf" accept="application/pdf,.pdf"></label><label>乗務日<input type="date" id="dailyDate"></label></div>
+<div id="dailyPdfStatus" class="sub">PDFを選ぶと、下に確認用リンクを表示します。ファイルはサーバーへ送信しません。</div>
+<div id="dailyPdfPreview"></div>
+<div class="two"><label>税込収入（円）<input id="dailyGross" type="number" min="0" inputmode="numeric" placeholder="例 88300"></label><label>税抜営収（円）<input id="dailyNet" type="number" min="0" inputmode="numeric" placeholder="例 80270"></label></div>
+<div class="two"><label>乗車人数（人）<input id="dailyPax" type="number" min="0" inputmode="numeric" placeholder="例 32"></label><label>実車回数（回）<input id="dailyRides" type="number" min="0" inputmode="numeric" placeholder="例 30"></label></div>
+<div class="controls"><button class="btn primary" id="dailySave">✅ この日報を保存・更新</button><button class="btn" id="dailyReset">入力欄をクリア</button></div>
+<div id="dailyStatus" class="sub">同じ日付は上書き確認が出ます。保存先はこのブラウザです。</div>
+<div class="metric"><b id="dailyNetTotal">¥0</b><span>登録済み日報の税抜営収合計</span></div>
+<div class="sub" id="dailySummary">日報未登録</div>
+<div style="overflow:auto"><table><thead><tr><th>乗務日</th><th>税抜営収</th><th>税込収入</th><th>人数</th><th>実車回数</th><th>操作</th></tr></thead><tbody id="dailyTable"></tbody></table></div>
+</div></div></section>
+<section id="settings" class="section"><div class="grid"><div class="card span6"><h2>⚙️ 案内設定</h2><label><input type="checkbox" id="voice" checked> 交差点名を音声で読み上げる</label><label>案内開始距離 <select id="distance"><option value="150">150m</option><option value="300" selected>300m</option><option value="500">500m</option></select></label><label>音声の速さ <select id="rate"><option value="0.85">ゆっくり</option><option value="1" selected>標準</option><option value="1.15">速め</option></select></label><div class="sub">設定は端末内に保存されます。交差点の読み上げはGPSと道路データの精度に依存します。</div></div><div class="card span12" id="backupPanel"><h2>🛡️ バックアップ・復元管理</h2><p class="sub">営業ログ・休憩ポイント・過去乗務・設定・終電メモと、保存済み道路データを一か所で管理します。変更を検知したときに端末内の世代別スナップショットを作ります。iCloud Driveへの自動保存ではありません。</p><div class="two"><div class="metric"><span>データの保存状況</span><b id="v416DataStatus" style="font-size:17px">確認中…</b></div><div class="metric"><span>端末内バックアップ</span><b id="v416SnapStatus" style="font-size:17px">確認中…</b></div></div><div class="controls"><button class="btn primary" id="backupAllExport" type="button">⬇ 全データをJSON保存</button><button class="btn" id="v416SnapshotNow" type="button">🛡️ 今すぐ端末内バックアップ</button><button class="btn" id="v416Refresh" type="button">🔄 保存状況を更新</button></div><div class="controls"><label style="margin:0">📂 JSONから復元（内容確認後）<input id="backupAllImport" type="file" accept=".json,application/json" style="font-size:13px;max-width:260px"></label></div><div class="sub" id="backupAllStatus" role="status" aria-live="polite">既存のデータは自動で初期化しません。iCloud DriveへはダウンロードしたJSONを手動保存してください。</div><h3 style="margin-top:18px">📋 保存データ一覧</h3><div id="v416DataList" class="sub">読み込み中…</div><h3 style="margin-top:18px">🕘 端末内バックアップ履歴</h3><div id="v416SnapshotList" class="sub">読み込み中…</div><div class="notice">⚠ Safariのデータ削除・端末故障では端末内バックアップも失われる可能性があります。重要な記録は定期的にJSONをiCloud Driveへ保存してください。復元は内容を確認した後に実行します。既存データを置き換える操作は慎重に行ってください。</div></div><div class="card span6"><h2>ℹ️ データと注意事項</h2><p class="sub">位置情報は天気取得時にOpen-Meteoへ送信されます。GitHub道路データの取得時は静的JSONを取得します。道路データの手動保存時のみ、選択した位置をOverpassサービスに送信します。位置情報・売上記録はアプリ運営者のサーバーには保存しませんが、外部サービス側の取り扱いは各規約に従います。</p><p class="sub">© OpenStreetMap contributors（ODbL）。気象データ：Open-Meteo。公開Overpass APIは混雑・制限・停止があり、初回の道路データ保存に失敗する場合があります。保存領域はSafariによって削除される可能性があります。</p><p class="sub">本アプリは補助ツールです。道路交通法、勤務先規定、運転中の安全確保を優先してください。</p></div></div></section>
+<div class="footer">東京タクシー・コックピット v4.16 データ保護テスト版｜GitHub Pages上の道路JSONを必要に応じて読み込み端末にも保存。初回取得は通信が必要。現在地と交差点は推定。リアルタイム交通・鉄道・イベント情報はリンク先で確認してください。</div></main><script>
+/* v4.16: unified, backwards-compatible local backup manager. */
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const oldKeys=['taxi_config','taxi_last_trains_v1','taxi_rest_points_v1','tokyo_taxi_go_records_v1','tokyo_taxi_go_report_comparison_v1','taxi_go_active_timer_v1','taxi_shift_close_v394','taxi_v4_historical_reports_v1'];
+const optionalKeys=['taxi_last_trains_verified_v411'];
+const allKeys=[...oldKeys,...optionalKeys];
+const status=$('backupAllStatus');
+const say=t=>{status.textContent=t};
+const STORE='snapshots',DB='tokyo_taxi_backup_v416',MAX=7;
+function openDB(){return new Promise((res,rej)=>{const q=indexedDB.open(DB,1);q.onupgradeneeded=()=>q.result.createObjectStore(STORE,{keyPath:'id'});q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error||Error('履歴DBを開けません'));});}
+async function dbAction(mode,fn){const db=await openDB();try{return await new Promise((res,rej)=>{const tx=db.transaction(STORE,mode),store=tx.objectStore(STORE);let result;try{result=fn(store)}catch(e){rej(e);return;}tx.oncomplete=()=>res(result);tx.onerror=()=>rej(tx.error);tx.onabort=()=>rej(tx.error);});}finally{db.close()}}
+async function histories(){const db=await openDB();try{return await new Promise((res,rej)=>{const q=db.transaction(STORE,'readonly').objectStore(STORE).getAll();q.onsuccess=()=>res((q.result||[]).sort((a,b)=>b.createdAt.localeCompare(a.createdAt)));q.onerror=()=>rej(q.error)})}finally{db.close()}}
+async function tilesRead(){return await new Promise((res,rej)=>{const q=indexedDB.open('tokyo_taxi_road_v2');q.onsuccess=()=>{const db=q.result;if(!db.objectStoreNames.contains('tiles')){db.close();res([]);return}const tx=db.transaction('tiles','readonly'),r=tx.objectStore('tiles').getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error);tx.oncomplete=()=>db.close()};q.onerror=()=>rej(q.error)})}
+async function tilesWrite(tiles){const db=await new Promise((res,rej)=>{const q=indexedDB.open('tokyo_taxi_road_v2',1);q.onupgradeneeded=()=>{if(!q.result.objectStoreNames.contains('tiles'))q.result.createObjectStore('tiles',{keyPath:'id'})};q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)});try{await new Promise((res,rej)=>{const tx=db.transaction('tiles','readwrite'),st=tx.objectStore('tiles');tiles.forEach(x=>st.put(x));tx.oncomplete=res;tx.onerror=()=>rej(tx.error);tx.onabort=()=>rej(tx.error)})}finally{db.close()}}
+function localData(){const data={};for(const k of allKeys){const raw=localStorage.getItem(k);if(raw!==null){try{data[k]=JSON.parse(raw)}catch(e){throw Error(k+'のJSONが壊れています。安全のためバックアップを中止しました。')}}}return data}
+async function snapshot(includeRoads=false){const data=localData(),obj={format:'tokyo-taxi-cockpit-backup',version:2,createdAt:new Date().toISOString(),data};if(includeRoads)obj.roads={format:'tokyo-taxi-roads-v2',tiles:await tilesRead()};return obj}
+function download(obj){const blob=new Blob([JSON.stringify(obj)],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='tokyo-taxi-backup-v416-'+new Date().toLocaleString('sv-SE',{timeZone:'Asia/Tokyo'}).replace(/[ :]/g,'-')+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
+async function saveLocal(reason='自動'){const obj=await snapshot(false),entry={id:Date.now()+'-'+Math.random().toString(36).slice(2,7),createdAt:obj.createdAt,reason,data:obj.data};const existing=await histories();await dbAction('readwrite',st=>{st.put(entry);for(const x of existing.slice(MAX-1))st.delete(x.id)});await refresh();}
+let previous='',busy=false;
+async function automatic(){if(busy)return;try{const data=localData(),serialized=JSON.stringify(data);if(serialized===previous)return;busy=true;await saveLocal('変更検知');previous=serialized}catch(e){say('自動バックアップを確認してください：'+e.message)}finally{busy=false}}
+async function refresh(){const data=localData(),rows=Object.entries(data).map(([k,v])=>'<div class="stat"><span>'+k.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</span><span>'+(Array.isArray(v)?v.length+'件':'保存済み')+'</span></div>');let roadCount='未確認';try{roadCount=(await tilesRead()).length+'エリア'}catch(e){roadCount='確認不可'}rows.push('<div class="stat"><span>道路データ（IndexedDB）</span><span>'+roadCount+'</span></div>');$('v416DataList').innerHTML=rows.join('')||'保存データなし';$('v416DataStatus').textContent=Object.keys(data).length+'項目／道路 '+roadCount;const hist=await histories();$('v416SnapStatus').textContent=hist.length+'世代';$('v416SnapshotList').innerHTML=hist.map(x=>'<div class="stat"><span>'+new Date(x.createdAt).toLocaleString('ja-JP')+'（'+x.reason+'）</span><button type="button" class="btn" data-snap="'+x.id+'">復元確認</button></div>').join('')||'履歴なし';document.querySelectorAll('[data-snap]').forEach(b=>b.onclick=async()=>{const x=(await histories()).find(h=>h.id===b.dataset.snap);if(x)await restore({format:'tokyo-taxi-cockpit-backup',version:2,data:x.data},'端末内バックアップ')})}
+function validate(obj){if(!obj||typeof obj!=='object'||!obj.data||typeof obj.data!=='object'||Array.isArray(obj.data))throw Error('バックアップ形式が不正です');if(!((obj.format==='tokyo-taxi-cockpit-backup'&&obj.version===2)||(obj.format==='tokyo-taxi-cockpit-manual-backup'&&obj.version===1)))throw Error('未対応のバックアップ形式です');const entries=Object.entries(obj.data);if(!entries.length||entries.some(([k])=>!allKeys.includes(k)))throw Error('不明な保存項目が含まれています');for(const [k,v] of entries){if(v===null||typeof v!=='object')throw Error(k+'の形式が不正です');if(['taxi_rest_points_v1','tokyo_taxi_go_records_v1','taxi_v4_historical_reports_v1'].includes(k)&&!Array.isArray(v))throw Error(k+'は配列である必要があります');if(Array.isArray(v)&&v.length>100000)throw Error('記録件数が多すぎます')}if(obj.roads){if(!Array.isArray(obj.roads.tiles)||obj.roads.tiles.length>50000)throw Error('道路データ形式が不正です');for(const t of obj.roads.tiles)if(!t||typeof t.id!=='string')throw Error('道路タイルが不正です')}return entries}
+async function restore(obj,source){const entries=validate(obj);const description=entries.map(([k,v])=>k+': '+(Array.isArray(v)?v.length+'件':'保存あり')).join('\n');if(!confirm(source+'から復元します。\n\n'+description+'\n道路データ: '+(obj.roads?.tiles?.length??'含まれません')+'エリア\n\n復元対象の項目は現在の内容を置き換えます。続けますか？'))return;
+try{await saveLocal('復元直前')}catch(e){say('復元直前の安全バックアップが作れないため中止：'+e.message);return}
+if(!confirm('最終確認：既存データを置き換えます。復元を実行しますか？'))return;
+const original=new Map(entries.map(([k])=>[k,localStorage.getItem(k)]));try{for(const [k,v] of entries)localStorage.setItem(k,JSON.stringify(v));if(obj.roads?.tiles?.length)await tilesWrite(obj.roads.tiles)}catch(e){for(const [k,v] of original){try{if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch{}}say('復元を中止しました。道路データの一部が更新された可能性があります：'+e.message);return}say('復元しました。画面を再読み込みします。');location.reload()}
+$('backupAllExport').onclick=async()=>{try{say('全データを収集中…');const obj=await snapshot(true);download(obj);say('JSONのダウンロードを開始しました。ファイルアプリからiCloud Driveに保存してください。道路データ '+obj.roads.tiles.length+'エリアを含みます。')}catch(e){say('出力失敗：'+e.message)}};
+$('backupAllImport').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{if(f.size>100*1024*1024)throw Error('100MBを超えるファイルは取り込めません');await restore(JSON.parse(await f.text()),'選択したJSON')}catch(err){say('復元できません：'+err.message)}finally{e.target.value=''}};
+$('v416SnapshotNow').onclick=async()=>{try{await saveLocal('手動');say('端末内バックアップを作成しました')}catch(e){say('保存失敗：'+e.message)}};
+$('v416Refresh').onclick=()=>refresh().catch(e=>say('状態取得失敗：'+e.message));
+window.addEventListener('pagehide',()=>{automatic().catch(()=>{})});
+setTimeout(async()=>{try{previous=JSON.stringify(localData());await saveLocal('初回起動');say('保存データを保護しています。iCloud Driveへの保存は手動です。')}catch(e){say('初回バックアップを作成できません：'+e.message)}},1000);
+setInterval(automatic,30000);
+})();
+</script><script>
+'use strict';const $=id=>document.getElementById(id), API='https://overpass.kumi.systems/api/interpreter';let watch=null,pos=null,geo=[],ways=[],lastMapFetch=0,lastWeatherFetch=0,lastSpoken='',currentRoad='',currentCross='',currentDist=null,lastHeading=null,lastPoint=null,fetching=false,lastMapFrame=0;const fmt=n=>Math.round(n).toLocaleString('ja-JP');const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function clock(){ $('clock').textContent=new Date().toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});}clock();setInterval(clock,30000);
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab,.section').forEach(x=>x.classList.remove('active'));b.classList.add('active');$(b.dataset.tab).classList.add('active')});function config(){try{return JSON.parse(localStorage.getItem('taxi_config')||'{}')}catch{return {}}}let cfg=config();$('voice').checked=cfg.voice!==false;$('distance').value=String(cfg.distance||300);$('rate').value=String(cfg.rate||1);$('mode').value=cfg.mode||'free';['voice','distance','rate','mode'].forEach(id=>$(id).onchange=()=>{cfg={voice:$('voice').checked,distance:+$('distance').value,rate:+$('rate').value,mode:$('mode').value};localStorage.setItem('taxi_config',JSON.stringify(cfg));});
+function speak(t){if(!$('voice').checked||!('speechSynthesis' in window))return;try{speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=+$('rate').value;speechSynthesis.speak(u)}catch{}}$('speakTest').onclick=()=>{if('speechSynthesis' in window){let u=new SpeechSynthesisUtterance('東京タクシー、音声案内のテストです。');u.lang='ja-JP';speechSynthesis.speak(u)}else alert('このブラウザは音声読み上げに対応していません')};$('announceNow').onclick=()=>speak(currentCross?`この先約${Math.round(currentDist/10)*10}メートル、${currentCross}交差点です。`:currentRoad?`現在の道路は${currentRoad}です。交差点は確認できません。`:'交差点情報はまだ取得できていません。');
+function rad(x){return x*Math.PI/180}function meters(a,b){let dLat=rad(b.lat-a.lat),dLon=rad(b.lon-a.lon),h=Math.sin(dLat/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLon/2)**2;return 12742000*Math.asin(Math.min(1,Math.sqrt(h)))}function bearing(a,b){return (Math.atan2(Math.sin(rad(b.lon-a.lon))*Math.cos(rad(b.lat)),Math.cos(rad(a.lat))*Math.sin(rad(b.lat))-Math.sin(rad(a.lat))*Math.cos(rad(b.lat))*Math.cos(rad(b.lon-a.lon)))*180/Math.PI+360)%360}function angle(a,b){return Math.abs(((a-b+540)%360)-180)}function lineDist(p,a,b){let latScale=111320,lonScale=Math.cos(rad(p.lat))*111320;let ax=(a.lon-p.lon)*lonScale,ay=(a.lat-p.lat)*latScale,bx=(b.lon-p.lon)*lonScale,by=(b.lat-p.lat)*latScale,dx=bx-ax,dy=by-ay,t=Math.max(0,Math.min(1,-(ax*dx+ay*dy)/(dx*dx+dy*dy||1)));return Math.hypot(ax+t*dx,ay+t*dy)}
+const ROAD_APIS=['https://overpass.kumi.systems/api/interpreter','https://overpass-api.de/api/interpreter','https://overpass.nchc.org.tw/api/interpreter'];
+let roadError='',activeTile='',loadingTile=false,cacheTiles=[],dbReady;
+function tileId(lat,lon){return `${Math.round(lat*200)/200},${Math.round(lon*200)/200}`}
+function openRoadDB(){return new Promise((resolve,reject)=>{if(!('indexedDB' in window)){reject(Error('このブラウザでは保存機能が使えません'));return;}const req=indexedDB.open('tokyo_taxi_road_v2',1);req.onupgradeneeded=()=>req.result.createObjectStore('tiles',{keyPath:'id'});req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
+dbReady=openRoadDB();
+async function getTiles(){const db=await dbReady;return new Promise((resolve,reject)=>{const tx=db.transaction('tiles','readonly'),r=tx.objectStore('tiles').getAll();r.onsuccess=()=>resolve(r.result||[]);r.onerror=()=>reject(r.error)})}
+async function putTile(item){const db=await dbReady;return new Promise((resolve,reject)=>{const tx=db.transaction('tiles','readwrite');tx.objectStore('tiles').put(item);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
+function tidyElements(items){const roads=[],intersections=[];for(const e of items){if(e.type==='way'&&e.tags?.name&&e.geometry?.length>1&&e.tags.highway&&!['footway','path','cycleway','steps','pedestrian','service'].includes(e.tags.highway))roads.push({id:e.id,name:e.tags.name,geometry:e.geometry.map(g=>({lat:g.lat,lon:g.lon}))});else if(e.type==='node'&&e.tags?.name&&(e.tags.highway==='traffic_signals'||e.tags.junction||e.tags.highway==='crossing'))intersections.push({id:e.id,name:e.tags.name,lat:e.lat,lon:e.lon})}return {roads,intersections}}
+function setCacheStatus(note=''){const count=cacheTiles.reduce((acc,t)=>acc+t.roads.length,0),nodes=cacheTiles.reduce((acc,t)=>acc+t.intersections.length,0);$('cacheState').textContent=`保存済み ${cacheTiles.length}エリア／道路${count}本・名前付き地点${nodes}件`+(note?'｜'+note:'')}
+function activateNearby(p){const near=cacheTiles.filter(t=>t.staticTile?(Math.abs(p.lat-t.lat)<.018&&Math.abs(p.lon-t.lon)<.018):meters(p,{lat:t.lat,lon:t.lon})<1550);const rw=new Map(),gn=new Map();for(const t of near){for(const w of t.roads)rw.set(w.id||`${w.name}${w.geometry[0]?.lat}`,w);for(const n of t.intersections)gn.set(n.id||`${n.name}${n.lat}`,n)}ways=[...rw.values()];geo=[...gn.values()];$('mapData').textContent=near.length?`保存データ：道路${ways.length}件／交差点${geo.length}件`:'この地域の保存データなし';roadError=near.length?'':'未保存エリアです。停車中に道路データを保存してください。';if(p)render(p)}
+async function refreshTiles(){try{cacheTiles=await getTiles();for(const t of cacheTiles)if(t.staticTile&&t.id?.startsWith('static_'))staticLoaded.add(t.id.slice(7));setCacheStatus();if(pos)activateNearby(pos)}catch(e){$('cacheState').textContent='保存領域を開けません：'+e.message}}
+async function downloadTile(lat,lon){
+if(loadingTile)return;
+loadingTile=true;$('saveRoads').disabled=true;
+const radius=1000,id=tileId(lat,lon),q=`[out:json][timeout:25];(way(around:${radius},${lat},${lon})[highway][name];node(around:${radius},${lat},${lon})[highway=traffic_signals][name];node(around:${radius},${lat},${lon})[junction][name];node(around:${radius},${lat},${lon})[highway=crossing][name];);out geom;`;
+let errors=[];
+try{let data=null;for(const server of ROAD_APIS){const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),18000);try{let r=await fetch(server,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({data:q}),signal:ctrl.signal});if(!r.ok)throw Error('HTTP '+r.status);data=await r.json();if(!Array.isArray(data.elements))throw Error('データ形式不正');break}catch(e){errors.push(server.split('/')[2]+': '+(e.name==='AbortError'?'タイムアウト':e.message))}finally{clearTimeout(timer)}}if(!data)throw Error(errors.join(' / '));const d=tidyElements(data.elements);if(!d.roads.length&&!d.intersections.length)throw Error('取得結果が空です');await putTile({id,lat,lon,roads:d.roads,intersections:d.intersections,savedAt:new Date().toISOString()});await refreshTiles();$('cacheState').textContent+=`｜保存成功：道路${d.roads.length}件・地点${d.intersections.length}件`;if(pos)activateNearby(pos)}catch(e){$('cacheState').textContent='取得・保存失敗：'+e.message+'。時間をおいて再試行、またはバックアップJSONを読み込んでください。'}finally{loadingTile=false;$('saveRoads').disabled=false}}
+
+// v3: GitHub Pages static road tiles (same-origin relative paths, no map API token).
+let staticManifest=null,staticManifestPromise=null,staticActive='',staticBusy=false;
+const staticLoaded=new Set();
+async function getStaticManifest(){
+ if(staticManifest)return staticManifest;
+ if(!staticManifestPromise)staticManifestPromise=(async()=>{
+  const r=await fetch('./data/manifest.json',{cache:'no-cache'});
+  if(!r.ok)throw Error('manifest.json HTTP '+r.status);
+  const d=await r.json();
+  if(!Array.isArray(d.bounds)||!Number.isFinite(d.step)||!d.tiles)throw Error('manifestの形式が異なります');
+  return staticManifest=d;
+ })().catch(e=>{staticManifestPromise=null;throw e});
+ return staticManifestPromise;
+}
+async function loadStaticAround(p,force=false){
+ if(!p)return;
+ const m=await getStaticManifest();const [south,west,north,east]=m.bounds;
+ if(p.lat<south||p.lat>north||p.lon<west||p.lon>east){
+  $('roadStatus').textContent='生成済み道路データの範囲外です';return;
+ }
+ const y=Math.floor((p.lat-south)/m.step),x=Math.floor((p.lon-west)/m.step);
+ const selected=[];
+ for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){
+  const yy=y+dy,xx=x+dx,key=yy+'_'+xx;
+  if(m.tiles[key]&&!staticLoaded.has(key))selected.push({key,lat:south+(yy+.5)*m.step,lon:west+(xx+.5)*m.step});
+ }
+ const area=y+'_'+x;
+ if(staticBusy)return;
+ if(!selected.length){staticActive=area;if(pos)activateNearby(pos);return;}
+ staticBusy=true;
+ $('roadStatus').textContent='GitHub道路データを読み込み中…';
+ try{
+  let ok=0,failed=0;
+  for(const t of selected){
+   try{
+    const r=await fetch('./data/'+t.key+'.json');if(!r.ok)throw Error('HTTP '+r.status);
+    const d=await r.json();if(!Array.isArray(d.roads)||!Array.isArray(d.intersections))throw Error('道路データ形式不正');
+    const item={id:'static_'+t.key,lat:t.lat,lon:t.lon,roads:d.roads,intersections:d.intersections,staticTile:true,savedAt:new Date().toISOString()};
+    const i=cacheTiles.findIndex(z=>z.id===item.id);
+    if(i>=0)cacheTiles[i]=item;else cacheTiles.push(item);
+    try{await putTile(item)}catch(e){$('cacheState').textContent='道路データを読み込みました（端末への保存は不可：'+e.message+'）'}
+    staticLoaded.add(t.key);ok++;
+   }catch(e){failed++;}
+  }
+  staticActive=area;
+  setCacheStatus('GitHub: '+ok+'区画取得'+(failed?'／'+failed+'区画失敗':''));
+  if(pos)activateNearby(pos);
+  if(failed&&!ok)$('roadStatus').textContent='道路JSONの取得に失敗しました。ネット接続とGitHub Pages公開を確認';
+ }finally{staticBusy=false}
+}
+$('loadStaticRoads').onclick=()=>{
+ const v=$('saveArea').value;
+ const p=v==='gps'?pos:(()=>{const [lat,lon]=v.split(',').map(Number);return {lat,lon}})();
+ if(!p){alert('現在地を選ぶ場合、先にGPS案内を開始してください');return}
+ loadStaticAround(p,true).then(()=>{if(!pos)$('roadStatus').textContent='選択地域のデータを取得しました。GPS開始で道路を表示します'}).catch(e=>{$('roadStatus').textContent='取得エラー：'+e.message});
+};
+
+$('saveRoads').onclick=()=>{let a=$('saveArea').value;if(a==='gps'){if(!pos){alert('先にGPS案内開始を押してください');return}downloadTile(pos.lat,pos.lon)}else{const [lat,lon]=a.split(',').map(Number);downloadTile(lat,lon)}};
+$('reloadRoads').onclick=refreshTiles;
+$('exportRoads').onclick=async()=>{const tiles=await getTiles();if(!tiles.length){alert('保存された道路データがありません');return}const link=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify({format:'tokyo-taxi-roads-v2',tiles})],{type:'application/json'}));link.href=url;link.download='tokyo-taxi-roads-backup.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),10000)};
+$('importRoads').onchange=async e=>{try{const f=e.target.files[0];if(!f)return;const obj=JSON.parse(await f.text());if(obj.format!=='tokyo-taxi-roads-v2'||!Array.isArray(obj.tiles))throw Error('このアプリのバックアップJSONを選んでください');if(obj.tiles.length>500)throw Error('ファイルが大きすぎます');for(const t of obj.tiles){if(typeof t.id!=='string'||!Number.isFinite(t.lat)||!Number.isFinite(t.lon)||!Array.isArray(t.roads)||!Array.isArray(t.intersections))throw Error('不正なデータ形式');await putTile(t)}await refreshTiles();setCacheStatus('復元完了')}catch(e){$('cacheState').textContent='復元失敗：'+e.message}finally{e.target.value=''}};
+function fetchMap(p){if(!cacheTiles.length){$('mapData').textContent='保存データなし'}const tile=tileId(p.lat,p.lon);if(activeTile!==tile){activeTile=tile;activateNearby(p)}loadStaticAround(p).catch(e=>{roadError='GitHub道路データ：'+e.message;$('roadStatus').textContent=roadError})}
+refreshTiles();
+// v3.5: named road crossings inferred from locally cached OSM way geometry.
+let crossingMemo={at:0,key:'',value:null};
+function xyCross(p,origin){const k=111320*Math.cos(rad(origin.lat));return {x:(p.lon-origin.lon)*k,y:(p.lat-origin.lat)*111320}}
+function segmentCross(a,b,c,d){const rx=b.x-a.x,ry=b.y-a.y,sx=d.x-c.x,sy=d.y-c.y,den=rx*sy-ry*sx;if(Math.abs(den)<1e-8)return null;const qx=c.x-a.x,qy=c.y-a.y,t=(qx*sy-qy*sx)/den,u=(qx*ry-qy*rx)/den;if(t<0||t>1||u<0||u>1)return null;return {x:a.x+t*rx,y:a.y+t*ry}}
+function nearestCrossing(p,main,heading){
+ if(!main||heading==null||!main.geometry||main.geometry.length<2)return null;
+ const key=String(main.id)+'|'+Math.round(p.lat*10000)+'|'+Math.round(p.lon*10000)+'|'+Math.round(heading/15)+'|'+ways.length;
+ if(crossingMemo.key===key&&Date.now()-crossingMemo.at<5000)return crossingMemo.value;
+ const selected=main.geometry.map(q=>xyCross(q,p));let best=null;
+ const sections=[];for(let i=1;i<selected.length;i++){const a=selected[i-1],b=selected[i];if(Math.min(Math.hypot(a.x,a.y),Math.hypot(b.x,b.y))>1000&&Math.min(Math.abs(a.x),Math.abs(b.x))>800)continue;sections.push([a,b])}
+ for(const w of ways){if(w===main||w.id===main.id||!w.name||w.name===main.name||!Array.isArray(w.geometry))continue;
+ const pts=w.geometry;for(let j=1;j<pts.length;j++){
+ const c=xyCross(pts[j-1],p),d=xyCross(pts[j],p);
+ if(Math.min(c.x,d.x)>750||Math.max(c.x,d.x)<-750||Math.min(c.y,d.y)>750||Math.max(c.y,d.y)<-750)continue;
+ for(const [a,b] of sections){const z=segmentCross(a,b,c,d);if(!z)continue;const distance=Math.hypot(z.x,z.y);if(distance<25||distance>650)continue;
+ const dir=(Math.atan2(z.x,z.y)*180/Math.PI+360)%360;if(angle(dir,heading)>60)continue;
+ if(!best||distance<best.distance)best={name:w.name,distance};
+ }} }
+ crossingMemo={at:Date.now(),key,value:best};return best;
+}
+// v4.15: GPS誤差・進行方向・道路形状を併用した保守的な道路照合。
+function roadMatch(p){
+ const heading=Number.isFinite(p.heading)?p.heading:lastHeading;
+ const accuracy=Number.isFinite(p.accuracy)?p.accuracy:25;
+ const maxDistance=Math.min(75,Math.max(25,accuracy*1.6));
+ const candidates=[];
+ for(const w of ways){if(!w.name||!Array.isArray(w.geometry)||w.geometry.length<2)continue;
+  let best=Infinity,orientation=null;
+  for(let i=1;i<w.geometry.length;i++){
+   const a=w.geometry[i-1],b=w.geometry[i],d=lineDist(p,a,b);
+   if(d<best){best=d;orientation=bearing(a,b)}
+  }
+  if(best>maxDistance)continue;
+  const mismatch=heading==null?0:Math.min(angle(heading,orientation),angle(heading,(orientation+180)%360));
+  const score=best+(heading==null?0:mismatch*.35);
+  candidates.push({w,d:best,mismatch,score});
+ }
+ candidates.sort((a,b)=>a.score-b.score);
+ const winner=candidates[0];
+ if(!winner)return {candidate:null,reason:ways.length?'近くに名前付き道路がありません（GPS精度・道路データを確認）':'現在地周辺の道路データがありません'};
+ if(heading!=null&&winner.mismatch>65)return {candidate:null,reason:'道路の方向と進行方向が一致しません'};
+ if(candidates[1]&&candidates[1].w.name!==winner.w.name&&candidates[1].score-winner.score<8)return {candidate:null,reason:'近接する複数道路を区別できません'};
+ return {candidate:winner,reason:`道路まで約${Math.round(winner.d)}m（推定）`};
+}
+function render(p){
+ const match=roadMatch(p),candidate=match.candidate;
+ currentRoad=candidate?.w.name||'';
+ const h=Number.isFinite(p.heading)?p.heading:lastHeading;
+ const forward=geo.map(g=>({...g,d:meters(p,g),dir:bearing(p,g)})).filter(g=>g.d>20&&g.d<600&&(h==null||angle(g.dir,h)<55)).sort((a,b)=>a.d-b.d);
+ // 道路未特定時は交差点を断定せず、進行方向の参考候補としてのみ表示。
+ const next=h==null?null:forward.find(g=>!candidate||candidate.w.geometry.slice(1).some((pt,i)=>lineDist(g,candidate.w.geometry[i],pt)<55))||null;
+ currentCross=next?.name||'';currentDist=next?.d??null;
+ const crossRoad=nearestCrossing(p,candidate?.w||null,h);
+ $('crossRoadBig').textContent=crossRoad?crossRoad.name:(h==null?'進行方向の確認待ち':'交差する通りを特定できません');
+ $('crossRoadMeters').textContent=crossRoad?'約'+Math.round(crossRoad.distance/10)*10+'m先':'—';
+ $('crossRoadHint').textContent=crossRoad?'道路形状の交点までの直線距離。立体交差・側道・実際の進路は未確認です。':match.reason+'。交差道路名の特定には道路形状と名称が必要です。';
+ $('homeCrossRoad').textContent=$('crossRoadBig').textContent;$('homeCrossMeters').textContent=$('crossRoadMeters').textContent;$('homeCrossHint').textContent=$('crossRoadHint').textContent;
+ $('roadName').textContent=$('roadBig').textContent=currentRoad||'道路名を特定できません';
+ $('crossName').textContent=$('crossBig').textContent=currentCross||(h==null?'進行方向の確認待ち':'前方の名前付き交差点なし');
+ $('crossDistance').textContent=$('distBig').textContent=next?`約${Math.round(next.d/10)*10}m先`:'—';
+ $('roadStatus').textContent=roadError||match.reason+'。交差点は直線方向による参考候補で、走行経路上とは限りません。';
+ // 道路未確定時には誤案内を避けるため自動読み上げを行わない。
+ if(candidate&&next&&next.d<=+$('distance').value&&next.d>25&&lastSpoken!==next.name){lastSpoken=next.name;speak(`この先約${Math.round(next.d/10)*10}メートル、${next.name}交差点の候補です。`)}
+ if(!next||next.d>+$('distance').value+150)lastSpoken='';
+}
+function update(p){let c=p.coords,p0={lat:c.latitude,lon:c.longitude,heading:Number.isFinite(c.heading)?c.heading:null};if(p0.heading!=null&&Number.isFinite(c.speed)&&c.speed>1.2)lastHeading=p0.heading;else if(lastPoint&&meters(lastPoint,p0)>18)lastHeading=bearing(lastPoint,p0);if(!lastPoint||meters(lastPoint,p0)>12)lastPoint=p0;pos={...p0,heading:lastHeading,accuracy:c.accuracy};$('gpsState').textContent=`GPS動作中｜精度 約${Math.round(c.accuracy)}m`;$('coords').textContent=`${p0.lat.toFixed(4)}, ${p0.lon.toFixed(4)}`;$('accuracy').textContent=`約${Math.round(c.accuracy)}m`;$('speed').textContent=c.speed==null?'不明':`${Math.round(c.speed*3.6)}km/h`;$('heading').textContent=lastHeading==null?'不明':`${Math.round(lastHeading)}°`;if(Date.now()-lastMapFrame>30000){lastMapFrame=Date.now();$('map').src=`https://www.openstreetmap.org/export/embed.html?bbox=${p0.lon-.008}%2C${p0.lat-.005}%2C${p0.lon+.008}%2C${p0.lat+.005}&layer=mapnik&marker=${p0.lat}%2C${p0.lon}`;}render(pos);fetchMap(pos);if(Date.now()-lastWeatherFetch>15*60*1000)fetchWeather();}
+function start(){if(!navigator.geolocation){alert('このブラウザはGPSに対応していません');return}if(watch!==null)return;watch=navigator.geolocation.watchPosition(update,e=>{$('gpsState').textContent='GPSエラー：'+e.message;$('roadStatus').textContent='位置情報の許可と通信状態を確認してください。';}, {enableHighAccuracy:true,maximumAge:3000,timeout:20000});$('start').disabled=$('start2').disabled=true;$('stop').disabled=false;$('gpsState').textContent='位置情報を取得中…'}function stop(){if(watch!==null)navigator.geolocation.clearWatch(watch);watch=null;$('start').disabled=$('start2').disabled=false;$('stop').disabled=true;$('gpsState').textContent='GPS停止中';try{speechSynthesis.cancel()}catch{}}$('start').onclick=$('start2').onclick=start;$('stop').onclick=stop;
+function weatherLabel(c){if(c===0)return'☀️ 快晴';if(c<=3)return'⛅ 曇り';if([45,48].includes(c))return'🌫 霧';if([51,53,55,56,57].includes(c))return'🌦 霧雨';if([61,63,65,66,67,80,81,82].includes(c))return'🌧 雨';if([71,73,75,77,85,86].includes(c))return'❄️ 雪';if(c>=95)return'⛈ 雷雨';return'🌤 天気';}
+async function fetchWeather(){if(!pos){$('weatherSub').textContent='GPS案内を開始してください';return}lastWeatherFetch=Date.now();try{let u=`https://api.open-meteo.com/v1/forecast?latitude=${pos.lat}&longitude=${pos.lon}&current=temperature_2m,precipitation,weather_code,wind_speed_10m&hourly=precipitation_probability&forecast_days=2&timezone=Asia%2FTokyo`;let r=await fetch(u);if(!r.ok)throw Error('HTTP '+r.status);let d=await r.json(),c=d.current,t=`${weatherLabel(c.weather_code)} ${Math.round(c.temperature_2m)}℃`;$('weatherMain').textContent=$('weatherBig').textContent=t;$('weatherSub').textContent=$('weatherDetails').textContent=`降水 ${c.precipitation}mm｜風速 ${c.wind_speed_10m}km/h`;$('weatherTime').textContent='取得：'+new Date().toLocaleTimeString('ja-JP');let now=new Date(),hours=d.hourly.time.map((s,i)=>({s,p:d.hourly.precipitation_probability[i]})).filter(x=>new Date(x.s+'+09:00')>=new Date(now.getTime()-3600000)).slice(0,7);$('hourly').innerHTML=hours.map(x=>`<div class="stat"><span>${esc(x.s.slice(11,16))}</span><b>${esc(x.p)}%</b></div>`).join('')||'予報データなし';$('advice').textContent=`現在地の天気：${t}、降水 ${c.precipitation}mm。雨天時は駅・商業施設周辺の需要が変化する可能性があります。鉄道運行、イベント、渋滞は各リンクで別途確認してください。`; }catch(e){$('weatherSub').textContent='天気取得エラー：'+e.message;lastWeatherFetch=Date.now()-14*60*1000}}$('refreshWeather').onclick=$('refreshWeather2').onclick=fetchWeather;
+($('copyBrief')||document.createElement('button')).onclick=async()=>{let t=`東京23区タクシー営業の候補エリアを、根拠と不確実性を示して提案してください。現在地: ${pos?pos.lat.toFixed(5)+','+pos.lon.toFixed(5):'未取得'}。道路: ${currentRoad||'不明'}。天気: ${$('weatherMain').textContent}。鉄道遅延・渋滞・イベントは最新情報を確認してください。`;try{await navigator.clipboard.writeText(t);alert('コピーしました。ChatGPTに貼り付けてください。')}catch{prompt('以下をコピーしてChatGPTへ貼り付けてください',t)}};
+const key='taxi_trips_v1';function trips(){try{return JSON.parse(localStorage.getItem(key)||'[]')}catch{return []}}function drawTrips(){let all=trips(),today=new Date().toLocaleDateString('sv-SE');let t=all.filter(x=>x.day===today);$('totalFare').textContent='¥'+fmt(t.reduce((s,x)=>s+x.fare,0));$('totalTrips').textContent=t.length+'回';$('tripRows').innerHTML=all.slice(-20).reverse().map(x=>`<tr><td>${esc(x.time)}</td><td>${esc(x.area)}</td><td>${esc(x.destination)}</td><td>¥${fmt(x.fare)}</td><td><button class="btn" data-del="${esc(x.id)}">削除</button></td></tr>`).join('')||'<tr><td colspan="5">まだ記録がありません</td></tr>';document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{if(confirm('この記録を削除しますか？')){localStorage.setItem(key,JSON.stringify(trips().filter(x=>x.id!==b.dataset.del)));drawTrips()}})}$('saveTrip').onclick=()=>{let fare=Number($('fare').value);if(!Number.isFinite(fare)||fare<=0){alert('売上金額を入力してください');return}let d=new Date(),a=trips();a.push({id:String(d.getTime())+'-'+Math.random().toString(36).slice(2),time:d.toLocaleString('ja-JP'),day:d.toLocaleDateString('sv-SE'),fare:Math.round(fare),area:$('area').value.trim(),destination:$('destination').value.trim(),memo:$('memo').value.trim()});localStorage.setItem(key,JSON.stringify(a));$('fare').value=$('memo').value='';drawTrips()};$('exportCsv').onclick=()=>{let a=trips(),csv='\ufeff日時,乗車エリア,降車エリア,金額,メモ\r\n'+a.map(x=>[x.time,x.area,x.destination,x.fare,x.memo].map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');let u=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),link=document.createElement('a');link.href=u;link.download='taxi-sales-'+new Date().toLocaleDateString('sv-SE')+'.csv';link.click();setTimeout(()=>URL.revokeObjectURL(u),5000)};drawTrips();
+
+// 日報合計の独立集計（実車ごとの売上とは混合しない）
+const dailyKey='taxi_daily_reports_v1';
+const dailyKnown=[['2026-09-07',65300,59360,26,null],['2026-09-09',72300,65730,29,null],['2026-09-15',77800,70730,31,null],['2026-09-17',74700,67910,27,null],['2026-09-24',90600,82360,32,null],['2026-09-26',103560,94150,35,null],['2026-09-28',84400,76730,39,null],['2026-09-30',91600,83270,37,null],['2026-10-09',102400,93090,33,null],['2026-10-11',86500,78640,32,null],['2026-10-15',95330,86660,29,null],['2026-10-17',88300,80270,32,null]];
+const D=id=>document.getElementById(id);
+function dailyAll(){try{const x=JSON.parse(localStorage.getItem(dailyKey)||'[]');return Array.isArray(x)?x:[]}catch{return []}}
+function dailyStore(rows){try{localStorage.setItem(dailyKey,JSON.stringify(rows));return true}catch(e){alert('保存できませんでした。ブラウザ容量・プライベートモードをご確認ください。');return false}}
+function yen(n){return '¥'+Number(n||0).toLocaleString('ja-JP')}
+function showDaily(){let r=dailyAll().slice().sort((a,b)=>b.day.localeCompare(a.day)),total=r.reduce((a,b)=>a+Number(b.net||0),0);D('dailyNetTotal').textContent=yen(total);D('dailySummary').textContent=r.length?`${r.length}乗務・平均税抜営収 ${yen(Math.round(total/r.length))}・合計乗車人数 ${r.reduce((a,b)=>a+Number(b.pax||0),0)}人　※実車記録とは別集計`:'日報はまだ登録されていません。';D('dailyTable').innerHTML=r.map(x=>`<tr><td>${x.day}</td><td>${yen(x.net)}</td><td>${yen(x.gross)}</td><td>${x.pax}</td><td>${x.rides??'—'}</td><td><button class="btn" data-daily-edit="${x.day}">編集</button> <button class="btn" data-daily-del="${x.day}">削除</button></td></tr>`).join('')||'<tr><td colspan="6">登録なし</td></tr>';D('dailyTable').querySelectorAll('[data-daily-edit]').forEach(b=>b.onclick=()=>{let x=dailyAll().find(a=>a.day===b.dataset.dailyEdit);if(!x)return;D('dailyDate').value=x.day;D('dailyGross').value=x.gross;D('dailyNet').value=x.net;D('dailyPax').value=x.pax;D('dailyRides').value=x.rides??'';D('dailyStatus').textContent=x.day+' を編集中。保存時に上書き確認が出ます。'});D('dailyTable').querySelectorAll('[data-daily-del]').forEach(b=>b.onclick=()=>{if(confirm(b.dataset.dailyDel+' の日報を削除しますか？')){dailyStore(dailyAll().filter(x=>x.day!==b.dataset.dailyDel));showDaily()}})}
+D('dailyDate').value=new Date().toLocaleDateString('sv-SE');
+D('dailySeed').onclick=()=>{let old=dailyAll(),add=dailyKnown.filter(x=>!old.some(o=>o.day===x[0]));if(!add.length){D('dailyStatus').textContent='過去12乗務はすべて登録済みです。';return}if(!confirm(`確認済みの日報 ${add.length}乗務分を追加しますか？（既存データは上書きしません）`))return;let news=add.map(([day,gross,net,pax,rides])=>({day,gross,net,pax,rides,source:'過去に受領した日報',updatedAt:new Date().toISOString()}));if(dailyStore([...old,...news])){showDaily();D('dailyStatus').textContent=`✅ ${add.length}乗務を追加しました。`}};
+D('dailySave').onclick=()=>{let day=D('dailyDate').value,gross=Number(D('dailyGross').value),net=Number(D('dailyNet').value),pax=Number(D('dailyPax').value),rides=D('dailyRides').value===''?null:Number(D('dailyRides').value);if(!/^\d{4}-\d{2}-\d{2}$/.test(day)||!D('dailyGross').value||!D('dailyNet').value||!D('dailyPax').value||gross<0||net<0||pax<0||!Number.isInteger(pax)||(rides!==null&&(!Number.isInteger(rides)||rides<0))){alert('日付・税込収入・税抜営収・乗車人数を正しく入力してください');return}if(net>gross){alert('税抜営収が税込収入を上回っています。日報を確認してください。');return}let all=dailyAll(),i=all.findIndex(x=>x.day===day);if(i>=0&&!confirm(day+' の日報を上書きしますか？'))return;let record={day,gross,net,pax,rides,source:'日報確認入力',updatedAt:new Date().toISOString()};if(i>=0)all[i]=record;else all.push(record);if(dailyStore(all)){showDaily();D('dailyStatus').textContent='✅ '+day+' の日報を保存しました。'}};
+D('dailyReset').onclick=()=>{['dailyGross','dailyNet','dailyPax','dailyRides'].forEach(id=>D(id).value='');D('dailyDate').value=new Date().toLocaleDateString('sv-SE')};
+let dailyPdfUrl=null;
+D('dailyPdf').onchange=()=>{let f=D('dailyPdf').files?.[0];if(dailyPdfUrl)URL.revokeObjectURL(dailyPdfUrl);if(!f)return;if(!/\.pdf$/i.test(f.name)&&f.type!=='application/pdf'){D('dailyPdfStatus').textContent='PDFを選んでください';return}dailyPdfUrl=URL.createObjectURL(f);const a=document.createElement('a');a.href=dailyPdfUrl;a.target='_blank';a.rel='noopener';a.textContent='📄 選んだ日報を開いて確認：'+f.name;D('dailyPdfPreview').replaceChildren(a);D('dailyPdfStatus').textContent='日報を別タブで確認し、税込収入・税抜営収・人数を入力してください。画像型PDFは自動読取していません。';let m=f.name.match(/日報(\d{2})(\d{2})(\d{2})/);if(m)D('dailyDate').value=`20${m[1]}-${m[2]}-${m[3]}`};
+D('dailyExport').onclick=()=>{let data=dailyAll().slice().sort((a,b)=>a.day.localeCompare(b.day));let head=['乗務日','税込収入','税抜営収','乗車人数','実車回数','入力元'];let csv='\ufeff'+head.join(',')+'\r\n'+data.map(x=>[x.day,x.gross,x.net,x.pax,x.rides??'',x.source||''].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');let url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));let a=document.createElement('a');a.href=url;a.download='東京タクシー日報集計.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),3000)};
+showDaily();
+
+// Nominatim search (manual use only, avoid bulk requests)
+(()=>{const q=$('placeQuery'),status=$('placeStatus'),result=$('placeResults');if(!q)return;let busy=false;
+ async function search(){if(busy)return;const text=q.value.trim();if(!text){status.textContent='検索語を入力してください';return}busy=true;status.textContent='検索中…';result.replaceChildren();try{const url='https://nominatim.openstreetmap.org/search?format=json&limit=5&countrycodes=jp&accept-language=ja&q='+encodeURIComponent(text.includes('東京')?text:text+' 東京');const r=await fetch(url);if(!r.ok)throw Error('HTTP '+r.status);const a=await r.json();status.textContent=a.length?a.length+'件の候補':'見つかりませんでした';a.forEach(item=>{const div=document.createElement('div');div.className='notice';const name=document.createElement('div');name.textContent=item.display_name;const b=document.createElement('button');b.className='btn';b.textContent='地図に表示';b.onclick=()=>{const lat=Number(item.lat),lon=Number(item.lon),d=.004;$('placeMap').src='https://www.openstreetmap.org/export/embed.html?bbox='+encodeURIComponent([lon-d,lat-d,lon+d,lat+d].join(','))+'&layer=mapnik&marker='+encodeURIComponent(lat+','+lon)};div.append(name,b);result.appendChild(div)})}catch(e){status.textContent='検索できません: '+e.message}finally{busy=false}}$('placeSearch').onclick=search;$('placeClear').onclick=()=>{q.value='';result.replaceChildren();status.textContent='消去しました'};q.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();search()}}})();
+
+// 終電時刻：利用者確認・登録データのみ。無断で架空の終電を補完しない。
+(function(){
+const stations=[
+['東京',35.6812,139.7671],['新宿',35.6909,139.7003],['渋谷',35.6580,139.7016],['池袋',35.7295,139.7109],
+['品川',35.6285,139.7388],['新橋',35.6663,139.7586],['上野',35.7138,139.7773],['秋葉原',35.6984,139.7731],
+['有楽町',35.6751,139.7633],['浜松町',35.6554,139.7571],['田町',35.6457,139.7476],['大崎',35.6197,139.7286],
+['五反田',35.6264,139.7234],['目黒',35.6339,139.7158],['恵比寿',35.6467,139.7101],['中目黒',35.6443,139.6992],
+['六本木',35.6628,139.7314],['赤坂見附',35.6769,139.7370],['大手町',35.6855,139.7660],['飯田橋',35.7020,139.7456],
+['水道橋',35.7021,139.7538],['御茶ノ水',35.6998,139.7652],['北千住',35.7496,139.8048],['錦糸町',35.6967,139.8143],
+['押上',35.7105,139.8121],['浅草',35.7110,139.7975],['中野',35.7057,139.6658],['高田馬場',35.7123,139.7038],
+['蒲田',35.5625,139.7160],['大井町',35.6062,139.7340],['豊洲',35.6549,139.7961],['門前仲町',35.6719,139.7959],
+['月島',35.6645,139.7845],['神田',35.6917,139.7709],['日暮里',35.7279,139.7713],['巣鴨',35.7336,139.7393]
+].map(([name,lat,lon])=>({name,lat,lon}));
+const el=id=>document.getElementById(id), key='taxi_last_trains_v1';let mode='all',editing='',saved={},autoData={},autoDate=null,autoSource='';
+try{saved=JSON.parse(localStorage.getItem(key)||'{}');if(!saved||typeof saved!=='object')saved={}}catch{saved={}}
+function tokyoNow(){return new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Tokyo'}))}
+function currentService(){let d=tokyoNow();if(d.getHours()<4)d.setDate(d.getDate()-1);return d.getDay()===0?'holiday':d.getDay()===6?'sat':'weekday'}
+el('ltDay').value=currentService();
+function nearest(){if(typeof pos==='undefined'||!pos||!Number.isFinite(pos.lat)||!Number.isFinite(pos.lon))return null;return stations.map(s=>({...s,d:meters(pos,s)})).sort((a,b)=>a.d-b.d)}
+function safe(t){return String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function remain(time){const match=/^(\d{2}):(\d{2})$/.exec(time||'');if(!match)return null;const now=tokyoNow(),service=new Date(now);if(service.getHours()<4)service.setDate(service.getDate()-1);service.setHours(0,0,0,0);let target=new Date(service);target.setMinutes(Number(match[1])*60+Number(match[2]));if(Number(match[1])<4)target.setDate(target.getDate()+1);return Math.ceil((target-now)/60000)}
+function record(station){return saved[station+'|'+el('ltDay').value]||null}
+function autoRecords(station){const day=el('ltDay').value;return (autoData[station]?.[day]||[]).filter(r=>r&&/^([01]\d|2[0-9]):[0-5]\d$/.test(r.time)).slice(0,16)}
+const dataCacheKey='taxi_last_trains_verified_v411';
+function validateFeed(data){
+ if(data?.schema!==1||!data.stations||typeof data.stations!=='object'||Array.isArray(data.stations))throw Error('JSONの形式が不正です');
+ if(Object.keys(data.stations).length>200)throw Error('駅数の上限を超えました');
+ const known=new Set(stations.map(s=>s.name));const result={};
+ for(const [station,days] of Object.entries(data.stations)){
+  if(!known.has(station))continue;
+  if(!days||typeof days!=='object'||Array.isArray(days))throw Error(station+'のデータ形式が不正');
+  result[station]={};
+  for(const day of ['weekday','sat','holiday']){
+   if(days[day]===undefined)continue;
+   if(!Array.isArray(days[day])||days[day].length>50)throw Error(station+' '+day+'の件数が不正');
+   result[station][day]=days[day].map(r=>{
+    if(!r||typeof r!=='object'||!/^([01]\d|2[0-9]):[0-5]\d$/.test(r.time)||typeof r.line!=='string'||!r.line.trim()||typeof r.direction!=='string'||!r.direction.trim()||typeof r.source!=='string'||!/^https:\/\//.test(r.source)||typeof r.verifiedAt!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(r.verifiedAt))throw Error(station+' '+day+'に未検証データがあります');
+    return {time:r.time,line:r.line.slice(0,100),direction:r.direction.slice(0,120),destination:String(r.destination||'').slice(0,100),source:r.source,verifiedAt:r.verifiedAt};
+   });
+  }
+ }
+ return {stations:result,generatedAt:typeof data.generatedAt==='string'?data.generatedAt:null};
+}
+function showFeed(data,source){
+ const parsed=validateFeed(data);autoData=parsed.stations;autoDate=parsed.generatedAt;autoSource=source;
+ const count=Object.values(autoData).reduce((n,d)=>n+['weekday','sat','holiday'].reduce((sum,k)=>sum+(d[k]?.length||0),0),0);
+ const oldest=Object.values(autoData).flatMap(d=>Object.values(d)).flat().map(x=>Date.parse(x.verifiedAt)).filter(Number.isFinite);
+ const age=oldest.length?Math.floor((Date.now()-Math.min(...oldest))/86400000):null;
+ el('ltAutoStatus').textContent=count?('終電データ '+count+'件を読込済み（'+source+'）｜対応駅 '+Object.keys(autoData).length+'駅'+(age!==null&&age>30?'｜⚠ 検証から30日超の時刻があります':'')+'。運休・臨時ダイヤは反映されません。'):('終電データ未取得（0件／'+source+'）。ODPT承認待ちです。手動登録済みの終電メモは引き続き利用できます。');
+ draw();
+}
+async function loadAuto(){
+ const elStatus=el('ltAutoStatus');
+ try{
+  const local=localStorage.getItem(dataCacheKey);
+  if(local){showFeed(JSON.parse(local),'端末内の検証済みJSON');return;}
+ }catch(e){elStatus.textContent='端末内JSONを読み込めません：'+e.message;}
+ try{
+  const res=await fetch('./data/last_trains.json',{cache:'no-store'});
+  if(!res.ok){if(res.status===404){showFeed({schema:1,stations:{}},'未配置');return;}throw Error('HTTP '+res.status)}
+  showFeed(await res.json(),'GitHub Pages');
+ }catch(err){autoData={};autoDate=null;elStatus.textContent='自動終電データが利用できません（'+err.message+'）。未確認の時刻は表示しません。';draw();}
+}
+el('ltDataImport').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{if(f.size>1000000)throw Error('1MB以下のJSONにしてください');const obj=JSON.parse(await f.text());validateFeed(obj);localStorage.setItem(dataCacheKey,JSON.stringify(obj));showFeed(obj,'端末内の検証済みJSON');}catch(err){alert('取り込めません：'+err.message)}finally{e.target.value=''}};
+el('ltDataReset').onclick=()=>{if(!confirm('端末内の検証済み終電JSONを解除し、GitHubのデータを読み直しますか？ 手動の終電メモは消しません。'))return;localStorage.removeItem(dataCacheKey);loadAuto()};
+
+function draw(){const near=nearest();let list=mode==='near'?(near?near.slice(0,6):[]):stations;
+el('ltAll').classList.toggle('on',mode==='all');el('ltNear').classList.toggle('on',mode==='near');
+el('ltState').textContent=mode==='near'?(near?'GPSから直線距離が近い6駅を表示（駅までの走行距離ではありません）':'GPS位置が未取得です。「総合」でGPS案内を開始してください。'):'主要駅 '+stations.length+'駅を表示。路線・方面を登録すると終電の目安を表示します。';
+el('ltList').innerHTML=list.map(s=>{
+ const manual=record(s.name),autos=autoRecords(s.name);
+ const candidates=autos.map(a=>({...a,remaining:remain(a.time)})).sort((a,b)=>(b.remaining??-999)-(a.remaining??-999));
+ const next=candidates.find(a=>a.remaining!==null&&a.remaining>=0)||candidates[0];
+ const r=manual||next||null,m=r?remain(r.time):null,cl=m===null?'':m<0?'past':m<=30?'warn':'',count=m===null?'時刻未登録':m<0?'表示時刻は経過':m===0?'まもなく発車':`あと ${Math.floor(m/60)?Math.floor(m/60)+'時間':''}${m%60}分`;
+ const more=(!manual&&autos.length)?`<details style="margin-top:8px"><summary>路線・方面別の終電（${autos.length}件）</summary>${autos.map(a=>`<div class="sub">${safe(a.line)}・${safe(a.direction)}：${safe(a.time)} ${a.destination?safe(a.destination):''}｜検証日 ${safe(a.verifiedAt||'不明')} <a href="${safe(a.source||'#')}" target="_blank" rel="noopener">時刻表 ↗</a></div>`).join('')}</details>`:'';
+ const tag=manual?'手動登録（自動値より優先）':autos.length?'確認済み時刻表データ／通常ダイヤ・要確認':'';
+ return `<div class="lt-item"><div class="lt-head"><b>${safe(s.name)}駅</b>${mode==='near'?`<span class="muted">直線 約${Math.round(s.d)}m</span>`:''}</div><div class="lt-time">${r?safe(r.time.replace(/^24:/,'00:').replace(/^25:/,'01:').replace(/^26:/,'02:').replace(/^27:/,'03:').replace(/^28:/,'04:').replace(/^29:/,'05:')):'--:--'}</div><div class="sub">${r?safe(r.line)+' ／ '+safe(r.direction):'路線・方面ごとに登録してください'}</div><div class="lt-count ${cl}">${count}</div>${tag?`<div class="muted">${tag}</div>`:''}${more}<button class="btn" type="button" data-station="${safe(s.name)}">${manual?'手動時刻を編集':'手動で終電を登録'}</button>${manual&&manual.source&&/^https:\/\//.test(manual.source)?` <a href="${safe(manual.source)}" target="_blank" rel="noopener">時刻表 ↗</a>`:''}</div>`}).join('');
+el('ltList').querySelectorAll('[data-station]').forEach(btn=>btn.onclick=()=>edit(btn.dataset.station));}
+function edit(station){editing=station;const r=record(station)||{};el('ltEditTitle').textContent=station+'駅 ／ '+el('ltDay').selectedOptions[0].text+'の終電';el('ltLine').value=r.line||'';el('ltDirection').value=r.direction||'';el('ltTime').value=r.time||'';el('ltSource').value=r.source||'';el('ltEditor').style.display='block';el('ltEditor').scrollIntoView({behavior:'smooth',block:'nearest'});}
+el('ltSave').onclick=()=>{let line=el('ltLine').value.trim(),direction=el('ltDirection').value.trim(),time=el('ltTime').value,source=el('ltSource').value.trim();if(!editing||!line||!direction||!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)){alert('路線・方面・発時刻を入力してください');return;}if(source&&!/^https:\/\//.test(source)){alert('公式時刻表のURLはhttps://で入力してください');return;}saved[editing+'|'+el('ltDay').value]={line,direction,time,source,updated:new Date().toISOString()};try{localStorage.setItem(key,JSON.stringify(saved))}catch{alert('端末に保存できませんでした');return;}el('ltEditor').style.display='none';draw();};
+el('ltCancel').onclick=()=>{el('ltEditor').style.display='none'};
+el('ltAll').onclick=()=>{mode='all';draw()};el('ltNear').onclick=()=>{mode='near';draw()};el('ltDay').onchange=()=>{el('ltEditor').style.display='none';draw()};el('ltReload').onclick=()=>loadAuto();
+setInterval(draw,60000);draw();loadAuto();
+})();
+
+// Rest-map v3.4: private local pins, OpenStreetMap tiles loaded only when shown.
+(()=>{
+ const S='taxi_rest_points_v1', el=id=>document.getElementById(id);
+ const icons={parking:'🅿️',toilet:'🚻',shop:'🏪',quiet:'🌙',other:'📌'};
+ let pts=[],map=null,markerLayer=null,meMarker=null,pick=false,editId=null,leafletPromise=null;
+ try{const a=JSON.parse(localStorage.getItem(S)||'[]');pts=Array.isArray(a)?a.filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lon)&&Math.abs(x.lat)<=90&&Math.abs(x.lon)<=180).slice(0,2000):[]}catch{}
+ const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const say=t=>el('restStatus').textContent=t;
+ const save=()=>{try{localStorage.setItem(S,JSON.stringify(pts));return true}catch(e){say('保存領域が不足しています：'+e.message);return false}};
+ function reset(){editId=null;['restName','restNote','restLat','restLon'].forEach(i=>el(i).value='');el('restCategory').value='parking';el('restVerified').value='unconfirmed';say('');}
+ function coords(lat,lon){el('restLat').value=lat.toFixed(6);el('restLon').value=lon.toFixed(6);}
+ const getGPS=()=>new Promise((resolve,reject)=>{if(pos&&Number.isFinite(pos.lat)&&Number.isFinite(pos.lon)){resolve(pos);return}if(!navigator.geolocation){reject(Error('GPSが使えません'));return}navigator.geolocation.getCurrentPosition(p=>resolve({lat:p.coords.latitude,lon:p.coords.longitude}),reject,{enableHighAccuracy:true,timeout:16000,maximumAge:5000})});
+ function loadLeaflet(){if(window.L)return Promise.resolve();if(leafletPromise)return leafletPromise;leafletPromise=new Promise((resolve,reject)=>{if(!document.querySelector('link[data-rest-leaflet]')){const link=document.createElement('link');link.rel='stylesheet';link.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';link.dataset.restLeaflet='1';document.head.appendChild(link)}const s=document.createElement('script');s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';s.onload=resolve;s.onerror=()=>reject(Error('地図ライブラリに接続できません'));document.head.appendChild(s)}).catch(e=>{leafletPromise=null;throw e});return leafletPromise;}
+ async function ensureMap(){if(map){setTimeout(()=>map.invalidateSize(),100);return}el('restMapState').textContent='地図を読み込み中…';try{await loadLeaflet();map=L.map('restMap',{preferCanvas:true}).setView([35.6812,139.7671],11);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(map);markerLayer=L.layerGroup().addTo(map);map.on('click',e=>{if(!pick)return;editId=null;coords(e.latlng.lat,e.latlng.lng);say('地図で指定しました。名前を入力して「地点を保存」を押してください。');el('restName').focus({preventScroll:true});});refresh();if(pts.length)fit();else if(pos)map.setView([pos.lat,pos.lon],14);el('restMapState').textContent='地図をタップして登録する場合は「地図をタップして登録」をオンにしてください。';setTimeout(()=>map.invalidateSize(),150)}catch(e){el('restMapState').textContent='地図表示に失敗しました（'+e.message+'）。保存済み地点の一覧は使えます。';}}
+ function refresh(){const f=el('restFilter').value;const shown=pts.filter(p=>f==='all'||p.category===f);el('restCount').textContent=`${shown.length}件 / 全${pts.length}件`;
+ const list=el('restList');list.replaceChildren();if(!shown.length){const d=document.createElement('p');d.className='rest-muted';d.textContent='まだ登録がありません。停車中に現在地か地図から登録してください。';list.appendChild(d)}
+ shown.slice().reverse().forEach(p=>{const d=document.createElement('div');d.className='rest-item';const name=document.createElement('strong');name.textContent=(icons[p.category]||'📌')+' '+p.name;d.append(name);
+ const note=document.createElement('div');note.className='rest-muted';note.textContent=(p.verified==='confirmed'?'自分で確認済み':'未確認')+'｜'+p.lat.toFixed(5)+', '+p.lon.toFixed(5)+(p.note?'｜'+p.note:'');d.append(note);
+ const bar=document.createElement('div');bar.className='controls';const btn=(label,fn)=>{const b=document.createElement('button');b.type='button';b.className='btn';b.textContent=label;b.onclick=fn;bar.append(b)};
+ btn('地図で見る',async()=>{el('rests').scrollIntoView({behavior:'smooth',block:'start'});await ensureMap();if(map)map.setView([p.lat,p.lon],16)});
+ btn('経路を開く',()=>{window.open('https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(p.lat+','+p.lon),'_blank','noopener')});
+ btn('編集',()=>{editId=p.id;el('restName').value=p.name;el('restCategory').value=p.category;el('restVerified').value=p.verified;el('restNote').value=p.note||'';coords(p.lat,p.lon);el('restName').scrollIntoView({behavior:'smooth',block:'center'});say('編集中です。保存で上書きします。')});
+ btn('削除',()=>{if(!confirm('「'+p.name+'」を削除しますか？'))return;pts=pts.filter(x=>x.id!==p.id);if(save()){refresh();say('削除しました')}});
+ d.append(bar);list.append(d)});
+ if(markerLayer){markerLayer.clearLayers();shown.forEach(p=>{const m=L.marker([p.lat,p.lon],{title:p.name});m.bindPopup('<strong>'+safe(p.name)+'</strong><br>'+safe(p.note||'')+'<br><small>'+safe(p.verified==='confirmed'?'自分で確認済み':'未確認')+'</small>');m.addTo(markerLayer)});if(pos&&Number.isFinite(pos.lat)&&Number.isFinite(pos.lon)){if(meMarker)map.removeLayer(meMarker);meMarker=L.circleMarker([pos.lat,pos.lon],{radius:8,color:'#176fd5',fillColor:'#4db7ff',fillOpacity:0.9}).addTo(map).bindPopup('GPS現在地（推定）')}}
+ }
+ function fit(){if(!map)return;const filtered=pts.filter(p=>el('restFilter').value==='all'||p.category===el('restFilter').value);if(filtered.length){map.fitBounds(L.latLngBounds(filtered.map(p=>[p.lat,p.lon])),{padding:[35,35],maxZoom:15})}else if(pos)map.setView([pos.lat,pos.lon],14)}
+ el('restCurrent').onclick=async()=>{say('GPSを取得中…');try{const p=await getGPS();editId=null;coords(p.lat,p.lon);say('現在地をセットしました。名前を入力して保存してください。');await ensureMap();if(map)map.setView([p.lat,p.lon],16)}catch(e){say('GPSを取得できません：'+e.message)}};
+ el('restLocate').onclick=async()=>{try{const p=await getGPS();await ensureMap();if(map)map.setView([p.lat,p.lon],16);say('現在地を表示しました')}catch(e){say('GPSエラー：'+e.message)}};
+ el('restMapPick').onclick=async()=>{pick=!pick;el('restMapPick').textContent='🗺 地図をタップして登録：'+(pick?'オン':'オフ');say(pick?'地図上の保存したい地点をタップしてください':'地図タップ登録を終了しました');await ensureMap()};
+ el('restSave').onclick=()=>{const name=el('restName').value.trim(),lat=Number(el('restLat').value),lon=Number(el('restLon').value);if(!name){say('地点名を入力してください');return}if(!el('restLat').value||!el('restLon').value||!Number.isFinite(lat)||!Number.isFinite(lon)||lat<-90||lat>90||lon<-180||lon>180){say('正しい緯度・経度を指定してください');return}const item={id:editId||String(Date.now())+'-'+Math.random().toString(36).slice(2),name,lat,lon,category:el('restCategory').value,verified:el('restVerified').value,note:el('restNote').value.trim(),updatedAt:new Date().toISOString()};const old=pts.slice(),i=pts.findIndex(p=>p.id===editId);if(i>=0)pts[i]=item;else pts.push(item);if(!save()){pts=old;return}reset();refresh();say('休憩ポイントを保存しました');if(map)map.setView([lat,lon],15)};
+ el('restReset').onclick=reset;el('restFilter').onchange=refresh;el('restFit').onclick=async()=>{await ensureMap();fit()};
+ el('restExport').onclick=()=>{const data={format:'tokyo-taxi-rest-points-v1',exportedAt:new Date().toISOString(),points:pts},u=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download='tokyo-taxi-rest-points.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),15000)};
+ el('restImport').onchange=async e=>{try{const f=e.target.files?.[0];if(!f)return;if(f.size>3e6)throw Error('ファイルが大きすぎます');const data=JSON.parse(await f.text());if(data.format!=='tokyo-taxi-rest-points-v1'||!Array.isArray(data.points))throw Error('休憩マップのバックアップではありません');if(data.points.length>2000)throw Error('登録件数が多すぎます');const fresh=data.points.map(p=>{if(typeof p.name!=='string'||!Number.isFinite(p.lat)||!Number.isFinite(p.lon)||Math.abs(p.lat)>90||Math.abs(p.lon)>180)throw Error('不正な地点情報');return{id:String(p.id||Date.now()+Math.random()),name:p.name.slice(0,80),lat:p.lat,lon:p.lon,category:icons[p.category]?p.category:'other',verified:p.verified==='confirmed'?'confirmed':'unconfirmed',note:String(p.note||'').slice(0,700),updatedAt:String(p.updatedAt||'')}});if(!confirm('現在の登録を残して、バックアップの地点を追加しますか？（同じIDは更新）'))return;const merged=new Map(pts.map(p=>[p.id,p]));fresh.forEach(p=>merged.set(p.id,p));const old=pts;pts=[...merged.values()];if(!save()){pts=old;return}refresh();say('復元しました：'+fresh.length+'件')}catch(e){say('復元できません：'+e.message)}finally{e.target.value=''}};
+ const btn=document.querySelector('[data-tab="rests"]');btn.addEventListener('click',()=>{ensureMap();refresh()});refresh();
+})();
+</script><script>
+(()=>{
+'use strict';
+const E=id=>document.getElementById(id);
+const spots=[
+ {id:'shimbashi',name:'新橋',lat:35.6659,lon:139.7585,day:[19,20,21,22,23]},
+ {id:'akasaka',name:'赤坂',lat:35.6738,lon:139.7361,day:[19,20,21,22,23]},
+ {id:'roppongi',name:'六本木',lat:35.6628,lon:139.7314,day:[21,22,23,0,1]},
+ {id:'shibuya',name:'渋谷',lat:35.6581,lon:139.7017,day:[21,22,23,0,1]},
+ {id:'shinjuku',name:'新宿',lat:35.6938,lon:139.7034,day:[21,22,23,0,1]},
+ {id:'shinagawa',name:'品川',lat:35.6284,lon:139.7387,day:[19,20,21]},
+ {id:'tokyo',name:'東京駅',lat:35.6812,lon:139.7671,day:[19,20,21]}
+];
+const key='tokyo_taxi_go_records_v1';const compareKey='tokyo_taxi_go_report_comparison_v1';let reports={};try{reports=JSON.parse(localStorage.getItem(compareKey)||'{}')||{}}catch(e){}
+let logs=[];try{const v=JSON.parse(localStorage.getItem(key)||'[]');if(Array.isArray(v))logs=v.filter(x=>x&&typeof x.t==='string'&&['call','none','start','break','cancel'].includes(x.kind)).slice(-5000)}catch(e){}
+const save=()=>{try{localStorage.setItem(key,JSON.stringify(logs));return true}catch(e){E('goLogStatus').textContent='保存に失敗しました。CSVで保存してください。';return false}};
+const nearKm=(a,b)=>{const r=Math.PI/180,dy=(a.lat-b.lat)*r,dx=(a.lon-b.lon)*r*Math.cos((a.lat+b.lat)*r/2);return 6371*Math.hypot(dx,dy)};
+const getPos=()=>typeof pos!=='undefined'&&pos&&Number.isFinite(pos.lat)&&Number.isFinite(pos.lon)?pos:null;
+const hr=()=>E('goHour').value==='auto'?new Date().getHours():Number(E('goHour').value);
+const day=()=>{const x=E('goDay').value;if(x!=='auto')return x;const n=new Date().getDay();return n===5?'fri':n===6?'sat':n===0?'sun':'wk'};
+const slot=h=>h>=19&&h<22?'19-22':(h>=22||h===0)?'22-01':'01-03';
+function areaNow(){const v=E('goArea').value;if(v!=='auto')return v;const p=getPos();if(!p)return 'other';const s=spots.map(x=>({...x,d:nearKm(p,x)})).sort((a,b)=>a.d-b.d)[0];return s.d<2.8?s.id:'other'}
+function calc(){const p=getPos(),h=hr(),d=day(),s=slot(h),has=logs.length>0;
+ const items=spots.map(a=>{let km=p?nearKm(p,a):null,sel=logs.filter(x=>x.area===a.id&&x.slot===s&&x.day===d),call=sel.filter(x=>x.kind==='call').length,none=sel.filter(x=>x.kind==='none').length;
+ // Heuristic is not a GO dispatch probability. Counts alone are biased by logged exposures.
+ let heuristic=(a.day.includes(h)?2:0)+(d==='fri'&&['shimbashi','roppongi','shibuya','shinjuku'].includes(a.id)?1:0);
+ let score=heuristic+(call+none>0?Math.min(2,2*(call/(call+none))):0)-(km===null?0:Math.min(4,km/3));
+ return {...a,km,call,none,score,known:call+none};}).sort((a,b)=>b.score-a.score);
+ E('goGps').textContent=p?'現在地を取得中｜GPSからの直線距離を表示（実際の道路距離ではありません）':'GPS未取得｜現在地からの距離は評価に含めません';
+ E('goSuggestions').innerHTML=items.slice(0,4).map((a,i)=>`<div class="metric" style="margin:10px 0"><b style="font-size:18px">${i+1}. ${a.name}${a.km===null?'':`｜直線 約${a.km.toFixed(1)}km`}</b><span>仮スコア ${a.score.toFixed(1)} ｜同じ曜日区分・時間帯の記録：受注${a.call}回／無配車15分${a.none}回｜${a.known<5?'データ不足':'参考実績あり'}</span></div>`).join('')+`<div class="sub">比較条件：${d} / ${s}。順位はヒューリスティック＋記録件数＋直線距離の参考比較です。GOの実際の需要・空車数・配車割当アルゴリズムは取得していません。</div>`;
+ return items;}
+function render(){const grouped={};for(const x of logs){const k=spots.find(a=>a.id===x.area)?.name||'その他';grouped[k]??={call:0,none:0};if(x.kind==='call'||x.kind==='none')grouped[k][x.kind]++}
+ E('goStats').innerHTML=logs.length?Object.entries(grouped).sort((a,b)=>b[1].call-a[1].call).map(([k,v])=>`<div class="stat"><span>${k}</span><span>受注 ${v.call}／無配車15分 ${v.none}</span></div>`).join(''):'記録がまだありません。GOが鳴った場所と、15分無配車だった場所を記録してください。';
+ E('goHistory').innerHTML=logs.slice(-10).reverse().map(x=>`<div class="stat"><span>${new Date(x.t).toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}　${spots.find(a=>a.id===x.area)?.name||'その他'}</span><span>${({call:'✅ 迎車到着',none:'⏳ 無配車15分',start:'▶ 営業開始',break:'☕ 回送・休憩',cancel:'↩ 途中キャンセル',finish:'🏁 営業終了'})[x.kind]||x.kind}</span></div>`).join('')||'記録なし';calc();}
+function record(kind){const a=areaNow(),dt=new Date(),hh=dt.getHours(),dd=dt.getDay(),p=getPos();const dayActual=dd===5?'fri':dd===6?'sat':dd===0?'sun':'wk';logs.push({t:dt.toISOString(),area:a,kind,slot:slot(hh),day:dayActual,note:E('goNote').value.trim().slice(0,100),lat:p?p.lat:null,lon:p?p.lon:null});if(!save()){logs.pop();return}E('goLogStatus').textContent=(kind==='call'?'配車あり':kind==='finish'?'営業終了':kind==='start'?'流し開始':kind==='break'?'回送':'受付記録')+'を保存しました。';E('goNote').value='';render();renderCompare()}
+// 営業開始タイマー（ブラウザ内で記録。OSのバックグラウンド通知は保証しない）
+const timerKey='taxi_go_active_timer_v1';
+let activeTimer=null;
+try{const q=JSON.parse(localStorage.getItem(timerKey)||'null');if(q&&Number.isFinite(q.start)&&q.start<=Date.now())activeTimer=q;}catch(e){}
+const homeStatus=E('homeGoStatus');
+let alertedFor=null;
+function storeTimer(){try{if(activeTimer)localStorage.setItem(timerKey,JSON.stringify(activeTimer));else localStorage.removeItem(timerKey)}catch(e){homeStatus.textContent='タイマー状態を保存できませんでした。'}}
+function elapsedText(ms){const sec=Math.max(0,Math.floor(ms/1000)),min=Math.floor(sec/60);return String(min).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')}
+function alarmSound(){try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;const ctx=new A(),osc=ctx.createOscillator(),gain=ctx.createGain();osc.connect(gain);gain.connect(ctx.destination);osc.frequency.value=880;gain.gain.value=.12;osc.start();osc.stop(ctx.currentTime+.35);osc.onended=()=>ctx.close();}catch(e){}}
+function updateTimer(){const ms=activeTimer?Date.now()-activeTimer.start:0;E('homeGoTimer').textContent=elapsedText(ms);E('homeGoTimerState').textContent=activeTimer?'営業中・15分計測中':'計測停止中';const overdue=activeTimer&&ms>=900000;E('homeGoAlert').style.display=overdue?'block':'none';if(overdue&&alertedFor!==activeTimer.start){alertedFor=activeTimer.start;alarmSound();if(navigator.vibrate)navigator.vibrate([250,150,250]);homeStatus.textContent='⏰ 15分経過。安全に停車できる時に営業場所を見直してください。';}if(!overdue)alertedFor=null;}
+function beginDriving(){if(activeTimer&&!confirm('現在の計測をリセットして営業開始しますか？'))return;record('start');activeTimer={start:Date.now()};storeTimer();updateTimer();homeStatus.textContent='▶ 営業開始を記録。15分計測中です。';}
+function stopDriving(kind){record(kind);activeTimer=null;storeTimer();updateTimer();homeStatus.textContent=kind==='break'?'☕ 回送・休憩を記録しました。計測は停止中です。':kind==='cancel'?'↩ 途中キャンセルを記録しました。再開する場合は「流し」を押してください。':'✅ 実車配車あり（迎車先到着）を記録しました。計測は停止中です。';}
+// v3.95 営業終了：ログは削除せず、終了記録と手動バックアップを実施する。
+const shiftCloseKey='taxi_shift_close_v394';
+const shiftCloseStatus=E('shiftCloseStatus');
+try{const last=JSON.parse(localStorage.getItem(shiftCloseKey)||'null');if(last?.at)shiftCloseStatus.textContent='前回の締め作業：'+new Date(last.at).toLocaleString('ja-JP')+'（バックアップのiCloud Drive移動は手動）';}catch(e){}
+E('shiftCloseButton').onclick=()=>{
+  const now=new Date();
+  const recent=logs.filter(x=>{const d=new Date(x.t);return Number.isFinite(d.getTime())&&now-d<24*3600000&&now>=d;});
+  const count=recent.filter(x=>x.kind==='call').length;
+  if(!confirm('営業終了・締め作業を行いますか？\n\n・15分タイマーを停止\n・営業終了を受付ログに記録\n・JSONバックアップをダウンロード\n\n直近24時間の実車配車あり記録：'+count+'件\n※過去ログは消しません。'))return;
+  try{
+    // log first; if localStorage cannot save, keep timer and cancel closing
+    const before=logs.length;
+    record('finish');
+    if(logs.length!==before+1){throw Error('受付ログの保存に失敗しました');}
+    activeTimer=null;storeTimer();updateTimer();
+    const at=new Date().toISOString();
+    try{localStorage.setItem(shiftCloseKey,JSON.stringify({at,dispatches:count}));}catch(e){}
+    E('backupAllExport').click();
+    shiftCloseStatus.textContent='✅ 営業終了を記録：'+new Date(at).toLocaleString('ja-JP')+'。タイマー停止済み。JSONのダウンロードを確認し、ファイルアプリからiCloud Driveへ移動してください。';
+    homeStatus.textContent='🏁 営業終了。次の乗務時は「流し（営業開始）」を押してください。';
+  }catch(e){shiftCloseStatus.textContent='⚠ 締め作業に失敗しました：'+e.message;alert('締め作業に失敗：'+e.message);}
+};
+E('homeGoStart').onclick=beginDriving;
+E('homeGoBreak').onclick=()=>stopDriving('break');
+E('homeGoAccepted').onclick=()=>stopDriving('call');
+E('homeGoOpen').onclick=()=>{document.querySelector('[data-tab="go"]').click();window.scrollTo({top:0,behavior:'instant'});};
+E('goAccepted').onclick=()=>stopDriving('call');
+E('goNoOrder').onclick=()=>{record('none');homeStatus.textContent='⏳ 配車なし15分を記録しました。';};
+E('goCancel').onclick=()=>stopDriving('cancel');
+setInterval(updateTimer,1000);document.addEventListener('visibilitychange',updateTimer);updateTimer();
+E('goAnalyze').onclick=calc;E('goDay').onchange=calc;E('goHour').onchange=calc;
+E('goUndo').onclick=()=>{if(!logs.length)return;if(!confirm('直近のGO記録を1件削除しますか？'))return;logs.pop();save();render()};
+E('goCopy').onclick=()=>{let entries=calc().slice(0,4);let msg=`東京タクシー GO営業候補。曜日区分:${day()}、時間帯:${slot(hr())}。現在地:${getPos()?getPos().lat.toFixed(5)+','+getPos().lon.toFixed(5):'未取得'}。候補:${entries.map(x=>x.name+'（参考スコア'+x.score.toFixed(1)+'、受注記録'+x.call+'回、無配車'+x.none+'回、直線距離'+(x.km===null?'不明':x.km.toFixed(1)+'km')+'）').join(' / ')}。道路・天候・鉄道の状況と不確実性を考慮して営業判断を提案してください。`;navigator.clipboard?.writeText(msg).then(()=>E('goLogStatus').textContent='営業判断文をコピーしました').catch(()=>window.prompt('コピーしてください',msg))||window.prompt('コピーできない場合はこちら',msg)};
+E('goExport').onclick=()=>{const rows=[['日時','エリアID','区分','時間帯','曜日','メモ','緯度','経度'],...logs.map(x=>[x.t,x.area,x.kind,x.slot,x.day,x.note||'',x.lat??'',x.lon??''])],csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');const u=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=u;a.download='tokyo_go_records.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),12000)};
+E('goImport').onchange=async ev=>{try{const f=ev.target.files?.[0];if(!f)return;const txt=await f.text();const rows=txt.replace(/^\ufeff/,'').split(/\r?\n/).slice(1).filter(Boolean);const parse=line=>{const v=[];let s='',q=false;for(let i=0;i<line.length;i++){const c=line[i];if(c==='"'&&q&&line[i+1]==='"'){s+='"';i++}else if(c==='"')q=!q;else if(c===','&&!q){v.push(s);s=''}else s+=c}v.push(s);return v};const add=rows.slice(0,5000).map(parse).filter(a=>a.length>=5&&!isNaN(Date.parse(a[0]))&&['call','none'].includes(a[2])).map(a=>({t:a[0],area:a[1],kind:a[2],slot:a[3],day:a[4],note:(a[5]||'').slice(0,100),lat:a[6]?Number(a[6]):null,lon:a[7]?Number(a[7]):null}));if(!confirm(add.length+'件を既存のGO記録に追加しますか？'))return;const old=logs;logs=[...logs,...add].slice(-5000);if(!save()){logs=old;return}render();E('goLogStatus').textContent=add.length+'件を復元しました'}catch(e){E('goLogStatus').textContent='復元に失敗しました：'+e.message}finally{ev.target.value=''}};
+E('goArea').onchange=()=>{E('goLogStatus').textContent='選択中：'+(spots.find(a=>a.id===areaNow())?.name||'その他')};
+// 日報は翌日未明の実車も前日出庫の乗務に含めて比較する
+const serviceDay=iso=>{const d=new Date(iso);if(d.getHours()<6)d.setDate(d.getDate()-1);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const todayService=()=>serviceDay(new Date().toISOString());
+E('goCompareDate').value=todayService();
+function renderCompare(){const d=E('goCompareDate').value;if(!d)return;const items=logs.filter(x=>serviceDay(x.t)===d);const calls=items.filter(x=>x.kind==='call');const none=items.filter(x=>x.kind==='none').length;const report=reports[d];E('goReportCount').value=report===undefined?'':report;const delta=report===undefined?'未入力':`${calls.length-report>=0?'+':''}${calls.length-report}件`;E('goCompareResult').textContent=`${d}の配車あり ${calls.length}件／15分無配車 ${none}件｜日報乗車回数 ${report===undefined?'未入力':report+'件'}｜差 ${delta}。受注と乗車は別時点です。日付境界は翌朝6時。`}
+E('goCompareDate').onchange=renderCompare;
+E('goCompareSave').onclick=()=>{const d=E('goCompareDate').value,raw=E('goReportCount').value;if(!d||raw===''||Number(raw)<0||!Number.isInteger(Number(raw))){E('goCompareResult').textContent='乗務開始日と日報の乗車回数を入力してください。';return}reports[d]=Number(raw);try{localStorage.setItem(compareKey,JSON.stringify(reports))}catch(e){E('goCompareResult').textContent='保存失敗。ストレージ容量を確認してください。';return}renderCompare()};
+E('goCompareCSV').onclick=()=>{const days=[...new Set([...logs.map(x=>serviceDay(x.t)),...Object.keys(reports)])].sort();const rows=[['乗務開始日','迎車先到着件数','15分無配車件数','日報乗車件数','差（配車あり−日報）'],...days.map(d=>{const rec=logs.filter(x=>serviceDay(x.t)===d),n=rec.filter(x=>x.kind==='call').length;return[d,n,rec.filter(x=>x.kind==='none').length,reports[d]??'',reports[d]===undefined?'':n-reports[d]]})];const csv='\ufeff'+rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');const a=document.createElement('a'),u=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.href=u;a.download='go_日報照合.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),15000)};
+document.querySelector('[data-tab="go"]').addEventListener('click',()=>{calc();renderCompare()});render();renderCompare();
+})();
+</script><script>
+/* v4.0: Historical summaries and GO button-log analysis. Safe additive feature. */
+(()=>{'use strict';
+const KEY='taxi_v4_historical_reports_v1', LOGKEY='tokyo_taxi_go_records_v1';
+const SEED=[{"day":"2026-09-11","gross":80280,"pax":33,"source":"\u65e5\u5831260911(4).pdf"},{"day":"2026-09-17","gross":74700,"pax":27,"source":"\u65e5\u5831260917(6).pdf"},{"day":"2026-09-19","gross":84900,"pax":33,"source":"\u65e5\u5831260919(4).pdf"},{"day":"2026-09-22","gross":58200,"pax":26,"source":"\u65e5\u5831260922(4).pdf"},{"day":"2026-09-26","gross":103560,"pax":35,"source":"\u65e5\u5831260926(2).pdf"},{"day":"2026-10-02","gross":104810,"pax":33,"source":"\u65e5\u5831261002(1).pdf"},{"day":"2026-10-07","gross":70200,"pax":26,"source":"\u65e5\u5831261007(1).pdf"},{"day":"2026-10-09","gross":102400,"pax":33,"source":"\u65e5\u5831261009(2).pdf"},{"day":"2026-10-11","gross":86500,"pax":32,"source":"\u65e5\u5831261011(2).pdf"},{"day":"2026-10-17","gross":88300,"pax":32,"source":"\u65e5\u5831261017(2).pdf"}];
+const el=id=>document.getElementById(id);
+const yen=n=>'¥'+Math.round(n).toLocaleString('ja-JP');
+const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function load(){try{const a=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(a)?a:[]}catch{return []}}
+function valid(r){return r&&/^20\d{2}-\d{2}-\d{2}$/.test(r.day)&&Number.isSafeInteger(r.gross)&&r.gross>=0&&Number.isInteger(r.pax)&&r.pax>=0&&typeof r.source==='string';}
+function save(a){localStorage.setItem(KEY,JSON.stringify(a));}
+function merge(items){const cur=load(),known=new Set(cur.map(x=>x.day));let count=0;for(const x of items){if(!valid(x))continue;if(!known.has(x.day)){cur.push({day:x.day,gross:x.gross,pax:x.pax,source:x.source.slice(0,160)});known.add(x.day);count++;}}save(cur);return count;}
+function show(){const a=load().sort((x,y)=>x.day.localeCompare(y.day));const total=a.reduce((n,r)=>n+r.gross,0);el('historyMetrics').innerHTML='<div class="metric"><b>'+a.length+'乗務</b><span>登録済み日報</span></div><div class="metric"><b>'+yen(total)+'</b><span>税込売上合計</span></div><div class="metric"><b>'+(a.length?yen(total/a.length):'—')+'</b><span>1乗務平均</span></div><div class="metric"><b>'+a.reduce((n,r)=>n+r.pax,0)+'人</b><span>乗車人数合計</span></div>';
+el('historyTable').innerHTML=a.slice().reverse().map(x=>'<tr><td>'+esc(x.day)+'</td><td>'+yen(x.gross)+'</td><td>'+x.pax+'人</td><td>'+esc(x.source)+'</td></tr>').join('')||'<tr><td colspan="4">日報は未登録です</td></tr>';showGo();}
+function localDate(t){const d=new Date(t);return Number.isNaN(d.getTime())?null:new Date(d.getTime()+9*3600000)}
+function inWindow(t,mode){const d=localDate(t);if(!d)return false;const h=d.getUTCHours()+d.getUTCMinutes()/60;return mode==='all'||(h>= (mode==='late'?22:20)||h<=2.5)}
+const labels={shimbashi:'新橋',akasaka:'赤坂',roppongi:'六本木',shibuya:'渋谷',shinjuku:'新宿',shinagawa:'品川',tokyo:'東京駅',other:'その他'};
+function showGo(){let logs=[];try{const v=JSON.parse(localStorage.getItem(LOGKEY)||'[]');logs=Array.isArray(v)?v:[]}catch{}
+const mode=el('historyHour').value, selected=logs.filter(x=>inWindow(x.t,mode)),calls=selected.filter(x=>x.kind==='call');const uniq=calls.filter((x,i,a)=>!a.slice(0,i).some(y=>Math.abs(new Date(x.t)-new Date(y.t))<60000&&y.area===x.area));
+const none=selected.filter(x=>x.kind==='none').length,cancels=selected.filter(x=>x.kind==='cancel').length;
+el('historyGoMetrics').innerHTML='<div class="metric"><b>'+calls.length+'件</b><span>配車あり操作（重複含む）</span></div><div class="metric"><b>'+uniq.length+'件</b><span>1分以内同エリア重複を除いた参考件数</span></div><div class="metric"><b>'+none+'件</b><span>15分配車なし手動記録</span></div><div class="metric"><b>'+cancels+'件</b><span>キャンセル操作</span></div>';
+const by={};for(const x of uniq){const label=labels[x.area]||'その他';by[label]=(by[label]||0)+1;}
+el('historyGoTable').innerHTML=uniq.length?'<table><thead><tr><th>記録エリア</th><th>配車あり操作件数</th></tr></thead><tbody>'+Object.entries(by).sort((a,b)=>b[1]-a[1]).map(([k,n])=>'<tr><td>'+esc(k)+'</td><td>'+n+'件</td></tr>').join('')+'</tbody></table>':'配車あり操作ログがありません。営業中のログを蓄積してください。';}
+el('historySeed').onclick=()=>{try{const n=merge(SEED);el('historyStatus').textContent=n?'確認済みの日報 '+n+'件を追加しました。既存の日付は保持しています。':'追加対象なし（同じ乗務日は登録済み）';show()}catch(e){el('historyStatus').textContent='保存失敗：'+e.message}};
+el('historyImport').onchange=async ev=>{const f=ev.target.files?.[0];if(!f)return;try{if(f.size>2e6)throw Error('2MB以下のJSONを選んでください');const j=JSON.parse(await f.text());let a;if(j.schema==='tokyo-taxi-cockpit-v4-historical-summary-v1'&&Array.isArray(j.records))a=j.records.map(r=>({day:r.shift_date,gross:r.gross_revenue_yen,pax:r.passenger_count,source:r.source_pdf||'追加日報'}));else if(j.schema==='tokyo-taxi-cockpit-v4-history-v1'&&Array.isArray(j.records))a=j.records;else throw Error('日報集計形式が異なります');const count=merge(a);el('historyStatus').textContent=count+'件追加しました（同じ乗務日は重複登録しません）';show()}catch(e){el('historyStatus').textContent='取込失敗：'+e.message}finally{ev.target.value=''}};
+el('historyExport').onclick=()=>{const blob=new Blob([JSON.stringify({schema:'tokyo-taxi-cockpit-v4-history-v1',records:load()},null,2)],{type:'application/json;charset=utf-8'}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='taxi_v4_historical_reports.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),15000)};
+el('historyRefresh').onclick=show;el('historyHour').onchange=showGo;
+document.querySelector('[data-tab="go"]').addEventListener('click',show);show();
+})();
+</script>
+<script>
+/* v4.15 decision assistant: read-only, preserves all v4.12 records */
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const AREAS=[
+ ['shimbashi','新橋',35.6655,139.7582],
+ ['akasaka','赤坂',35.6726,139.7377],
+ ['roppongi','六本木',35.6628,139.7314],
+ ['shibuya','渋谷',35.6581,139.7017],
+ ['shinjuku','新宿',35.6938,139.7034],
+ ['shinagawa','品川',35.6284,139.7387],
+ ['tokyo','東京駅',35.6812,139.7671]
+];
+const read=k=>{try{return JSON.parse(localStorage.getItem(k)||'null')}catch{return null}};
+const km=(a,b)=>{const r=Math.PI/180;return 6371*Math.hypot((a.lat-b.lat)*r,(a.lon-b.lon)*r*Math.cos((a.lat+b.lat)*r/2))};
+const areaPoint=a=>({lat:a[2],lon:a[3]});
+const day=d=>d.getDay()===5?'fri':d.getDay()===6?'sat':d.getDay()===0?'sun':'wk';
+const slot=h=>h>=19&&h<22?'19-22':(h>=22||h===0)?'22-01':'01-03';
+const gps=()=>{try{return typeof pos!=='undefined'&&pos&&Number.isFinite(pos.lat)&&Number.isFinite(pos.lon)?{lat:pos.lat,lon:pos.lon}:null}catch{return null}};
+function render(){
+ const now=new Date(), p=gps(), timer=read('taxi_go_active_timer_v1');
+ const raw=read('tokyo_taxi_go_records_v1');
+ const logs=Array.isArray(raw)?raw.filter(x=>x&&typeof x==='object'):[];
+ const latest=[...logs].reverse().find(x=>['start','call','break','cancel','finish'].includes(x.kind));
+ const active=timer&&Number.isFinite(timer.start)&&timer.start<=Date.now()&&(!latest||latest.kind==='start'||new Date(latest.t).getTime()<=timer.start+10000);
+ const elapsed=active?Math.floor((Date.now()-timer.start)/60000):0;
+ const current=p?AREAS.map(a=>({a,d:km(p,areaPoint(a))})).sort((a,b)=>a.d-b.d)[0]:null;
+ const here=current&&current.d<=2.8?current.a:null;
+ const same=logs.filter(x=>x.day===day(now)&&x.slot===slot(now.getHours())&&['call','none'].includes(x.kind));
+ const stats=AREAS.map(a=>{
+  const records=same.filter(x=>x.area===a[0]),calls=records.filter(x=>x.kind==='call').length,none=records.filter(x=>x.kind==='none').length;
+  return {a,calls,none,n:calls+none,d:p?km(p,areaPoint(a)):null};
+ });
+ const local=here?stats.find(x=>x.a[0]===here[0]):null;
+ const candidates=stats.filter(x=>x.n>=5&&x.calls>=3&&(!local||x.a[0]!==local.a[0])&&x.d!==null&&x.d<=5).sort((a,b)=>(b.calls/(b.n+2)-a.calls/(a.n+2))-(a.calls/(a.n+2)-b.calls/(b.n+2))||a.d-b.d);
+ let action='情報不足',confidence='データ不足',reason='',items='';
+ if(!p){
+   reason='GPSが取得できていません。総合画面でGPS案内を開始すると現在地を踏まえた参考判断ができます。';
+ }else if(latest&&['break','finish','call'].includes(latest.kind)&&!active){
+   action='判断を一時停止';reason='休憩・営業終了・迎車先到着後の状態です。「流し（営業開始）」を押すと営業判断を再開します。';
+ }else if(!active){
+   action='営業開始待ち';reason='「流し（営業開始）」で15分タイマーを開始すると、待機時間を踏まえた案内ができます。';
+ }else if(elapsed<15){
+   action='流し・待機継続';confidence=local&&local.n>=5?'参考':'データ不足';
+   reason=`営業開始から${elapsed}分です。15分の判断基準までは現在の営業を継続する目安です。${here?'現在地付近：'+here[1]+'。':'登録エリア外です。'}`;
+ }else{
+   action='営業場所を再検討';
+   reason=`配車なしの計測が${elapsed}分経過しました。安全に停車できる時に営業場所を見直してください。`;
+   if(local&&local.n>=5){
+     confidence='参考';
+     reason+=` この時間帯の${here[1]}の操作記録は迎車先到着${local.calls}件、無配車15分${local.none}件です（実際の配車率ではありません）。`;
+   }else reason+=' 同じ曜日・時間帯の現在地付近の記録は5件未満のため、移動の優劣は判断できません。';
+   if(candidates.length&&local&&local.n>=5){
+     const best=candidates[0];
+     if(best.calls/(best.n+2)>local.calls/(local.n+2)+0.15){
+       action='移動を検討';
+       confidence='参考（限定的）';
+       reason+=` 過去の操作記録上は${best.a[1]}が比較候補です。ただし待機時間・走行距離・需要を補正した予測ではありません。`;
+     }
+   }
+ }
+ if(p){
+  const shown=candidates.slice(0,3);
+  items=shown.length?'<b>過去ログから比較できる近隣候補</b><div style="margin-top:7px">'+shown.map(x=>`<div class="metric" style="margin:6px 0">${x.a[1]}｜直線約${x.d.toFixed(1)}km｜迎車先到着${x.calls}件／無配車15分${x.none}件</div>`).join('')+'</div>':'<span>近隣で比較可能なログが不足しています。根拠のない移動先ランキングは表示しません。</span>';
+ }
+ $('decisionAction').textContent=action;
+ $('decisionConfidence').textContent=confidence;
+ $('decisionReason').textContent=reason;
+ $('decisionCandidates').innerHTML=items;
+}
+$('decisionRefresh').addEventListener('click',render);
+['homeGoStart','homeGoBreak','homeGoAccepted','goAccepted','goNoOrder','goCancel','shiftCloseButton'].forEach(id=>$(id)?.addEventListener('click',()=>setTimeout(render,150)));
+document.addEventListener('visibilitychange',render);
+setInterval(render,15000);
+render();
+})();
+</script>
+</body></html>
