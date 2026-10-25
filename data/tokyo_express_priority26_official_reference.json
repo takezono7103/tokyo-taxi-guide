@@ -1,0 +1,664 @@
+{
+  "format": "tokyo-express-priority26-facility-reference-v1",
+  "created_at": "2026-10-25",
+  "source": "tokyo_express_unmatched_review.json",
+  "official_reference_url": "https://www.shutoko.jp/driving/route/",
+  "reference_scope": "facility-level only",
+  "safe_for_turn_by_turn_navigation": false,
+  "summary": {
+    "priority_osm_points": 26,
+    "unique_facility_names": 17,
+    "node_level_verified": 0,
+    "navigation_enabled": 0
+  },
+  "records": [
+    {
+      "osm_id": "node/7022713621",
+      "osm_name": "中環小松川入口",
+      "municipalities": [
+        "江戸川区"
+      ],
+      "lat": 35.6989875,
+      "lon": 139.8641126,
+      "official_facility_name": "中環小松川",
+      "official_route": "中央環状線",
+      "osm_name_implied_type": "entrance",
+      "official_facility_entrance_directions": [
+        "内回り"
+      ],
+      "official_facility_exit_directions": [],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/1125926447",
+      "osm_name": "外苑出口",
+      "municipalities": [
+        "新宿区"
+      ],
+      "lat": 35.6796288,
+      "lon": 139.7220537,
+      "official_facility_name": "外苑",
+      "official_route": "高速4号新宿線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "official_facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/267805296",
+      "osm_name": "外苑出口",
+      "municipalities": [
+        "渋谷区"
+      ],
+      "lat": 35.6807458,
+      "lon": 139.7139224,
+      "official_facility_name": "外苑",
+      "official_route": "高速4号新宿線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "official_facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/2569334806",
+      "osm_name": "大井南出口",
+      "municipalities": [
+        "品川区"
+      ],
+      "lat": 35.6074222,
+      "lon": 139.7554285,
+      "official_facility_name": "大井南",
+      "official_route": "高速湾岸線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "西行き"
+      ],
+      "official_facility_exit_directions": [
+        "西行き",
+        "東行き"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/252175582",
+      "osm_name": "天現寺出口",
+      "municipalities": [
+        "港区"
+      ],
+      "lat": 35.6469499,
+      "lon": 139.7295074,
+      "official_facility_name": "天現寺",
+      "official_route": "高速2号目黒線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "上り"
+      ],
+      "official_facility_exit_directions": [
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/739113434",
+      "osm_name": "小松川入口",
+      "municipalities": [
+        "江戸川区"
+      ],
+      "lat": 35.6990592,
+      "lon": 139.8628825,
+      "official_facility_name": "小松川",
+      "official_route": "高速7号小松川線",
+      "osm_name_implied_type": "entrance",
+      "official_facility_entrance_directions": [
+        "上り"
+      ],
+      "official_facility_exit_directions": [
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/7119720207",
+      "osm_name": "小松川出口",
+      "municipalities": [
+        "江戸川区"
+      ],
+      "lat": 35.6992607,
+      "lon": 139.8636174,
+      "official_facility_name": "小松川",
+      "official_route": "高速7号小松川線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "上り"
+      ],
+      "official_facility_exit_directions": [
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/1928907427",
+      "osm_name": "新板橋出口",
+      "municipalities": [
+        "板橋区"
+      ],
+      "lat": 35.7492281,
+      "lon": 139.7159049,
+      "official_facility_name": "新板橋",
+      "official_route": "中央環状線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [],
+      "official_facility_exit_directions": [
+        "外回り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/279076842",
+      "osm_name": "永福出口",
+      "municipalities": [
+        "杉並区"
+      ],
+      "lat": 35.668205,
+      "lon": 139.6453368,
+      "official_facility_name": "永福",
+      "official_route": "高速4号新宿線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "official_facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/6681511134",
+      "osm_name": "永福出口",
+      "municipalities": [
+        "世田谷区"
+      ],
+      "lat": 35.6699702,
+      "lon": 139.649777,
+      "official_facility_name": "永福",
+      "official_route": "高速4号新宿線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "official_facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/31253688",
+      "osm_name": "汐留入口",
+      "municipalities": [
+        "中央区"
+      ],
+      "lat": 35.6632827,
+      "lon": 139.7629036,
+      "official_facility_name": "汐留",
+      "official_route": "都心環状線",
+      "osm_name_implied_type": "entrance",
+      "official_facility_entrance_directions": [
+        "外回り"
+      ],
+      "official_facility_exit_directions": [
+        "内回り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/1746785360",
+      "osm_name": "池尻出口",
+      "municipalities": [
+        "世田谷区"
+      ],
+      "lat": 35.6477383,
+      "lon": 139.6787882,
+      "official_facility_name": "池尻",
+      "official_route": "高速3号渋谷線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "下り"
+      ],
+      "official_facility_exit_directions": [
+        "上り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/1106211872",
+      "osm_name": "浜町出口",
+      "municipalities": [
+        "中央区"
+      ],
+      "lat": 35.6827075,
+      "lon": 139.788458,
+      "official_facility_name": "浜町",
+      "official_route": "高速6号向島線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "official_facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/10132686105",
+      "osm_name": "清洲橋出口",
+      "municipalities": [
+        "中央区"
+      ],
+      "lat": 35.6828845,
+      "lon": 139.7887769,
+      "official_facility_name": "清洲橋",
+      "official_route": "高速6号向島線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [],
+      "official_facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/3174589506",
+      "osm_name": "渋谷出口",
+      "municipalities": [
+        "渋谷区"
+      ],
+      "lat": 35.6561884,
+      "lon": 139.6974549,
+      "official_facility_name": "渋谷",
+      "official_route": "高速3号渋谷線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "official_facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/3854029357",
+      "osm_name": "渋谷出口",
+      "municipalities": [
+        "渋谷区"
+      ],
+      "lat": 35.6582534,
+      "lon": 139.7050949,
+      "official_facility_name": "渋谷",
+      "official_route": "高速3号渋谷線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "official_facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/4597822558",
+      "osm_name": "滝野川入口",
+      "municipalities": [
+        "板橋区"
+      ],
+      "lat": 35.7492188,
+      "lon": 139.7158918,
+      "official_facility_name": "滝野川",
+      "official_route": "中央環状線",
+      "osm_name_implied_type": "entrance",
+      "official_facility_entrance_directions": [
+        "内回り"
+      ],
+      "official_facility_exit_directions": [],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/1694598821",
+      "osm_name": "箱崎出口",
+      "municipalities": [
+        "中央区"
+      ],
+      "lat": 35.6810972,
+      "lon": 139.7860989,
+      "official_facility_name": "箱崎",
+      "official_route": "高速6号向島線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "official_facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/36720848",
+      "osm_name": "羽田入口",
+      "municipalities": [
+        "大田区"
+      ],
+      "lat": 35.554349,
+      "lon": 139.7467071,
+      "official_facility_name": "羽田",
+      "official_route": "高速1号羽田線",
+      "osm_name_implied_type": "entrance",
+      "official_facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "official_facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/36721363",
+      "osm_name": "羽田入口",
+      "municipalities": [
+        "大田区"
+      ],
+      "lat": 35.549061,
+      "lon": 139.7443966,
+      "official_facility_name": "羽田",
+      "official_route": "高速1号羽田線",
+      "osm_name_implied_type": "entrance",
+      "official_facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "official_facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/36720852",
+      "osm_name": "羽田出口",
+      "municipalities": [
+        "大田区"
+      ],
+      "lat": 35.5542777,
+      "lon": 139.7467995,
+      "official_facility_name": "羽田",
+      "official_route": "高速1号羽田線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "official_facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/36721365",
+      "osm_name": "羽田出口",
+      "municipalities": [
+        "大田区"
+      ],
+      "lat": 35.5491046,
+      "lon": 139.7442472,
+      "official_facility_name": "羽田",
+      "official_route": "高速1号羽田線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "official_facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/31295430",
+      "osm_name": "芝公園入口",
+      "municipalities": [
+        "港区"
+      ],
+      "lat": 35.6533664,
+      "lon": 139.7529688,
+      "official_facility_name": "芝公園",
+      "official_route": "都心環状線",
+      "osm_name_implied_type": "entrance",
+      "official_facility_entrance_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "official_facility_exit_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/31296943",
+      "osm_name": "芝公園出口",
+      "municipalities": [
+        "港区"
+      ],
+      "lat": 35.6544714,
+      "lon": 139.7459029,
+      "official_facility_name": "芝公園",
+      "official_route": "都心環状線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "official_facility_exit_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/31296958",
+      "osm_name": "芝公園出口",
+      "municipalities": [
+        "港区"
+      ],
+      "lat": 35.6531722,
+      "lon": 139.7499173,
+      "official_facility_name": "芝公園",
+      "official_route": "都心環状線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "official_facility_exit_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    },
+    {
+      "osm_id": "node/2127484104",
+      "osm_name": "高樹町出口",
+      "municipalities": [
+        "港区"
+      ],
+      "lat": 35.6595528,
+      "lon": 139.722272,
+      "official_facility_name": "高樹町",
+      "official_route": "高速3号渋谷線",
+      "osm_name_implied_type": "exit",
+      "official_facility_entrance_directions": [
+        "上り"
+      ],
+      "official_facility_exit_directions": [
+        "下り"
+      ],
+      "facility_name_match": "provisional_name_match",
+      "osm_node_is_actual_ramp_verified": false,
+      "osm_node_direction_verified": false,
+      "navigation_enabled": false,
+      "status": "facility_reference_only",
+      "note": "首都高公式の施設単位の案内。OSM地点ごとの入口/出口・方向・道路接続は未確認。"
+    }
+  ]
+}
