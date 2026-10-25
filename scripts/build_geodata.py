@@ -13,9 +13,13 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / 'data'
 OUT.mkdir(parents=True, exist_ok=True)
 NAMES = ['千代田区','中央区','港区','新宿区','文京区','台東区','墨田区','江東区','品川区','目黒区','大田区','世田谷区','渋谷区','中野区','杉並区','豊島区','北区','荒川区','板橋区','練馬区','足立区','葛飾区','江戸川区','三鷹市','武蔵野市']
-ENDPOINTS = ['https://overpass.kumi.systems/api/interpreter', 'https://overpass-api.de/api/interpreter', 'https://overpass.nchc.org.tw/api/interpreter']
-RETRIES = 2
-SOCKET_TIMEOUT = 35
+ENDPOINTS = [
+    'https://overpass.kumi.systems/api/interpreter',
+    'https://overpass-api.de/api/interpreter',
+    'https://overpass.private.coffee/api/interpreter',
+]
+RETRIES = 3
+SOCKET_TIMEOUT = 50
 
 def query(name, kind):
     # Tokyo wards are admin_level=7; cities may be admin_level=7 too. Check resolution explicitly.
@@ -38,7 +42,7 @@ def fetch(q, index):
         except Exception as exc:
             problems.append(f'{endpoint}: {exc}')
             print('  retry/error:', problems[-1][:240], flush=True)
-            time.sleep(2)
+            time.sleep(3 * (attempt + 1))
     raise RuntimeError(' | '.join(problems))
 
 def read_old(kind):
@@ -101,7 +105,8 @@ def main():
         print('SAVED', kind, 'records', len(records), flush=True)
     (OUT / 'collection_errors.json').write_text(json.dumps(errors, ensure_ascii=False, indent=2), encoding='utf-8')
     print('Finished. Failed requests:', len(errors), flush=True)
-    # Do not fail the job before GitHub Actions can commit partial data.
+    # Preserve partial results and error report so GitHub Actions can commit them.
+    # coverageComplete remains false until all regions have succeeded.
 
 if __name__ == '__main__':
     main()
