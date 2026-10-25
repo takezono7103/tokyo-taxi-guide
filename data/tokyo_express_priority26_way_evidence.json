@@ -1,6 +1,6 @@
 {
   "format": "tokyo-express-priority26-way-evidence-v2",
-  "generated_at_utc": "2026-10-25T11:18:20.872147+00:00",
+  "generated_at_utc": "2026-10-25T11:21:35.736131+00:00",
   "source": "tokyo_express_priority26_connection_audit.json",
   "method": "Overpass parent highway ways by OSM node IDs; node membership and tags only",
   "summary": {
@@ -20,7 +20,7 @@
       "status": "fetch_failed",
       "errors": [
         "https://overpass.kumi.systems/api/interpreter: TimeoutError: The read operation timed out",
-        "https://overpass-api.de/api/interpreter: TimeoutError: The read operation timed out"
+        "https://overpass-api.de/api/interpreter: HTTPError: HTTP Error 502: Bad Gateway"
       ],
       "note": "OSMノード共有wayの属性のみ。道路接続・進入方向・交通規制・実際の通行可否は未検証。"
     },
@@ -35,7 +35,7 @@
       "status": "fetch_failed",
       "errors": [
         "https://overpass.kumi.systems/api/interpreter: TimeoutError: The read operation timed out",
-        "https://overpass-api.de/api/interpreter: TimeoutError: The read operation timed out"
+        "https://overpass-api.de/api/interpreter: HTTPError: HTTP Error 502: Bad Gateway"
       ],
       "note": "OSMノード共有wayの属性のみ。道路接続・進入方向・交通規制・実際の通行可否は未検証。"
     },
@@ -50,7 +50,7 @@
       "status": "fetch_failed",
       "errors": [
         "https://overpass.kumi.systems/api/interpreter: TimeoutError: The read operation timed out",
-        "https://overpass-api.de/api/interpreter: TimeoutError: The read operation timed out"
+        "https://overpass-api.de/api/interpreter: HTTPError: HTTP Error 502: Bad Gateway"
       ],
       "note": "OSMノード共有wayの属性のみ。道路接続・進入方向・交通規制・実際の通行可否は未検証。"
     },
@@ -65,7 +65,7 @@
       "status": "fetch_failed",
       "errors": [
         "https://overpass.kumi.systems/api/interpreter: TimeoutError: The read operation timed out",
-        "https://overpass-api.de/api/interpreter: TimeoutError: The read operation timed out"
+        "https://overpass-api.de/api/interpreter: HTTPError: HTTP Error 502: Bad Gateway"
       ],
       "note": "OSMノード共有wayの属性のみ。道路接続・進入方向・交通規制・実際の通行可否は未検証。"
     },
@@ -80,7 +80,7 @@
       "status": "fetch_failed",
       "errors": [
         "https://overpass.kumi.systems/api/interpreter: TimeoutError: The read operation timed out",
-        "https://overpass-api.de/api/interpreter: TimeoutError: The read operation timed out"
+        "https://overpass-api.de/api/interpreter: HTTPError: HTTP Error 502: Bad Gateway"
       ],
       "note": "OSMノード共有wayの属性のみ。道路接続・進入方向・交通規制・実際の通行可否は未検証。"
     },
@@ -245,7 +245,7 @@
       "status": "fetch_failed",
       "errors": [
         "https://overpass.kumi.systems/api/interpreter: TimeoutError: The read operation timed out",
-        "https://overpass-api.de/api/interpreter: HTTPError: HTTP Error 502: Bad Gateway"
+        "https://overpass-api.de/api/interpreter: TimeoutError: The read operation timed out"
       ],
       "note": "OSMノード共有wayの属性のみ。道路接続・進入方向・交通規制・実際の通行可否は未検証。"
     },
@@ -260,7 +260,7 @@
       "status": "fetch_failed",
       "errors": [
         "https://overpass.kumi.systems/api/interpreter: TimeoutError: The read operation timed out",
-        "https://overpass-api.de/api/interpreter: HTTPError: HTTP Error 502: Bad Gateway"
+        "https://overpass-api.de/api/interpreter: TimeoutError: The read operation timed out"
       ],
       "note": "OSMノード共有wayの属性のみ。道路接続・進入方向・交通規制・実際の通行可否は未検証。"
     },
@@ -275,7 +275,7 @@
       "status": "fetch_failed",
       "errors": [
         "https://overpass.kumi.systems/api/interpreter: TimeoutError: The read operation timed out",
-        "https://overpass-api.de/api/interpreter: HTTPError: HTTP Error 502: Bad Gateway"
+        "https://overpass-api.de/api/interpreter: TimeoutError: The read operation timed out"
       ],
       "note": "OSMノード共有wayの属性のみ。道路接続・進入方向・交通規制・実際の通行可否は未検証。"
     },
@@ -290,7 +290,7 @@
       "status": "fetch_failed",
       "errors": [
         "https://overpass.kumi.systems/api/interpreter: TimeoutError: The read operation timed out",
-        "https://overpass-api.de/api/interpreter: HTTPError: HTTP Error 502: Bad Gateway"
+        "https://overpass-api.de/api/interpreter: TimeoutError: The read operation timed out"
       ],
       "note": "OSMノード共有wayの属性のみ。道路接続・進入方向・交通規制・実際の通行可否は未検証。"
     },
@@ -305,7 +305,7 @@
       "status": "fetch_failed",
       "errors": [
         "https://overpass.kumi.systems/api/interpreter: TimeoutError: The read operation timed out",
-        "https://overpass-api.de/api/interpreter: HTTPError: HTTP Error 502: Bad Gateway"
+        "https://overpass-api.de/api/interpreter: TimeoutError: The read operation timed out"
       ],
       "note": "OSMノード共有wayの属性のみ。道路接続・進入方向・交通規制・実際の通行可否は未検証。"
     },
