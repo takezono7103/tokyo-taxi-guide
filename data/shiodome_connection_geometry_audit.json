@@ -1,0 +1,131 @@
+{
+  "format": "shiodome-osm-geometry-research-v1",
+  "generated_at_utc": "2026-10-25T20:56:05.067425+00:00",
+  "target": {
+    "name": "汐留入口",
+    "osm_node_id": 31253688,
+    "lat": 35.6632827,
+    "lon": 139.7629036,
+    "tags": {
+      "highway": "motorway_junction",
+      "name": "汐留入口"
+    }
+  },
+  "parent_ways": [
+    {
+      "way_id": 23705286,
+      "tags": {
+        "bicycle": "no",
+        "foot": "no",
+        "highway": "motorway_link",
+        "lane_markings": "yes",
+        "lanes": "1",
+        "motorcar": "designated",
+        "motorcycle": "designated",
+        "name": "汐留入口",
+        "name:en": "Shiodome Entrance",
+        "name:fr": "Entrée de Shiodome",
+        "name:ja-Hira": "しおどめいりぐち",
+        "name:ja-Latn": "Shiodome iriguchi",
+        "oneway": "yes",
+        "smoothness": "excellent",
+        "source": "Bing 2012",
+        "surface": "paved",
+        "toll": "yes"
+      },
+      "node_count": 9,
+      "at_target": [
+        {
+          "index": 0,
+          "previous_node": null,
+          "next_node": 7093187743
+        }
+      ],
+      "way_node_ids": [
+        31253688,
+        7093187743,
+        7092265236,
+        2172319344,
+        7160655596,
+        7093150680,
+        7160655597,
+        7093187741,
+        571468152
+      ]
+    },
+    {
+      "way_id": 759287234,
+      "tags": {
+        "bicycle": "no",
+        "highway": "primary",
+        "lanes": "3",
+        "maxspeed": "50",
+        "name": "海岸通り",
+        "name:en": "Kaigan Street",
+        "name:es": "Calle Kaigan",
+        "name:fr": "Rue Kaigan",
+        "name:ja": "海岸通り",
+        "name:ja-Hira": "かいがんどおり",
+        "name:ja-Latn": "Kaigan-dōri",
+        "oneway": "yes",
+        "ref": "316",
+        "smoothness": "good",
+        "source": "survey;bing;Bing 2010",
+        "surface": "asphalt",
+        "wikidata": "Q111948769"
+      },
+      "node_count": 31,
+      "at_target": [
+        {
+          "index": 1,
+          "previous_node": 7092267898,
+          "next_node": 1016976212
+        }
+      ],
+      "way_node_ids": [
+        7092267898,
+        31253688,
+        1016976212,
+        7084239584,
+        31254149,
+        7597572751,
+        570818423,
+        7597572698,
+        7597547580,
+        7597572747,
+        7597572699,
+        7597572748,
+        7597547578,
+        7597572700,
+        7597572749,
+        7597547584,
+        7597572701,
+        7597572750,
+        31253837,
+        570818416,
+        7597572730,
+        7597572713,
+        7597572729,
+        7597572705,
+        7597572728,
+        7597572712,
+        7597572727,
+        7597547572,
+        31253962,
+        31254189,
+        8957637474
+      ]
+    }
+  ],
+  "parent_way_count": 2,
+  "turn_restrictions_checked": false,
+  "official_road_authority_checked": false,
+  "legal_drivability_verified": false,
+  "safe_for_turn_by_turn_navigation": false,
+  "notes": [
+    "Shared OSM nodes indicate mapped geometric topology only.",
+    "Way direction and oneway tags alone do not prove legal turning access.",
+    "Turn restriction relations, current traffic rules, and official road data require separate verification.",
+    "Do not enable route guidance based on this report."
+  ]
+}
