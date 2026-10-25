@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "record_type": "expressway_entrance_reference",
+  "name_ja": "汐留入口",
+  "operator": "首都高速道路株式会社",
+  "route": "高速都心環状線 (C1)",
+  "entrance_direction": "外回り",
+  "exit_direction_at_shiodome": "内回り",
+  "entrance_number": "18",
+  "etc_only_entrance": true,
+  "official_source": {
+    "url": "https://www.shutoko.jp/driving/route/entrance-exit/shiodome/",
+    "confirmed_fields": ["route", "entrance_direction", "exit_direction_at_shiodome", "etc_only_entrance"]
+  },
+  "osm_research": {
+    "source_file": "data/shiodome_connection_geometry_audit.json",
+    "node_id": 31253688,
+    "latitude": 35.6632827,
+    "longitude": 139.7629036,
+    "parent_way_count": 2,
+    "turn_restrictions_checked": false,
+    "official_road_authority_checked_for_surface_street_approach": false,
+    "legal_drivability_verified": false
+  },
+  "surface_street_approach_verified": false,
+  "safe_for_turn_by_turn_navigation": false,
+  "permitted_use": "Reference display only; not for automatic turn-by-turn route guidance",
+  "notes": "Official entrance direction and ETC-only designation do not establish a legal route from any specific surface street. Verify turns, signs, restrictions, and current traffic controls before routing."
+}
