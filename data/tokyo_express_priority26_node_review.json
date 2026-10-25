@@ -1,0 +1,1114 @@
+{
+  "format": "tokyo-express-priority26-node-review-v1",
+  "generated_at": "2026-10-25",
+  "purpose": "OSM26地点の位置・属性と公式施設案内を並置し、現地道路接続を後で確認するための作業表",
+  "sources": {
+    "osm_file": "tokyo_express_all.json",
+    "priority_file": "tokyo_express_priority26_official_reference.json",
+    "official_facility_page": "https://www.shutoko.jp/driving/route/"
+  },
+  "summary": {
+    "records": 26,
+    "osm_ids_missing_from_source": [],
+    "facility_names": 17,
+    "road_connections_verified": 0,
+    "navigation_enabled": 0
+  },
+  "safe_for_turn_by_turn_navigation": false,
+  "records": [
+    {
+      "osm_id": "node/7022713621",
+      "osm_name": "中環小松川入口",
+      "lat": 35.6989875,
+      "lon": 139.8641126,
+      "osm_url": "https://www.openstreetmap.org/node/7022713621",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "中環小松川入口",
+        "ref": "C45"
+      },
+      "municipalities": [
+        "江戸川区"
+      ],
+      "facility_name": "中環小松川",
+      "official_route": "中央環状線",
+      "facility_entrance_directions": [
+        "内回り"
+      ],
+      "facility_exit_directions": [],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/1125926447",
+      "osm_name": "外苑出口",
+      "lat": 35.6796288,
+      "lon": 139.7220537,
+      "osm_url": "https://www.openstreetmap.org/node/1125926447",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "外苑出口",
+        "name:en": "Gaien",
+        "name:es": "Gaien",
+        "name:ja": "外苑出口",
+        "name:ja-Hira": "がいえんでぐち",
+        "ref": "401"
+      },
+      "municipalities": [
+        "新宿区"
+      ],
+      "facility_name": "外苑",
+      "official_route": "高速4号新宿線",
+      "facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/267805296",
+      "osm_name": "外苑出口",
+      "lat": 35.6807458,
+      "lon": 139.7139224,
+      "osm_url": "https://www.openstreetmap.org/node/267805296",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "外苑出口",
+        "name:en": "Gaien",
+        "name:es": "Gaien",
+        "name:ja": "外苑出口",
+        "name:ja-Hira": "がいえんでぐち",
+        "name:ja_rm": "Gaien",
+        "ref": "402"
+      },
+      "municipalities": [
+        "渋谷区"
+      ],
+      "facility_name": "外苑",
+      "official_route": "高速4号新宿線",
+      "facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/2569334806",
+      "osm_name": "大井南出口",
+      "lat": 35.6074222,
+      "lon": 139.7554285,
+      "osm_url": "https://www.openstreetmap.org/node/2569334806",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "大井南出口",
+        "ref": "B19"
+      },
+      "municipalities": [
+        "品川区"
+      ],
+      "facility_name": "大井南",
+      "official_route": "高速湾岸線",
+      "facility_entrance_directions": [
+        "西行き"
+      ],
+      "facility_exit_directions": [
+        "西行き",
+        "東行き"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/252175582",
+      "osm_name": "天現寺出口",
+      "lat": 35.6469499,
+      "lon": 139.7295074,
+      "osm_url": "https://www.openstreetmap.org/node/252175582",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "天現寺出口",
+        "name:ja": "天現寺出口",
+        "name:ja-Hira": "てんげんじでぐち",
+        "ref": "201"
+      },
+      "municipalities": [
+        "港区"
+      ],
+      "facility_name": "天現寺",
+      "official_route": "高速2号目黒線",
+      "facility_entrance_directions": [
+        "上り"
+      ],
+      "facility_exit_directions": [
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/739113434",
+      "osm_name": "小松川入口",
+      "lat": 35.6990592,
+      "lon": 139.8628825,
+      "osm_url": "https://www.openstreetmap.org/node/739113434",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "小松川入口",
+        "ref": "703"
+      },
+      "municipalities": [
+        "江戸川区"
+      ],
+      "facility_name": "小松川",
+      "official_route": "高速7号小松川線",
+      "facility_entrance_directions": [
+        "上り"
+      ],
+      "facility_exit_directions": [
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/7119720207",
+      "osm_name": "小松川出口",
+      "lat": 35.6992607,
+      "lon": 139.8636174,
+      "osm_url": "https://www.openstreetmap.org/node/7119720207",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "小松川出口",
+        "name:en": "Komatsugawa",
+        "name:es": "Komatsugawa",
+        "name:ja": "小松川出口",
+        "ref": "703",
+        "wikidata": "Q10959115",
+        "wikipedia": "ja:小松川出入口"
+      },
+      "municipalities": [
+        "江戸川区"
+      ],
+      "facility_name": "小松川",
+      "official_route": "高速7号小松川線",
+      "facility_entrance_directions": [
+        "上り"
+      ],
+      "facility_exit_directions": [
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/1928907427",
+      "osm_name": "新板橋出口",
+      "lat": 35.7492281,
+      "lon": 139.7159049,
+      "osm_url": "https://www.openstreetmap.org/node/1928907427",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "新板橋出口",
+        "name:en": "Shin-Itabashi",
+        "name:es": "Shin-Itabashi",
+        "ref": "C29",
+        "source": "Bing"
+      },
+      "municipalities": [
+        "板橋区"
+      ],
+      "facility_name": "新板橋",
+      "official_route": "中央環状線",
+      "facility_entrance_directions": [],
+      "facility_exit_directions": [
+        "外回り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/279076842",
+      "osm_name": "永福出口",
+      "lat": 35.668205,
+      "lon": 139.6453368,
+      "osm_url": "https://www.openstreetmap.org/node/279076842",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "永福出口",
+        "name:en": "Eifuku exit",
+        "ref": "408"
+      },
+      "municipalities": [
+        "杉並区"
+      ],
+      "facility_name": "永福",
+      "official_route": "高速4号新宿線",
+      "facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/6681511134",
+      "osm_name": "永福出口",
+      "lat": 35.6699702,
+      "lon": 139.649777,
+      "osm_url": "https://www.openstreetmap.org/node/6681511134",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "永福出口",
+        "name:en": "Eifuku exit",
+        "ref": "409"
+      },
+      "municipalities": [
+        "世田谷区"
+      ],
+      "facility_name": "永福",
+      "official_route": "高速4号新宿線",
+      "facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/31253688",
+      "osm_name": "汐留入口",
+      "lat": 35.6632827,
+      "lon": 139.7629036,
+      "osm_url": "https://www.openstreetmap.org/node/31253688",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "汐留入口"
+      },
+      "municipalities": [
+        "中央区"
+      ],
+      "facility_name": "汐留",
+      "official_route": "都心環状線",
+      "facility_entrance_directions": [
+        "外回り"
+      ],
+      "facility_exit_directions": [
+        "内回り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/1746785360",
+      "osm_name": "池尻出口",
+      "lat": 35.6477383,
+      "lon": 139.6787882,
+      "osm_url": "https://www.openstreetmap.org/node/1746785360",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "池尻出口",
+        "name:en": "Ikejiri",
+        "name:ja": "池尻出口",
+        "ref": "304",
+        "source": "Bing",
+        "wikidata": "Q11135696",
+        "wikipedia": "ja:池尻出入口"
+      },
+      "municipalities": [
+        "世田谷区"
+      ],
+      "facility_name": "池尻",
+      "official_route": "高速3号渋谷線",
+      "facility_entrance_directions": [
+        "下り"
+      ],
+      "facility_exit_directions": [
+        "上り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/1106211872",
+      "osm_name": "浜町出口",
+      "lat": 35.6827075,
+      "lon": 139.788458,
+      "osm_url": "https://www.openstreetmap.org/node/1106211872",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "浜町出口",
+        "name:en": "Hamacho",
+        "name:es": "Hamacho",
+        "ref": "604"
+      },
+      "municipalities": [
+        "中央区"
+      ],
+      "facility_name": "浜町",
+      "official_route": "高速6号向島線",
+      "facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/10132686105",
+      "osm_name": "清洲橋出口",
+      "lat": 35.6828845,
+      "lon": 139.7887769,
+      "osm_url": "https://www.openstreetmap.org/node/10132686105",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "清洲橋出口",
+        "ref": "603",
+        "wikidata": "Q11561269",
+        "wikipedia": "ja:清洲橋出口"
+      },
+      "municipalities": [
+        "中央区"
+      ],
+      "facility_name": "清洲橋",
+      "official_route": "高速6号向島線",
+      "facility_entrance_directions": [],
+      "facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/3174589506",
+      "osm_name": "渋谷出口",
+      "lat": 35.6561884,
+      "lon": 139.6974549,
+      "osm_url": "https://www.openstreetmap.org/node/3174589506",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "渋谷出口",
+        "name:en": "Shibuya Exit",
+        "name:ja": "渋谷出口",
+        "name:ja-Hira": "しぶやでぐち",
+        "ref": "303"
+      },
+      "municipalities": [
+        "渋谷区"
+      ],
+      "facility_name": "渋谷",
+      "official_route": "高速3号渋谷線",
+      "facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/3854029357",
+      "osm_name": "渋谷出口",
+      "lat": 35.6582534,
+      "lon": 139.7050949,
+      "osm_url": "https://www.openstreetmap.org/node/3854029357",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "渋谷出口",
+        "name:en": "Shibuya",
+        "name:es": "Shibuya",
+        "name:ja": "渋谷出口",
+        "name:ja-Hira": "しぶやでぐち",
+        "ref": "302"
+      },
+      "municipalities": [
+        "渋谷区"
+      ],
+      "facility_name": "渋谷",
+      "official_route": "高速3号渋谷線",
+      "facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/4597822558",
+      "osm_name": "滝野川入口",
+      "lat": 35.7492188,
+      "lon": 139.7158918,
+      "osm_url": "https://www.openstreetmap.org/node/4597822558",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "滝野川入口",
+        "name:en": "Takinogawa",
+        "name:es": "Takinogawa",
+        "ref": "C31",
+        "source": "Bing"
+      },
+      "municipalities": [
+        "板橋区"
+      ],
+      "facility_name": "滝野川",
+      "official_route": "中央環状線",
+      "facility_entrance_directions": [
+        "内回り"
+      ],
+      "facility_exit_directions": [],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/1694598821",
+      "osm_name": "箱崎出口",
+      "lat": 35.6810972,
+      "lon": 139.7860989,
+      "osm_url": "https://www.openstreetmap.org/node/1694598821",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "箱崎出口",
+        "ref": "602",
+        "wikidata": "Q11603330",
+        "wikipedia": "ja:箱崎出入口 (東京都)"
+      },
+      "municipalities": [
+        "中央区"
+      ],
+      "facility_name": "箱崎",
+      "official_route": "高速6号向島線",
+      "facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/36720848",
+      "osm_name": "羽田入口",
+      "lat": 35.554349,
+      "lon": 139.7467071,
+      "osm_url": "https://www.openstreetmap.org/node/36720848",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "羽田入口",
+        "name:ja": "羽田入口",
+        "source": "URL 2013"
+      },
+      "municipalities": [
+        "大田区"
+      ],
+      "facility_name": "羽田",
+      "official_route": "高速1号羽田線",
+      "facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/36721363",
+      "osm_name": "羽田入口",
+      "lat": 35.549061,
+      "lon": 139.7443966,
+      "osm_url": "https://www.openstreetmap.org/node/36721363",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "羽田入口",
+        "name:ja": "羽田入口",
+        "source": "URL 2013"
+      },
+      "municipalities": [
+        "大田区"
+      ],
+      "facility_name": "羽田",
+      "official_route": "高速1号羽田線",
+      "facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/36720852",
+      "osm_name": "羽田出口",
+      "lat": 35.5542777,
+      "lon": 139.7467995,
+      "osm_url": "https://www.openstreetmap.org/node/36720852",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "羽田出口",
+        "name:en": "Haneda",
+        "name:ja": "羽田出口",
+        "ref": "109",
+        "source": "URL 2013"
+      },
+      "municipalities": [
+        "大田区"
+      ],
+      "facility_name": "羽田",
+      "official_route": "高速1号羽田線",
+      "facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/36721365",
+      "osm_name": "羽田出口",
+      "lat": 35.5491046,
+      "lon": 139.7442472,
+      "osm_url": "https://www.openstreetmap.org/node/36721365",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "羽田出口",
+        "name:ja": "羽田出口",
+        "ref": "150",
+        "source": "URL 2013"
+      },
+      "municipalities": [
+        "大田区"
+      ],
+      "facility_name": "羽田",
+      "official_route": "高速1号羽田線",
+      "facility_entrance_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/31295430",
+      "osm_name": "芝公園入口",
+      "lat": 35.6533664,
+      "lon": 139.7529688,
+      "osm_url": "https://www.openstreetmap.org/node/31295430",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "芝公園入口",
+        "name:en": "Shibakoen",
+        "name:ja": "芝公園入口"
+      },
+      "municipalities": [
+        "港区"
+      ],
+      "facility_name": "芝公園",
+      "official_route": "都心環状線",
+      "facility_entrance_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "facility_exit_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/31296943",
+      "osm_name": "芝公園出口",
+      "lat": 35.6544714,
+      "lon": 139.7459029,
+      "osm_url": "https://www.openstreetmap.org/node/31296943",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "芝公園出口",
+        "name:en": "Shibakoen",
+        "name:es": "Shibakoen",
+        "ref": "20"
+      },
+      "municipalities": [
+        "港区"
+      ],
+      "facility_name": "芝公園",
+      "official_route": "都心環状線",
+      "facility_entrance_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "facility_exit_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/31296958",
+      "osm_name": "芝公園出口",
+      "lat": 35.6531722,
+      "lon": 139.7499173,
+      "osm_url": "https://www.openstreetmap.org/node/31296958",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "芝公園出口",
+        "name:en": "Shibakoen",
+        "name:es": "Shibakoen",
+        "name:ja": "芝公園出口",
+        "ref": "19"
+      },
+      "municipalities": [
+        "港区"
+      ],
+      "facility_name": "芝公園",
+      "official_route": "都心環状線",
+      "facility_entrance_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "facility_exit_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    },
+    {
+      "osm_id": "node/2127484104",
+      "osm_name": "高樹町出口",
+      "lat": 35.6595528,
+      "lon": 139.722272,
+      "osm_url": "https://www.openstreetmap.org/node/2127484104",
+      "osm_tags": {
+        "highway": "motorway_junction",
+        "name": "高樹町出口",
+        "name:ja": "高樹町出口",
+        "name:ja-Hira": "たかぎちょうでぐち",
+        "ref": "301"
+      },
+      "municipalities": [
+        "港区"
+      ],
+      "facility_name": "高樹町",
+      "official_route": "高速3号渋谷線",
+      "facility_entrance_directions": [
+        "上り"
+      ],
+      "facility_exit_directions": [
+        "下り"
+      ],
+      "name_match_status": "provisional",
+      "osm_node_verified": false,
+      "road_connection_verified": false,
+      "turn_restrictions_verified": false,
+      "current_closure_verified": false,
+      "navigation_enabled": false,
+      "manual_review_fields": {
+        "actual_ramp_type": null,
+        "connecting_surface_road": null,
+        "allowed_approach_direction": null,
+        "restriction_signs": null,
+        "official_facility_specific_evidence_url": null,
+        "reviewed_by": null,
+        "reviewed_at": null
+      },
+      "notes": "公式方向は施設単位。OSMノードが当該入口/出口の正確な接続位置であることは未確認。"
+    }
+  ]
+}
