@@ -18,14 +18,14 @@ ENDPOINTS = [
     'https://overpass-api.de/api/interpreter',
     'https://overpass.private.coffee/api/interpreter',
 ]
-RETRIES = 3
-SOCKET_TIMEOUT = 50
+RETRIES = 6
+SOCKET_TIMEOUT = 75
 
 def query(name, kind):
     # Tokyo wards are admin_level=7; cities may be admin_level=7 too. Check resolution explicitly.
     area = f'area["boundary"="administrative"]["name"="{name}"]["admin_level"="7"]->.a;'
     selector = '(nwr["railway"="station"](area.a);nwr["railway"="halt"](area.a);nwr["station"="subway"](area.a);)' if kind == 'station' else '(nwr["highway"="motorway_junction"](area.a);)'
-    return '[out:json][timeout:25];' + area + '.a out count;' + selector + ';out center tags;'
+    return '[out:json][timeout:45];' + area + '.a out count;' + selector + ';out center tags;'
 
 def fetch(q, index):
     body = urllib.parse.urlencode({'data': q}).encode()
@@ -42,7 +42,7 @@ def fetch(q, index):
         except Exception as exc:
             problems.append(f'{endpoint}: {exc}')
             print('  retry/error:', problems[-1][:240], flush=True)
-            time.sleep(3 * (attempt + 1))
+            time.sleep(min(8 * (attempt + 1), 30))
     raise RuntimeError(' | '.join(problems))
 
 def read_old(kind):
