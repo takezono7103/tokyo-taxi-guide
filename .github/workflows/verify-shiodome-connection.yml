@@ -1,0 +1,46 @@
+name: Verify Shiodome OSM connection geometry
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Inspect Shiodome OSM node and parent ways
+        run: python scripts/verify_shiodome_connection.py
+      - name: Confirm research-only output
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('data/shiodome_connection_geometry_audit.json')
+          d = json.loads(p.read_text(encoding='utf-8'))
+          assert d['safe_for_turn_by_turn_navigation'] is False
+          assert d['legal_drivability_verified'] is False
+          print('OSM parent ways:', d['parent_way_count'])
+          print('Navigation remains disabled.')
+          PY
+      - name: Commit research output
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/shiodome_connection_geometry_audit.json
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+          else
+            git commit -m 'Update Shiodome OSM geometry research'
+            git push
+          fi
