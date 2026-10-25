@@ -1,0 +1,1269 @@
+{
+  "format": "tokyo-express-remaining25-geometry-research-v1",
+  "generated_at_utc": "2026-10-25T21:37:34.047373+00:00",
+  "source_file": "data/tokyo_express_priority26_osm_api_evidence.json",
+  "record_count": 25,
+  "verified_road_connections": 0,
+  "safe_for_turn_by_turn_navigation": false,
+  "limitations": [
+    "Uses stored parent way node lists only; no new API retrieval",
+    "No coordinate geometry, intersection topology, turn restrictions or official road rules verified",
+    "Adjacent OSM nodes do not prove legal vehicle access or allowed turns",
+    "Never use this output for turn-by-turn route guidance"
+  ],
+  "records": [
+    {
+      "osm_id": "node/7022713621",
+      "name": "中環小松川入口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 751177048,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 7598568064
+            }
+          ],
+          "node_count": 7,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 751177055,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            8
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 7903142980,
+              "next_node": null
+            }
+          ],
+          "node_count": 9,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/1125926447",
+      "name": "外苑出口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 24040126,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            12
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 252671768,
+              "next_node": 8380891837
+            }
+          ],
+          "node_count": 18,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 902298628,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 8380891836
+            }
+          ],
+          "node_count": 4,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/267805296",
+      "name": "外苑出口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 26957083,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 8380891841
+            }
+          ],
+          "node_count": 2,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 165913324,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            27
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 919619361,
+              "next_node": 8380891843
+            }
+          ],
+          "node_count": 30,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/2569334806",
+      "name": "大井南出口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 250495122,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 2569334807
+            }
+          ],
+          "node_count": 11,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 266086991,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            21
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 3387909446,
+              "next_node": 31298970
+            }
+          ],
+          "node_count": 37,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/252175582",
+      "name": "天現寺出口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 23377599,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            54
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 1832672266,
+              "next_node": 1832672252
+            }
+          ],
+          "node_count": 175,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 172358461,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 1832672250
+            }
+          ],
+          "node_count": 7,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/739113434",
+      "name": "小松川入口",
+      "source_status": "fetched",
+      "parent_way_count": 3,
+      "parent_ways": [
+        {
+          "way_id": 59338971,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            20
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 271111654,
+              "next_node": null
+            }
+          ],
+          "node_count": 21,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 295944719,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 7598568067
+            }
+          ],
+          "node_count": 14,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 895869591,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            1
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 739113446,
+              "next_node": null
+            }
+          ],
+          "node_count": 2,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/7119720207",
+      "name": "小松川出口",
+      "source_status": "fetched",
+      "parent_way_count": 3,
+      "parent_ways": [
+        {
+          "way_id": 295944720,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            13
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 12103600195,
+              "next_node": null
+            }
+          ],
+          "node_count": 14,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 295944722,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 7598568052
+            }
+          ],
+          "node_count": 25,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 751177044,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 12103600196
+            }
+          ],
+          "node_count": 8,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/1928907427",
+      "name": "新板橋出口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 28127320,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            4
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 263988120,
+              "next_node": 562775193
+            }
+          ],
+          "node_count": 53,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 182530080,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 1928907419
+            }
+          ],
+          "node_count": 4,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/279076842",
+      "name": "永福出口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 316240492,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            13
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 8303073145,
+              "next_node": 8303073144
+            }
+          ],
+          "node_count": 16,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 387256795,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 8303073143
+            }
+          ],
+          "node_count": 5,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/6681511134",
+      "name": "永福出口",
+      "source_status": "fetched",
+      "parent_way_count": 3,
+      "parent_ways": [
+        {
+          "way_id": 28126647,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 8303133920
+            }
+          ],
+          "node_count": 5,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 787569325,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 8303073125
+            }
+          ],
+          "node_count": 16,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 848042051,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            1
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 313784072,
+              "next_node": null
+            }
+          ],
+          "node_count": 2,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/1746785360",
+      "name": "池尻出口",
+      "source_status": "fetched",
+      "parent_way_count": 3,
+      "parent_ways": [
+        {
+          "way_id": 24334645,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            17
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 1091725794,
+              "next_node": null
+            }
+          ],
+          "node_count": 18,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 227213875,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 7877385722
+            }
+          ],
+          "node_count": 6,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 254992124,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 1746785358
+            }
+          ],
+          "node_count": 66,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/1106211872",
+      "name": "浜町出口",
+      "source_status": "fetched",
+      "parent_way_count": 3,
+      "parent_ways": [
+        {
+          "way_id": 396767726,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 1106212035
+            }
+          ],
+          "node_count": 7,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 1051967538,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            1
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 7160746091,
+              "next_node": null
+            }
+          ],
+          "node_count": 2,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 1051967539,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 6699223606
+            }
+          ],
+          "node_count": 2,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/10132686105",
+      "name": "清洲橋出口",
+      "source_status": "fetched",
+      "parent_way_count": 3,
+      "parent_ways": [
+        {
+          "way_id": 157249382,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 11942057134
+            }
+          ],
+          "node_count": 3,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 157249384,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 1694598879
+            }
+          ],
+          "node_count": 4,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 1287664256,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            1
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 6699223606,
+              "next_node": null
+            }
+          ],
+          "node_count": 2,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/3174589506",
+      "name": "渋谷出口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 203832852,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            14
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 7234698631,
+              "next_node": 7234693402
+            }
+          ],
+          "node_count": 49,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 311740421,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 7234693403
+            }
+          ],
+          "node_count": 4,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/3854029357",
+      "name": "渋谷出口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 254992124,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            64
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 2674504678,
+              "next_node": 2138385692
+            }
+          ],
+          "node_count": 66,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 382210314,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 3854028855
+            }
+          ],
+          "node_count": 3,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/4597822558",
+      "name": "滝野川入口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 156344609,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            46
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 308930041,
+              "next_node": 308930040
+            }
+          ],
+          "node_count": 50,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 182530081,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            8
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 7986226581,
+              "next_node": null
+            }
+          ],
+          "node_count": 9,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/1694598821",
+      "name": "箱崎出口",
+      "source_status": "fetched",
+      "parent_way_count": 3,
+      "parent_ways": [
+        {
+          "way_id": 766719789,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 7160772349
+            }
+          ],
+          "node_count": 8,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 1051967534,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 7635896529
+            }
+          ],
+          "node_count": 17,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 1051967537,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            1
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 1694598819,
+              "next_node": null
+            }
+          ],
+          "node_count": 2,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/36720848",
+      "name": "羽田入口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 37793432,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            6
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 6482034171,
+              "next_node": null
+            }
+          ],
+          "node_count": 7,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 587690676,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            15
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 9687712677,
+              "next_node": 9687712678
+            }
+          ],
+          "node_count": 35,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/36721363",
+      "name": "羽田入口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 37793430,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            3
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 36721373,
+              "next_node": null
+            }
+          ],
+          "node_count": 4,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 45661183,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            38
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 36721362,
+              "next_node": 9687661006
+            }
+          ],
+          "node_count": 48,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/36720852",
+      "name": "羽田出口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 5219578,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 6484596486
+            }
+          ],
+          "node_count": 8,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 45661183,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            24
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 9375135889,
+              "next_node": 9687772473
+            }
+          ],
+          "node_count": 48,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/36721365",
+      "name": "羽田出口",
+      "source_status": "fetched",
+      "parent_way_count": 3,
+      "parent_ways": [
+        {
+          "way_id": 5213544,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            10
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 6484595369,
+              "next_node": null
+            }
+          ],
+          "node_count": 11,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 5219577,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 36721368
+            }
+          ],
+          "node_count": 4,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 587690676,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 6484595368
+            }
+          ],
+          "node_count": 35,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/31295430",
+      "name": "芝公園入口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 24039738,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            52
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 31295431,
+              "next_node": 1741073646
+            }
+          ],
+          "node_count": 56,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 315702267,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            2
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 8327736729,
+              "next_node": null
+            }
+          ],
+          "node_count": 3,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/31296943",
+      "name": "芝公園出口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 4853799,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 8327706900
+            }
+          ],
+          "node_count": 5,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 24039738,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            14
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 9404297282,
+              "next_node": 8327706898
+            }
+          ],
+          "node_count": 56,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/31296958",
+      "name": "芝公園出口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 4853798,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 8327736726
+            }
+          ],
+          "node_count": 10,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 333682070,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            20
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 8327706909,
+              "next_node": 9662902045
+            }
+          ],
+          "node_count": 62,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    },
+    {
+      "osm_id": "node/2127484104",
+      "name": "高樹町出口",
+      "source_status": "fetched",
+      "parent_way_count": 2,
+      "parent_ways": [
+        {
+          "way_id": 202809278,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "target_indices": [
+            0
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": null,
+              "next_node": 2138385719
+            }
+          ],
+          "node_count": 3,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        },
+        {
+          "way_id": 316123949,
+          "highway": "motorway",
+          "oneway": "yes",
+          "target_indices": [
+            21
+          ],
+          "adjacent_nodes_in_stored_order": [
+            {
+              "previous_node": 7235032481,
+              "next_node": 7235032473
+            }
+          ],
+          "node_count": 26,
+          "interpretation": "Stored node order only; not a verified permitted driving direction"
+        }
+      ],
+      "turn_restrictions_checked": false,
+      "official_road_authority_checked": false,
+      "surface_street_approach_verified": false,
+      "legal_drivability_verified": false,
+      "safe_for_turn_by_turn_navigation": false
+    }
+  ]
+}
