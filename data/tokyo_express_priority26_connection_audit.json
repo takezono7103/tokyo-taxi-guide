@@ -1,540 +1,930 @@
 {
   "format": "tokyo-express-priority26-connection-audit-v1",
-  "generated_date": "2026-10-25",
-  "source_file": "tokyo_express_priority26_node_review.json",
-  "method": "既存ファイルのOSM座標・タグに基づく机上確認表。道路wayの接続や現地交通規制の検証は行っていない。",
-  "official_reference": "https://www.shutoko.jp/driving/route/",
-  "summary": {
-    "records": 26,
-    "name_implied_type_counts": {
-      "入口": 7,
-      "出口": 19
-    },
-    "way_geometry_checked": 0,
-    "surface_road_checked": 0,
-    "turn_restrictions_checked": 0,
-    "navigation_enabled": 0
+  "generated_at_utc": "2026-10-25T20:33:04.938877+00:00",
+  "source": "tokyo_express_priority26_osm_api_evidence.json",
+  "records_count": 26,
+  "source_status_counts": {
+    "fetched": 26
   },
+  "verified_road_connections": 0,
   "safe_for_turn_by_turn_navigation": false,
+  "limitations": [
+    "Only locally supplied parent ways are inspected",
+    "Node coordinates, full network geometry and OSM restriction relations not checked",
+    "Adjacency candidates are not legal or drivable turn instructions",
+    "No surface road or official road authority verification"
+  ],
   "records": [
     {
       "osm_id": "node/7022713621",
       "name": "中環小松川入口",
-      "facility": "中環小松川",
-      "latitude": 35.6989875,
-      "longitude": 139.8641126,
-      "name_implied_type": "入口",
-      "official_facility_route_reference": "中央環状線",
-      "osm_node_url": "https://www.openstreetmap.org/node/7022713621",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6989875&mlon=139.8641126#map=18/35.6989875/139.8641126",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 751177048,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 7598568064,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 7598568064,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 751177055,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": 7903142980,
+          "next_node": null,
+          "incoming_node_candidate": 7903142980,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/1125926447",
       "name": "外苑出口",
-      "facility": "外苑",
-      "latitude": 35.6796288,
-      "longitude": 139.7220537,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速4号新宿線",
-      "osm_node_url": "https://www.openstreetmap.org/node/1125926447",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6796288&mlon=139.7220537#map=18/35.6796288/139.7220537",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 24040126,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 252671768,
+          "next_node": 8380891837,
+          "incoming_node_candidate": 252671768,
+          "outgoing_node_candidate": 8380891837,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 902298628,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 8380891836,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 8380891836,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/267805296",
       "name": "外苑出口",
-      "facility": "外苑",
-      "latitude": 35.6807458,
-      "longitude": 139.7139224,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速4号新宿線",
-      "osm_node_url": "https://www.openstreetmap.org/node/267805296",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6807458&mlon=139.7139224#map=18/35.6807458/139.7139224",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 26957083,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 8380891841,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 8380891841,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 165913324,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 919619361,
+          "next_node": 8380891843,
+          "incoming_node_candidate": 919619361,
+          "outgoing_node_candidate": 8380891843,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/2569334806",
       "name": "大井南出口",
-      "facility": "大井南",
-      "latitude": 35.6074222,
-      "longitude": 139.7554285,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速湾岸線",
-      "osm_node_url": "https://www.openstreetmap.org/node/2569334806",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6074222&mlon=139.7554285#map=18/35.6074222/139.7554285",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 250495122,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 2569334807,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 2569334807,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 266086991,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 3387909446,
+          "next_node": 31298970,
+          "incoming_node_candidate": 3387909446,
+          "outgoing_node_candidate": 31298970,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/252175582",
       "name": "天現寺出口",
-      "facility": "天現寺",
-      "latitude": 35.6469499,
-      "longitude": 139.7295074,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速2号目黒線",
-      "osm_node_url": "https://www.openstreetmap.org/node/252175582",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6469499&mlon=139.7295074#map=18/35.6469499/139.7295074",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 23377599,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 1832672266,
+          "next_node": 1832672252,
+          "incoming_node_candidate": 1832672266,
+          "outgoing_node_candidate": 1832672252,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 172358461,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 1832672250,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 1832672250,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/739113434",
       "name": "小松川入口",
-      "facility": "小松川",
-      "latitude": 35.6990592,
-      "longitude": 139.8628825,
-      "name_implied_type": "入口",
-      "official_facility_route_reference": "高速7号小松川線",
-      "osm_node_url": "https://www.openstreetmap.org/node/739113434",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6990592&mlon=139.8628825#map=18/35.6990592/139.8628825",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 3,
+      "adjacency_candidates": [
+        {
+          "way_id": 59338971,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 271111654,
+          "next_node": null,
+          "incoming_node_candidate": 271111654,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 295944719,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 7598568067,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 7598568067,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 895869591,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": 739113446,
+          "next_node": null,
+          "incoming_node_candidate": 739113446,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/7119720207",
       "name": "小松川出口",
-      "facility": "小松川",
-      "latitude": 35.6992607,
-      "longitude": 139.8636174,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速7号小松川線",
-      "osm_node_url": "https://www.openstreetmap.org/node/7119720207",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6992607&mlon=139.8636174#map=18/35.6992607/139.8636174",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 3,
+      "adjacency_candidates": [
+        {
+          "way_id": 295944720,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 12103600195,
+          "next_node": null,
+          "incoming_node_candidate": 12103600195,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 295944722,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 7598568052,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 7598568052,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 751177044,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 12103600196,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 12103600196,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/1928907427",
       "name": "新板橋出口",
-      "facility": "新板橋",
-      "latitude": 35.7492281,
-      "longitude": 139.7159049,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "中央環状線",
-      "osm_node_url": "https://www.openstreetmap.org/node/1928907427",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.7492281&mlon=139.7159049#map=18/35.7492281/139.7159049",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 28127320,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 263988120,
+          "next_node": 562775193,
+          "incoming_node_candidate": 263988120,
+          "outgoing_node_candidate": 562775193,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 182530080,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 1928907419,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 1928907419,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/279076842",
       "name": "永福出口",
-      "facility": "永福",
-      "latitude": 35.668205,
-      "longitude": 139.6453368,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速4号新宿線",
-      "osm_node_url": "https://www.openstreetmap.org/node/279076842",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.668205&mlon=139.6453368#map=18/35.668205/139.6453368",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 316240492,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": 8303073145,
+          "next_node": 8303073144,
+          "incoming_node_candidate": 8303073145,
+          "outgoing_node_candidate": 8303073144,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 387256795,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 8303073143,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 8303073143,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/6681511134",
       "name": "永福出口",
-      "facility": "永福",
-      "latitude": 35.6699702,
-      "longitude": 139.649777,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速4号新宿線",
-      "osm_node_url": "https://www.openstreetmap.org/node/6681511134",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6699702&mlon=139.649777#map=18/35.6699702/139.649777",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 3,
+      "adjacency_candidates": [
+        {
+          "way_id": 28126647,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 8303133920,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 8303133920,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 787569325,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 8303073125,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 8303073125,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 848042051,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 313784072,
+          "next_node": null,
+          "incoming_node_candidate": 313784072,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/31253688",
       "name": "汐留入口",
-      "facility": "汐留",
-      "latitude": 35.6632827,
-      "longitude": 139.7629036,
-      "name_implied_type": "入口",
-      "official_facility_route_reference": "都心環状線",
-      "osm_node_url": "https://www.openstreetmap.org/node/31253688",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6632827&mlon=139.7629036#map=18/35.6632827/139.7629036",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 23705286,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 7093187743,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 7093187743,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 759287234,
+          "highway": "primary",
+          "oneway": "yes",
+          "previous_node": 7092267898,
+          "next_node": 1016976212,
+          "incoming_node_candidate": 7092267898,
+          "outgoing_node_candidate": 1016976212,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/1746785360",
       "name": "池尻出口",
-      "facility": "池尻",
-      "latitude": 35.6477383,
-      "longitude": 139.6787882,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速3号渋谷線",
-      "osm_node_url": "https://www.openstreetmap.org/node/1746785360",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6477383&mlon=139.6787882#map=18/35.6477383/139.6787882",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 3,
+      "adjacency_candidates": [
+        {
+          "way_id": 24334645,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 1091725794,
+          "next_node": null,
+          "incoming_node_candidate": 1091725794,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 227213875,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 7877385722,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 7877385722,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 254992124,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 1746785358,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 1746785358,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/1106211872",
       "name": "浜町出口",
-      "facility": "浜町",
-      "latitude": 35.6827075,
-      "longitude": 139.788458,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速6号向島線",
-      "osm_node_url": "https://www.openstreetmap.org/node/1106211872",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6827075&mlon=139.788458#map=18/35.6827075/139.788458",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 3,
+      "adjacency_candidates": [
+        {
+          "way_id": 396767726,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 1106212035,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 1106212035,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 1051967538,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": 7160746091,
+          "next_node": null,
+          "incoming_node_candidate": 7160746091,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 1051967539,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 6699223606,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 6699223606,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/10132686105",
       "name": "清洲橋出口",
-      "facility": "清洲橋",
-      "latitude": 35.6828845,
-      "longitude": 139.7887769,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速6号向島線",
-      "osm_node_url": "https://www.openstreetmap.org/node/10132686105",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6828845&mlon=139.7887769#map=18/35.6828845/139.7887769",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 3,
+      "adjacency_candidates": [
+        {
+          "way_id": 157249382,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 11942057134,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 11942057134,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 157249384,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 1694598879,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 1694598879,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 1287664256,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": 6699223606,
+          "next_node": null,
+          "incoming_node_candidate": 6699223606,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/3174589506",
       "name": "渋谷出口",
-      "facility": "渋谷",
-      "latitude": 35.6561884,
-      "longitude": 139.6974549,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速3号渋谷線",
-      "osm_node_url": "https://www.openstreetmap.org/node/3174589506",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6561884&mlon=139.6974549#map=18/35.6561884/139.6974549",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 203832852,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 7234698631,
+          "next_node": 7234693402,
+          "incoming_node_candidate": 7234698631,
+          "outgoing_node_candidate": 7234693402,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 311740421,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 7234693403,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 7234693403,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/3854029357",
       "name": "渋谷出口",
-      "facility": "渋谷",
-      "latitude": 35.6582534,
-      "longitude": 139.7050949,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速3号渋谷線",
-      "osm_node_url": "https://www.openstreetmap.org/node/3854029357",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6582534&mlon=139.7050949#map=18/35.6582534/139.7050949",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 254992124,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 2674504678,
+          "next_node": 2138385692,
+          "incoming_node_candidate": 2674504678,
+          "outgoing_node_candidate": 2138385692,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 382210314,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 3854028855,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 3854028855,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/4597822558",
       "name": "滝野川入口",
-      "facility": "滝野川",
-      "latitude": 35.7492188,
-      "longitude": 139.7158918,
-      "name_implied_type": "入口",
-      "official_facility_route_reference": "中央環状線",
-      "osm_node_url": "https://www.openstreetmap.org/node/4597822558",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.7492188&mlon=139.7158918#map=18/35.7492188/139.7158918",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 156344609,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 308930041,
+          "next_node": 308930040,
+          "incoming_node_candidate": 308930041,
+          "outgoing_node_candidate": 308930040,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 182530081,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": 7986226581,
+          "next_node": null,
+          "incoming_node_candidate": 7986226581,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/1694598821",
       "name": "箱崎出口",
-      "facility": "箱崎",
-      "latitude": 35.6810972,
-      "longitude": 139.7860989,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速6号向島線",
-      "osm_node_url": "https://www.openstreetmap.org/node/1694598821",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6810972&mlon=139.7860989#map=18/35.6810972/139.7860989",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 3,
+      "adjacency_candidates": [
+        {
+          "way_id": 766719789,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 7160772349,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 7160772349,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 1051967534,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 7635896529,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 7635896529,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 1051967537,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": 1694598819,
+          "next_node": null,
+          "incoming_node_candidate": 1694598819,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/36720848",
       "name": "羽田入口",
-      "facility": "羽田",
-      "latitude": 35.554349,
-      "longitude": 139.7467071,
-      "name_implied_type": "入口",
-      "official_facility_route_reference": "高速1号羽田線",
-      "osm_node_url": "https://www.openstreetmap.org/node/36720848",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.554349&mlon=139.7467071#map=18/35.554349/139.7467071",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 37793432,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": 6482034171,
+          "next_node": null,
+          "incoming_node_candidate": 6482034171,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 587690676,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 9687712677,
+          "next_node": 9687712678,
+          "incoming_node_candidate": 9687712677,
+          "outgoing_node_candidate": 9687712678,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/36721363",
       "name": "羽田入口",
-      "facility": "羽田",
-      "latitude": 35.549061,
-      "longitude": 139.7443966,
-      "name_implied_type": "入口",
-      "official_facility_route_reference": "高速1号羽田線",
-      "osm_node_url": "https://www.openstreetmap.org/node/36721363",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.549061&mlon=139.7443966#map=18/35.549061/139.7443966",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 37793430,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": 36721373,
+          "next_node": null,
+          "incoming_node_candidate": 36721373,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 45661183,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 36721362,
+          "next_node": 9687661006,
+          "incoming_node_candidate": 36721362,
+          "outgoing_node_candidate": 9687661006,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/36720852",
       "name": "羽田出口",
-      "facility": "羽田",
-      "latitude": 35.5542777,
-      "longitude": 139.7467995,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速1号羽田線",
-      "osm_node_url": "https://www.openstreetmap.org/node/36720852",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.5542777&mlon=139.7467995#map=18/35.5542777/139.7467995",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 5219578,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 6484596486,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 6484596486,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 45661183,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 9375135889,
+          "next_node": 9687772473,
+          "incoming_node_candidate": 9375135889,
+          "outgoing_node_candidate": 9687772473,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/36721365",
       "name": "羽田出口",
-      "facility": "羽田",
-      "latitude": 35.5491046,
-      "longitude": 139.7442472,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速1号羽田線",
-      "osm_node_url": "https://www.openstreetmap.org/node/36721365",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.5491046&mlon=139.7442472#map=18/35.5491046/139.7442472",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 3,
+      "adjacency_candidates": [
+        {
+          "way_id": 5213544,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 6484595369,
+          "next_node": null,
+          "incoming_node_candidate": 6484595369,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 5219577,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 36721368,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 36721368,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 587690676,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 6484595368,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 6484595368,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/31295430",
       "name": "芝公園入口",
-      "facility": "芝公園",
-      "latitude": 35.6533664,
-      "longitude": 139.7529688,
-      "name_implied_type": "入口",
-      "official_facility_route_reference": "都心環状線",
-      "osm_node_url": "https://www.openstreetmap.org/node/31295430",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6533664&mlon=139.7529688#map=18/35.6533664/139.7529688",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 24039738,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 31295431,
+          "next_node": 1741073646,
+          "incoming_node_candidate": 31295431,
+          "outgoing_node_candidate": 1741073646,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 315702267,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": 8327736729,
+          "next_node": null,
+          "incoming_node_candidate": 8327736729,
+          "outgoing_node_candidate": null,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/31296943",
       "name": "芝公園出口",
-      "facility": "芝公園",
-      "latitude": 35.6544714,
-      "longitude": 139.7459029,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "都心環状線",
-      "osm_node_url": "https://www.openstreetmap.org/node/31296943",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6544714&mlon=139.7459029#map=18/35.6544714/139.7459029",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 4853799,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 8327706900,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 8327706900,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 24039738,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 9404297282,
+          "next_node": 8327706898,
+          "incoming_node_candidate": 9404297282,
+          "outgoing_node_candidate": 8327706898,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/31296958",
       "name": "芝公園出口",
-      "facility": "芝公園",
-      "latitude": 35.6531722,
-      "longitude": 139.7499173,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "都心環状線",
-      "osm_node_url": "https://www.openstreetmap.org/node/31296958",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6531722&mlon=139.7499173#map=18/35.6531722/139.7499173",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 4853798,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 8327736726,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 8327736726,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 333682070,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 8327706909,
+          "next_node": 9662902045,
+          "incoming_node_candidate": 8327706909,
+          "outgoing_node_candidate": 9662902045,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     },
     {
       "osm_id": "node/2127484104",
       "name": "高樹町出口",
-      "facility": "高樹町",
-      "latitude": 35.6595528,
-      "longitude": 139.722272,
-      "name_implied_type": "出口",
-      "official_facility_route_reference": "高速3号渋谷線",
-      "osm_node_url": "https://www.openstreetmap.org/node/2127484104",
-      "osm_map_url": "https://www.openstreetmap.org/?mlat=35.6595528&mlon=139.722272#map=18/35.6595528/139.722272",
-      "checks_needed": [
-        "道路形状（way）と接続する一般道が未取得",
-        "右左折・一方通行・規制未検証"
+      "fetch_status": "fetched",
+      "parent_way_count": 2,
+      "adjacency_candidates": [
+        {
+          "way_id": 202809278,
+          "highway": "motorway_link",
+          "oneway": "yes",
+          "previous_node": null,
+          "next_node": 2138385719,
+          "incoming_node_candidate": null,
+          "outgoing_node_candidate": 2138385719,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        },
+        {
+          "way_id": 316123949,
+          "highway": "motorway",
+          "oneway": "yes",
+          "previous_node": 7235032481,
+          "next_node": 7235032473,
+          "incoming_node_candidate": 7235032481,
+          "outgoing_node_candidate": 7235032473,
+          "interpretation": "OSM way-node order only; not a validated maneuver"
+        }
       ],
-      "way_geometry_checked": false,
-      "surface_road_checked": false,
+      "road_connection_verified": false,
       "turn_restrictions_checked": false,
-      "official_directions_node_verified": false,
+      "surface_road_checked": false,
       "navigation_enabled": false
     }
   ]
