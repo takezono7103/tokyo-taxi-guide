@@ -1,0 +1,32 @@
+name: Check expressway OSM connections
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check input file exists
+        run: test -f data/tokyo_express_priority26_connection_audit.json
+      - name: Fetch OSM way evidence
+        run: python scripts/check_express_connections.py
+      - name: Commit generated evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tokyo_express_priority26_way_evidence.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Add OSM way evidence for expressway candidate nodes"
+            git push
+          fi
