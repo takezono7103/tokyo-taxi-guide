@@ -2,8 +2,8 @@
 """OSM road-way membership audit; NOT a routing or road-safety certification."""
 import json, pathlib, urllib.parse, urllib.request, time
 BASE=pathlib.Path(__file__).resolve().parent
-SOURCE=BASE/'tokyo_express_priority26_connection_audit.json'
-OUTPUT=BASE/'tokyo_express_priority26_way_evidence.json'
+SOURCE=BASE.parent/'data'/'tokyo_express_priority26_connection_audit.json'
+OUTPUT=BASE.parent/'data'/'tokyo_express_priority26_way_evidence.json'
 records=json.loads(SOURCE.read_text(encoding='utf-8'))['records']
 results=[]
 for index, rec in enumerate(records, 1):
