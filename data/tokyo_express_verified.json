@@ -1,0 +1,337 @@
+{
+  "format": "tokyo-taxi-express-verified-facilities-v1",
+  "description": "公式路線・出入口案内に基づく施設単位の照合情報。OSMノード単位の接続とリアルタイム規制は未確認。",
+  "created_at": "2026-10-25",
+  "source_count": 304,
+  "verified_facility_count": 16,
+  "safe_for_turn_by_turn_navigation": false,
+  "facilities": [
+    {
+      "name": "一ツ橋",
+      "route": "高速5号池袋線",
+      "entrance_directions": [
+        "下り"
+      ],
+      "exit_directions": [
+        "上り"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/256426148",
+        "node/1082039923"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "西神田",
+      "route": "高速5号池袋線",
+      "entrance_directions": [
+        "上り"
+      ],
+      "exit_directions": [
+        "下り"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/567872146",
+        "node/567872147",
+        "node/2130008048",
+        "node/2130008050"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "初台",
+      "route": "高速4号新宿線",
+      "entrance_directions": [
+        "下り"
+      ],
+      "exit_directions": [
+        "上り"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/295393445"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "幡ヶ谷",
+      "route": "高速4号新宿線",
+      "entrance_directions": [
+        "上り"
+      ],
+      "exit_directions": [
+        "下り"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/267810221"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "代々木",
+      "route": "高速4号新宿線",
+      "entrance_directions": [
+        "上り"
+      ],
+      "exit_directions": [
+        "下り"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/267810144"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "新宿",
+      "route": "高速4号新宿線",
+      "entrance_directions": [
+        "上り"
+      ],
+      "exit_directions": [
+        "上り",
+        "下り"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/295393488",
+        "node/1237984803"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "高井戸",
+      "route": "高速4号新宿線",
+      "entrance_directions": [
+        "上り"
+      ],
+      "exit_directions": [
+        "下り"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/260714458"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "大井",
+      "route": "高速湾岸線",
+      "entrance_directions": [
+        "東行き"
+      ],
+      "exit_directions": [
+        "西行き"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/31298908"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "臨海副都心",
+      "route": "高速湾岸線",
+      "entrance_directions": [
+        "西行き"
+      ],
+      "exit_directions": [
+        "東行き"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/31288829",
+        "node/31288855"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "新木場",
+      "route": "高速湾岸線",
+      "entrance_directions": [
+        "西行き",
+        "東行き"
+      ],
+      "exit_directions": [
+        "西行き",
+        "東行き"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/31300488",
+        "node/31330050",
+        "node/31330068"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "空港中央",
+      "route": "高速湾岸線",
+      "entrance_directions": [
+        "西行き",
+        "東行き"
+      ],
+      "exit_directions": [
+        "西行き",
+        "東行き"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/35925775",
+        "node/35926477"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "銀座",
+      "route": "高速都心環状線",
+      "entrance_directions": [
+        "外回り"
+      ],
+      "exit_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "2026-10-18から内回り入口長期通行止め。現在の入口方向は外回りのみ",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/31254160",
+        "node/31254341",
+        "node/1834887185",
+        "node/1834887252"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "新富町",
+      "route": "高速都心環状線",
+      "entrance_directions": [],
+      "exit_directions": [],
+      "facility_status": "abolished",
+      "restrictions_note": "2026-10-18廃止",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/31254353",
+        "node/588391376"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "宝町",
+      "route": "高速都心環状線",
+      "entrance_directions": [
+        "内回り"
+      ],
+      "exit_directions": [
+        "外回り"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/1891818143",
+        "node/3017665448"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "神田橋",
+      "route": "高速都心環状線",
+      "entrance_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "exit_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/260710829",
+        "node/264871734",
+        "node/1070863041"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    },
+    {
+      "name": "霞が関",
+      "route": "高速都心環状線",
+      "entrance_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "exit_directions": [
+        "内回り",
+        "外回り"
+      ],
+      "facility_status": "listed",
+      "restrictions_note": "",
+      "source_url": "https://www.shutoko.jp/driving/route/",
+      "source_checked_date": "2026-10-25",
+      "osm_candidate_ids": [
+        "node/260710789",
+        "node/264877784"
+      ],
+      "osm_node_mapping_verified": false,
+      "live_traffic_verified": false
+    }
+  ]
+}
