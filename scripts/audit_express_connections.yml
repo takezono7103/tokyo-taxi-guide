@@ -1,0 +1,24 @@
+name: Audit expressway connection candidates
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Analyze saved OSM evidence
+        run: python scripts/analyze_express_connections.py
+      - name: Commit audit output
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/tokyo_express_priority26_connection_audit.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Add conservative expressway connection audit'
+            git push
+          fi
