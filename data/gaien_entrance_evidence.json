@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "record_type": "research_only_entrance_exit_evidence",
+  "name": "外苑出入口",
+  "route": "首都高速4号新宿線",
+  "location_context": "東京都新宿区・外苑西通り、国立競技場周辺",
+  "official_information": {
+    "source": "ユーザー提供の首都高ドライバーズサイト画面",
+    "site": "https://www.shutoko.jp/",
+    "entrance_directions_shown": ["上り", "下り"],
+    "exit_directions_shown": ["上り", "下り"],
+    "etc_only_notice_shown": true,
+    "note": "画面に外苑料金所（上り、下り）はETC専用と記載。個々のランプ・料金所レーンの現行運用は未検証。"
+  },
+  "user_provided_visual_evidence": [
+    {
+      "images": ["IMG_5063.jpeg", "IMG_5064.jpeg"],
+      "observation": "外苑西通り付近の案内標識、中央線高架下の車線表示、外苑IC付近の道路形状",
+      "capture_date_displayed": "2025年12月"
+    },
+    {
+      "images": ["IMG_5065.jpeg", "IMG_5066.jpeg"],
+      "observation": "外苑西通り付近のETC車案内、料金所レーン、外苑IC付近の道路形状",
+      "capture_date_displayed": "2022年10月・2023年9月"
+    },
+    {
+      "images": ["IMG_5067.jpeg", "IMG_5068.jpeg", "IMG_5069.jpeg"],
+      "observation": "国立競技場付近の高架下道路、外苑出入口周辺の標識、料金所と見られる設備",
+      "capture_date_displayed": "2025年12月"
+    },
+    {
+      "images": ["IMG_5070.jpeg", "IMG_5071.jpeg", "IMG_5072.jpeg"],
+      "observation": "外苑IC付近の接続道路、ETC専用表示、出口側と見られる道路の止まれ表示",
+      "capture_date_displayed": "2025年12月"
+    }
+  ],
+  "separate_movements_to_verify": [
+    "外苑入口・上り",
+    "外苑入口・下り",
+    "外苑出口・上り",
+    "外苑出口・下り"
+  ],
+  "current_traffic_restrictions_checked": false,
+  "lane_by_lane_connections_verified": false,
+  "turn_restrictions_checked": false,
+  "legal_drivability_verified": false,
+  "safe_for_turn_by_turn_navigation": false,
+  "permitted_use": "Research/reference display only; do not generate automatic turn-by-turn guidance",
+  "caution": "写真・地図は撮影時期が異なる。進入方向・通行規制・レーン運用は現地の最新標識と公式情報を優先する。"
+}
