@@ -1,1 +1,45 @@
+name: Audit remaining 25 expressway OSM candidates v2
 
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build research-only topology audit
+        run: python scripts/audit_remaining25_geometry_v2.py
+
+      - name: Confirm navigation remains disabled
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('data/tokyo_express_remaining25_geometry_research_v2.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+          assert data.get('verified_road_connections') == 0
+          assert data.get('safe_for_turn_by_turn_navigation') is False
+          assert len(data.get('records', [])) == 25
+          print('Research-only validation passed')
+          PY
+
+      - name: Commit research output
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/tokyo_express_remaining25_geometry_research_v2.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Add remaining 25 OSM topology research v2'
+            git push
+          fi
