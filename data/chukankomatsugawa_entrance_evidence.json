@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "record_type": "research_only_entrance_evidence",
+  "name": "中環小松川入口",
+  "entrance_number": "C45",
+  "route": "首都高速中央環状線（C2）",
+  "entrance_direction": "内回り",
+  "exit_at_this_location": false,
+  "official_source": {
+    "url": "https://www.shutoko.jp/driving/route/entrance-exit/chukankomatsugawa/",
+    "evidence": "User-provided screenshot of official Shutoko entrance/exit page showing 中環小松川, 高速中央環状線, 入口 内回り, 出口 -",
+    "current_traffic_restrictions_checked": false
+  },
+  "osm_research": {
+    "osm_id": "node/7022713621",
+    "parent_way_count": 2,
+    "evidence": "User-provided screenshot of generated remaining-25 OSM research JSON",
+    "turn_restrictions_checked": false,
+    "legal_drivability_verified": false
+  },
+  "street_view_evidence": [
+    {
+      "imagery_date": "2022-10",
+      "observation": "Overhead signs identify C2, 中環小松川入口 C45, and an approach to the elevated ramp; image shows lane separation",
+      "scope": "historical_visual_evidence"
+    },
+    {
+      "imagery_date": "2020-11",
+      "observation": "Blue-surfaced uphill ramp with 中環 and 高速 road markings",
+      "scope": "historical_visual_evidence"
+    },
+    {
+      "imagery_date": "2023-03",
+      "observation": "Sign indicates toll gate 300 m ahead; 40 km/h sign visible",
+      "scope": "historical_visual_evidence"
+    },
+    {
+      "imagery_date": "2026-08",
+      "observation": "Toll plaza visible with ETC/一般 and ETC専用 overhead lane signs and speed-reduction warning",
+      "scope": "historical_visual_evidence; lane operation may change"
+    }
+  ],
+  "verification_status": {
+    "official_route_and_direction_reference_confirmed": true,
+    "entrance_approach_signs_visually_observed": true,
+    "ramp_visually_observed": true,
+    "toll_plaza_visually_observed": true,
+    "surface_street_turn_restrictions_verified": false,
+    "current_road_authority_restrictions_verified": false,
+    "current_lane_operation_verified": false,
+    "mainline_merge_verified": false,
+    "legal_drivability_verified": false,
+    "safe_for_turn_by_turn_navigation": false
+  },
+  "permitted_use": "Reference display and further research only; not for automatic turn-by-turn route guidance",
+  "notes": "Compiled from screenshots supplied in the conversation. Imagery dates vary by segment; screenshots do not establish continuous, currently legal drivability."
+}
