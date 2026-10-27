@@ -1,14 +1,15 @@
 {
-  "format": "tokyo-express-remaining25-geometry-research-v1",
-  "generated_at_utc": "2026-10-25T21:37:34.047373+00:00",
+  "format": "tokyo-express-remaining25-geometry-research-v2",
+  "generated_at_utc": "2026-10-27T06:10:45.345552+00:00",
   "source_file": "data/tokyo_express_priority26_osm_api_evidence.json",
   "record_count": 25,
   "verified_road_connections": 0,
   "safe_for_turn_by_turn_navigation": false,
   "limitations": [
     "Uses stored parent way node lists only; no new API retrieval",
-    "No coordinate geometry, intersection topology, turn restrictions or official road rules verified",
-    "Adjacent OSM nodes do not prove legal vehicle access or allowed turns",
+    "Shared OSM nodes show mapped topology, not verified legal vehicle access",
+    "Oneway tags suggest edge orientation but do not validate turning permissions",
+    "No coordinate geometry, complete surrounding road network, or official rules checked",
     "Never use this output for turn-by-turn route guidance"
   ],
   "records": [
@@ -32,7 +33,9 @@
             }
           ],
           "node_count": 7,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 751177055,
@@ -48,9 +51,41 @@
             }
           ],
           "node_count": 9,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          751177048,
+          751177055
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 7022713621,
+            "way_ids": [
+              751177048,
+              751177055
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          751177055
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          751177048
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 751177055,
+            "to_way_id": 751177048,
+            "via_node_id": 7022713621,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -77,7 +112,9 @@
             }
           ],
           "node_count": 18,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 902298628,
@@ -93,9 +130,42 @@
             }
           ],
           "node_count": 4,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          24040126,
+          902298628
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 1125926447,
+            "way_ids": [
+              24040126,
+              902298628
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          24040126
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          24040126,
+          902298628
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 24040126,
+            "to_way_id": 902298628,
+            "via_node_id": 1125926447,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -122,7 +192,9 @@
             }
           ],
           "node_count": 2,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 165913324,
@@ -138,9 +210,42 @@
             }
           ],
           "node_count": 30,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          26957083,
+          165913324
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 267805296,
+            "way_ids": [
+              26957083,
+              165913324
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          165913324
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          26957083,
+          165913324
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 165913324,
+            "to_way_id": 26957083,
+            "via_node_id": 267805296,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -167,7 +272,9 @@
             }
           ],
           "node_count": 11,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 266086991,
@@ -183,9 +290,42 @@
             }
           ],
           "node_count": 37,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          250495122,
+          266086991
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 2569334806,
+            "way_ids": [
+              250495122,
+              266086991
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          266086991
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          250495122,
+          266086991
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 266086991,
+            "to_way_id": 250495122,
+            "via_node_id": 2569334806,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -212,7 +352,9 @@
             }
           ],
           "node_count": 175,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 172358461,
@@ -228,9 +370,42 @@
             }
           ],
           "node_count": 7,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          23377599,
+          172358461
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 252175582,
+            "way_ids": [
+              23377599,
+              172358461
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          23377599
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          23377599,
+          172358461
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 23377599,
+            "to_way_id": 172358461,
+            "via_node_id": 252175582,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -257,7 +432,9 @@
             }
           ],
           "node_count": 21,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 295944719,
@@ -273,7 +450,9 @@
             }
           ],
           "node_count": 14,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 895869591,
@@ -289,9 +468,50 @@
             }
           ],
           "node_count": 2,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          59338971,
+          295944719,
+          895869591
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 739113434,
+            "way_ids": [
+              59338971,
+              295944719,
+              895869591
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          59338971,
+          895869591
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          295944719
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 59338971,
+            "to_way_id": 295944719,
+            "via_node_id": 739113434,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          },
+          {
+            "from_way_id": 895869591,
+            "to_way_id": 295944719,
+            "via_node_id": 739113434,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -318,7 +538,9 @@
             }
           ],
           "node_count": 14,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 295944722,
@@ -334,7 +556,9 @@
             }
           ],
           "node_count": 25,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 751177044,
@@ -350,9 +574,50 @@
             }
           ],
           "node_count": 8,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          295944720,
+          295944722,
+          751177044
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 7119720207,
+            "way_ids": [
+              295944720,
+              295944722,
+              751177044
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          295944720
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          295944722,
+          751177044
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 295944720,
+            "to_way_id": 295944722,
+            "via_node_id": 7119720207,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          },
+          {
+            "from_way_id": 295944720,
+            "to_way_id": 751177044,
+            "via_node_id": 7119720207,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -379,7 +644,9 @@
             }
           ],
           "node_count": 53,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 182530080,
@@ -395,9 +662,42 @@
             }
           ],
           "node_count": 4,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          28127320,
+          182530080
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 1928907427,
+            "way_ids": [
+              28127320,
+              182530080
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          28127320
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          28127320,
+          182530080
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 28127320,
+            "to_way_id": 182530080,
+            "via_node_id": 1928907427,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -424,7 +724,9 @@
             }
           ],
           "node_count": 16,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 387256795,
@@ -440,9 +742,42 @@
             }
           ],
           "node_count": 5,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          316240492,
+          387256795
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 279076842,
+            "way_ids": [
+              316240492,
+              387256795
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          316240492
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          316240492,
+          387256795
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 316240492,
+            "to_way_id": 387256795,
+            "via_node_id": 279076842,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -469,7 +804,9 @@
             }
           ],
           "node_count": 5,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 787569325,
@@ -485,7 +822,9 @@
             }
           ],
           "node_count": 16,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 848042051,
@@ -501,9 +840,50 @@
             }
           ],
           "node_count": 2,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          28126647,
+          787569325,
+          848042051
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 6681511134,
+            "way_ids": [
+              28126647,
+              787569325,
+              848042051
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          848042051
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          28126647,
+          787569325
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 848042051,
+            "to_way_id": 28126647,
+            "via_node_id": 6681511134,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          },
+          {
+            "from_way_id": 848042051,
+            "to_way_id": 787569325,
+            "via_node_id": 6681511134,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -530,7 +910,9 @@
             }
           ],
           "node_count": 18,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 227213875,
@@ -546,7 +928,9 @@
             }
           ],
           "node_count": 6,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 254992124,
@@ -562,9 +946,50 @@
             }
           ],
           "node_count": 66,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          24334645,
+          227213875,
+          254992124
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 1746785360,
+            "way_ids": [
+              24334645,
+              227213875,
+              254992124
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          24334645
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          227213875,
+          254992124
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 24334645,
+            "to_way_id": 227213875,
+            "via_node_id": 1746785360,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          },
+          {
+            "from_way_id": 24334645,
+            "to_way_id": 254992124,
+            "via_node_id": 1746785360,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -591,7 +1016,9 @@
             }
           ],
           "node_count": 7,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 1051967538,
@@ -607,7 +1034,9 @@
             }
           ],
           "node_count": 2,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 1051967539,
@@ -623,9 +1052,50 @@
             }
           ],
           "node_count": 2,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          396767726,
+          1051967538,
+          1051967539
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 1106211872,
+            "way_ids": [
+              396767726,
+              1051967538,
+              1051967539
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          1051967538
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          396767726,
+          1051967539
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 1051967538,
+            "to_way_id": 396767726,
+            "via_node_id": 1106211872,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          },
+          {
+            "from_way_id": 1051967538,
+            "to_way_id": 1051967539,
+            "via_node_id": 1106211872,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -652,7 +1122,9 @@
             }
           ],
           "node_count": 3,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 157249384,
@@ -668,7 +1140,9 @@
             }
           ],
           "node_count": 4,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 1287664256,
@@ -684,9 +1158,50 @@
             }
           ],
           "node_count": 2,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          157249382,
+          157249384,
+          1287664256
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 10132686105,
+            "way_ids": [
+              157249382,
+              157249384,
+              1287664256
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          1287664256
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          157249382,
+          157249384
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 1287664256,
+            "to_way_id": 157249382,
+            "via_node_id": 10132686105,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          },
+          {
+            "from_way_id": 1287664256,
+            "to_way_id": 157249384,
+            "via_node_id": 10132686105,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -713,7 +1228,9 @@
             }
           ],
           "node_count": 49,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 311740421,
@@ -729,9 +1246,42 @@
             }
           ],
           "node_count": 4,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          203832852,
+          311740421
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 3174589506,
+            "way_ids": [
+              203832852,
+              311740421
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          203832852
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          203832852,
+          311740421
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 203832852,
+            "to_way_id": 311740421,
+            "via_node_id": 3174589506,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -758,7 +1308,9 @@
             }
           ],
           "node_count": 66,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 382210314,
@@ -774,9 +1326,42 @@
             }
           ],
           "node_count": 3,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          254992124,
+          382210314
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 3854029357,
+            "way_ids": [
+              254992124,
+              382210314
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          254992124
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          254992124,
+          382210314
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 254992124,
+            "to_way_id": 382210314,
+            "via_node_id": 3854029357,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -803,7 +1388,9 @@
             }
           ],
           "node_count": 50,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 182530081,
@@ -819,9 +1406,42 @@
             }
           ],
           "node_count": 9,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          156344609,
+          182530081
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 4597822558,
+            "way_ids": [
+              156344609,
+              182530081
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          156344609,
+          182530081
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          156344609
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 182530081,
+            "to_way_id": 156344609,
+            "via_node_id": 4597822558,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -848,7 +1468,9 @@
             }
           ],
           "node_count": 8,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 1051967534,
@@ -864,7 +1486,9 @@
             }
           ],
           "node_count": 17,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 1051967537,
@@ -880,9 +1504,50 @@
             }
           ],
           "node_count": 2,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          766719789,
+          1051967534,
+          1051967537
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 1694598821,
+            "way_ids": [
+              766719789,
+              1051967534,
+              1051967537
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          1051967537
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          766719789,
+          1051967534
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 1051967537,
+            "to_way_id": 766719789,
+            "via_node_id": 1694598821,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          },
+          {
+            "from_way_id": 1051967537,
+            "to_way_id": 1051967534,
+            "via_node_id": 1694598821,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -909,7 +1574,9 @@
             }
           ],
           "node_count": 7,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 587690676,
@@ -925,9 +1592,42 @@
             }
           ],
           "node_count": 35,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          37793432,
+          587690676
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 36720848,
+            "way_ids": [
+              37793432,
+              587690676
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          37793432,
+          587690676
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          587690676
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 37793432,
+            "to_way_id": 587690676,
+            "via_node_id": 36720848,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -954,7 +1654,9 @@
             }
           ],
           "node_count": 4,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 45661183,
@@ -970,9 +1672,42 @@
             }
           ],
           "node_count": 48,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          37793430,
+          45661183
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 36721363,
+            "way_ids": [
+              37793430,
+              45661183
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          37793430,
+          45661183
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          45661183
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 37793430,
+            "to_way_id": 45661183,
+            "via_node_id": 36721363,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -999,7 +1734,9 @@
             }
           ],
           "node_count": 8,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 45661183,
@@ -1015,9 +1752,42 @@
             }
           ],
           "node_count": 48,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          5219578,
+          45661183
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 36720852,
+            "way_ids": [
+              5219578,
+              45661183
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          45661183
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          5219578,
+          45661183
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 45661183,
+            "to_way_id": 5219578,
+            "via_node_id": 36720852,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -1044,7 +1814,9 @@
             }
           ],
           "node_count": 11,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 5219577,
@@ -1060,7 +1832,9 @@
             }
           ],
           "node_count": 4,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 587690676,
@@ -1076,9 +1850,50 @@
             }
           ],
           "node_count": 35,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          5213544,
+          5219577,
+          587690676
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 36721365,
+            "way_ids": [
+              5213544,
+              5219577,
+              587690676
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          5213544
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          5219577,
+          587690676
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 5213544,
+            "to_way_id": 5219577,
+            "via_node_id": 36721365,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          },
+          {
+            "from_way_id": 5213544,
+            "to_way_id": 587690676,
+            "via_node_id": 36721365,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -1105,7 +1920,9 @@
             }
           ],
           "node_count": 56,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 315702267,
@@ -1121,9 +1938,42 @@
             }
           ],
           "node_count": 3,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          24039738,
+          315702267
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 31295430,
+            "way_ids": [
+              24039738,
+              315702267
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          24039738,
+          315702267
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          24039738
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 315702267,
+            "to_way_id": 24039738,
+            "via_node_id": 31295430,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -1150,7 +2000,9 @@
             }
           ],
           "node_count": 5,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 24039738,
@@ -1166,9 +2018,42 @@
             }
           ],
           "node_count": 56,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          4853799,
+          24039738
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 31296943,
+            "way_ids": [
+              4853799,
+              24039738
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          24039738
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          4853799,
+          24039738
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 24039738,
+            "to_way_id": 4853799,
+            "via_node_id": 31296943,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -1195,7 +2080,9 @@
             }
           ],
           "node_count": 10,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 333682070,
@@ -1211,9 +2098,42 @@
             }
           ],
           "node_count": 62,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          4853798,
+          333682070
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 31296958,
+            "way_ids": [
+              4853798,
+              333682070
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          333682070
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          4853798,
+          333682070
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 333682070,
+            "to_way_id": 4853798,
+            "via_node_id": 31296958,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
@@ -1240,7 +2160,9 @@
             }
           ],
           "node_count": 3,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         },
         {
           "way_id": 316123949,
@@ -1256,9 +2178,42 @@
             }
           ],
           "node_count": 26,
-          "interpretation": "Stored node order only; not a verified permitted driving direction"
+          "interpretation": "Stored node order only; not a verified permitted driving direction",
+          "tag_direction_basis": "tag_forward",
+          "has_target_node": true
         }
       ],
+      "stored_topology": {
+        "target_node_found_in_way_ids": [
+          202809278,
+          316123949
+        ],
+        "shared_nodes_among_stored_ways": [
+          {
+            "node_id": 2127484104,
+            "way_ids": [
+              202809278,
+              316123949
+            ]
+          }
+        ],
+        "incoming_way_ids_by_oneway_tag": [
+          316123949
+        ],
+        "outgoing_way_ids_by_oneway_tag": [
+          202809278,
+          316123949
+        ],
+        "possible_directional_transitions_at_target": [
+          {
+            "from_way_id": 316123949,
+            "to_way_id": 202809278,
+            "via_node_id": 2127484104,
+            "interpretation": "Tag-direction-compatible candidate only; turn legality unverified"
+          }
+        ],
+        "scope": "Stored way-node memberships and oneway tags only"
+      },
       "turn_restrictions_checked": false,
       "official_road_authority_checked": false,
       "surface_street_approach_verified": false,
