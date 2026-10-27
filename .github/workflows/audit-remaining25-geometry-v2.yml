@@ -26,7 +26,7 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          p = Path('data/tokyo_express_remaining25_geometry_research_v2.json')
+          p = Path('data/tokyo_express_remaining25_geometry_research.json')
           data = json.loads(p.read_text(encoding='utf-8'))
           assert data.get('verified_road_connections') == 0
           assert data.get('safe_for_turn_by_turn_navigation') is False
