@@ -1,0 +1,40 @@
+name: Build Tokyo expressway full area (batch)
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch:
+        description: 'Select one of five area batches'
+        required: true
+        type: choice
+        options:
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generate expressway database batch
+        run: python build_express_batch.py --batch "${{ inputs.batch }}"
+      - name: Upload partial or complete output files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-express-batch-${{ inputs.batch }}-results
+          path: output/*.json
+          if-no-files-found: warn
+          retention-days: 14
