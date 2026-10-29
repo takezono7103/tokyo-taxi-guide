@@ -1,1 +1,43 @@
+name: Retry Adachi remaining tiles only
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Restore successful tile cache
+        uses: actions/cache/restore@v4
+        with:
+          path: cache/adachi_remaining
+          key: adachi-remaining-${{ github.run_id }}
+          restore-keys: |
+            adachi-remaining-
+      - name: Retry only remaining tiles
+        id: fetch
+        continue-on-error: true
+        run: python scripts/retry_remaining_tiles.py
+      - name: Save successful tile cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: cache/adachi_remaining
+          key: adachi-remaining-${{ github.run_id }}
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: adachi-remaining-results
+          path: output/*.json
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Fail if unresolved tiles remain
+        if: steps.fetch.outcome == 'failure'
+        run: exit 1
 
