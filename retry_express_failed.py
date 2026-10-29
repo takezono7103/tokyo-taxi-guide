@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""Retry selected Tokyo municipalities in smaller tiles; preserve successful tiles.
-OSM candidates only. Access directions and legality remain unverified.
+"""Retry Tokyo expressway OSM candidates with persistent successful tile cache.
+Results are research candidates, NOT verified access points or legal directions.
 """
 import argparse
-import datetime
 import json
-import math
 import pathlib
 import sys
 import time
@@ -13,43 +11,63 @@ import urllib.parse
 import urllib.request
 from build_express_batch import NAMES, CACHE, OUT, ENDPOINTS, point, write_results
 
+FALLBACK_BBOX = {'足立区': [35.7200, 139.6900, 35.8500, 139.8900]}
 
-def overpass(query, attempts=3):
+def atomic_json(path, obj):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + '.tmp')
+    tmp.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding='utf-8')
+    tmp.replace(path)
+
+def overpass(query, attempts=2):
     errors = []
     for i in range(attempts):
-        endpoint = ENDPOINTS[(i + 1) % len(ENDPOINTS)]
+        endpoint = ENDPOINTS[i % len(ENDPOINTS)]
         try:
-            request = urllib.request.Request(
-                endpoint, data=urllib.parse.urlencode({'data': query}).encode(),
-                headers={'User-Agent': 'TokyoTaxiCockpitDBBuilder/1.2 (OSM research)',
+            req = urllib.request.Request(endpoint,
+                data=urllib.parse.urlencode({'data': query}).encode(),
+                headers={'User-Agent': 'TokyoTaxiCockpitDBBuilder/1.3 (OSM research)',
                          'Content-Type': 'application/x-www-form-urlencoded'})
-            with urllib.request.urlopen(request, timeout=40) as response:
-                payload = json.load(response)
+            with urllib.request.urlopen(req, timeout=35) as resp:
+                payload = json.load(resp)
             if not isinstance(payload.get('elements'), list):
-                raise ValueError('No elements array')
+                raise ValueError('Missing elements array')
             return payload['elements'], endpoint
         except Exception as exc:
             errors.append(f'{endpoint}: {exc}')
             time.sleep(1 + i)
     raise RuntimeError(' | '.join(errors)[-500:])
 
-
 def municipality_bbox(name):
-    # Resolve an administrative boundary. Restrict to Tokyo vicinity to avoid namesakes.
-    query = ('[out:json][timeout:35];'
-             f'relation["name"="{name}"]["boundary"="administrative"]'
-             '(35.45,139.35,36.05,140.15);out bb;')
-    elements, _ = overpass(query)
+    q = ('[out:json][timeout:35];'
+         f'relation["name"="{name}"]["boundary"="administrative"]'
+         '(35.45,139.35,36.05,140.15);out bb;')
+    elements, _ = overpass(q)
     boxes = [e['bounds'] for e in elements if e.get('type') == 'relation' and 'bounds' in e]
     if not boxes:
-        raise RuntimeError('Municipality boundary bbox not found; no coverage assumed')
-    # Smallest matching administrative boundary is generally the ward/city.
+        raise RuntimeError('Municipality bbox not found')
     b = min(boxes, key=lambda x: (x['maxlat']-x['minlat'])*(x['maxlon']-x['minlon']))
-    return b['minlat'], b['minlon'], b['maxlat'], b['maxlon']
+    return [b['minlat'], b['minlon'], b['maxlat'], b['maxlon']]
 
+def read_bbox(name):
+    p = CACHE / f'{name}_bbox.json'
+    if p.exists():
+        try:
+            b = json.loads(p.read_text(encoding='utf-8'))
+            if len(b) == 4 and all(isinstance(x, (float, int)) for x in b):
+                return b
+        except (OSError, ValueError, TypeError):
+            pass
+    if name in FALLBACK_BBOX:
+        b = FALLBACK_BBOX[name]
+        print(name, 'fallback envelope (NOT verified boundary)', flush=True)
+    else:
+        b = municipality_bbox(name)
+    atomic_json(p, b)
+    return b
 
-def tile_query(name, bbox):
-    s,w,n,e = bbox
+def tile_query(name, b):
+    s,w,n,e = b
     return ('[out:json][timeout:45];'
             f'area["name"="{name}"]["boundary"="administrative"]->.a;'
             f'(node(area.a)({s:.6f},{w:.6f},{n:.6f},{e:.6f})["highway"="motorway_junction"];'
@@ -57,117 +75,85 @@ def tile_query(name, bbox):
             f'way(area.a)({s:.6f},{w:.6f},{n:.6f},{e:.6f})["highway"="motorway_link"]["ref"];);'
             'out center tags;')
 
+def split(b):
+    s,w,n,e = b
+    mlat, mlon = (s+n)/2, (w+e)/2
+    return [(0,0,[s,w,mlat,mlon]), (0,1,[s,mlon,mlat,e]),
+            (1,0,[mlat,w,n,mlon]), (1,1,[mlat,mlon,n,e])]
 
-def atomic_json(path, obj):
-    temp = path.with_suffix('.tmp')
-    temp.write_text(json.dumps(obj, ensure_ascii=False), encoding='utf-8')
-    temp.replace(path)
-
-
-# Conservative search envelope for Adachi; NOT a verified administrative boundary.
-# Municipality area filter in tile_query excludes neighboring areas.
-FALLBACK_BBOX = {'足立区': [35.7200, 139.6900, 35.8500, 139.8900]}
-
-
-def read_cached_bbox(name):
-    path = CACHE / f'{name}_bbox.json'
-    if path.exists():
+def fetch(name, b, key):
+    p = CACHE / f'{name}_{key}.json'
+    if p.exists():
         try:
-            b = json.loads(path.read_text(encoding='utf-8'))
-            if len(b) == 4 and all(isinstance(x, (int, float)) for x in b):
-                return b
+            data = json.loads(p.read_text(encoding='utf-8'))
+            if isinstance(data.get('elements'), list):
+                return data['elements'], 'cache'
         except (OSError, ValueError, TypeError):
-            pass
-    if name in FALLBACK_BBOX:
-        b = FALLBACK_BBOX[name]
-        print(name, 'using conservative fallback search envelope (not verified boundary)', flush=True)
-    else:
-        b = municipality_bbox(name)
-    atomic_json(path, b)
-    return b
-
-
-def fetch_tile(name, bbox, cache_key):
-    cache_path = CACHE / f'{name}_{cache_key}.json'
-    if cache_path.exists():
-        saved = json.loads(cache_path.read_text(encoding='utf-8'))
-        if isinstance(saved.get('elements'), list):
-            return saved['elements'], saved.get('source', 'cache')
-    elements, source = overpass(tile_query(name, bbox))
-    atomic_json(cache_path, {'source': source, 'bbox': bbox, 'elements': elements})
+            print(name, key, 'invalid cache; refetching', flush=True)
+    elements, source = overpass(tile_query(name, b))
+    atomic_json(p, {'source': source, 'bbox': b, 'elements': elements})
     return elements, source
 
-
-def split(bbox, divisions):
-    s,w,n,e = bbox
-    for row in range(divisions):
-        for col in range(divisions):
-            yield row, col, (s+(n-s)*row/divisions, w+(e-w)*col/divisions,
-                             s+(n-s)*(row+1)/divisions, w+(e-w)*(col+1)/divisions)
-
-
-def collect(name, records):
-    bbox = read_cached_bbox(name)
-    failed = []
-    successes = 0
-    tile_status = {}
-    # Start directly in 2x2 tiles, bypassing whole-ward fetch.
-    # Successful tiles (including empty ones) are persisted and reused.
-    # A failed tile is subdivided once more into 2x2.
-    for row, col, bounds in split(bbox, 2):
-        key = f'grid2_{row}_{col}'
+def collect(name, records, max_depth):
+    root = read_bbox(name)
+    failed, status = [], {}
+    counts = {'cached': 0, 'fetched': 0}
+    def visit(b, key, depth):
         try:
-            elements, source = fetch_tile(name, bounds, key)
-            successes += 1
-            tile_status[key] = {'status': 'fetched', 'count': len(elements)}
+            elements, source = fetch(name, b, key)
+            counts['cached' if source == 'cache' else 'fetched'] += 1
+            status[key] = {'status': 'cached' if source == 'cache' else 'fetched',
+                           'count': len(elements)}
             for el in elements:
                 lat, lon = point(el)
-                if isinstance(lat,(int,float)) and isinstance(lon,(int,float)):
+                if isinstance(lat, (int,float)) and isinstance(lon, (int,float)):
                     records[f'{el.get("type")}:{el.get("id")}'] = el
-            print(name, key, 'fetched', len(elements), flush=True)
+            print(name, key, status[key]['status'], len(elements), flush=True)
         except Exception as exc:
-            print(name, key, 'failed; subdividing', str(exc)[-120:], flush=True)
-            for sr, sc, sub_bounds in split(bounds, 2):
-                sub_key = f'{key}_sub_{sr}_{sc}'
-                try:
-                    elements, source = fetch_tile(name, sub_bounds, sub_key)
-                    successes += 1
-                    tile_status[sub_key] = {'status': 'fetched', 'count': len(elements)}
-                    for el in elements:
-                        lat, lon = point(el)
-                        if isinstance(lat,(int,float)) and isinstance(lon,(int,float)):
-                            records[f'{el.get("type")}:{el.get("id")}'] = el
-                    print(name, sub_key, 'fetched', len(elements), flush=True)
-                except Exception as sub_exc:
-                    failed.append({'tile': sub_key, 'bbox': sub_bounds,
-                                   'error': str(sub_exc)[-300:]})
-                    tile_status[sub_key] = {'status': 'failed', 'error': str(sub_exc)[-200:]}
-                    print(name, sub_key, 'failed', flush=True)
-    return successes, failed, tile_status
-
+            if depth < max_depth:
+                print(name, key, 'failed; subdividing', str(exc)[-100:], flush=True)
+                status[key] = {'status': 'subdivided'}
+                for row, col, sub in split(b):
+                    visit(sub, f'{key}_sub_{row}_{col}', depth+1)
+            else:
+                failed.append({'tile': key, 'bbox': b, 'error': str(exc)[-300:]})
+                status[key] = {'status': 'failed', 'error': str(exc)[-200:]}
+                print(name, key, 'FAILED (uncovered)', flush=True)
+    for row, col, b in split(root):
+        visit(b, f'grid2_{row}_{col}', 0)
+    return counts, failed, status
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--areas', required=True, help='Comma-separated municipality names')
+    parser.add_argument('--areas', required=True)
+    parser.add_argument('--max-depth', type=int, default=2, choices=[0,1,2,3],
+                        help='Additional subdivisions after initial 2x2; default 2')
     args = parser.parse_args()
     selected = list(dict.fromkeys(x.strip() for x in args.areas.split(',') if x.strip()))
     if not selected or any(x not in NAMES for x in selected):
-        parser.error('Specify municipality names from the supported 25 areas')
-    CACHE.mkdir(exist_ok=True)
-    OUT.mkdir(exist_ok=True)
-    records, status = {}, {}
+        parser.error('Specify supported municipality names')
+    CACHE.mkdir(parents=True, exist_ok=True)
+    OUT.mkdir(parents=True, exist_ok=True)
+    records, statuses = {}, {}
     for name in selected:
         try:
-            successes, failures, tile_status = collect(name, records)
-            status[name] = {'status': 'fetched' if not failures else 'partial',
-                            'successful_tiles': successes, 'failed_tiles': failures, 'tiles': tile_status}
+            counts, failures, tiles = collect(name, records, args.max_depth)
+            statuses[name] = {'status': 'partial' if failures else 'fetched',
+                              'successful_tiles': sum(counts.values()),
+                              'cached_tiles': counts['cached'],
+                              'new_tiles': counts['fetched'],
+                              'failed_tiles': failures, 'tiles': tiles}
         except Exception as exc:
-            status[name] = {'status': 'failed', 'error': str(exc)[-300:]}
-        print(name, status[name]['status'], flush=True)
-        atomic_json(OUT / 'remaining-failed-tiles.json', {k: v.get('failed_tiles', []) for k,v in status.items() if v.get('failed_tiles')})
-        # Preserve all completed tiles even when subsequent tiles fail.
-        write_results('retry', selected, status, records)
-    if any(v['status'] != 'fetched' for v in status.values()):
+            statuses[name] = {'status': 'failed', 'error': str(exc)[-300:],
+                              'failed_tiles': []}
+        print(name, statuses[name]['status'], flush=True)
+        atomic_json(OUT / 'remaining-failed-tiles.json',
+                    {k: v.get('failed_tiles', []) for k,v in statuses.items()
+                     if v.get('failed_tiles')})
+        write_results('retry', selected, statuses, records)
+    print('SUMMARY', json.dumps({k: v['status'] for k,v in statuses.items()},
+                                ensure_ascii=False), flush=True)
+    if any(v['status'] != 'fetched' for v in statuses.values()):
         sys.exit(2)
 
 if __name__ == '__main__':
