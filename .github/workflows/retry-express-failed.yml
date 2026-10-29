@@ -4,10 +4,19 @@ on:
   workflow_dispatch:
     inputs:
       areas:
-        description: 'Comma-separated municipalities to retry (e.g. 台東区,中野区)'
+        description: 'Municipalities (comma separated)'
         required: true
         type: string
-        default: '台東区,中野区,北区,板橋区,足立区,葛飾区'
+        default: '足立区,葛飾区'
+      max_depth:
+        description: 'Additional subdivisions of failed tiles (0-3)'
+        required: true
+        type: choice
+        options:
+          - '1'
+          - '2'
+          - '3'
+        default: '2'
 
 permissions:
   contents: read
@@ -31,9 +40,12 @@ jobs:
           restore-keys: |
             express-tiles-
       - name: Retry selected areas
+        id: retry
+        continue-on-error: true
         env:
           AREAS: ${{ inputs.areas }}
-        run: python retry_express_failed.py --areas "$AREAS"
+          MAX_DEPTH: ${{ inputs.max_depth }}
+        run: python retry_express_failed.py --areas "$AREAS" --max-depth "$MAX_DEPTH"
       - name: Save successful tile cache for next run
         if: always()
         uses: actions/cache/save@v4
@@ -48,3 +60,8 @@ jobs:
           path: output/*.json
           if-no-files-found: warn
           retention-days: 14
+      - name: Report incomplete coverage
+        if: steps.retry.outcome == 'failure'
+        run: |
+          echo 'Some tiles remain unavailable. Partial JSON and successful tile cache have been saved.'
+          echo 'Check remaining-failed-tiles.json in the artifact.'
