@@ -1,0 +1,37 @@
+name: Retry Tokyo expressway failed areas
+
+on:
+  workflow_dispatch:
+    inputs:
+      areas:
+        description: 'Comma-separated municipalities to retry (e.g. 台東区,中野区)'
+        required: true
+        type: string
+        default: '台東区,中野区,北区,板橋区,足立区,葛飾区'
+
+permissions:
+  contents: read
+
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Retry selected areas
+        env:
+          AREAS: ${{ inputs.areas }}
+        run: python retry_express_failed.py --areas "$AREAS"
+      - name: Upload partial results even if some areas fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-express-retry-results
+          path: output/*.json
+          if-no-files-found: warn
+          retention-days: 14
