@@ -20,14 +20,18 @@ def query(b):
 
 def fetch(b):
     failures=[]
-    for url in ENDPOINTS:
-        try:
-            req=urllib.request.Request(url,data=urllib.parse.urlencode({'data':query(b)}).encode(),headers={'User-Agent':'TokyoTaxiCockpit-OSMResearch/1.0','Content-Type':'application/x-www-form-urlencoded'})
-            with urllib.request.urlopen(req,timeout=32) as r: payload=json.load(r)
-            if not isinstance(payload.get('elements'),list):raise ValueError('missing elements')
-            return payload['elements'],url
-        except Exception as e:
-            failures.append(f'{url}: {str(e)[:130]}')
+    # Try each endpoint twice. A brief delay helps with transient 502/timeouts.
+    for attempt in range(2):
+        for url in ENDPOINTS:
+            try:
+                req=urllib.request.Request(url,data=urllib.parse.urlencode({'data':query(b)}).encode(),headers={'User-Agent':'TokyoTaxiCockpit-OSMResearch/1.0','Content-Type':'application/x-www-form-urlencoded'})
+                with urllib.request.urlopen(req,timeout=45) as r: payload=json.load(r)
+                if not isinstance(payload.get('elements'),list):raise ValueError('missing elements')
+                return payload['elements'],url
+            except Exception as e:
+                failures.append(f'attempt {attempt+1} {url}: {str(e)[:130]}')
+        if attempt == 0:
+            time.sleep(8)
     raise RuntimeError(' | '.join(failures))
 
 def main():
