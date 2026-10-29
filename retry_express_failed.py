@@ -64,6 +64,11 @@ def atomic_json(path, obj):
     temp.replace(path)
 
 
+# Conservative search envelope for Adachi; NOT a verified administrative boundary.
+# Municipality area filter in tile_query excludes neighboring areas.
+FALLBACK_BBOX = {'足立区': [35.7200, 139.6900, 35.8500, 139.8900]}
+
+
 def read_cached_bbox(name):
     path = CACHE / f'{name}_bbox.json'
     if path.exists():
@@ -73,7 +78,11 @@ def read_cached_bbox(name):
                 return b
         except (OSError, ValueError, TypeError):
             pass
-    b = municipality_bbox(name)
+    if name in FALLBACK_BBOX:
+        b = FALLBACK_BBOX[name]
+        print(name, 'using conservative fallback search envelope (not verified boundary)', flush=True)
+    else:
+        b = municipality_bbox(name)
     atomic_json(path, b)
     return b
 
@@ -102,7 +111,9 @@ def collect(name, records):
     failed = []
     successes = 0
     tile_status = {}
-    # 2x2 first, then subdivide only failed cells into 2x2 more (effective 4x4).
+    # Start directly in 2x2 tiles, bypassing whole-ward fetch.
+    # Successful tiles (including empty ones) are persisted and reused.
+    # A failed tile is subdivided once more into 2x2.
     for row, col, bounds in split(bbox, 2):
         key = f'grid2_{row}_{col}'
         try:
