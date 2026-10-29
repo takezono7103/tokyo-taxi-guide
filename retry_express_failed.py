@@ -17,20 +17,20 @@ from build_express_batch import NAMES, CACHE, OUT, ENDPOINTS, point, write_resul
 def overpass(query, attempts=3):
     errors = []
     for i in range(attempts):
-        endpoint = ENDPOINTS[i % len(ENDPOINTS)]
+        endpoint = ENDPOINTS[(i + 1) % len(ENDPOINTS)]
         try:
             request = urllib.request.Request(
                 endpoint, data=urllib.parse.urlencode({'data': query}).encode(),
                 headers={'User-Agent': 'TokyoTaxiCockpitDBBuilder/1.2 (OSM research)',
                          'Content-Type': 'application/x-www-form-urlencoded'})
-            with urllib.request.urlopen(request, timeout=65) as response:
+            with urllib.request.urlopen(request, timeout=40) as response:
                 payload = json.load(response)
             if not isinstance(payload.get('elements'), list):
                 raise ValueError('No elements array')
             return payload['elements'], endpoint
         except Exception as exc:
             errors.append(f'{endpoint}: {exc}')
-            time.sleep(2)
+            time.sleep(1 + i)
     raise RuntimeError(' | '.join(errors)[-500:])
 
 
@@ -58,6 +58,26 @@ def tile_query(name, bbox):
             'out center tags;')
 
 
+def atomic_json(path, obj):
+    temp = path.with_suffix('.tmp')
+    temp.write_text(json.dumps(obj, ensure_ascii=False), encoding='utf-8')
+    temp.replace(path)
+
+
+def read_cached_bbox(name):
+    path = CACHE / f'{name}_bbox.json'
+    if path.exists():
+        try:
+            b = json.loads(path.read_text(encoding='utf-8'))
+            if len(b) == 4 and all(isinstance(x, (int, float)) for x in b):
+                return b
+        except (OSError, ValueError, TypeError):
+            pass
+    b = municipality_bbox(name)
+    atomic_json(path, b)
+    return b
+
+
 def fetch_tile(name, bbox, cache_key):
     cache_path = CACHE / f'{name}_{cache_key}.json'
     if cache_path.exists():
@@ -65,8 +85,7 @@ def fetch_tile(name, bbox, cache_key):
         if isinstance(saved.get('elements'), list):
             return saved['elements'], saved.get('source', 'cache')
     elements, source = overpass(tile_query(name, bbox))
-    cache_path.write_text(json.dumps({'source': source, 'bbox': bbox,
-                                     'elements': elements}, ensure_ascii=False), encoding='utf-8')
+    atomic_json(cache_path, {'source': source, 'bbox': bbox, 'elements': elements})
     return elements, source
 
 
@@ -79,15 +98,17 @@ def split(bbox, divisions):
 
 
 def collect(name, records):
-    bbox = municipality_bbox(name)
+    bbox = read_cached_bbox(name)
     failed = []
     successes = 0
+    tile_status = {}
     # 2x2 first, then subdivide only failed cells into 2x2 more (effective 4x4).
     for row, col, bounds in split(bbox, 2):
         key = f'grid2_{row}_{col}'
         try:
             elements, source = fetch_tile(name, bounds, key)
             successes += 1
+            tile_status[key] = {'status': 'fetched', 'count': len(elements)}
             for el in elements:
                 lat, lon = point(el)
                 if isinstance(lat,(int,float)) and isinstance(lon,(int,float)):
@@ -100,6 +121,7 @@ def collect(name, records):
                 try:
                     elements, source = fetch_tile(name, sub_bounds, sub_key)
                     successes += 1
+                    tile_status[sub_key] = {'status': 'fetched', 'count': len(elements)}
                     for el in elements:
                         lat, lon = point(el)
                         if isinstance(lat,(int,float)) and isinstance(lon,(int,float)):
@@ -108,8 +130,9 @@ def collect(name, records):
                 except Exception as sub_exc:
                     failed.append({'tile': sub_key, 'bbox': sub_bounds,
                                    'error': str(sub_exc)[-300:]})
+                    tile_status[sub_key] = {'status': 'failed', 'error': str(sub_exc)[-200:]}
                     print(name, sub_key, 'failed', flush=True)
-    return successes, failed
+    return successes, failed, tile_status
 
 
 def main():
@@ -124,12 +147,13 @@ def main():
     records, status = {}, {}
     for name in selected:
         try:
-            successes, failures = collect(name, records)
+            successes, failures, tile_status = collect(name, records)
             status[name] = {'status': 'fetched' if not failures else 'partial',
-                            'successful_tiles': successes, 'failed_tiles': failures}
+                            'successful_tiles': successes, 'failed_tiles': failures, 'tiles': tile_status}
         except Exception as exc:
             status[name] = {'status': 'failed', 'error': str(exc)[-300:]}
         print(name, status[name]['status'], flush=True)
+        atomic_json(OUT / 'remaining-failed-tiles.json', {k: v.get('failed_tiles', []) for k,v in status.items() if v.get('failed_tiles')})
         # Preserve all completed tiles even when subsequent tiles fail.
         write_results('retry', selected, status, records)
     if any(v['status'] != 'fetched' for v in status.values()):
