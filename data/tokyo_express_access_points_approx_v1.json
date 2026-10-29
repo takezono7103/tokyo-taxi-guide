@@ -1,0 +1,2783 @@
+{
+  "format": "tokyo-taxi-express-access-points-v1",
+  "status": "candidate",
+  "source": "OpenStreetMap contributors / Overpass API",
+  "license": "ODbL 1.0",
+  "source_element_count": 316,
+  "location_precision": "approximate; not for navigation or legal access determination",
+  "count": 112,
+  "points": [
+    {
+      "name": "三郷南",
+      "lat": 35.7987513,
+      "lon": 139.8782009,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [],
+      "osm_ids": [
+        "node/465291267",
+        "node/465290731"
+      ],
+      "source_names": [
+        "三郷南"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "八潮南",
+      "lat": 35.7988251,
+      "lon": 139.8274263,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [],
+      "osm_ids": [
+        "node/559436170",
+        "node/2579845617",
+        "node/2579787363",
+        "node/2579787367"
+      ],
+      "source_names": [
+        "八潮南"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "東八道路IC（仮称）",
+      "lat": 35.6774621,
+      "lon": 139.5836067,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "三鷹市"
+      ],
+      "osm_ids": [
+        "node/7108805156",
+        "node/7159163179",
+        "node/7159201077",
+        "node/7159280039"
+      ],
+      "source_names": [
+        "東八道路IC（仮称）"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "三軒茶屋",
+      "lat": 35.6457623,
+      "lon": 139.6755077,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "世田谷区"
+      ],
+      "osm_ids": [
+        "node/1091725794",
+        "node/2359268395"
+      ],
+      "source_names": [
+        "三軒茶屋",
+        "三軒茶屋出入口"
+      ],
+      "source_direction_labels": [
+        "入口",
+        "未区分"
+      ]
+    },
+    {
+      "name": "東京IC",
+      "lat": 35.6286736,
+      "lon": 139.6152536,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "世田谷区"
+      ],
+      "osm_ids": [
+        "node/252681869",
+        "node/252835371"
+      ],
+      "source_names": [
+        "東京IC"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "永福",
+      "lat": 35.6699702,
+      "lon": 139.649777,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "世田谷区",
+        "杉並区"
+      ],
+      "osm_ids": [
+        "node/6681511134",
+        "node/279076842"
+      ],
+      "source_names": [
+        "永福出口"
+      ],
+      "source_direction_labels": [
+        "出口"
+      ]
+    },
+    {
+      "name": "池尻",
+      "lat": 35.6477383,
+      "lon": 139.6787882,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "世田谷区"
+      ],
+      "osm_ids": [
+        "node/1746785360",
+        "node/2091867904"
+      ],
+      "source_names": [
+        "池尻",
+        "池尻出口"
+      ],
+      "source_direction_labels": [
+        "出口",
+        "未区分"
+      ]
+    },
+    {
+      "name": "玉川",
+      "lat": 35.6052759,
+      "lon": 139.6387115,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "世田谷区"
+      ],
+      "osm_ids": [
+        "node/281381090",
+        "node/281381359"
+      ],
+      "source_names": [
+        "玉川"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "用賀",
+      "lat": 35.6267125,
+      "lon": 139.6297981,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "世田谷区"
+      ],
+      "osm_ids": [
+        "node/252836825",
+        "node/1746139060",
+        "node/6447380794"
+      ],
+      "source_names": [
+        "用賀"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "両国",
+      "lat": 35.6899716,
+      "lon": 139.7886322,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/6698927667"
+      ],
+      "source_names": [
+        "両国"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "京橋",
+      "lat": 35.6772111,
+      "lon": 139.7744963,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/572570042"
+      ],
+      "source_names": [
+        "京橋"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "宝町",
+      "lat": 35.6801667,
+      "lon": 139.7761289,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/1891818143",
+        "node/3017665448"
+      ],
+      "source_names": [
+        "宝町"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "小伝馬町",
+      "lat": 35.6907607,
+      "lon": 139.77846,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/603584647",
+        "node/1691781711"
+      ],
+      "source_names": [
+        "小伝馬町"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "小伝馬町三丁目",
+      "lat": 35.6914251,
+      "lon": 139.7795772,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/1054155404",
+        "node/1691781364"
+      ],
+      "source_names": [
+        "小伝馬町三丁目"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "新富町",
+      "lat": 35.6719894,
+      "lon": 139.7722359,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/31254353",
+        "node/588391376"
+      ],
+      "source_names": [
+        "新富町"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "晴海",
+      "lat": 35.6546181,
+      "lon": 139.7825753,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/5470031352",
+        "node/5470031356"
+      ],
+      "source_names": [
+        "晴海"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "本町",
+      "lat": 35.6927385,
+      "lon": 139.7749968,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区",
+        "千代田区"
+      ],
+      "osm_ids": [
+        "node/568094564",
+        "node/2128403168",
+        "node/2093245827"
+      ],
+      "source_names": [
+        "本町"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "本町三丁目",
+      "lat": 35.6894263,
+      "lon": 139.7755534,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/265887785",
+        "node/460050999"
+      ],
+      "source_names": [
+        "本町三丁目"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "東京シティエアターミナル専用",
+      "lat": 35.6823841,
+      "lon": 139.7887383,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/2689533477"
+      ],
+      "source_names": [
+        ""
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "東銀座",
+      "lat": 35.6741521,
+      "lon": 139.7714517,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/31255230"
+      ],
+      "source_names": [
+        "東銀座"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "汐留",
+      "lat": 35.6632827,
+      "lon": 139.7629036,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区",
+        "港区"
+      ],
+      "osm_ids": [
+        "node/31253688",
+        "node/571468136"
+      ],
+      "source_names": [
+        "汐留",
+        "汐留入口"
+      ],
+      "source_direction_labels": [
+        "入口",
+        "未区分"
+      ]
+    },
+    {
+      "name": "江戸橋",
+      "lat": 35.684801,
+      "lon": 139.7770931,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/568092781"
+      ],
+      "source_names": [
+        "江戸橋"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "浜町",
+      "lat": 35.6827075,
+      "lon": 139.788458,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/1106211872"
+      ],
+      "source_names": [
+        "浜町出口"
+      ],
+      "source_direction_labels": [
+        "出口"
+      ]
+    },
+    {
+      "name": "清洲橋",
+      "lat": 35.6828845,
+      "lon": 139.7887769,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/1694598881",
+        "node/10132686105"
+      ],
+      "source_names": [
+        "清洲橋",
+        "清洲橋出口"
+      ],
+      "source_direction_labels": [
+        "出口",
+        "未区分"
+      ]
+    },
+    {
+      "name": "箱崎",
+      "lat": 35.6810972,
+      "lon": 139.7860989,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/565479944",
+        "node/1694598821"
+      ],
+      "source_names": [
+        "箱崎",
+        "箱崎出口"
+      ],
+      "source_direction_labels": [
+        "出口",
+        "未区分"
+      ]
+    },
+    {
+      "name": "銀座",
+      "lat": 35.6647279,
+      "lon": 139.7653422,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/31254160",
+        "node/31254341",
+        "node/1834887185",
+        "node/1834887252"
+      ],
+      "source_names": [
+        "銀座"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "馬喰町",
+      "lat": 35.6929492,
+      "lon": 139.7818542,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中央区"
+      ],
+      "osm_ids": [
+        "node/1054597789",
+        "node/1691781389"
+      ],
+      "source_names": [
+        "馬喰町"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "中野長者橋",
+      "lat": 35.6948015,
+      "lon": 139.6823301,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "中野区"
+      ],
+      "osm_ids": [
+        "node/3851530201",
+        "node/3851530202"
+      ],
+      "source_names": [
+        "中野長者橋"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "王子北",
+      "lat": 35.7573624,
+      "lon": 139.7461122,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "北区"
+      ],
+      "osm_ids": [
+        "node/676408802"
+      ],
+      "source_names": [
+        "王子北"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "王子南",
+      "lat": 35.7524644,
+      "lon": 139.7402997,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "北区"
+      ],
+      "osm_ids": [
+        "node/263988137",
+        "node/5463281511"
+      ],
+      "source_names": [
+        "王子南"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "一ツ橋",
+      "lat": 35.6934076,
+      "lon": 139.7559984,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "千代田区"
+      ],
+      "osm_ids": [
+        "node/256426148",
+        "node/1082039923"
+      ],
+      "source_names": [
+        "一ツ橋",
+        "一ツ橋出口"
+      ],
+      "source_direction_labels": [
+        "出口",
+        "未区分"
+      ]
+    },
+    {
+      "name": "代官町",
+      "lat": 35.6893707,
+      "lon": 139.7484498,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "千代田区"
+      ],
+      "osm_ids": [
+        "node/297945194",
+        "node/577517536",
+        "node/1866081909"
+      ],
+      "source_names": [
+        "代官町"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "北の丸",
+      "lat": 35.6909471,
+      "lon": 139.754878,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "千代田区"
+      ],
+      "osm_ids": [
+        "node/264871745"
+      ],
+      "source_names": [
+        "北の丸"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "神田橋",
+      "lat": 35.6904857,
+      "lon": 139.7622957,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "千代田区"
+      ],
+      "osm_ids": [
+        "node/260710829",
+        "node/264871734",
+        "node/1070863041"
+      ],
+      "source_names": [
+        "神田橋"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "西神田",
+      "lat": 35.6978831,
+      "lon": 139.7524944,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "千代田区"
+      ],
+      "osm_ids": [
+        "node/567872146",
+        "node/567872147",
+        "node/2130008048",
+        "node/2130008050"
+      ],
+      "source_names": [
+        "西神田",
+        "西神田出入口"
+      ],
+      "source_direction_labels": [
+        "入口",
+        "未区分"
+      ]
+    },
+    {
+      "name": "霞が関",
+      "lat": 35.6764066,
+      "lon": 139.7492937,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "千代田区"
+      ],
+      "osm_ids": [
+        "node/260710789",
+        "node/264877784"
+      ],
+      "source_names": [
+        "霞が関",
+        "霞が関出口"
+      ],
+      "source_direction_labels": [
+        "出口",
+        "未区分"
+      ]
+    },
+    {
+      "name": "上野",
+      "lat": 35.7069536,
+      "lon": 139.7762752,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "台東区"
+      ],
+      "osm_ids": [
+        "node/2093245861",
+        "node/3767284426"
+      ],
+      "source_names": [
+        "上野"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "入谷",
+      "lat": 35.7189828,
+      "lon": 139.7832347,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "台東区"
+      ],
+      "osm_ids": [
+        "node/1041276946",
+        "node/1041298833"
+      ],
+      "source_names": [
+        "入谷"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "中環大井南",
+      "lat": 35.5982388,
+      "lon": 139.7552349,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "品川区"
+      ],
+      "osm_ids": [
+        "node/31298983",
+        "node/2569328633"
+      ],
+      "source_names": [
+        "中環大井南"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "五反田",
+      "lat": 35.6306912,
+      "lon": 139.7096555,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "品川区",
+        "目黒区"
+      ],
+      "osm_ids": [
+        "node/3387909578",
+        "node/2068189807"
+      ],
+      "source_names": [
+        "五反田"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "大井",
+      "lat": 35.6130837,
+      "lon": 139.7577128,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "品川区"
+      ],
+      "osm_ids": [
+        "node/31298908"
+      ],
+      "source_names": [
+        "大井"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "大井南",
+      "lat": 35.6074222,
+      "lon": 139.7554285,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "品川区"
+      ],
+      "osm_ids": [
+        "node/2569334806"
+      ],
+      "source_names": [
+        "大井南出口"
+      ],
+      "source_direction_labels": [
+        "出口"
+      ]
+    },
+    {
+      "name": "戸越",
+      "lat": 35.6169469,
+      "lon": 139.7175451,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "品川区"
+      ],
+      "osm_ids": [
+        "node/1064064228",
+        "node/2703511281"
+      ],
+      "source_names": [
+        "戸越"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "目黒",
+      "lat": 35.6379136,
+      "lon": 139.7168521,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "品川区"
+      ],
+      "osm_ids": [
+        "node/260710736",
+        "node/2177935859"
+      ],
+      "source_names": [
+        "目黒"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "臨海副都心",
+      "lat": 35.6251658,
+      "lon": 139.7740382,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "品川区",
+        "江東区"
+      ],
+      "osm_ids": [
+        "node/31288829",
+        "node/31288855"
+      ],
+      "source_names": [
+        "臨海副都心"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "荏原",
+      "lat": 35.6187045,
+      "lon": 139.7155352,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "品川区"
+      ],
+      "osm_ids": [
+        "node/260710868",
+        "node/1858137841"
+      ],
+      "source_names": [
+        "",
+        "荏原"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "鈴ケ森",
+      "lat": 35.5948143,
+      "lon": 139.7415849,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "品川区"
+      ],
+      "osm_ids": [
+        "node/36719769"
+      ],
+      "source_names": [
+        "鈴ケ森"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "向島",
+      "lat": 35.7228646,
+      "lon": 139.8100296,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "墨田区"
+      ],
+      "osm_ids": [
+        "node/1415541514",
+        "node/1415541524"
+      ],
+      "source_names": [
+        "向島"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "堤通",
+      "lat": 35.731882,
+      "lon": 139.8118775,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "墨田区"
+      ],
+      "osm_ids": [
+        "node/565475973",
+        "node/565478790",
+        "node/1700593263",
+        "node/1700593265"
+      ],
+      "source_names": [
+        "堤通"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "錦糸町",
+      "lat": 35.6929334,
+      "lon": 139.8114528,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "墨田区",
+        "江東区"
+      ],
+      "osm_ids": [
+        "node/850376340",
+        "node/849136420"
+      ],
+      "source_names": [
+        "錦糸町"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "駒形",
+      "lat": 35.704616,
+      "lon": 139.7961862,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "墨田区"
+      ],
+      "osm_ids": [
+        "node/3935796666"
+      ],
+      "source_names": [
+        "駒形"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "大井南",
+      "lat": 35.587111,
+      "lon": 139.7551815,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "大田区"
+      ],
+      "osm_ids": [
+        "node/35938010"
+      ],
+      "source_names": [
+        "大井南"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "平和島",
+      "lat": 35.5763958,
+      "lon": 139.7476334,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "大田区"
+      ],
+      "osm_ids": [
+        "node/36601707",
+        "node/36601711"
+      ],
+      "source_names": [
+        "平和島"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "湾岸環八",
+      "lat": 35.5374046,
+      "lon": 139.7948545,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "大田区"
+      ],
+      "osm_ids": [
+        "node/36411896",
+        "node/36411905"
+      ],
+      "source_names": [
+        "湾岸環八"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "空港中央",
+      "lat": 35.5587246,
+      "lon": 139.7794865,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "大田区"
+      ],
+      "osm_ids": [
+        "node/35925775",
+        "node/35926477"
+      ],
+      "source_names": [
+        "空港中央"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "空港西",
+      "lat": 35.5589834,
+      "lon": 139.7542858,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "大田区"
+      ],
+      "osm_ids": [
+        "node/36610838",
+        "node/36610850"
+      ],
+      "source_names": [
+        "空港西出入口"
+      ],
+      "source_direction_labels": [
+        "入口"
+      ]
+    },
+    {
+      "name": "羽田",
+      "lat": 35.554349,
+      "lon": 139.7467071,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "大田区"
+      ],
+      "osm_ids": [
+        "node/36720848",
+        "node/36720852",
+        "node/36721363",
+        "node/36721365"
+      ],
+      "source_names": [
+        "羽田入口",
+        "羽田出口"
+      ],
+      "source_direction_labels": [
+        "入口",
+        "出口"
+      ]
+    },
+    {
+      "name": "早稲田",
+      "lat": 35.7102054,
+      "lon": 139.7323089,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "文京区"
+      ],
+      "osm_ids": [
+        "node/567867780"
+      ],
+      "source_names": [
+        "早稲田"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "護国寺",
+      "lat": 35.7179966,
+      "lon": 139.7270748,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "文京区"
+      ],
+      "osm_ids": [
+        "node/1685515660"
+      ],
+      "source_names": [
+        "護国寺"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "外苑",
+      "lat": 35.6796288,
+      "lon": 139.7220537,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "新宿区",
+        "渋谷区"
+      ],
+      "osm_ids": [
+        "node/1125926447",
+        "node/267805296"
+      ],
+      "source_names": [
+        "外苑出口"
+      ],
+      "source_direction_labels": [
+        "出口"
+      ]
+    },
+    {
+      "name": "新宿",
+      "lat": 35.6827815,
+      "lon": 139.6887155,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "新宿区",
+        "渋谷区"
+      ],
+      "osm_ids": [
+        "node/295393488",
+        "node/1237984803"
+      ],
+      "source_names": [
+        "新宿出口"
+      ],
+      "source_direction_labels": [
+        "出口"
+      ]
+    },
+    {
+      "name": "飯田橋",
+      "lat": 35.7081809,
+      "lon": 139.7415533,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "新宿区"
+      ],
+      "osm_ids": [
+        "node/1919930849",
+        "node/11916225715"
+      ],
+      "source_names": [
+        "飯田橋"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "高井戸",
+      "lat": 35.6732258,
+      "lon": 139.6213954,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "杉並区"
+      ],
+      "osm_ids": [
+        "node/260714458"
+      ],
+      "source_names": [
+        "高井戸"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "高井戸IC",
+      "lat": 35.6804894,
+      "lon": 139.6047395,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "杉並区"
+      ],
+      "osm_ids": [
+        "node/7111415496"
+      ],
+      "source_names": [
+        "高井戸IC"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "中台",
+      "lat": 35.7747568,
+      "lon": 139.6841423,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "板橋区"
+      ],
+      "osm_ids": [
+        "node/252174740",
+        "node/2110614958"
+      ],
+      "source_names": [
+        "中台"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "新板橋",
+      "lat": 35.7492281,
+      "lon": 139.7159049,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "板橋区"
+      ],
+      "osm_ids": [
+        "node/1928907427"
+      ],
+      "source_names": [
+        "新板橋出口"
+      ],
+      "source_direction_labels": [
+        "出口"
+      ]
+    },
+    {
+      "name": "板橋本町",
+      "lat": 35.7543421,
+      "lon": 139.7082987,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "板橋区"
+      ],
+      "osm_ids": [
+        "node/1928885702",
+        "node/1928885706"
+      ],
+      "source_names": [
+        "板橋本町"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "滝野川",
+      "lat": 35.7492188,
+      "lon": 139.7158918,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "板橋区"
+      ],
+      "osm_ids": [
+        "node/4597822558"
+      ],
+      "source_names": [
+        "滝野川入口"
+      ],
+      "source_direction_labels": [
+        "入口"
+      ]
+    },
+    {
+      "name": "高島平",
+      "lat": 35.7841954,
+      "lon": 139.6537987,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "板橋区"
+      ],
+      "osm_ids": [
+        "node/2091157603",
+        "node/2091157604"
+      ],
+      "source_names": [
+        "高島平"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "高松",
+      "lat": 35.73872,
+      "lon": 139.7045727,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "板橋区"
+      ],
+      "osm_ids": [
+        "node/1928229742"
+      ],
+      "source_names": [
+        "高松"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "一之江",
+      "lat": 35.697592,
+      "lon": 139.8774469,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江戸川区"
+      ],
+      "osm_ids": [
+        "node/600726182",
+        "node/7301483738"
+      ],
+      "source_names": [
+        "一之江"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "中環小松川",
+      "lat": 35.6989875,
+      "lon": 139.8641126,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江戸川区"
+      ],
+      "osm_ids": [
+        "node/7022713621"
+      ],
+      "source_names": [
+        "中環小松川入口"
+      ],
+      "source_direction_labels": [
+        "入口"
+      ]
+    },
+    {
+      "name": "小松川",
+      "lat": 35.6990592,
+      "lon": 139.8628825,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江戸川区"
+      ],
+      "osm_ids": [
+        "node/739113434",
+        "node/7119720207"
+      ],
+      "source_names": [
+        "小松川入口",
+        "小松川出口"
+      ],
+      "source_direction_labels": [
+        "入口",
+        "出口"
+      ]
+    },
+    {
+      "name": "清新町",
+      "lat": 35.6692892,
+      "lon": 139.8496293,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江戸川区"
+      ],
+      "osm_ids": [
+        "node/31337300"
+      ],
+      "source_names": [
+        "清新町"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "篠崎IC",
+      "lat": 35.7082809,
+      "lon": 139.9144195,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江戸川区"
+      ],
+      "osm_ids": [
+        "node/623850525"
+      ],
+      "source_names": [
+        "篠崎IC"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "船堀橋",
+      "lat": 35.6845708,
+      "lon": 139.8553253,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江戸川区"
+      ],
+      "osm_ids": [
+        "node/31337397"
+      ],
+      "source_names": [
+        "船堀橋"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "葛西",
+      "lat": 35.6410975,
+      "lon": 139.8721219,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江戸川区"
+      ],
+      "osm_ids": [
+        "node/255643884",
+        "node/255644314",
+        "node/598514872",
+        "node/598514888"
+      ],
+      "source_names": [
+        "葛西"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "塩浜",
+      "lat": 35.6613093,
+      "lon": 139.8065504,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江東区"
+      ],
+      "osm_ids": [
+        "node/31337485"
+      ],
+      "source_names": [
+        "塩浜"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "新木場",
+      "lat": 35.646446,
+      "lon": 139.824128,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江東区"
+      ],
+      "osm_ids": [
+        "node/31300488",
+        "node/31330050",
+        "node/31330068"
+      ],
+      "source_names": [
+        "新木場"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "有明",
+      "lat": 35.6399135,
+      "lon": 139.8005495,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江東区"
+      ],
+      "osm_ids": [
+        "node/31300416",
+        "node/31300420"
+      ],
+      "source_names": [
+        "有明"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "木場",
+      "lat": 35.6730179,
+      "lon": 139.7997999,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江東区"
+      ],
+      "osm_ids": [
+        "node/1640003720",
+        "node/1640003721"
+      ],
+      "source_names": [
+        "木場"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "枝川",
+      "lat": 35.6580447,
+      "lon": 139.8088562,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江東区"
+      ],
+      "osm_ids": [
+        "node/31337476"
+      ],
+      "source_names": [
+        "枝川"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "福住",
+      "lat": 35.6744747,
+      "lon": 139.7953062,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江東区"
+      ],
+      "osm_ids": [
+        "node/309619251",
+        "node/1640003732"
+      ],
+      "source_names": [
+        "福住"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "豊洲",
+      "lat": 35.6430947,
+      "lon": 139.7929483,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "江東区"
+      ],
+      "osm_ids": [
+        "node/493584453",
+        "node/499073450"
+      ],
+      "source_names": [
+        "豊洲"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "代々木",
+      "lat": 35.6804647,
+      "lon": 139.6968121,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "渋谷区"
+      ],
+      "osm_ids": [
+        "node/267810144"
+      ],
+      "source_names": [
+        "代々木出口"
+      ],
+      "source_direction_labels": [
+        "出口"
+      ]
+    },
+    {
+      "name": "初台",
+      "lat": 35.6784453,
+      "lon": 139.6804588,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "渋谷区"
+      ],
+      "osm_ids": [
+        "node/295393445"
+      ],
+      "source_names": [
+        "初台出口"
+      ],
+      "source_direction_labels": [
+        "出口"
+      ]
+    },
+    {
+      "name": "初台南",
+      "lat": 35.6729149,
+      "lon": 139.6875891,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "渋谷区"
+      ],
+      "osm_ids": [
+        "node/919617354"
+      ],
+      "source_names": [
+        "初台南"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "富ヶ谷",
+      "lat": 35.6659486,
+      "lon": 139.6880295,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "渋谷区"
+      ],
+      "osm_ids": [
+        "node/3851577677"
+      ],
+      "source_names": [
+        "富ヶ谷"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "幡ヶ谷",
+      "lat": 35.6776052,
+      "lon": 139.6783929,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "渋谷区"
+      ],
+      "osm_ids": [
+        "node/267810221"
+      ],
+      "source_names": [
+        "幡ヶ谷"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "渋谷",
+      "lat": 35.6561884,
+      "lon": 139.6974549,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "渋谷区"
+      ],
+      "osm_ids": [
+        "node/3174589506",
+        "node/3174589518",
+        "node/3854029357"
+      ],
+      "source_names": [
+        "渋谷",
+        "渋谷出口"
+      ],
+      "source_direction_labels": [
+        "出口",
+        "未区分"
+      ]
+    },
+    {
+      "name": "台場",
+      "lat": 35.6349354,
+      "lon": 139.7686834,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "港区"
+      ],
+      "osm_ids": [
+        "node/31236584"
+      ],
+      "source_names": [
+        "台場"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "天現寺",
+      "lat": 35.6469499,
+      "lon": 139.7295074,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "港区"
+      ],
+      "osm_ids": [
+        "node/252175582",
+        "node/1832672276"
+      ],
+      "source_names": [
+        "天現寺",
+        "天現寺出口"
+      ],
+      "source_direction_labels": [
+        "出口",
+        "未区分"
+      ]
+    },
+    {
+      "name": "芝公園",
+      "lat": 35.6533664,
+      "lon": 139.7529688,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "港区"
+      ],
+      "osm_ids": [
+        "node/31295430",
+        "node/31296943",
+        "node/31296958"
+      ],
+      "source_names": [
+        "芝公園入口",
+        "芝公園出口"
+      ],
+      "source_direction_labels": [
+        "入口",
+        "出口"
+      ]
+    },
+    {
+      "name": "芝浦",
+      "lat": 35.6414479,
+      "lon": 139.7545699,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "港区"
+      ],
+      "osm_ids": [
+        "node/31253977"
+      ],
+      "source_names": [
+        "芝浦"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "飯倉",
+      "lat": 35.6582083,
+      "lon": 139.7364124,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "港区"
+      ],
+      "osm_ids": [
+        "node/31297556",
+        "node/252175204"
+      ],
+      "source_names": [
+        "飯倉"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "高樹町",
+      "lat": 35.6595528,
+      "lon": 139.722272,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "港区"
+      ],
+      "osm_ids": [
+        "node/2127484102",
+        "node/2127484104"
+      ],
+      "source_names": [
+        "高樹町",
+        "高樹町出口"
+      ],
+      "source_direction_labels": [
+        "出口",
+        "未区分"
+      ]
+    },
+    {
+      "name": "大泉IC",
+      "lat": 35.7599568,
+      "lon": 139.5990631,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "練馬区"
+      ],
+      "osm_ids": [
+        "node/224622935"
+      ],
+      "source_names": [
+        "大泉IC"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "目白通りIC（仮称）",
+      "lat": 35.7531429,
+      "lon": 139.5981893,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "練馬区"
+      ],
+      "osm_ids": [
+        "node/7108826548",
+        "node/7108836800"
+      ],
+      "source_names": [
+        "目白通りIC（仮称）"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "練馬IC",
+      "lat": 35.7548052,
+      "lon": 139.6068967,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "練馬区"
+      ],
+      "osm_ids": [
+        "node/7481980619"
+      ],
+      "source_names": [
+        "練馬IC"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "青梅街道IC（仮称）",
+      "lat": 35.7230163,
+      "lon": 139.5920227,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "練馬区"
+      ],
+      "osm_ids": [
+        "node/7108930951",
+        "node/7108930960"
+      ],
+      "source_names": [
+        "青梅街道IC（仮称）"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "四つ木",
+      "lat": 35.7288636,
+      "lon": 139.83687,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "葛飾区"
+      ],
+      "osm_ids": [
+        "node/370516863",
+        "node/370516864",
+        "node/1697733832"
+      ],
+      "source_names": [
+        "四つ木"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "小菅",
+      "lat": 35.7507722,
+      "lon": 139.8210092,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "葛飾区"
+      ],
+      "osm_ids": [
+        "node/370270147",
+        "node/762825952"
+      ],
+      "source_names": [
+        "小菅"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "平井大橋",
+      "lat": 35.7176263,
+      "lon": 139.8474099,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "葛飾区"
+      ],
+      "osm_ids": [
+        "node/698279318"
+      ],
+      "source_names": [
+        "平井大橋"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "北池袋",
+      "lat": 35.7388729,
+      "lon": 139.7105344,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "豊島区"
+      ],
+      "osm_ids": [
+        "node/1928229738",
+        "node/1928229739"
+      ],
+      "source_names": [
+        "北池袋"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "東池袋",
+      "lat": 35.7274161,
+      "lon": 139.7170755,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "豊島区"
+      ],
+      "osm_ids": [
+        "node/263987930",
+        "node/1320310466",
+        "node/1320310480"
+      ],
+      "source_names": [
+        "東池袋"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "西池袋",
+      "lat": 35.7311776,
+      "lon": 139.6984842,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "豊島区"
+      ],
+      "osm_ids": [
+        "node/309695508",
+        "node/1143517119"
+      ],
+      "source_names": [
+        "西池袋"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "加平",
+      "lat": 35.7710226,
+      "lon": 139.8227119,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "足立区"
+      ],
+      "osm_ids": [
+        "node/484166486",
+        "node/762936855",
+        "node/762936872",
+        "node/762936883",
+        "node/2569233223"
+      ],
+      "source_names": [
+        "加平"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "千住新橋",
+      "lat": 35.7621238,
+      "lon": 139.7969988,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "足立区"
+      ],
+      "osm_ids": [
+        "node/309604026",
+        "node/309692554"
+      ],
+      "source_names": [
+        "千住新橋"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "扇大橋",
+      "lat": 35.7626586,
+      "lon": 139.7653428,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "足立区"
+      ],
+      "osm_ids": [
+        "node/309603951"
+      ],
+      "source_names": [
+        "扇大橋"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "東領家",
+      "lat": 35.7907889,
+      "lon": 139.7561356,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "足立区"
+      ],
+      "osm_ids": [
+        "node/5432829255"
+      ],
+      "source_names": [
+        "東領家"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "足立入谷",
+      "lat": 35.8082088,
+      "lon": 139.7588261,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "足立区"
+      ],
+      "osm_ids": [
+        "node/308934664"
+      ],
+      "source_names": [
+        "足立入谷"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    },
+    {
+      "name": "鹿浜橋",
+      "lat": 35.7744506,
+      "lon": 139.752396,
+      "location_accuracy": "approximate_osm",
+      "verification": "unverified",
+      "municipalities": [
+        "足立区"
+      ],
+      "osm_ids": [
+        "node/263988636"
+      ],
+      "source_names": [
+        "鹿浜橋"
+      ],
+      "source_direction_labels": [
+        "未区分"
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "osm_id": "node/252174819",
+      "name": "竹橋ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/255513709",
+      "name": "三宅坂ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/260710800",
+      "name": "三宅坂ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/260710826",
+      "name": "竹橋ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/263987757",
+      "name": "竹橋ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/264871735",
+      "name": "竹橋ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/567872154",
+      "name": "竹橋ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/573233876",
+      "name": "三宅坂ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/6458437173",
+      "name": "三宅坂ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/256426172",
+      "name": "江戸橋ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/264871771",
+      "name": "江戸橋ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/309619368",
+      "name": "箱崎ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/499275976",
+      "name": "江戸橋ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/565480310",
+      "name": "箱崎ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/567878876",
+      "name": "江戸橋ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/567878928",
+      "name": "江戸橋ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/568090177",
+      "name": "箱崎ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/1694328280",
+      "name": "両国ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/1694598897",
+      "name": "箱崎ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/1744023982",
+      "name": "江戸橋ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/4972829162",
+      "name": "箱崎PA",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/3387909707",
+      "name": "大橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/3387909708",
+      "name": "大橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/7549622953",
+      "name": "大橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/35937984",
+      "name": "東海JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/267805268",
+      "name": "西新宿JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/267805281",
+      "name": "代々木ＰＡ",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/308925199",
+      "name": "西新宿JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/3851809274",
+      "name": "西新宿JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/252174760",
+      "name": "熊野町JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/263987949",
+      "name": "熊野町JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/263988109",
+      "name": "板橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/308929995",
+      "name": "板橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/308930039",
+      "name": "板橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/439934610",
+      "name": "板橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/562775195",
+      "name": "板橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/562825892",
+      "name": "板橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/506053762",
+      "name": "大泉IC/JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/1781291445",
+      "name": "大泉IC/JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/7108054289",
+      "reason": "no_name"
+    },
+    {
+      "osm_id": "node/7108120454",
+      "name": "大泉IC/JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/7108632758",
+      "name": "大泉JCT・目白通りIC（仮称）",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/7108836796",
+      "reason": "no_name"
+    },
+    {
+      "osm_id": "node/7108930959",
+      "reason": "no_name"
+    },
+    {
+      "osm_id": "node/7108930965",
+      "reason": "no_name"
+    },
+    {
+      "osm_id": "node/31252897",
+      "name": "有明ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/31288751",
+      "name": "有明ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/31288811",
+      "name": "有明JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/31300414",
+      "name": "辰巳ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/31300491",
+      "name": "辰巳JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/31330103",
+      "reason": "no_name"
+    },
+    {
+      "osm_id": "node/493584435",
+      "name": "東雲ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/499275905",
+      "name": "東雲ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/569015558",
+      "name": "東雲ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/569035382",
+      "name": "辰巳ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/35937972",
+      "name": "東海JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/3387909450",
+      "name": "大井JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/6534476215",
+      "name": "大井JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/927641089",
+      "name": "大橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/7107760409",
+      "reason": "no_name"
+    },
+    {
+      "osm_id": "node/7107760424",
+      "name": "東名JCT（仮称）",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/7107824552",
+      "reason": "no_name"
+    },
+    {
+      "osm_id": "node/7107981484",
+      "name": "東名JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/7107989696",
+      "name": "東名JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/7108100202",
+      "reason": "no_name"
+    },
+    {
+      "osm_id": "node/7159015523",
+      "reason": "no_name"
+    },
+    {
+      "osm_id": "node/309609006",
+      "name": "小菅JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/309692515",
+      "name": "小菅JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/309692532",
+      "name": "小菅JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/370270206",
+      "name": "堀切JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/370270234",
+      "name": "堀切JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/559443282",
+      "name": "小菅JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/559445920",
+      "name": "堀切JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/564683261",
+      "name": "堀切JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/564683280",
+      "name": "堀切JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/3817924842",
+      "name": "堀切JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/370270524",
+      "name": "小松川JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/370270921",
+      "reason": "no_name"
+    },
+    {
+      "osm_id": "node/600726158",
+      "name": "小松川JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/8256670336",
+      "name": "葛西ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/31252925",
+      "name": "浜崎橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/31252934",
+      "name": "芝浦JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/31252942",
+      "name": "浜崎橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/31288813",
+      "name": "有明ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/31297000",
+      "name": "一ノ橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/252175042",
+      "name": "谷町JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/260710778",
+      "reason": "no_name"
+    },
+    {
+      "osm_id": "node/574460605",
+      "name": "一ノ橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/574460620",
+      "name": "一ノ橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/3218329762",
+      "name": "浜崎橋JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/7108632776",
+      "name": "中央JCT・東八道路IC（仮称）",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/7108644088",
+      "name": "中央JCT・東八道路IC（仮称）",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/7108803829",
+      "reason": "no_name"
+    },
+    {
+      "osm_id": "node/7159015516",
+      "name": "中央JCT・東八道路IC（仮称）",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/7159280040",
+      "reason": "no_name"
+    },
+    {
+      "osm_id": "node/263988157",
+      "name": "江北JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/308933022",
+      "name": "江北JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/309692606",
+      "name": "江北ジャンクション",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/559445932",
+      "name": "小菅JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "node/559445943",
+      "name": "小菅JCT",
+      "reason": "junction_or_rest_area"
+    },
+    {
+      "osm_id": "way/251808347",
+      "reason": "connection_road"
+    },
+    {
+      "osm_id": "way/251816254",
+      "reason": "connection_road"
+    },
+    {
+      "osm_id": "way/60046210",
+      "reason": "connection_road"
+    },
+    {
+      "osm_id": "way/1023817978",
+      "reason": "connection_road"
+    },
+    {
+      "osm_id": "way/1350298799",
+      "reason": "connection_road"
+    },
+    {
+      "osm_id": "way/1463660809",
+      "reason": "connection_road"
+    }
+  ]
+}
