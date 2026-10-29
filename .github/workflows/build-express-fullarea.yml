@@ -1,1 +1,32 @@
+name: Build Tokyo expressway full area
 
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate expressway database
+        run: python build.py
+
+      - name: Upload output files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-express-fullarea-results
+          path: output/*.json
+          if-no-files-found: warn
+          retention-days: 14
