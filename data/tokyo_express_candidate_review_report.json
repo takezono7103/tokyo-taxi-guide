@@ -1,0 +1,96 @@
+{
+  "existing": 304,
+  "incoming": 12,
+  "duplicates": [],
+  "added": 12,
+  "total": 316,
+  "retry_complete": true,
+  "remaining_tiles": 0,
+  "new_candidates": [
+    {
+      "osm_id": "node/559436170",
+      "name": "八潮南",
+      "lat": 35.7988251,
+      "lon": 139.8274263,
+      "highway": "motorway_junction"
+    },
+    {
+      "osm_id": "node/2579845617",
+      "name": "八潮南",
+      "lat": 35.7981579,
+      "lon": 139.827411,
+      "highway": "motorway_junction"
+    },
+    {
+      "osm_id": "node/2579787363",
+      "name": "八潮南",
+      "lat": 35.8061138,
+      "lon": 139.835618,
+      "highway": "motorway_junction"
+    },
+    {
+      "osm_id": "node/2579787367",
+      "name": "八潮南",
+      "lat": 35.8070266,
+      "lon": 139.8371104,
+      "highway": "motorway_junction"
+    },
+    {
+      "osm_id": "way/251808347",
+      "name": "首都高速道路",
+      "lat": 35.8045018,
+      "lon": 139.8323565,
+      "highway": "motorway_link"
+    },
+    {
+      "osm_id": "way/251816254",
+      "name": "首都高速道路",
+      "lat": 35.8026374,
+      "lon": 139.8300781,
+      "highway": "motorway_link"
+    },
+    {
+      "osm_id": "node/465291267",
+      "name": "三郷南",
+      "lat": 35.7987513,
+      "lon": 139.8782009,
+      "highway": "motorway_junction"
+    },
+    {
+      "osm_id": "way/60046210",
+      "name": "首都高速道路",
+      "lat": 35.8127569,
+      "lon": 139.8446583,
+      "highway": "motorway_link"
+    },
+    {
+      "osm_id": "way/1023817978",
+      "name": "首都高速道路",
+      "lat": 35.8136543,
+      "lon": 139.8455258,
+      "highway": "motorway_link"
+    },
+    {
+      "osm_id": "way/1350298799",
+      "name": "首都高速6号三郷線",
+      "lat": 35.8106121,
+      "lon": 139.842487,
+      "highway": "motorway_link"
+    },
+    {
+      "osm_id": "way/1463660809",
+      "name": "首都高速道路",
+      "lat": 35.8122295,
+      "lon": 139.843841,
+      "highway": "motorway_link"
+    },
+    {
+      "osm_id": "node/465290731",
+      "name": "三郷南",
+      "lat": 35.8045532,
+      "lon": 139.8771616,
+      "highway": "motorway_junction"
+    }
+  ],
+  "warning": "Do not replace production data. Municipality assignment and legal entrance/exit directions are not verified."
+}
