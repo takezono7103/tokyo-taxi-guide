@@ -1,0 +1,38 @@
+name: Build OSM road test DB
+on:
+  workflow_dispatch:
+    inputs:
+      latitude:
+        description: 'Test center latitude (Japan), e.g. 35.68'
+        required: true
+        type: string
+      longitude:
+        description: 'Test center longitude (Japan), e.g. 140.02'
+        required: true
+        type: string
+      radius_m:
+        description: 'Radius in meters (100-1500)'
+        required: true
+        default: '1000'
+        type: string
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and convert named OSM roads
+        env:
+          LAT: ${{ inputs.latitude }}
+          LON: ${{ inputs.longitude }}
+          RADIUS: ${{ inputs.radius_m }}
+        run: python3 build_osm_roads.py --lat "$LAT" --lon "$LON" --radius "$RADIUS"
+      - name: Commit GeoJSON to Pages branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add osm_roads_test.geojson
+          if git diff --cached --quiet; then echo 'No changes'; exit 0; fi
+          git commit -m 'Update test OSM road GeoJSON'
+          git push
