@@ -1,0 +1,59 @@
+name: Check Tokyo municipal boundaries
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Inspect boundary source and target municipality names
+        shell: bash
+        run: |
+          mkdir -p report
+          python3 - <<'PY'
+          import json, urllib.request, collections, pathlib
+          base='https://www.geoboundaries.org/api/current/gbOpen/JPN/'
+          targets=['千代田','中央','港','新宿','文京','台東','墨田','江東','品川','目黒','大田','世田谷','渋谷','中野','杉並','豊島','北','荒川','板橋','練馬','足立','葛飾','江戸川','三鷹','武蔵野']
+          report={'purpose':'Boundary source inspection only; no roads filtered or published', 'levels':{}}
+          def get_json(url):
+              req=urllib.request.Request(url,headers={'User-Agent':'tokyo-taxi-guide-boundary-check/1.0','Accept':'application/json'})
+              with urllib.request.urlopen(req,timeout=45) as r:
+                  return json.load(r)
+          for level in ['ADM2','ADM3']:
+              info={'api_url':base+level,'status':'not_checked'}
+              try:
+                  meta=get_json(base+level)
+                  url=meta.get('simplifiedGeometryGeoJSON') or meta.get('gjDownloadURL')
+                  info['download_url']=url
+                  if not url: raise ValueError('No GeoJSON download URL in metadata')
+                  geo=get_json(url)
+                  features=geo.get('features',[])
+                  names=[]
+                  for f in features:
+                      p=f.get('properties') or {}
+                      n=str(p.get('shapeName') or p.get('name') or '')
+                      names.append(n)
+                  matches={t:[n for n in names if t in n][:12] for t in targets}
+                  info.update(status='ok',feature_count=len(features),name_examples=names[:15],matched_target_count=sum(bool(v) for v in matches.values()),matches=matches)
+                  print(f'{level}: {len(features)} boundaries, target names matched {info["matched_target_count"]}/25')
+                  for t, found in matches.items():
+                      if found: print('  ',t,':',', '.join(found[:3]))
+              except Exception as e:
+                  info.update(status='failed',error=str(e))
+                  print(level,'FAILED:',e)
+              report['levels'][level]=info
+          pathlib.Path('report/tokyo_boundary_source_check.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          print('REPORT: report/tokyo_boundary_source_check.json')
+          PY
+      - name: Upload small boundary inspection report
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-boundary-source-check
+          path: report/tokyo_boundary_source_check.json
+          if-no-files-found: error
+          retention-days: 14
