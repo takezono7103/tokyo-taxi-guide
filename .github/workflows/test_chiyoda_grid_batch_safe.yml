@@ -1,0 +1,109 @@
+name: Test Chiyoda OSM grid batch safely
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch:
+        description: 'Batch number 0-21 (six small cells per run)'
+        required: true
+        default: '0'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Fetch one small grid batch (read only)
+        env:
+          BATCH: ${{ inputs.batch }}
+        shell: bash
+        run: |
+          mkdir -p report
+          python3 - <<'PY'
+          import json, os, time, urllib.request, xml.etree.ElementTree as ET
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          # Experimental rectangular search region, NOT the legal Chiyoda boundary.
+          # The rectangle includes neighboring wards; completeness is NOT asserted.
+          west, south = 139.720, 35.665
+          cols, rows, step = 13, 10, 0.005
+          per_batch = 6
+          total = cols * rows
+          batch_count = (total + per_batch - 1) // per_batch
+          try:
+              batch = int(os.environ['BATCH'])
+              assert 0 <= batch < batch_count
+          except (ValueError, AssertionError):
+              raise SystemExit(f'Invalid batch: choose 0-{batch_count-1}')
+          ids = range(batch * per_batch, min((batch+1)*per_batch, total))
+          report = {
+              'purpose': 'Experimental OSM read-only grid batch; NOT safe for routing',
+              'timestamp_utc': datetime.now(timezone.utc).isoformat(),
+              'batch': batch, 'total_batches': batch_count,
+              'grid': {'west':west,'south':south,'cols':cols,'rows':rows,'step_degrees':step},
+              'warning': 'Rectangular coverage only; no administrative boundary clipping, turn restrictions or time restrictions',
+              'tiles': [], 'oneway_ways': [], 'status':'failed', 'production_files_changed':False
+          }
+          unique_highways, unique_oneways = set(), {}
+          for i in ids:
+              col, row = i % cols, i // cols
+              bbox = [round(west+col*step,6),round(south+row*step,6),
+                      round(west+(col+1)*step,6),round(south+(row+1)*step,6)]
+              tile = {'tile_id':i,'bbox_west_south_east_north':bbox,'status':'failed','highway_ways':0,'oneway_ways':0}
+              url = 'https://api.openstreetmap.org/api/0.6/map?bbox=' + ','.join(map(str,bbox))
+              for attempt in range(2):
+                  try:
+                      req = urllib.request.Request(url,headers={
+                          'User-Agent':'TokyoTaxiGuide-ChiyodaGridExperiment/1.0 (read-only)',
+                          'Accept':'application/xml'})
+                      with urllib.request.urlopen(req,timeout=35) as response:
+                          raw = response.read(8_000_001)
+                      if len(raw)>8_000_000:
+                          raise ValueError('Tile response exceeded 8 MB')
+                      root = ET.fromstring(raw)
+                      for way in root.findall('way'):
+                          tags = {t.get('k'):t.get('v') for t in way.findall('tag')}
+                          if 'highway' not in tags: continue
+                          wid = way.get('id')
+                          unique_highways.add(wid)
+                          tile['highway_ways'] += 1
+                          if tags.get('oneway') in ('yes','1','true','-1','reversible','alternating') or tags.get('junction')=='roundabout':
+                              tile['oneway_ways'] += 1
+                              unique_oneways[wid] = {'osm_way_id':wid,'oneway':tags.get('oneway'),
+                                  'junction':tags.get('junction'),'highway':tags.get('highway'),
+                                  'name':tags.get('name')}
+                      tile['status']='ok'
+                      tile.pop('error',None)
+                      break
+                  except Exception as e:
+                      tile['error']=f'{type(e).__name__}: {e}'[:300]
+                      if attempt == 0: time.sleep(2)
+              report['tiles'].append(tile)
+              print(f"TILE {i}: {tile['status']} HIGHWAY={tile['highway_ways']} ONEWAY={tile['oneway_ways']}")
+              if tile.get('error'): print('ERROR:',tile['error'])
+              time.sleep(1)
+          ok = sum(t['status']=='ok' for t in report['tiles'])
+          report['status'] = 'ok' if ok==len(report['tiles']) else ('partial' if ok else 'failed')
+          report['unique_highway_ways']=len(unique_highways)
+          report['unique_oneway_ways']=len(unique_oneways)
+          report['oneway_ways']=list(unique_oneways.values())
+          out=Path(f'report/chiyoda_grid_batch_{batch:02d}.json')
+          out.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          print('RESULT:',report['status'])
+          print('BATCH:',batch,'/',batch_count-1)
+          print('TILES OK:',ok,'/',len(report['tiles']))
+          print('UNIQUE HIGHWAY WAYS:',len(unique_highways))
+          print('UNIQUE ONEWAY WAYS:',len(unique_oneways))
+          print('No production files changed.')
+          PY
+      - name: Upload experimental batch report only
+        uses: actions/upload-artifact@v4
+        with:
+          name: chiyoda-grid-batch-${{ inputs.batch }}
+          path: report/chiyoda_grid_batch_*.json
+          if-no-files-found: error
