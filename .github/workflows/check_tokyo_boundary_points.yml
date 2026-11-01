@@ -1,0 +1,71 @@
+name: Check Tokyo boundary points safely
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify representative points against ADM2 polygons
+        shell: bash
+        run: |
+          mkdir -p report
+          python3 - <<'PY'
+          import json, urllib.request, pathlib
+          base='https://www.geoboundaries.org/api/current/gbOpen/JPN/ADM2/'
+          anchors={
+            'Chiyoda': (139.767125,35.681236), # Tokyo Station
+            'Chuo': (139.765,35.6717),          # Ginza
+            'Ota': (139.716,35.561),            # Kamata
+            'Nakano': (139.665,35.707),         # Nakano
+            'Toshima': (139.711,35.729),        # Ikebukuro
+          }
+          def fetch(url):
+            req=urllib.request.Request(url,headers={'User-Agent':'tokyo-taxi-boundary-point-check/1.0','Accept':'application/json'})
+            with urllib.request.urlopen(req,timeout=50) as r: return json.load(r)
+          def in_ring(x,y,ring):
+            inside=False
+            for i in range(len(ring)):
+              x1,y1=ring[i-1][:2]; x2,y2=ring[i][:2]
+              if (y1>y)!=(y2>y) and x < (x2-x1)*(y-y1)/(y2-y1)+x1:
+                inside=not inside
+            return inside
+          def in_poly(x,y,poly):
+            return bool(poly) and in_ring(x,y,poly[0]) and not any(in_ring(x,y,hole) for hole in poly[1:])
+          def contains(geom,point):
+            if not geom: return False
+            x,y=point; typ=geom.get('type'); coords=geom.get('coordinates',[])
+            if typ=='Polygon': return in_poly(x,y,coords)
+            if typ=='MultiPolygon': return any(in_poly(x,y,p) for p in coords)
+            return False
+          report={'purpose':'Inspection only; does not modify published files', 'source':base,'checks':{},'status':'incomplete'}
+          try:
+            meta=fetch(base)
+            url=meta.get('simplifiedGeometryGeoJSON') or meta.get('gjDownloadURL')
+            if not url: raise ValueError('No GeoJSON URL in metadata')
+            geo=fetch(url)
+            for name,point in anchors.items():
+              candidates=[f for f in geo.get('features',[]) if str(f.get('properties',{}).get('shapeName','')).strip().lower()==name.lower()]
+              matched=[f for f in candidates if contains(f.get('geometry'),point)]
+              report['checks'][name]={'reference_lonlat':list(point),'candidate_count':len(candidates),'containing_count':len(matched),'matching_shape_ids':[str(f.get('properties',{}).get('shapeID','')) for f in matched], 'status':'unique' if len(matched)==1 else 'needs_review'}
+              print(f'{name}: {len(candidates)} candidates, {len(matched)} contain reference point')
+            report['status']='passed' if all(v['status']=='unique' for v in report['checks'].values()) else 'needs_review'
+          except Exception as e:
+            report['status']='error'; report['error']=str(e)
+            print('INSPECTION ERROR:',e)
+          path=pathlib.Path('report/tokyo_boundary_point_check.json')
+          path.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          print('RESULT:',report['status'])
+          print('REPORT:',path)
+          PY
+      - name: Upload inspection report only
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-boundary-point-check
+          path: report/tokyo_boundary_point_check.json
+          if-no-files-found: error
