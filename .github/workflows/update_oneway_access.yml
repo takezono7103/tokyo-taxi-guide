@@ -1,10 +1,7 @@
-
 name: Update Tokyo oneway access
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 18 * * 0"
 
 permissions:
   contents: write
@@ -16,30 +13,23 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
-
+    timeout-minutes: 8
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-
-      - name: Fetch OSM oneway and access
+          python-version: '3.11'
+      - name: Fetch OSM tiles with resume cache
+        run: python -u scripts/fetch_oneway_access.py
+      - name: Commit cached tiles and complete JSON only
         run: |
-          python scripts/fetch_oneway_access.py
-
-      - name: Commit updated data
-        if: success()
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/
-          if git diff --cached --quiet; then
-            echo "No changes"
-          else
-            git commit -m "Update Tokyo oneway access data"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- data/oneway_access_tiles/
+          if [ -f data/tokyo_oneway_access.json ]; then git add -- data/tokyo_oneway_access.json; fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'Checkpoint OSM one-way access tiles'
             git push
           fi
