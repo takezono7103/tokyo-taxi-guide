@@ -3,6 +3,7 @@
 Research only: never infer permission to enter from missing OSM tags.
 """
 import datetime
+import math
 import json
 import pathlib
 import time
@@ -11,7 +12,7 @@ import urllib.parse
 import urllib.request
 
 CENTER = (35.681236, 139.767125)
-RADIUS = 850  # overall approximate study area, not Tokyo's 23 wards
+RADIUS = 850  # approximate study area; not Tokyo's 23 wards
 # 3x3 overlapping smaller circles, to avoid one large Overpass query.
 OFFSET_M = 380
 TILE_RADIUS_M = 360
@@ -20,7 +21,8 @@ ENDPOINTS = [
     'https://overpass.kumi.systems/api/interpreter',
 ]
 CACHE = pathlib.Path('data/oneway_access_tiles')
-MAX_NEW_TILES = 3
+MAX_NEW_TILES = 2
+CURSOR = CACHE / "next_tile.json"
 OUT = pathlib.Path('data/tokyo_oneway_access.json')
 
 
@@ -33,10 +35,23 @@ def centers():
 
 
 def query(lat, lon):
-    return (f'[out:json][timeout:20];'
-            f'way(around:{TILE_RADIUS_M},{lat:.7f},{lon:.7f})[highway]'
-            '[~"^(oneway|access|vehicle|motor_vehicle|motorcar|oneway:conditional|access:conditional|vehicle:conditional|motor_vehicle:conditional|motorcar:conditional)$"~"."];'
-            'out tags geom;')
+    # Bounding box is cheaper than a large around() spatial search.
+    dy = TILE_RADIUS_M / 111_320
+    dx = TILE_RADIUS_M / (111_320 * math.cos(math.radians(lat)))
+    bbox = f"({lat-dy:.7f},{lon-dx:.7f},{lat+dy:.7f},{lon+dx:.7f})"
+    # Query ways with the relevant tags. Never treat absence of a tag as permission.
+    return (f'[out:json][timeout:14];('
+            f'way[highway][oneway]{bbox};'
+            f'way[highway][access]{bbox};'
+            f'way[highway][vehicle]{bbox};'
+            f'way[highway][motor_vehicle]{bbox};'
+            f'way[highway][motorcar]{bbox};'
+            f'way[highway]["oneway:conditional"]{bbox};'
+            f'way[highway]["access:conditional"]{bbox};'
+            f'way[highway]["vehicle:conditional"]{bbox};'
+            f'way[highway]["motor_vehicle:conditional"]{bbox};'
+            f'way[highway]["motorcar:conditional"]{bbox};'
+            ');out tags geom;')
 
 
 def fetch_tile(lat, lon, index):
@@ -50,7 +65,7 @@ def fetch_tile(lat, lon, index):
                          'Content-Type': 'application/x-www-form-urlencoded'},
                 method='POST',
             )
-            with urllib.request.urlopen(req, timeout=26) as resp:
+            with urllib.request.urlopen(req, timeout=19) as resp:
                 payload = json.load(resp)
             if not isinstance(payload, dict) or not isinstance(payload.get('elements'), list):
                 raise ValueError('No valid elements array in Overpass response')
@@ -96,7 +111,15 @@ def main():
     coords = list(centers())
     completed = 0
     attempts = 0
-    for i, (lat, lon) in enumerate(coords, 1):
+    # Persist a cursor so an unavailable first tile cannot starve the rest.
+    try:
+        start = int(json.loads(CURSOR.read_text(encoding='utf-8')).get('next', 1))
+    except (OSError, ValueError, TypeError, AttributeError):
+        start = 1
+    start = max(1, min(9, start))
+    for offset in range(9):
+        i = (start - 1 + offset) % 9 + 1
+        lat, lon = coords[i - 1]
         path = CACHE / f'tile_{i:02d}.json'
         if path.exists():
             try:
@@ -107,7 +130,7 @@ def main():
                     completed += 1
                     print(f'TILE {i}/9 CACHED: {len(saved["elements"])} ways', flush=True)
                     continue
-            except (OSError, ValueError):
+            except (OSError, ValueError, AttributeError):
                 pass
         if attempts >= MAX_NEW_TILES:
             continue
@@ -116,10 +139,11 @@ def main():
             elements, endpoint = fetch_tile(lat, lon, i)
         except Exception as exc:
             print(f'TILE {i}/9 PENDING: {exc}', flush=True)
-            continue
-        save_json(path, {'tile': i, 'lat': round(lat, 7), 'lon': round(lon, 7),
-                         'endpoint': endpoint, 'elements': elements})
-        completed += 1
+        else:
+            save_json(path, {'tile': i, 'lat': round(lat, 7), 'lon': round(lon, 7),
+                             'endpoint': endpoint, 'elements': elements})
+            completed += 1
+        save_json(CURSOR, {'next': i % 9 + 1})
     print(f'PROGRESS: {completed}/9 tiles cached. Attempted {attempts} new tiles.', flush=True)
     if completed != 9:
         print('INCOMPLETE: existing published JSON is unchanged. Run workflow again.', flush=True)
