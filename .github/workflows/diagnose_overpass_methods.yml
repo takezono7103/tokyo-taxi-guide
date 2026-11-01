@@ -1,0 +1,52 @@
+name: Diagnose Overpass HTTPS methods
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Test HTTPS control and Overpass GET POST
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import urllib.request, urllib.parse, urllib.error, socket, time
+          targets = [
+              ('CONTROL', 'https://www.openstreetmap.org/'),
+              ('overpass-api.de', 'https://overpass-api.de/api/interpreter'),
+              ('overpass.kumi.systems', 'https://overpass.kumi.systems/api/interpreter'),
+              ('overpass.private.coffee', 'https://overpass.private.coffee/api/interpreter'),
+          ]
+          query = '[out:json][timeout:8];node(35.68120,139.76710,35.68125,139.76715);out 1;'
+          headers = {'User-Agent':'TokyoTaxiOSMDiagnostic/1.0 (GitHub Actions)', 'Accept':'application/json'}
+          for name, url in targets:
+              print(f'\n=== {name} ===', flush=True)
+              for method in (['GET'] if name == 'CONTROL' else ['GET','POST']):
+                  data = None
+                  target = url
+                  if name != 'CONTROL':
+                      encoded = urllib.parse.urlencode({'data':query})
+                      if method == 'GET': target += '?' + encoded
+                      else: data = encoded.encode('utf-8')
+                  req = urllib.request.Request(target, data=data, headers=headers, method=method)
+                  if data: req.add_header('Content-Type', 'application/x-www-form-urlencoded')
+                  start = time.monotonic()
+                  try:
+                      with urllib.request.urlopen(req, timeout=12) as response:
+                          body = response.read(500000)
+                          print(f'{method} HTTP {response.status} bytes={len(body)} elapsed={time.monotonic()-start:.1f}s', flush=True)
+                          if name != 'CONTROL':
+                              try:
+                                  import json
+                                  parsed = json.loads(body)
+                                  print(f'JSON OK elements={len(parsed.get("elements", []))}', flush=True)
+                              except Exception as e:
+                                  print(f'JSON NOT VERIFIED: {type(e).__name__}: {str(e)[:160]}', flush=True)
+                  except Exception as e:
+                      print(f'{method} FAILED {type(e).__name__}: {str(e)[:180]} elapsed={time.monotonic()-start:.1f}s', flush=True)
+          PY
