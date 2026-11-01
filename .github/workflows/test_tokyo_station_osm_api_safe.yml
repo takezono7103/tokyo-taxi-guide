@@ -1,0 +1,61 @@
+name: Test Tokyo Station OSM API safely
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fetch tiny OSM map and extract one-way ways (read only)
+        shell: bash
+        run: |
+          mkdir -p report
+          python3 - <<'PY'
+          import json, urllib.request, urllib.error, xml.etree.ElementTree as ET
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          # Small area immediately east of Tokyo Station. OSM API bbox order: west,south,east,north.
+          bbox = (139.7660, 35.6800, 139.7690, 35.6830)
+          url = 'https://api.openstreetmap.org/api/0.6/map?bbox=' + ','.join(map(str,bbox))
+          result = {'purpose':'Experimental OSM one-way API connectivity test only; not for navigation',
+                    'timestamp_utc':datetime.now(timezone.utc).isoformat(),
+                    'bbox_west_south_east_north':bbox, 'source':url,
+                    'status':'failed', 'ways_total':0, 'oneway_ways':[], 'error':None}
+          try:
+              req = urllib.request.Request(url, headers={'User-Agent':'TokyoTaxiGuide-ExperimentalOSMTest/1.0 (GitHub Actions; read-only)', 'Accept':'application/xml'})
+              with urllib.request.urlopen(req, timeout=35) as response:
+                  raw = response.read(8_000_001)
+              if len(raw) > 8_000_000:
+                  raise ValueError('Response exceeds 8 MB safety limit')
+              root = ET.fromstring(raw)
+              for way in root.findall('way'):
+                  tags = {tag.attrib.get('k'):tag.attrib.get('v') for tag in way.findall('tag')}
+                  if 'highway' not in tags:
+                      continue
+                  result['ways_total'] += 1
+                  if tags.get('oneway') in ('yes','1','true','-1','reversible','alternating') or tags.get('junction') == 'roundabout':
+                      result['oneway_ways'].append({'osm_way_id':way.attrib['id'], 'name':tags.get('name'), 'highway':tags['highway'], 'oneway':tags.get('oneway'), 'junction':tags.get('junction')})
+              result['status'] = 'ok'
+          except Exception as exc:
+              result['error'] = f'{type(exc).__name__}: {exc}'
+          result['oneway_count'] = len(result['oneway_ways'])
+          Path('report/tokyo_station_osm_api_test.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print('RESULT:',result['status'])
+          print('HIGHWAY WAYS:',result['ways_total'])
+          print('ONEWAY WAYS:',result['oneway_count'])
+          if result['error']:
+              print('ERROR:',result['error'])
+          print('No production files changed.')
+          PY
+      - name: Upload experimental report only
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-station-osm-api-test
+          path: report/tokyo_station_osm_api_test.json
+          if-no-files-found: error
