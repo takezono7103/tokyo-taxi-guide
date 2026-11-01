@@ -1,0 +1,69 @@
+name: Check Tokyo 25 boundaries safely
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Inspect ADM2 Tokyo municipality candidates
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, urllib.request, pathlib, unicodedata
+          from collections import defaultdict
+          targets = {
+            '千代田':['chiyoda'], '中央':['chuo','chuuou'], '港':['minato'],
+            '新宿':['shinjuku'], '文京':['bunkyo'], '台東':['taito'],
+            '墨田':['sumida'], '江東':['koto','koutou'], '品川':['shinagawa'],
+            '目黒':['meguro'], '大田':['ota','ohta'], '世田谷':['setagaya'],
+            '渋谷':['shibuya'], '中野':['nakano'], '杉並':['suginami'],
+            '豊島':['toshima'], '北':['kita'], '荒川':['arakawa'],
+            '板橋':['itabashi'], '練馬':['nerima'], '足立':['adachi'],
+            '葛飾':['katsushika'], '江戸川':['edogawa'],
+            '三鷹':['mitaka'], '武蔵野':['musashino']
+          }
+          def get_json(url):
+            req=urllib.request.Request(url, headers={'User-Agent':'TokyoTaxiBoundaryInspector/1.0','Accept':'application/json'})
+            with urllib.request.urlopen(req,timeout=90) as r: return json.load(r)
+          def norm(s):
+            s=unicodedata.normalize('NFKD',str(s)).casefold()
+            return ''.join(c for c in s if c.isascii() and c.isalnum())
+          report={'purpose':'Inspection only; no road files changed','source':'geoBoundaries gbOpen JPN ADM2','targets':{},'warnings':[]}
+          pathlib.Path('report').mkdir(exist_ok=True)
+          try:
+            meta=get_json('https://www.geoboundaries.org/api/current/gbOpen/JPN/ADM2')
+            url=meta.get('simplifiedGeometryGeoJSON') or meta.get('gjDownloadURL')
+            if not url: raise RuntimeError('GeoJSON URL absent from metadata')
+            geo=get_json(url)
+            feats=geo.get('features',[])
+            report['source_url']=url
+            report['feature_count']=len(feats)
+            for ja,aliases in targets.items():
+              matches=[]
+              for f in feats:
+                p=f.get('properties') or {}
+                name=str(p.get('shapeName') or p.get('name') or '')
+                if norm(name) in [norm(x) for x in aliases]:
+                  g=f.get('geometry') or {}
+                  matches.append({'name':name,'shapeID':p.get('shapeID'),'shapeISO':p.get('shapeISO'),'geometry_type':g.get('type'),'properties':{k:v for k,v in p.items() if k in ('shapeName','shapeID','shapeISO','shapeGroup','shapeType')}})
+              report['targets'][ja]={'candidates':matches,'count':len(matches),'status':'candidate_only_not_geographically_verified'}
+              print(f'{ja}: {len(matches)} candidate(s): '+', '.join(x['name'] for x in matches))
+            report['candidate_found_count']=sum(bool(x['count']) for x in report['targets'].values())
+            report['warnings'].append('Name matching alone cannot verify Tokyo location; do not publish or filter roads using this report.')
+            print('CANDIDATE FOUND:',report['candidate_found_count'],'/25 (NOT geographically verified)')
+          except Exception as e:
+            report['error']=repr(e)
+            print('INSPECTION FAILED:',repr(e))
+          out=pathlib.Path('report/tokyo_25_boundary_candidates.json')
+          out.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          print('REPORT:',out)
+          PY
+      - name: Upload inspection report
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-25-boundary-candidates
+          path: report/tokyo_25_boundary_candidates.json
+          if-no-files-found: error
