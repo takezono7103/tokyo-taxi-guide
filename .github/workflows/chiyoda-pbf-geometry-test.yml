@@ -1,0 +1,32 @@
+name: Test Chiyoda PBF geometry offline
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pyosmium
+        run: python -m pip install --disable-pip-version-check osmium
+      - name: Download Kanto OSM PBF once
+        run: |
+          curl --fail --location --retry 3 --retry-delay 10 --connect-timeout 30 --max-time 1800 \
+            --output /tmp/kanto.osm.pbf https://download.geofabrik.de/asia/japan/kanto-latest.osm.pbf
+          test -s /tmp/kanto.osm.pbf
+          ls -lh /tmp/kanto.osm.pbf
+      - name: Extract way geometries read-only
+        run: python scripts/extract_chiyoda_geometry_pbf.py
+      - name: Upload experimental geometry and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chiyoda-pbf-geometry-experimental
+          path: experimental/chiyoda_pbf_geometry/*
+          if-no-files-found: warn
+          retention-days: 30
