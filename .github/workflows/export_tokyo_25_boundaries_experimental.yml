@@ -1,0 +1,94 @@
+name: Export Tokyo 25 boundaries experimental safely
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Export 25 preliminary boundaries to artifact only
+        shell: bash
+        run: |
+          mkdir -p report
+          python3 - <<'PY'
+          import json, urllib.request, pathlib, hashlib
+          base='https://www.geoboundaries.org/api/current/gbOpen/JPN/ADM2/'
+          names=['Chiyoda','Chuo','Minato','Shinjuku','Bunkyo','Taito','Sumida','Koto','Shinagawa','Meguro','Ota','Setagaya','Shibuya','Nakano','Suginami','Toshima','Kita','Arakawa','Itabashi','Nerima','Adachi','Katsushika','Edogawa','Mitaka','Musashino']
+          anchors={'Chiyoda':(139.767125,35.681236),'Chuo':(139.765,35.6717),'Ota':(139.716,35.561),'Nakano':(139.665,35.707),'Toshima':(139.711,35.729)}
+          def fetch(url):
+            req=urllib.request.Request(url,headers={'User-Agent':'tokyo-taxi-boundary-final-audit/1.0','Accept':'application/json'})
+            with urllib.request.urlopen(req,timeout=55) as r:return json.load(r)
+          def inside_ring(x,y,ring):
+            hit=False
+            for i in range(len(ring)):
+              x1,y1=ring[i-1][:2];x2,y2=ring[i][:2]
+              if (y1>y)!=(y2>y) and x<(x2-x1)*(y-y1)/(y2-y1)+x1:hit=not hit
+            return hit
+          def contains(g,p):
+            x,y=p
+            polygons=([g['coordinates']] if g['type']=='Polygon' else g['coordinates'] if g['type']=='MultiPolygon' else [])
+            return any(poly and inside_ring(x,y,poly[0]) and not any(inside_ring(x,y,h) for h in poly[1:]) for poly in polygons)
+          def bbox(g):
+            pts=[]
+            def walk(a):
+              if isinstance(a,list):
+                if len(a)>=2 and isinstance(a[0],(int,float)) and isinstance(a[1],(int,float)):pts.append(a[:2])
+                else:
+                  for item in a:walk(item)
+            walk(g.get('coordinates',[]))
+            return [min(p[0] for p in pts),min(p[1] for p in pts),max(p[0] for p in pts),max(p[1] for p in pts)] if pts else None
+          result={'purpose':'Experimental boundary export only; no production changes','source':base,'status':'error','municipalities':{},'selected_count':0}
+          output={'type':'FeatureCollection','name':'tokyo_23_wards_mitaka_musashino_experimental','features':[]}
+          try:
+            meta=fetch(base)
+            source=meta.get('simplifiedGeometryGeoJSON') or meta.get('gjDownloadURL')
+            if not source:raise ValueError('No GeoJSON download URL')
+            geo=fetch(source)
+            selected_ids=[]
+            for name in names:
+              candidates=[f for f in geo.get('features',[]) if str(f.get('properties',{}).get('shapeName','')).strip().casefold()==name.casefold()]
+              eligible=[]
+              for f in candidates:
+                g=f.get('geometry') or {}
+                b=bbox(g)
+                plausible=bool(b and b[0]>=139.0 and b[2]<=140.2 and b[1]>=35.3 and b[3]<=36.0)
+                if plausible and (name not in anchors or contains(g,anchors[name])):eligible.append(f)
+              unique=len(eligible)==1
+              item={'candidate_count':len(candidates),'eligible_count':len(eligible),'status':'selected' if unique else 'needs_review'}
+              if unique:
+                f=eligible[0];g=f.get('geometry') or {};sid=str(f.get('properties',{}).get('shapeID',''))
+                b=bbox(g)
+                valid=(g.get('type') in ('Polygon','MultiPolygon') and bool(b) and all(-180<=v<=180 for v in (b[0],b[2])) and all(-90<=v<=90 for v in (b[1],b[3])) and bool(sid))
+                if not valid:raise ValueError('Invalid geometry or ID: '+name)
+                digest=hashlib.sha256(json.dumps(g,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+                item.update(shapeID=sid,bbox_lonlat=b,geometry_sha256=digest)
+                selected_ids.append(sid)
+                output['features'].append({'type':'Feature','properties':{'name':name,'shapeID':sid,'source':'geoBoundaries JPN ADM2','verification':'preliminary','geometry_sha256':digest},'geometry':g})
+              result['municipalities'][name]=item
+              print(f"{name}: {len(candidates)} candidates, {len(eligible)} eligible => {item['status']}")
+            result['selected_count']=len(selected_ids)
+            result['status']='passed_preliminary' if len(selected_ids)==25 and len(set(selected_ids))==25 else 'needs_review'
+            if result['status']=='passed_preliminary':
+              path=pathlib.Path('report/tokyo_25_boundaries_experimental.geojson')
+              path.write_text(json.dumps(output,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+              print('GEOJSON:',path,'features:',len(output['features']))
+          except Exception as e:
+            result['error']=str(e)
+            print('ERROR:',e)
+          path=pathlib.Path('report/tokyo_25_boundary_export_audit.json')
+          path.write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print('RESULT:',result['status'])
+          print('SELECTED:',result['selected_count'],'/25')
+          print('REPORT:',path)
+          PY
+      - name: Upload experimental GeoJSON and audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-25-boundaries-experimental
+          path: report/
+          if-no-files-found: error
