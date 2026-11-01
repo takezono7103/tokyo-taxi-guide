@@ -1,0 +1,98 @@
+name: Validate Tokyo oneway sample
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download previously generated artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tokyo-oneway-json-test
+          run-id: 41282347153
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: source
+
+      - name: Validate GeoJSON and create small JSON report
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import gzip, json, os
+          from collections import Counter
+          from pathlib import Path
+          root = Path('source')
+          files = list(root.rglob('*.geojson.gz'))
+          if len(files) != 1:
+              raise RuntimeError(f'Expected one .geojson.gz, found {len(files)}: {files}')
+          with gzip.open(files[0], 'rt', encoding='utf-8') as f:
+              obj = json.load(f)
+          if obj.get('type') != 'FeatureCollection' or not isinstance(obj.get('features'), list):
+              raise RuntimeError('GeoJSON is not a FeatureCollection with features')
+          features = obj['features']
+          if not features:
+              raise RuntimeError('No features found')
+          summary_files = list(root.rglob('*summary.json'))
+          original_summary = json.loads(summary_files[0].read_text(encoding='utf-8')) if summary_files else None
+          geometry_types = Counter()
+          directions = Counter()
+          missing_geometry = 0
+          missing_coords = 0
+          invalid_coordinates = 0
+          sample = []
+          for feat in features:
+              geom = feat.get('geometry') or {}
+              props = feat.get('properties') or {}
+              geometry_types[str(geom.get('type'))] += 1
+              direction = props.get('oneway', props.get('direction', 'not_explicit'))
+              directions[str(direction)] += 1
+              coords = geom.get('coordinates')
+              if not geom.get('type'): missing_geometry += 1
+              if not coords: missing_coords += 1
+              def valid_pairs(x):
+                  if isinstance(x, list) and len(x) >= 2 and all(isinstance(n, (int,float)) for n in x[:2]):
+                      lon, lat = x[:2]
+                      return -180 <= lon <= 180 and -90 <= lat <= 90
+                  if isinstance(x, list):
+                      return all(valid_pairs(z) for z in x)
+                  return False
+              if not valid_pairs(coords): invalid_coordinates += 1
+              if len(sample) < 5:
+                  sample.append({'type': feat.get('type'), 'properties': props,
+                                 'geometry_type': geom.get('type'),
+                                 'coordinates_first': coords[:2] if isinstance(coords, list) else None})
+          report = {
+              'status': 'validated_structure',
+              'feature_count': len(features),
+              'original_summary': original_summary,
+              'geometry_types': dict(geometry_types),
+              'direction_property_values': dict(directions),
+              'missing_geometry': missing_geometry,
+              'missing_coordinates': missing_coords,
+              'invalid_coordinates': invalid_coordinates,
+              'sample_first_5': sample,
+              'note': 'OSM reference only; not legal road access or turn permission.'
+          }
+          Path('report').mkdir(exist_ok=True)
+          Path('report/tokyo_oneway_validation.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+          print('VALIDATION COMPLETE')
+          print('FEATURE COUNT:', len(features))
+          print('GEOMETRY TYPES:', dict(geometry_types))
+          print('DIRECTION VALUES:', dict(directions))
+          print('INVALID COORDINATES:', invalid_coordinates)
+          print('SAMPLE REPORT:', 'report/tokyo_oneway_validation.json')
+          PY
+
+      - name: Upload small validation JSON
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-oneway-validation-small
+          path: report/tokyo_oneway_validation.json
+          if-no-files-found: error
+          retention-days: 30
