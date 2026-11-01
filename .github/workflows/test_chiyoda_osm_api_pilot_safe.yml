@@ -1,0 +1,90 @@
+name: Test Chiyoda OSM API pilot safely
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Fetch four small Chiyoda samples and audit one-way tags (read only)
+        shell: bash
+        run: |
+          mkdir -p report
+          python3 - <<'PY'
+          import json, time, urllib.request, xml.etree.ElementTree as ET
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          # Four small SAMPLE boxes; NOT complete Chiyoda coverage.
+          # OSM API bbox: west, south, east, north.
+          samples = {
+              'otemachi': (139.7610, 35.6835, 139.7640, 35.6865),
+              'kanda': (139.7680, 35.6900, 139.7710, 35.6930),
+              'jimbocho': (139.7550, 35.6940, 139.7580, 35.6970),
+              'nagatacho': (139.7390, 35.6765, 139.7420, 35.6795),
+          }
+          report = {
+              'purpose': 'Experimental sample only; not for routing or legal traffic decisions',
+              'timestamp_utc': datetime.now(timezone.utc).isoformat(),
+              'coverage': 'Four small sample boxes near Chiyoda; NOT complete ward coverage',
+              'samples': [], 'unique_highway_ways': 0, 'unique_oneway_ways': 0,
+              'status': 'failed', 'production_files_changed': False,
+          }
+          highway_ids, oneway_by_id = set(), {}
+          for name, bbox in samples.items():
+              url = 'https://api.openstreetmap.org/api/0.6/map?bbox=' + ','.join(map(str, bbox))
+              item = {'name': name, 'bbox_west_south_east_north': bbox, 'status': 'failed',
+                      'highway_ways': 0, 'oneway_ways': 0, 'error': None}
+              try:
+                  req = urllib.request.Request(url, headers={
+                      'User-Agent': 'TokyoTaxiGuide-ChiyodaPilot/1.0 (GitHub Actions read-only)',
+                      'Accept': 'application/xml'})
+                  with urllib.request.urlopen(req, timeout=35) as response:
+                      raw = response.read(10_000_001)
+                  if len(raw) > 10_000_000:
+                      raise ValueError('Response exceeds 10MB safety limit')
+                  root = ET.fromstring(raw)
+                  for way in root.findall('way'):
+                      tags = {t.get('k'): t.get('v') for t in way.findall('tag')}
+                      if 'highway' not in tags:
+                          continue
+                      wid = way.get('id')
+                      item['highway_ways'] += 1
+                      highway_ids.add(wid)
+                      if tags.get('oneway') in ('yes','1','true','-1','reversible','alternating') or tags.get('junction') == 'roundabout':
+                          item['oneway_ways'] += 1
+                          oneway_by_id[wid] = {'osm_way_id': wid, 'name': tags.get('name'),
+                              'highway': tags['highway'], 'oneway': tags.get('oneway'),
+                              'junction': tags.get('junction')}
+                  item['status'] = 'ok'
+              except Exception as exc:
+                  item['error'] = f'{type(exc).__name__}: {exc}'[:400]
+              report['samples'].append(item)
+              print(f"SAMPLE {name}: {item['status']} HIGHWAY={item['highway_ways']} ONEWAY={item['oneway_ways']}")
+              if item['error']:
+                  print('ERROR:', item['error'])
+              time.sleep(1)
+          report['unique_highway_ways'] = len(highway_ids)
+          report['unique_oneway_ways'] = len(oneway_by_id)
+          report['oneway_ways'] = list(oneway_by_id.values())
+          passed = sum(s['status'] == 'ok' for s in report['samples'])
+          report['status'] = 'ok' if passed == len(samples) else ('partial' if passed else 'failed')
+          Path('report/chiyoda_osm_api_pilot.json').write_text(
+              json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+          print('RESULT:', report['status'])
+          print('SAMPLES OK:', passed, '/', len(samples))
+          print('UNIQUE HIGHWAY WAYS:', report['unique_highway_ways'])
+          print('UNIQUE ONEWAY WAYS:', report['unique_oneway_ways'])
+          print('No production files changed.')
+          PY
+      - name: Upload pilot report only
+        uses: actions/upload-artifact@v4
+        with:
+          name: chiyoda-osm-api-pilot-report
+          path: report/chiyoda_osm_api_pilot.json
+          if-no-files-found: error
