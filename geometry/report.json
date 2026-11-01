@@ -1,0 +1,10 @@
+{
+  "generated_at_utc": "2026-11-01T13:39:31.591714+00:00",
+  "input_count": 4524,
+  "found_count": 4524,
+  "missing_count": 0,
+  "missing_osm_way_ids": [],
+  "invalid": [],
+  "oneway_attribute_differences": [],
+  "warning": "Experimental OSM geometry only. No turn restrictions, conditional rules, or routing safety verification. Source OSM snapshots may differ."
+}
