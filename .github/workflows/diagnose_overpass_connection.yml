@@ -1,0 +1,44 @@
+name: Diagnose Overpass connection
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Test DNS HTTPS and minimal Overpass query
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import socket, urllib.request, urllib.parse, urllib.error, time
+          hosts = [
+              'overpass-api.de',
+              'overpass.kumi.systems',
+              'overpass.private.coffee',
+          ]
+          query = '[out:json][timeout:10];node(35.6812,139.7671,35.6813,139.7672);out 1;'
+          for host in hosts:
+              print(f'\n=== {host} ===', flush=True)
+              try:
+                  socket.getaddrinfo(host, 443)
+                  print('DNS OK', flush=True)
+              except Exception as exc:
+                  print(f'DNS FAILED: {type(exc).__name__}: {exc}', flush=True)
+                  continue
+              url = f'https://{host}/api/interpreter'
+              req = urllib.request.Request(url, data=urllib.parse.urlencode({'data': query}).encode(), headers={'User-Agent': 'TokyoTaxiOverpassDiagnostics/1.0'}, method='POST')
+              started = time.monotonic()
+              try:
+                  with urllib.request.urlopen(req, timeout=18) as res:
+                      body = res.read(500000)
+                      print(f'QUERY OK: HTTP {res.status}, {len(body)} bytes, {time.monotonic()-started:.1f}s', flush=True)
+              except urllib.error.HTTPError as exc:
+                  print(f'HTTP ERROR: {exc.code}, {time.monotonic()-started:.1f}s', flush=True)
+              except Exception as exc:
+                  print(f'QUERY FAILED: {type(exc).__name__}: {exc}, {time.monotonic()-started:.1f}s', flush=True)
+          PY
