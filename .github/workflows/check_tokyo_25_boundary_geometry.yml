@@ -1,0 +1,58 @@
+name: Check Tokyo 25 boundary geometry
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Inspect ADM2 geometries without publishing
+        shell: bash
+        run: |
+          mkdir -p report
+          python3 - <<'PY'
+          import json, urllib.request, pathlib, collections, hashlib
+          api='https://www.geoboundaries.org/api/current/gbOpen/JPN/ADM2/'
+          req=urllib.request.Request(api,headers={'User-Agent':'tokyo-taxi-guide-boundary-geometry-inspection/1.0'})
+          with urllib.request.urlopen(req,timeout=45) as r: meta=json.load(r)
+          url=meta.get('simplifiedGeometryGeoJSON') or meta.get('gjDownloadURL')
+          if not url: raise RuntimeError('GeoJSON URL missing')
+          req=urllib.request.Request(url,headers={'User-Agent':'tokyo-taxi-guide-boundary-geometry-inspection/1.0'})
+          with urllib.request.urlopen(req,timeout=90) as r: data=json.load(r)
+          targets={'千代田':'Chiyoda','中央':'Chuo','港':'Minato','新宿':'Shinjuku','文京':'Bunkyo','台東':'Taito','墨田':'Sumida','江東':'Koto','品川':'Shinagawa','目黒':'Meguro','大田':'Ota','世田谷':'Setagaya','渋谷':'Shibuya','中野':'Nakano','杉並':'Suginami','豊島':'Toshima','北':'Kita','荒川':'Arakawa','板橋':'Itabashi','練馬':'Nerima','足立':'Adachi','葛飾':'Katsushika','江戸川':'Edogawa','三鷹':'Mitaka','武蔵野':'Musashino'}
+          def coords(g):
+            if isinstance(g,list):
+              if len(g)>=2 and isinstance(g[0],(float,int)) and isinstance(g[1],(float,int)):
+                yield g[0],g[1]
+              else:
+                for x in g: yield from coords(x)
+          def bbox(geom):
+            pts=list(coords(geom.get('coordinates',[])))
+            return [round(min(p[0] for p in pts),5),round(min(p[1] for p in pts),5),round(max(p[0] for p in pts),5),round(max(p[1] for p in pts),5)] if pts else None
+          def is_tokyo(b):
+            return bool(b and b[0]>=138.7 and b[2]<=140.5 and b[1]>=35.2 and b[3]<=36.3)
+          out={'source':api,'geojson_url':url,'purpose':'inspection only; no filtering or publishing','targets':{}}
+          for jp,en in targets.items():
+            matches=[]
+            for f in data.get('features',[]):
+              p=f.get('properties') or {}
+              name=str(p.get('shapeName') or p.get('name') or '')
+              if name.casefold().strip()==en.casefold():
+                b=bbox(f.get('geometry') or {})
+                matches.append({'name':name,'shapeID':p.get('shapeID'),'bbox_lonlat':b,'within_broad_tokyo_bbox':is_tokyo(b),'geometry_sha256':hashlib.sha256(json.dumps(f.get('geometry'),sort_keys=True).encode()).hexdigest()[:16]})
+            out['targets'][jp]={'expected_romanized':en,'candidates':matches,'candidate_count':len(matches),'broad_tokyo_bbox_candidates':sum(bool(m['within_broad_tokyo_bbox']) for m in matches)}
+            print(f'{jp} / {en}: {len(matches)} candidates, {out["targets"][jp]["broad_tokyo_bbox_candidates"]} in broad Tokyo bbox')
+            for m in matches: print('  ',m)
+          pathlib.Path('report/tokyo_25_boundary_geometry.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          print('INSPECTION COMPLETE. Geographic bounding-box check is preliminary, not municipality verification.')
+          print('No production files changed.')
+          PY
+      - name: Upload inspection report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-25-boundary-geometry-check
+          path: report/tokyo_25_boundary_geometry.json
+          if-no-files-found: warn
