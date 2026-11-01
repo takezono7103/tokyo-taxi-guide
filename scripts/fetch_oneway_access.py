@@ -5,6 +5,7 @@ Research only: never infer permission to enter from missing OSM tags.
 import datetime
 import math
 import json
+import sys
 import pathlib
 import time
 import urllib.error
@@ -19,9 +20,10 @@ TILE_RADIUS_M = 360
 ENDPOINTS = [
     'https://overpass-api.de/api/interpreter',
     'https://overpass.kumi.systems/api/interpreter',
+    'https://overpass.private.coffee/api/interpreter',
 ]
 CACHE = pathlib.Path('data/oneway_access_tiles')
-MAX_NEW_TILES = 2
+MAX_NEW_TILES = 1
 CURSOR = CACHE / "next_tile.json"
 OUT = pathlib.Path('data/tokyo_oneway_access.json')
 
@@ -65,7 +67,7 @@ def fetch_tile(lat, lon, index):
                          'Content-Type': 'application/x-www-form-urlencoded'},
                 method='POST',
             )
-            with urllib.request.urlopen(req, timeout=19) as resp:
+            with urllib.request.urlopen(req, timeout=12) as resp:
                 payload = json.load(resp)
             if not isinstance(payload, dict) or not isinstance(payload.get('elements'), list):
                 raise ValueError('No valid elements array in Overpass response')
@@ -146,7 +148,11 @@ def main():
         save_json(CURSOR, {'next': i % 9 + 1})
     print(f'PROGRESS: {completed}/9 tiles cached. Attempted {attempts} new tiles.', flush=True)
     if completed != 9:
-        print('INCOMPLETE: existing published JSON is unchanged. Run workflow again.', flush=True)
+        print('INCOMPLETE: existing published JSON is unchanged.', flush=True)
+        if completed == 0:
+            print('ERROR: No OSM tiles are cached; all attempted endpoints failed. Workflow will be marked failed.', flush=True)
+            sys.exit(2)
+        print('PARTIAL: saved tiles will be committed; rerun later for remaining tiles.', flush=True)
         return
     unique = {}
     endpoints_used = set()
