@@ -3,14 +3,20 @@ name: Update Tokyo oneway access
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 18 * * 0"
 
 permissions:
   contents: write
 
+concurrency:
+  group: update-tokyo-oneway-access
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
 
     steps:
       - name: Checkout repository
@@ -19,18 +25,21 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Fetch OSM oneway and access
-        run: python scripts/fetch_oneway_access.py
+        run: |
+          python scripts/fetch_oneway_access.py
 
       - name: Commit updated data
+        if: success()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/tokyo_oneway_access.json
-          if ! git diff --cached --quiet; then
+          git add data/
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
             git commit -m "Update Tokyo oneway access data"
             git push
           fi
-
