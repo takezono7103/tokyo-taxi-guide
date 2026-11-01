@@ -1,0 +1,28 @@
+name: Test Chiyoda OSM way geometry safely
+on:
+  workflow_dispatch:
+    inputs:
+      batch:
+        description: '0-113; each batch requests up to 40 OSM ways. Start with 0.'
+        required: true
+        default: '0'
+        type: string
+permissions:
+  contents: read
+jobs:
+  fetch-geometry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch geometry read-only
+        env:
+          GEOM_BATCH: ${{ inputs.batch }}
+        run: python3 scripts/fetch_chiyoda_geometry.py
+      - name: Upload experimental report
+        uses: actions/upload-artifact@v4
+        with:
+          name: chiyoda-geometry-batch-${{ inputs.batch }}
+          path: experimental/chiyoda_geometry/*.json
+          retention-days: 30
+          if-no-files-found: error
