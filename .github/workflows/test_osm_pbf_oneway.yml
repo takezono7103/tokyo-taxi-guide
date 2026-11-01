@@ -1,0 +1,30 @@
+name: Test OSM PBF oneway extraction
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Install osmium
+        run: sudo apt-get update -qq && sudo apt-get install -y osmium-tool
+      - name: Download Kanto OSM extract
+        run: |
+          curl --fail --location --retry 2 --connect-timeout 20 --max-time 600 \
+            -o /tmp/kanto.osm.pbf \
+            https://download.geofabrik.de/asia/japan/kanto-latest.osm.pbf
+          test -s /tmp/kanto.osm.pbf
+          ls -lh /tmp/kanto.osm.pbf
+      - name: Extract Tokyo area and oneway roads
+        run: |
+          # Bounding box is a preliminary test area, not exact municipal boundaries.
+          osmium extract --bbox 139.20,35.48,140.05,35.90 \
+            --strategy complete_ways -o /tmp/tokyo_area.osm.pbf /tmp/kanto.osm.pbf
+          osmium tags-filter /tmp/tokyo_area.osm.pbf 'w/highway' 'w/oneway' \
+            -o /tmp/tokyo_roads.osm.pbf
+          osmium fileinfo -e /tmp/tokyo_roads.osm.pbf | head -35
+          ls -lh /tmp/tokyo_area.osm.pbf /tmp/tokyo_roads.osm.pbf
+      - name: Summary
+        run: echo 'PBF extraction test completed. No repository files changed.'
