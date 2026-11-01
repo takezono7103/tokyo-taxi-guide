@@ -1,0 +1,40 @@
+name: Update Tokyo oneway only safe
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-tokyo-oneway-only-safe
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fetch one OSM one-way subtile
+        run: python -u scripts/fetch_oneway_only_safe.py
+      - name: Commit separate cache and completed output
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A -- data/oneway_only_tiles/
+          if [ -f data/tokyo_oneway_only.json ]; then
+            git add -- data/tokyo_oneway_only.json
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'Checkpoint separate OSM one-way-only data'
+            git push
+          else
+            echo 'No separate one-way cache changes'
+          fi
