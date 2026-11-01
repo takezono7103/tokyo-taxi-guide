@@ -1,0 +1,93 @@
+name: Audit Tokyo oneway road classes
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download existing oneway test artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tokyo-oneway-json-test
+          run-id: 41282347153
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: source
+
+      - name: Audit highway types and prepare small report
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import gzip, json
+          from collections import Counter
+          from pathlib import Path
+          paths = list(Path('source').rglob('tokyo_oneway_test.geojson.gz'))
+          if len(paths) != 1:
+              raise RuntimeError(f'Expected one source GeoJSON: {paths}')
+          with gzip.open(paths[0], 'rt', encoding='utf-8') as f:
+              data = json.load(f)
+          features = data.get('features', [])
+          if len(features) != 71324:
+              raise RuntimeError(f'Unexpected feature count: {len(features)}')
+          classes = Counter()
+          directions = Counter()
+          unnamed = Counter()
+          samples = {}
+          bad = 0
+          for feat in features:
+              props = feat.get('properties', {})
+              road_type = props.get('highway') or 'unknown'
+              classes[road_type] += 1
+              directions[str(props.get('direction'))] += 1
+              if not props.get('name'):
+                  unnamed[road_type] += 1
+              geom = feat.get('geometry', {})
+              coords = geom.get('coordinates', [])
+              if geom.get('type') != 'LineString' or len(coords) < 2:
+                  bad += 1
+              if road_type not in samples:
+                  samples[road_type] = {
+                      'osm_way_id': props.get('osm_way_id'),
+                      'name': props.get('name'),
+                      'oneway': props.get('oneway'),
+                      'direction': props.get('direction'),
+                      'first_coordinate': coords[0] if coords else None
+                  }
+          report = {
+              'status': 'audit_only',
+              'source_run_id': 41282347153,
+              'total_ways': len(features),
+              'highway_types': dict(classes.most_common()),
+              'direction_values': dict(directions),
+              'unnamed_by_type': dict(unnamed.most_common()),
+              'unnamed_total': sum(unnamed.values()),
+              'invalid_geometry_count': bad,
+              'sample_one_per_type': samples,
+              'exact_municipal_boundary_filter': False,
+              'warning': 'OSM reference only; not legal traffic permission. Existing files unchanged.'
+          }
+          Path('report').mkdir(exist_ok=True)
+          Path('report/tokyo_oneway_road_audit.json').write_text(
+              json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+          print('AUDIT COMPLETE')
+          print('TOTAL WAYS:', len(features))
+          print('ROAD TYPES:', json.dumps(dict(classes.most_common()), ensure_ascii=False))
+          print('DIRECTIONS:', dict(directions))
+          print('UNNAMED TOTAL:', sum(unnamed.values()))
+          print('INVALID GEOMETRY:', bad)
+          print('REPORT: report/tokyo_oneway_road_audit.json')
+          PY
+
+      - name: Upload small road audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-oneway-road-audit
+          path: report/tokyo_oneway_road_audit.json
+          retention-days: 7
+          if-no-files-found: error
