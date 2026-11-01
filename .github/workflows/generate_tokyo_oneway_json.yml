@@ -1,0 +1,117 @@
+name: Generate Tokyo oneway JSON test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Install osmium Python library
+        run: python3 -m pip install --user osmium
+
+      - name: Download Kanto OSM PBF
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --retry-delay 15 --connect-timeout 30 --max-time 2400 \
+            --output /tmp/kanto.osm.pbf \
+            https://download.geofabrik.de/asia/japan/kanto-latest.osm.pbf
+          test "$(stat -c%s /tmp/kanto.osm.pbf)" -gt 100000000
+          ls -lh /tmp/kanto.osm.pbf
+
+      - name: Generate one-way roads JSON (experimental)
+        shell: bash
+        run: |
+          mkdir -p output
+          cat > /tmp/make_oneway.py <<'PY'
+          import datetime, gzip, json, osmium, os
+
+          # Broad test rectangle only; NOT exact municipality boundaries.
+          WEST, SOUTH, EAST, NORTH = 138.95, 35.45, 140.20, 36.00
+          excluded = {'footway','path','cycleway','steps','pedestrian','bridleway','corridor','construction','proposed'}
+
+          class Extract(osmium.SimpleHandler):
+              def __init__(self):
+                  super().__init__()
+                  self.count = 0
+                  self.forward = 0
+                  self.reverse = 0
+                  self.implicit = 0
+                  self.out = gzip.open('output/tokyo_oneway_test.geojson.gz', 'wt', encoding='utf-8')
+                  self.out.write('{"type":"FeatureCollection","features":[')
+
+              def way(self, w):
+                  tags = w.tags
+                  highway = tags.get('highway')
+                  if not highway or highway in excluded:
+                      return
+                  raw = tags.get('oneway', '').lower()
+                  implicit = False
+                  if raw in ('yes', 'true', '1'):
+                      direction = 1
+                  elif raw == '-1':
+                      direction = -1
+                  elif raw in ('no', 'false', '0', 'reversible', 'alternating'):
+                      return
+                  elif not raw and tags.get('junction') == 'roundabout':
+                      direction = 1
+                      implicit = True
+                  else:
+                      return
+                  try:
+                      coords = [[round(n.lon, 7), round(n.lat, 7)] for n in w.nodes if n.location.valid()]
+                  except (ValueError, RuntimeError):
+                      return
+                  if len(coords) < 2 or not any(WEST <= x <= EAST and SOUTH <= y <= NORTH for x, y in coords):
+                      return
+                  props = {'osm_way_id': str(w.id), 'name': tags.get('name', ''),
+                           'highway': highway, 'oneway': raw or 'roundabout_implicit',
+                           'direction': direction}
+                  feat = {'type': 'Feature', 'properties': props,
+                          'geometry': {'type': 'LineString', 'coordinates': coords}}
+                  if self.count:
+                      self.out.write(',')
+                  json.dump(feat, self.out, ensure_ascii=False, separators=(',', ':'))
+                  self.count += 1
+                  self.forward += direction == 1
+                  self.reverse += direction == -1
+                  self.implicit += implicit
+
+              def finish(self):
+                  self.out.write(']}')
+                  self.out.close()
+
+          h = Extract()
+          h.apply_file('/tmp/kanto.osm.pbf', locations=True)
+          h.finish()
+          summary = {
+              'created_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              'source': 'Geofabrik Kanto OpenStreetMap extract',
+              'bbox_test_only': [WEST, SOUTH, EAST, NORTH],
+              'exact_municipal_boundary_filter': False,
+              'ways_total': h.count,
+              'forward': h.forward,
+              'reverse': h.reverse,
+              'implicit_roundabout': h.implicit,
+              'warning': 'Experimental OSM reference only. Do not use as legal turn/access permission.'
+          }
+          with open('output/tokyo_oneway_summary.json', 'w', encoding='utf-8') as f:
+              json.dump(summary, f, ensure_ascii=False, indent=2)
+          print('ONEWAY SUMMARY:', json.dumps(summary, ensure_ascii=False))
+          print('Output bytes:', os.path.getsize('output/tokyo_oneway_test.geojson.gz'))
+          PY
+          python3 /tmp/make_oneway.py
+          ls -lh output/
+
+      - name: Upload test JSON artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-oneway-json-test
+          path: output/
+          retention-days: 7
+          if-no-files-found: error
