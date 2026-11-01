@@ -24,6 +24,7 @@ ENDPOINTS = [
 ]
 CACHE = pathlib.Path('data/oneway_access_tiles')
 MAX_NEW_TILES = 1
+SUBDIVISIONS = 2  # 2 x 2 smaller boxes per uncached parent tile
 CURSOR = CACHE / "next_tile.json"
 OUT = pathlib.Path('data/tokyo_oneway_access.json')
 
@@ -36,10 +37,10 @@ def centers():
                    CENTER[1] + x * OFFSET_M / (111_320 * math.cos(math.radians(CENTER[0]))))
 
 
-def query(lat, lon):
+def query(lat, lon, radius_m=TILE_RADIUS_M):
     # Bounding box is cheaper than a large around() spatial search.
-    dy = TILE_RADIUS_M / 111_320
-    dx = TILE_RADIUS_M / (111_320 * math.cos(math.radians(lat)))
+    dy = radius_m / 111_320
+    dx = radius_m / (111_320 * math.cos(math.radians(lat)))
     bbox = f"({lat-dy:.7f},{lon-dx:.7f},{lat+dy:.7f},{lon+dx:.7f})"
     # Query ways with the relevant tags. Never treat absence of a tag as permission.
     return (f'[out:json][timeout:14];('
@@ -56,27 +57,27 @@ def query(lat, lon):
             ');out tags geom;')
 
 
-def fetch_tile(lat, lon, index):
+def fetch_tile(lat, lon, index, radius_m=TILE_RADIUS_M):
     failures = []
     for endpoint in ENDPOINTS:
         try:
             req = urllib.request.Request(
                 endpoint,
-                data=urllib.parse.urlencode({'data': query(lat, lon)}).encode('utf-8'),
+                data=urllib.parse.urlencode({'data': query(lat, lon, radius_m)}).encode('utf-8'),
                 headers={'User-Agent': 'TokyoTaxiCockpitOSMResearch/0.2 (GitHub Actions; public OSM data)',
                          'Content-Type': 'application/x-www-form-urlencoded'},
                 method='POST',
             )
-            with urllib.request.urlopen(req, timeout=12) as resp:
+            with urllib.request.urlopen(req, timeout=10) as resp:
                 payload = json.load(resp)
             if not isinstance(payload, dict) or not isinstance(payload.get('elements'), list):
                 raise ValueError('No valid elements array in Overpass response')
-            print(f'TILE {index}/9 OK: {len(payload["elements"])} ways; {endpoint}', flush=True)
+            print(f'TILE {index} OK: {len(payload["elements"])} ways; {endpoint}', flush=True)
             return payload['elements'], endpoint
         except (OSError, ValueError, json.JSONDecodeError) as exc:
             reason = f'{endpoint}: {type(exc).__name__}: {exc}'
             failures.append(reason)
-            print(f'TILE {index}/9 FAILED: {reason}', flush=True)
+            print(f'TILE {index} FAILED: {reason}', flush=True)
     raise RuntimeError(f'Tile {index}/9 failed at all endpoints: ' + '; '.join(failures))
 
 
@@ -108,6 +109,29 @@ def save_json(path, obj):
     temp.replace(path)
 
 
+def subtiles(lat, lon):
+    # Four equal boxes exactly cover the parent box. Parent cache remains valid.
+    shift = TILE_RADIUS_M / 2
+    radius = TILE_RADIUS_M / 2
+    for dy_sign, dx_sign in ((-1, -1), (-1, 1), (1, -1), (1, 1)):
+        sublat = lat + dy_sign * shift / 111_320
+        sublon = lon + dx_sign * shift / (111_320 * math.cos(math.radians(lat)))
+        yield sublat, sublon, radius
+
+
+def valid_cache(path, tile, lat, lon, part=None):
+    try:
+        data = json.loads(path.read_text(encoding='utf-8'))
+        if (data.get('tile') == tile and data.get('lat') == round(lat, 7)
+                and data.get('lon') == round(lon, 7)
+                and isinstance(data.get('elements'), list)
+                and (part is None or data.get('part') == part)):
+            return data
+    except (OSError, ValueError, AttributeError, TypeError):
+        pass
+    return None
+
+
 def main():
     CACHE.mkdir(parents=True, exist_ok=True)
     coords = list(centers())
@@ -119,38 +143,74 @@ def main():
     except (OSError, ValueError, TypeError, AttributeError):
         start = 1
     start = max(1, min(9, start))
+    # Process at most one new small tile per run, so progress is resumable.
+    # A pre-existing complete tile_XX.json is never overwritten.
     for offset in range(9):
         i = (start - 1 + offset) % 9 + 1
         lat, lon = coords[i - 1]
         path = CACHE / f'tile_{i:02d}.json'
-        if path.exists():
-            try:
-                saved = json.loads(path.read_text(encoding='utf-8'))
-                if (saved.get('tile') == i and saved.get('lat') == round(lat, 7)
-                        and saved.get('lon') == round(lon, 7)
-                        and isinstance(saved.get('elements'), list)):
-                    completed += 1
-                    print(f'TILE {i}/9 CACHED: {len(saved["elements"])} ways', flush=True)
-                    continue
-            except (OSError, ValueError, AttributeError):
-                pass
-        if attempts >= MAX_NEW_TILES:
-            continue
-        attempts += 1
-        try:
-            elements, endpoint = fetch_tile(lat, lon, i)
-        except Exception as exc:
-            print(f'TILE {i}/9 PENDING: {exc}', flush=True)
-        else:
-            save_json(path, {'tile': i, 'lat': round(lat, 7), 'lon': round(lon, 7),
-                             'endpoint': endpoint, 'elements': elements})
+        parent = valid_cache(path, i, lat, lon)
+        if parent:
             completed += 1
-        save_json(CURSOR, {'next': i % 9 + 1})
+            print(f'TILE {i}/9 CACHED: {len(parent["elements"])} ways', flush=True)
+            continue
+
+        parts = list(subtiles(lat, lon))
+        part_data = []
+        for j, (slat, slon, radius) in enumerate(parts, 1):
+            subpath = CACHE / f'tile_{i:02d}_part_{j:02d}.json'
+            cached = valid_cache(subpath, i, slat, slon, j)
+            if cached:
+                part_data.append(cached)
+                print(f'TILE {i}/9 PART {j}/4 CACHED: {len(cached["elements"])} ways', flush=True)
+                continue
+            if attempts >= MAX_NEW_TILES:
+                continue
+            attempts += 1
+            try:
+                elements, endpoint = fetch_tile(slat, slon, f'{i}/9 PART {j}/4', radius)
+            except Exception as exc:
+                print(f'TILE {i}/9 PART {j}/4 PENDING: {exc}', flush=True)
+            else:
+                cached = {'tile': i, 'part': j, 'lat': round(slat, 7),
+                          'lon': round(slon, 7), 'endpoint': endpoint,
+                          'elements': elements}
+                save_json(subpath, cached)
+                part_data.append(cached)
+            # Advance to the next parent only once this parent is complete;
+            # otherwise the same parent is revisited next run.
+            save_json(CURSOR, {'next': i})
+
+        if len(part_data) == 4:
+            merged = {}
+            for part in part_data:
+                for element in part['elements']:
+                    if element.get('type') == 'way' and 'id' in element:
+                        merged[element['id']] = element
+            endpoint_names = sorted({part['endpoint'] for part in part_data})
+            save_json(path, {'tile': i, 'lat': round(lat, 7),
+                             'lon': round(lon, 7),
+                             'endpoint': ', '.join(endpoint_names),
+                             'elements': list(merged.values())})
+            completed += 1
+            save_json(CURSOR, {'next': i % 9 + 1})
+            print(f'TILE {i}/9 COMPLETE: {len(merged)} unique ways from 4 parts', flush=True)
+        if attempts >= MAX_NEW_TILES:
+            # Keep run short; still commit any new cached partial files.
+            break
+    # Recount all complete parents (including ones after the cursor).
+    completed = sum(bool(valid_cache(CACHE / f'tile_{i:02d}.json', i, *coords[i-1]))
+                    for i in range(1, 10))
+    parts_cached = sum(1 for i, (lat, lon) in enumerate(coords, 1)
+                       for j, (slat, slon, _) in enumerate(subtiles(lat, lon), 1)
+                       if valid_cache(CACHE / f'tile_{i:02d}_part_{j:02d}.json', i, slat, slon, j))
+    print(f'SUBTILE PROGRESS: {parts_cached} cached small parts; '
+          f'{completed}/9 complete parent tiles.', flush=True)
     print(f'PROGRESS: {completed}/9 tiles cached. Attempted {attempts} new tiles.', flush=True)
     if completed != 9:
         print('INCOMPLETE: existing published JSON is unchanged.', flush=True)
-        if completed == 0:
-            print('ERROR: No OSM tiles are cached; all attempted endpoints failed. Workflow will be marked failed.', flush=True)
+        if completed == 0 and parts_cached == 0:
+            print('ERROR: No cached OSM data and fetch failed.', flush=True)
             sys.exit(2)
         print('PARTIAL: saved tiles will be committed; rerun later for remaining tiles.', flush=True)
         return
