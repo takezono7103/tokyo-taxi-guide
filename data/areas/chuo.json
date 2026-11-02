@@ -1,6 +1,183 @@
 {
   "schema_version": "1.0",
   "area": "中央区",
-  "features": [],
-  "note": "未収録。実際の施設を検証してから追加してください。"
+  "features": [
+    {
+      "type": "station",
+      "name": "日本橋",
+      "lat": 35.6820518,
+      "lon": 139.7734474,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/1926189620"
+    },
+    {
+      "type": "station",
+      "name": "人形町",
+      "lat": 35.6862799,
+      "lon": 139.7821879,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/1926355396"
+    },
+    {
+      "type": "station",
+      "name": "東銀座",
+      "lat": 35.6696837,
+      "lon": 139.7669476,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/1926355402"
+    },
+    {
+      "type": "station",
+      "name": "築地",
+      "lat": 35.6680848,
+      "lon": 139.7725918,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/1926355405"
+    },
+    {
+      "type": "station",
+      "name": "新富町",
+      "lat": 35.6706344,
+      "lon": 139.7734197,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/1926417053"
+    },
+    {
+      "type": "station",
+      "name": "月島",
+      "lat": 35.6641695,
+      "lon": 139.7844793,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/1926417056"
+    },
+    {
+      "type": "station",
+      "name": "三越前",
+      "lat": 35.6849516,
+      "lon": 139.7730743,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/1926703932"
+    },
+    {
+      "type": "station",
+      "name": "茅場町",
+      "lat": 35.6802291,
+      "lon": 139.7794236,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2730655241"
+    },
+    {
+      "type": "station",
+      "name": "銀座",
+      "lat": 35.6728411,
+      "lon": 139.7631029,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6271990033"
+    },
+    {
+      "type": "station",
+      "name": "銀座一丁目",
+      "lat": 35.6743469,
+      "lon": 139.7670332,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6333133527"
+    },
+    {
+      "type": "station",
+      "name": "水天宮前",
+      "lat": 35.6825235,
+      "lon": 139.7856405,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6353024187"
+    },
+    {
+      "type": "station",
+      "name": "浜町",
+      "lat": 35.6884743,
+      "lon": 139.7881422,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6376099903"
+    },
+    {
+      "type": "station",
+      "name": "勝どき",
+      "lat": 35.6589623,
+      "lon": 139.7771747,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6440614866"
+    },
+    {
+      "type": "station",
+      "name": "八丁堀",
+      "lat": 35.6746238,
+      "lon": 139.7776565,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6449441183"
+    },
+    {
+      "type": "station",
+      "name": "京橋",
+      "lat": 35.676696,
+      "lon": 139.7700412,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7786715954"
+    },
+    {
+      "type": "station",
+      "name": "小伝馬町",
+      "lat": 35.6907525,
+      "lon": 139.7784526,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7786715980"
+    },
+    {
+      "type": "station",
+      "name": "東日本橋",
+      "lat": 35.6921239,
+      "lon": 139.7848848,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7791591074"
+    },
+    {
+      "type": "station",
+      "name": "宝町",
+      "lat": 35.6754339,
+      "lon": 139.7718846,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7791591078"
+    },
+    {
+      "type": "station",
+      "name": "築地市場",
+      "lat": 35.6648789,
+      "lon": 139.7668843,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7791605894"
+    },
+    {
+      "type": "station",
+      "name": "馬喰横山",
+      "lat": 35.6921222,
+      "lon": 139.7827937,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7791605906"
+    },
+    {
+      "type": "station",
+      "name": "新日本橋",
+      "lat": 35.6890005,
+      "lon": 139.7741939,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7942251386"
+    },
+    {
+      "type": "station",
+      "name": "馬喰町",
+      "lat": 35.6933714,
+      "lon": 139.7824352,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7942251391"
+    }
+  ],
+  "note": "既存HTML内OSM駅座標から抽出した暫定データ。網羅性・区境・駅の代表位置は未検証。高速施設は未収録。"
 }

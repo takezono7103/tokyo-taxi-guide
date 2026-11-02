@@ -1,6 +1,175 @@
 {
   "schema_version": "1.0",
   "area": "渋谷区",
-  "features": [],
-  "note": "未収録。実際の施設を検証してから追加してください。"
+  "features": [
+    {
+      "type": "station",
+      "name": "渋谷",
+      "lat": 35.65808,
+      "lon": 139.7017647,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/241896099"
+    },
+    {
+      "type": "station",
+      "name": "恵比寿",
+      "lat": 35.6469738,
+      "lon": 139.7086461,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/262449251"
+    },
+    {
+      "type": "station",
+      "name": "代々木八幡",
+      "lat": 35.6696211,
+      "lon": 139.6888398,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/281366568"
+    },
+    {
+      "type": "station",
+      "name": "代々木上原",
+      "lat": 35.6690082,
+      "lon": 139.6797884,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/281366963"
+    },
+    {
+      "type": "station",
+      "name": "北参道",
+      "lat": 35.6784659,
+      "lon": 139.7054087,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/1951952367"
+    },
+    {
+      "type": "station",
+      "name": "千駄ケ谷",
+      "lat": 35.6812678,
+      "lon": 139.7113637,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2558121938"
+    },
+    {
+      "type": "station",
+      "name": "代々木",
+      "lat": 35.6839514,
+      "lon": 139.7020806,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2558121954"
+    },
+    {
+      "type": "station",
+      "name": "参宮橋",
+      "lat": 35.6787414,
+      "lon": 139.6936737,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/3613410677"
+    },
+    {
+      "type": "station",
+      "name": "代官山",
+      "lat": 35.648157,
+      "lon": 139.703293,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/3656056035"
+    },
+    {
+      "type": "station",
+      "name": "代々木公園",
+      "lat": 35.6690225,
+      "lon": 139.6901231,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6205618547"
+    },
+    {
+      "type": "station",
+      "name": "原宿",
+      "lat": 35.6702145,
+      "lon": 139.7024266,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6806051378"
+    },
+    {
+      "type": "station",
+      "name": "幡ヶ谷",
+      "lat": 35.6772317,
+      "lon": 139.6768293,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6810298549"
+    },
+    {
+      "type": "station",
+      "name": "笹塚",
+      "lat": 35.6736801,
+      "lon": 139.6672321,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6810298550"
+    },
+    {
+      "type": "station",
+      "name": "南新宿",
+      "lat": 35.6837073,
+      "lon": 139.698857,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7661834794"
+    },
+    {
+      "type": "station",
+      "name": "広尾",
+      "lat": 35.6520629,
+      "lon": 139.7222033,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7786715976"
+    },
+    {
+      "type": "station",
+      "name": "初台",
+      "lat": 35.6811565,
+      "lon": 139.6862442,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7872741440"
+    },
+    {
+      "type": "station",
+      "name": "神泉",
+      "lat": 35.6572159,
+      "lon": 139.6934884,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7892857493"
+    },
+    {
+      "type": "station",
+      "name": "表参道",
+      "lat": 35.6652299,
+      "lon": 139.7123934,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6219132765"
+    },
+    {
+      "type": "station",
+      "name": "新宿三丁目",
+      "lat": 35.6907413,
+      "lon": 139.7047807,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/5408169522"
+    },
+    {
+      "type": "station",
+      "name": "中目黒",
+      "lat": 35.6441395,
+      "lon": 139.6988317,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/243887391"
+    },
+    {
+      "type": "station",
+      "name": "駒場東大前",
+      "lat": 35.6586714,
+      "lon": 139.6844553,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7892857494"
+    }
+  ],
+  "note": "既存HTML内OSM駅座標から抽出した暫定データ。網羅性・区境・駅の代表位置は未検証。高速施設は未収録。"
 }

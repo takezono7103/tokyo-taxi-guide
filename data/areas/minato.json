@@ -1,6 +1,271 @@
 {
   "schema_version": "1.0",
   "area": "港区",
-  "features": [],
-  "note": "未収録。実際の施設を検証してから追加してください。"
+  "features": [
+    {
+      "type": "station",
+      "name": "広尾",
+      "lat": 35.6520629,
+      "lon": 139.7222033,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7786715976"
+    },
+    {
+      "type": "station",
+      "name": "溜池山王",
+      "lat": 35.6729903,
+      "lon": 139.741424,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6202373220"
+    },
+    {
+      "type": "station",
+      "name": "青山一丁目",
+      "lat": 35.6728653,
+      "lon": 139.7238851,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/265554028"
+    },
+    {
+      "type": "station",
+      "name": "大門",
+      "lat": 35.6569261,
+      "lon": 139.7547098,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/1926726026"
+    },
+    {
+      "type": "station",
+      "name": "白金台",
+      "lat": 35.6381027,
+      "lon": 139.7265652,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2012000223"
+    },
+    {
+      "type": "station",
+      "name": "白金高輪",
+      "lat": 35.6429531,
+      "lon": 139.734168,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2179133140"
+    },
+    {
+      "type": "station",
+      "name": "汐留",
+      "lat": 35.6632694,
+      "lon": 139.7602145,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2389825841"
+    },
+    {
+      "type": "station",
+      "name": "品川",
+      "lat": 35.6280635,
+      "lon": 139.7380112,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2546879674"
+    },
+    {
+      "type": "station",
+      "name": "浜松町",
+      "lat": 35.6551115,
+      "lon": 139.7570576,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2558121907"
+    },
+    {
+      "type": "station",
+      "name": "台場",
+      "lat": 35.6258854,
+      "lon": 139.7714067,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/3349902307"
+    },
+    {
+      "type": "station",
+      "name": "お台場海浜公園",
+      "lat": 35.6299058,
+      "lon": 139.7788045,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/3349902309"
+    },
+    {
+      "type": "station",
+      "name": "日の出",
+      "lat": 35.6491505,
+      "lon": 139.759088,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/3349961079"
+    },
+    {
+      "type": "station",
+      "name": "芝浦ふ頭",
+      "lat": 35.6417259,
+      "lon": 139.7577715,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/3349961081"
+    },
+    {
+      "type": "station",
+      "name": "新橋",
+      "lat": 35.6653649,
+      "lon": 139.7598367,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/3349961083"
+    },
+    {
+      "type": "station",
+      "name": "竹芝",
+      "lat": 35.6539872,
+      "lon": 139.7619159,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/3349961086"
+    },
+    {
+      "type": "station",
+      "name": "田町",
+      "lat": 35.6457378,
+      "lon": 139.7476874,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/3708279828"
+    },
+    {
+      "type": "station",
+      "name": "三田",
+      "lat": 35.6475463,
+      "lon": 139.7482194,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/5409191613"
+    },
+    {
+      "type": "station",
+      "name": "赤坂見附",
+      "lat": 35.6763213,
+      "lon": 139.7375253,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6179550652"
+    },
+    {
+      "type": "station",
+      "name": "赤坂",
+      "lat": 35.672174,
+      "lon": 139.7363044,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6210190874"
+    },
+    {
+      "type": "station",
+      "name": "六本木一丁目",
+      "lat": 35.6649728,
+      "lon": 139.738849,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6227812514"
+    },
+    {
+      "type": "station",
+      "name": "芝公園",
+      "lat": 35.654237,
+      "lon": 139.7498924,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6233834712"
+    },
+    {
+      "type": "station",
+      "name": "泉岳寺",
+      "lat": 35.6386708,
+      "lon": 139.7400043,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6279803459"
+    },
+    {
+      "type": "station",
+      "name": "御成門",
+      "lat": 35.6608011,
+      "lon": 139.7513591,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6352945230"
+    },
+    {
+      "type": "station",
+      "name": "乃木坂",
+      "lat": 35.6666986,
+      "lon": 139.7263422,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6443199834"
+    },
+    {
+      "type": "station",
+      "name": "麻布十番",
+      "lat": 35.6564518,
+      "lon": 139.7361199,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6509432921"
+    },
+    {
+      "type": "station",
+      "name": "高輪ゲートウェイ",
+      "lat": 35.6353992,
+      "lon": 139.7406635,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7502284289"
+    },
+    {
+      "type": "station",
+      "name": "赤羽橋",
+      "lat": 35.6550406,
+      "lon": 139.7439828,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7777248485"
+    },
+    {
+      "type": "station",
+      "name": "外苑前",
+      "lat": 35.6704649,
+      "lon": 139.7178823,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7786715953"
+    },
+    {
+      "type": "station",
+      "name": "虎ノ門",
+      "lat": 35.6701871,
+      "lon": 139.750056,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7786715969"
+    },
+    {
+      "type": "station",
+      "name": "虎ノ門ヒルズ",
+      "lat": 35.6674688,
+      "lon": 139.7477648,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7786715973"
+    },
+    {
+      "type": "station",
+      "name": "神谷町",
+      "lat": 35.662964,
+      "lon": 139.7450477,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7786715974"
+    },
+    {
+      "type": "station",
+      "name": "六本木",
+      "lat": 35.6628364,
+      "lon": 139.7313268,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7786715975"
+    },
+    {
+      "type": "station",
+      "name": "高輪台",
+      "lat": 35.6317345,
+      "lon": 139.7304256,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7791591079"
+    }
+  ],
+  "note": "既存HTML内OSM駅座標から抽出した暫定データ。網羅性・区境・駅の代表位置は未検証。高速施設は未収録。"
 }

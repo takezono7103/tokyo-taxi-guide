@@ -1,6 +1,247 @@
 {
   "schema_version": "1.0",
   "area": "新宿区",
-  "features": [],
-  "note": "未収録。実際の施設を検証してから追加してください。"
+  "features": [
+    {
+      "type": "station",
+      "name": "新宿",
+      "lat": 35.6883635,
+      "lon": 139.6990749,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2389826024"
+    },
+    {
+      "type": "station",
+      "name": "市ケ谷",
+      "lat": 35.6913465,
+      "lon": 139.7355526,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2558121912"
+    },
+    {
+      "type": "station",
+      "name": "飯田橋",
+      "lat": 35.7007552,
+      "lon": 139.7439955,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2559434114"
+    },
+    {
+      "type": "station",
+      "name": "四ツ谷",
+      "lat": 35.6860348,
+      "lon": 139.7306162,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/4406983223"
+    },
+    {
+      "type": "station",
+      "name": "新大久保",
+      "lat": 35.7013007,
+      "lon": 139.7002421,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/236579696"
+    },
+    {
+      "type": "station",
+      "name": "若松河田",
+      "lat": 35.6992849,
+      "lon": 139.7184084,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/475369200"
+    },
+    {
+      "type": "station",
+      "name": "新宿",
+      "lat": 35.6922273,
+      "lon": 139.7006009,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/1926277346"
+    },
+    {
+      "type": "station",
+      "name": "落合",
+      "lat": 35.7106637,
+      "lon": 139.6859133,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/1950328487"
+    },
+    {
+      "type": "station",
+      "name": "東新宿",
+      "lat": 35.698933,
+      "lon": 139.707695,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/1951953898"
+    },
+    {
+      "type": "station",
+      "name": "西早稲田",
+      "lat": 35.7079175,
+      "lon": 139.7090644,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/1951954570"
+    },
+    {
+      "type": "station",
+      "name": "牛込柳町",
+      "lat": 35.6994561,
+      "lon": 139.7255744,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2389826186"
+    },
+    {
+      "type": "station",
+      "name": "牛込神楽坂",
+      "lat": 35.7009139,
+      "lon": 139.7359501,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2389826225"
+    },
+    {
+      "type": "station",
+      "name": "高田馬場",
+      "lat": 35.7126401,
+      "lon": 139.7038744,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/2559434165"
+    },
+    {
+      "type": "station",
+      "name": "新宿三丁目",
+      "lat": 35.6907413,
+      "lon": 139.7047807,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/5408169522"
+    },
+    {
+      "type": "station",
+      "name": "早稲田",
+      "lat": 35.7058028,
+      "lon": 139.721191,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/5408225235"
+    },
+    {
+      "type": "station",
+      "name": "神楽坂",
+      "lat": 35.7039298,
+      "lon": 139.7341347,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/5408235029"
+    },
+    {
+      "type": "station",
+      "name": "都庁前",
+      "lat": 35.6906065,
+      "lon": 139.692814,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6203591949"
+    },
+    {
+      "type": "station",
+      "name": "早稲田",
+      "lat": 35.711807,
+      "lon": 139.7191703,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6235968753"
+    },
+    {
+      "type": "station",
+      "name": "面影橋",
+      "lat": 35.7130061,
+      "lon": 139.714259,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6236061923"
+    },
+    {
+      "type": "station",
+      "name": "西武新宿",
+      "lat": 35.6954016,
+      "lon": 139.7000249,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/6283010875"
+    },
+    {
+      "type": "station",
+      "name": "下落合",
+      "lat": 35.7157663,
+      "lon": 139.6954383,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7430368356"
+    },
+    {
+      "type": "station",
+      "name": "中井",
+      "lat": 35.7150887,
+      "lon": 139.686289,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7430377036"
+    },
+    {
+      "type": "station",
+      "name": "西新宿五丁目",
+      "lat": 35.6898839,
+      "lon": 139.6845183,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7761779877"
+    },
+    {
+      "type": "station",
+      "name": "新宿御苑前",
+      "lat": 35.6885735,
+      "lon": 139.7107396,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7786715962"
+    },
+    {
+      "type": "station",
+      "name": "四谷三丁目",
+      "lat": 35.687988,
+      "lon": 139.7205752,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7786715967"
+    },
+    {
+      "type": "station",
+      "name": "西新宿",
+      "lat": 35.6944315,
+      "lon": 139.6927667,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7786715968"
+    },
+    {
+      "type": "station",
+      "name": "曙橋",
+      "lat": 35.6924146,
+      "lon": 139.7228634,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7791605903"
+    },
+    {
+      "type": "station",
+      "name": "信濃町",
+      "lat": 35.6800236,
+      "lon": 139.7204947,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7865838639"
+    },
+    {
+      "type": "station",
+      "name": "大久保",
+      "lat": 35.7007776,
+      "lon": 139.6973178,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/7865838640"
+    },
+    {
+      "type": "station",
+      "name": "目白",
+      "lat": 35.7211919,
+      "lon": 139.7064645,
+      "verification": "OSM位置参考・行政区境/駅代表点未検証",
+      "source_id": "node/832289046"
+    }
+  ],
+  "note": "既存HTML内OSM駅座標から抽出した暫定データ。網羅性・区境・駅の代表位置は未検証。高速施設は未収録。"
 }
