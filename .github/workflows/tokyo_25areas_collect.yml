@@ -1,0 +1,50 @@
+name: Tokyo 25 areas OSM research data
+on:
+  workflow_dispatch:
+    inputs:
+      area:
+        description: 'Collect one municipality per run'
+        required: true
+        type: choice
+        options:
+          - 千代田区
+          - 中央区
+          - 港区
+          - 新宿区
+          - 文京区
+          - 台東区
+          - 墨田区
+          - 江東区
+          - 品川区
+          - 目黒区
+          - 大田区
+          - 世田谷区
+          - 渋谷区
+          - 中野区
+          - 杉並区
+          - 豊島区
+          - 北区
+          - 荒川区
+          - 板橋区
+          - 練馬区
+          - 足立区
+          - 葛飾区
+          - 江戸川区
+          - 三鷹市
+          - 武蔵野市
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fetch OSM reference data
+        run: python build_tokyo_25areas.py --area '${{ inputs.area }}'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-osm-${{ inputs.area }}
+          path: data/areas/*.json
+          if-no-files-found: error
