@@ -1,1 +1,32 @@
-
+name: Test Tokyo 25 areas PBF offline
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pyosmium
+        run: python -m pip install --disable-pip-version-check osmium
+      - name: Download Kanto OSM PBF once
+        run: |
+          curl --fail --location --retry 3 --retry-delay 10 --connect-timeout 30 --max-time 1800 \
+            --output /tmp/kanto.osm.pbf https://download.geofabrik.de/asia/japan/kanto-latest.osm.pbf
+          test -s /tmp/kanto.osm.pbf
+          ls -lh /tmp/kanto.osm.pbf
+      - name: Extract 25-area reference data read-only
+        run: python scripts/extract_tokyo_25areas_pbf.py
+      - name: Upload 25-area research data and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-25areas-pbf-experimental
+          path: experimental/tokyo_25areas_pbf/*
+          if-no-files-found: warn
+          retention-days: 30
