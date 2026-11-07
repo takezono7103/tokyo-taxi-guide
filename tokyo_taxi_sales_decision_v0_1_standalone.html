@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>東京タクシー｜営業判断 v0.1（独立テスト版）</title>
+<style>
+:root{--bg:#091321;--panel:#101f32;--panel2:#162940;--line:#2b4058;--muted:#a9bcd0;--txt:#f0f6ff;--mint:#45deb0;--blue:#56b0ff;--amber:#ffca78;--red:#ff8896;--radius:18px}
+*{box-sizing:border-box}html{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",system-ui,sans-serif;background:var(--bg);color:var(--txt);-webkit-text-size-adjust:100%}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 75% -10%,#17304c,transparent 56%),var(--bg)}button,select,input{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #ffdc78;outline-offset:2px}header{padding:18px max(15px,env(safe-area-inset-left)) 10px max(15px,env(safe-area-inset-right));border-bottom:1px solid #2a3b50;background:#0a1727e8}header .top{max-width:1280px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}h1{font-size:clamp(19px,2.8vw,26px);margin:0;line-height:1.35}h1 span{color:var(--mint)}.sub{font-size:12px;color:var(--muted);margin-top:4px}.status{display:inline-flex;align-items:center;gap:7px;border:1px solid #42617d;padding:6px 10px;border-radius:30px;background:#14273b;font-size:12px;color:#e2ebf6}.dot{width:7px;height:7px;background:var(--amber);border-radius:50%}main{max-width:1280px;margin:0 auto;padding:15px max(15px,env(safe-area-inset-left)) 80px max(15px,env(safe-area-inset-right))}.banner{border:1px solid #6c5436;background:#302919;color:#ffe2af;border-radius:12px;padding:10px 13px;font-size:12px;line-height:1.6;margin-bottom:14px}.layout{display:grid;grid-template-columns:minmax(330px,.9fr) minmax(440px,1.3fr);gap:14px}.stack{display:grid;gap:14px;align-content:start}.panel{background:linear-gradient(165deg,var(--panel),#0e1b2d);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:0 6px 24px #0002}h2{font-size:15px;font-weight:750;margin:0 0 13px;letter-spacing:.02em}.eyebrow{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.06em;margin-bottom:5px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{min-width:0}.field label{display:block;color:var(--muted);font-size:12px;margin:0 0 6px}.field select,.field input{width:100%;height:42px;background:#1b3049;color:var(--txt);border:1px solid #496078;border-radius:11px;padding:0 10px;font-size:14px;min-width:0}.full{grid-column:1/-1}.split{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.btn{border:1px solid #49627c;border-radius:12px;min-height:42px;background:#1a304a;color:var(--txt);padding:9px 12px;font-size:13px;font-weight:700}.btn.primary{background:#187c77;border-color:#40c6ad;color:white}.btn:disabled{opacity:.5;cursor:not-allowed}.btn.selected{border-color:var(--mint);color:#c7fff0;background:#184d4b}.fine{font-size:12px;color:var(--muted);line-height:1.65;margin:10px 0 0}.loc{display:grid;gap:5px;margin-top:11px;padding:11px 12px;border-radius:12px;background:#14263b;border:1px solid #2c4761}.loc strong{font-size:14px;overflow-wrap:anywhere}.meta{color:var(--muted);font-size:11px}.minirow{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.pill{font-size:11px;border-radius:20px;padding:4px 8px;border:1px solid #455b6e;color:#dce9f6;background:#24354b}.pill.warn{color:#ffe0a0;border-color:#9b7044;background:#4a3724}.pill.green{color:#acf9db;border-color:#36775d;background:#163d35}.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.kpi{background:#192b40;border:1px solid #31475e;border-radius:12px;padding:11px 9px;min-width:0}.kpi small{font-size:11px;color:var(--muted);display:block}.kpi b{font-size:17px;display:block;margin:5px 0 0;overflow-wrap:anywhere}.summary{border:1px solid #307f77;background:linear-gradient(135deg,#123a40,#12283c);padding:15px;border-radius:15px}.summary h3{font-size:24px;margin:3px 0 6px;line-height:1.3}.summary .action{font-size:15px;font-weight:780;color:#b2fce3;margin:6px 0}.summary p{font-size:13px;line-height:1.7;color:#dceaf6;margin:6px 0}.rank{display:flex;flex-direction:column;gap:9px}.candidate{color:var(--txt);width:100%;text-align:left;background:#172a40;border:1px solid #354e69;border-radius:13px;padding:12px;display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center}.candidate.active{border:2px solid var(--mint);background:#193b40;padding:11px}.num{background:#2a435b;border-radius:10px;width:36px;height:36px;display:grid;place-items:center;font-size:16px;font-weight:800}.c-name{font-weight:760;font-size:15px}.c-desc{color:#b8c9d9;font-size:11px;margin-top:3px;line-height:1.5}.c-score{font-size:18px;font-weight:800;white-space:nowrap}.c-score small{display:block;font-size:10px;font-weight:400;color:var(--muted);text-align:right}.bar{margin-top:7px;height:5px;background:#304156;border-radius:7px;overflow:hidden}.bar>i{display:block;height:100%;background:linear-gradient(90deg,#388db8,#49dfb2);border-radius:7px}.detail{border-top:1px solid #31475e;padding-top:11px;margin-top:12px;font-size:12px;line-height:1.7;color:#d4e4f3}.detail ul{padding-left:18px;margin:6px 0}.detail li{margin:3px 0}.data-rows{display:grid;gap:0}.data-row{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid #284059;padding:10px 0;font-size:12px}.data-row:first-child{border:0;padding-top:0}.data-row span:first-child{color:#b8cbdb}.data-row strong{text-align:right;font-size:12px}.muted{color:var(--muted)}.warn-text{color:#ffcf8f}.footer{text-align:center;color:#8fa6bd;font-size:11px;line-height:1.7;margin-top:17px}.togglewrap{display:flex;align-items:center;gap:10px;padding:10px 0 2px;color:#d6e5f5;font-size:12px}.togglewrap input{accent-color:#42d5aa;width:19px;height:19px}.hidden{display:none!important}@media(max-width:900px){.layout{grid-template-columns:1fr}.stack{gap:12px}.panel{padding:14px}}@media(min-width:901px){.rightcol{position:sticky;top:12px}}@media(max-width:480px){.fields{grid-template-columns:1fr 1fr}.candidate{gap:7px}.c-name{font-size:14px}.c-score{font-size:16px}.kpi b{font-size:15px}}
+</style>
+</head>
+<body>
+<header><div class="top"><div><h1>🚕 東京タクシー <span>営業判断 v0.1</span></h1><div class="sub">既存システムとは独立した検証用HTML ／ GO配車のみを想定</div></div><div class="status"><i class="dot"></i> 独立テスト版・外部API未接続</div></div></header>
+<main>
+<div class="banner">⚠️ これは営業判断の<b>試作版</b>です。GOの注文数・配車確率を取得していません。候補の点数は仮ルールに基づく相対評価で、実際の需要や売上を保証しません。走行中の画面操作はせず、安全な場所で確認してください。</div>
+<div class="layout">
+<section class="stack">
+ <div class="panel">
+  <h2>① 判断条件</h2>
+  <div class="fields">
+   <div class="field full"><label for="locationSelect">現在地・検証地点</label><select id="locationSelect"></select></div>
+   <div class="field"><label for="clockSelect">判断時刻</label><select id="clockSelect"><option value="now">端末の現在時刻</option><option value="08:00">08:00</option><option value="12:00">12:00</option><option value="15:00">15:00</option><option value="18:30">18:30</option><option value="21:30">21:30</option><option value="23:30">23:30</option><option value="01:00">翌01:00（深夜想定）</option></select></div>
+   <div class="field"><label for="daySelect">曜日</label><select id="daySelect"><option value="now">本日の曜日</option><option value="1">平日（月）</option><option value="3">平日（水）</option><option value="5">平日（金）</option><option value="6">土曜日</option><option value="0">日曜日</option></select></div>
+   <div class="field"><label for="emptySelect">空車になってから</label><select id="emptySelect"><option value="0">降車直後</option><option value="5">5分</option><option value="10" selected>10分</option><option value="20">20分</option><option value="30">30分</option></select></div>
+   <div class="field"><label for="weatherSelect">天候（手動設定）</label><select id="weatherSelect"><option value="unknown" selected>未取得</option><option value="dry">晴・曇り（仮定）</option><option value="rain">雨（仮定）</option></select></div>
+  </div>
+  <div class="split"><button class="btn primary" id="gpsBtn" type="button">◎ GPSで現在地を取得</button><button class="btn" id="refreshBtn" type="button">↻ 判断を更新</button></div>
+  <div class="loc" aria-live="polite"><strong id="locationText">検証地点：浜松町（サンプル）</strong><div class="meta" id="gpsText">サンプル座標／GPS未使用</div></div>
+  <p class="fine">GPSは対応ブラウザのHTTPS環境などで許可が必要です。手動の検証地点を選んでも動作します。ナビのような道路ルート案内は行いません。</p>
+ </div>
+ <div class="panel">
+  <h2>② 今回の判断の前提</h2>
+  <div class="kpis"><div class="kpi"><small>評価時間帯</small><b id="periodKpi">夜</b></div><div class="kpi"><small>空車時間</small><b id="emptyKpi">10分</b></div><div class="kpi"><small>評価対象</small><b id="countKpi">—</b></div></div>
+  <div class="togglewrap"><input type="checkbox" id="limitDistance" checked><label for="limitDistance">近距離を優先（空車移動を抑制）</label></div>
+  <p class="fine" id="methodText">現在地の近くを優先し、時間帯・曜日・エリア特性を加点します。順位はテスト用です。</p>
+ </div>
+ <div class="panel">
+  <h2>③ データの接続状態</h2>
+  <div class="data-rows">
+   <div class="data-row"><span>GPS</span><strong id="gpsState">未使用（手動テスト地点）</strong></div>
+   <div class="data-row"><span>曜日・時刻</span><strong id="clockState">端末時刻</strong></div>
+   <div class="data-row"><span>駅・高速・道路DB</span><strong class="warn-text">未接続（独立版）</strong></div>
+   <div class="data-row"><span>HERE Traffic・鉄道・終電</span><strong class="warn-text">未接続</strong></div>
+   <div class="data-row"><span>天候・イベント</span><strong class="warn-text">未接続（天候のみ手動仮定）</strong></div>
+   <div class="data-row"><span>GO注文数・受注履歴</span><strong class="warn-text">取得なし</strong></div>
+   <div class="data-row"><span>営業実績による学習</span><strong class="warn-text">未実装</strong></div>
+  </div>
+ </div>
+</section>
+<section class="stack rightcol">
+ <div class="panel">
+  <div class="minirow" style="justify-content:space-between;margin-bottom:10px"><h2 style="margin:0">④ 今回の推奨判断</h2><span class="pill warn" id="confidence">信頼度：低（試作）</span></div>
+  <div class="summary" aria-live="polite"><div class="eyebrow">まず試す行動</div><h3 id="recommendTitle">周辺エリアを確認</h3><div class="action" id="recommendAction">現在地から近い候補を比較</div><p id="recommendWhy">候補地の需要は推定です。</p><div class="minirow"><span class="pill green" id="recommendDistance">直線距離 — km</span><span class="pill" id="recommendTime">時間帯 —</span></div></div>
+  <p class="fine" id="safetyText">「移動する」は強制的な誘導ではありません。実際の進路は交通規制・安全・GOの配車状況を優先してください。</p>
+ </div>
+ <div class="panel">
+  <div class="minirow" style="justify-content:space-between;margin-bottom:13px"><h2 style="margin:0">⑤ 候補エリア TOP 3</h2><span class="pill">比較点（仮）</span></div>
+  <div id="candidateList" class="rank" aria-live="polite"></div>
+  <div class="detail" id="candidateDetail">候補を選ぶと評価理由を表示します。</div>
+ </div>
+ <div class="panel">
+  <h2>⑥ 次回更新の目安</h2>
+  <div id="nextStep" style="line-height:1.75;font-size:13px">降車後、現在地と経過時間を確認して再評価します。</div>
+  <p class="fine">候補を3つだけ示し、受注のない長距離回送を避ける設計です。イベント・鉄道遅延・交通規制はこの版では自動反映されません。</p>
+ </div>
+</section>
+</div>
+<div class="footer">東京タクシー・コックピット 営業判断 v0.1 ／ 独立テスト版 ／ 元のコックピット・設定・ログは読み書きしません。<br>地点座標・推奨の比較点はプロトタイプ用。距離は道路距離ではなく概算直線距離です。</div>
+</main>
+<script>
+(()=>{'use strict';
+// 既存システムへの依存・ネットワーク通信・端末内へのデータ保存は行わない。
+// 各地点の座標は地区中心の概算値。地理的距離は直線距離であり、道路距離ではない。
+const areas=[
+['品川駅',35.6285,139.7387,'business',8],['大崎',35.6197,139.7286,'business',9],['五反田',35.6264,139.7234,'night',8],['田町',35.6458,139.7477,'business',9],['浜松町',35.6551,139.7571,'business',9],['新橋・汐留',35.6658,139.7590,'business',8],['虎ノ門',35.6708,139.7494,'business',7],['六本木',35.6627,139.7313,'night',4],['赤坂',35.6732,139.7376,'night',6],['表参道',35.6657,139.7126,'retail',6],['渋谷',35.6580,139.7016,'night',5],['恵比寿',35.6467,139.7101,'night',7],['目黒',35.6333,139.7155,'residential',8],['新宿',35.6906,139.7006,'night',5],['四谷',35.6860,139.7300,'business',8],['飯田橋',35.7021,139.7450,'business',7],['東京駅・丸の内',35.6810,139.7651,'business',7],['神田',35.6912,139.7709,'business',8],['秋葉原',35.6984,139.7731,'retail',7],['上野',35.7138,139.7772,'retail',7],['浅草',35.7118,139.7967,'retail',6],['錦糸町',35.6967,139.8148,'retail',7],['豊洲',35.6549,139.7960,'residential',8],['門前仲町',35.6718,139.7951,'residential',8],['東京ビッグサイト',35.6298,139.7942,'event',7],['羽田・天空橋',35.5482,139.7541,'airport',8],['蒲田',35.5625,139.7160,'residential',8],['自由が丘',35.6071,139.6695,'retail',8],['中野',35.7058,139.6658,'residential',8],['高円寺',35.7054,139.6499,'residential',8],['池袋',35.7295,139.7109,'night',6],['北千住',35.7492,139.8045,'residential',7],['西新井',35.7778,139.7903,'residential',8],['千歳烏山',35.6679,139.6006,'residential',8],['三鷹',35.7027,139.5608,'residential',8],['吉祥寺',35.7033,139.5796,'retail',7],['調布',35.6522,139.5448,'residential',8],['葛西',35.6637,139.8724,'residential',8],['船堀',35.6838,139.8642,'residential',8]
+].map(([name,lat,lon,type,ease])=>({name,lat,lon,type,ease}));
+const $=id=>document.getElementById(id);const sel=$('locationSelect');
+sel.innerHTML='<option value="manual">浜松町（サンプル・初期位置）</option>'+areas.map((x,i)=>`<option value="${i}">${x.name}</option>`).join('');
+let gps=null,selectedName='',lastCandidates=[];const defaultSpot={lat:35.6551,lon:139.7571,name:'浜松町（サンプル）'};
+const toRad=a=>a*Math.PI/180;function haversine(a,b){const dlat=toRad(b.lat-a.lat),dlon=toRad(b.lon-a.lon);const h=Math.sin(dlat/2)**2+Math.cos(toRad(a.lat))*Math.cos(toRad(b.lat))*Math.sin(dlon/2)**2;return 6371*2*Math.asin(Math.min(1,Math.sqrt(h)))}
+function position(){if(gps)return gps;return sel.value==='manual'?defaultSpot:areas[Number(sel.value)]||defaultSpot}
+function getClock(){const n=new Date();if($('clockSelect').value==='now')return {hour:n.getHours()+n.getMinutes()/60,time:n.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'}),manual:false};const v=$('clockSelect').value;const [h,m]=v.split(':').map(Number);return {hour:h+m/60,time:v,manual:true}}
+function dayOfWeek(){const v=$('daySelect').value;return v==='now'?new Date().getDay():Number(v)}
+function period(hour){if(hour>=22||hour<5)return '深夜';if(hour<13)return '午前';if(hour<18)return '午後';return '夜'}
+function appeal(a,h,day,weather){const weekend=day===0||day===6,late=h>=22||h<5,even=h>=18&&h<22,daytime=h>=13&&h<18,morning=h>=5&&h<13;let base=46;let explanation='地域特性に基づく仮評価';switch(a.type){case 'business':base+=!weekend&&morning?19:!weekend&&even?17:!weekend&&daytime?12:late?-5:3;explanation='オフィス・業務移動の可能性を仮評価';break;case 'night':base+=late?17:even?16:daytime?6:0;explanation='夜間・飲食関連の移動を仮評価';break;case 'retail':base+=daytime?15:weekend&&morning?12:even?8:late?-8:4;explanation='商業・買い物関連の移動を仮評価';break;case 'residential':base+=morning?12:even?12:late?9:daytime?7:5;explanation='住宅地・帰宅方向の移動を仮評価';break;case 'airport':base+=daytime?10:morning?12:even?7:late?0:5;explanation='空港周辺の移動を仮評価（実便情報なし）';break;case 'event':base+=daytime?6:even?5:0;explanation='イベント開催の確認なし：特別加点なし';break;}
+if(weather==='rain')base+=a.type==='business'||a.type==='retail'?5:2;
+return {base,explanation};}
+function round(n,p=1){return Number(n.toFixed(p))}function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function direction(from,to){const lat=to.lat-from.lat,lon=(to.lon-from.lon)*Math.cos(toRad(from.lat));if(Math.abs(lat)+Math.abs(lon)<.006)return '周辺';const a=Math.atan2(lon,lat)*180/Math.PI;return ['北','北東','東','南東','南','南西','西','北西'][Math.round((a+360)%360/45)%8]+'方向'}
+function compute(){const p=position(),clock=getClock(),h=clock.hour,d=dayOfWeek(),empty=Number($('emptySelect').value),weather=$('weatherSelect').value,near=$('limitDistance').checked;const scored=areas.map(a=>{const km=haversine(p,a),ap=appeal(a,h,d,weather);const distPenalty=(near?7.5:4.0)*km;const easeBonus=(a.ease-5)*1.5;const emptyAdjust=empty>=20&&km<2?4:0;const score=Math.max(0,Math.min(99,Math.round(ap.base+easeBonus+emptyAdjust-distPenalty)));return {...a,km,score,ap,direction:direction(p,a)}}).filter(a=>a.km<=(near?9:17)).sort((a,b)=>b.score-a.score||a.km-b.km);
+const picks=scored.slice(0,3);lastCandidates=picks;
+$('periodKpi').textContent=period(h);$('emptyKpi').textContent=empty?empty+'分':'降車直後';$('countKpi').textContent=scored.length+'地域';
+$('clockState').textContent=`${clock.time}／${'日月火水木金土'[d]}曜${clock.manual?'（テスト時刻）':''}`;
+$('locationText').textContent=(gps?'GPS位置':sel.value==='manual'?'サンプル地点':'手動テスト地点')+'：'+p.name;
+$('gpsText').textContent=`緯度 ${round(p.lat,5)}・経度 ${round(p.lon,5)} ／ ${gps?'位置情報取得済': '手動・サンプル座標'}`;
+$('gpsState').textContent=gps?'位置取得済（需要データではありません）':'未使用（手動・サンプル）';
+$('methodText').textContent=`${period(h)}・${'日月火水木金土'[d]}曜の仮傾向＋地域特性＋移動距離を加味。${near?'近距離を強く優先':'距離の減点を緩和'}。天候：${weather==='unknown'?'未取得':weather==='rain'?'雨と仮定':'晴・曇りと仮定'}。`;
+$('candidateList').innerHTML=picks.length?picks.map((a,i)=>`<button type="button" class="candidate ${i===0?'active':''}" data-idx="${i}" aria-pressed="${i===0}"><span class="num">${i+1}</span><span><span class="c-name">${escapeHtml(a.name)}</span><span class="c-desc">約${round(a.km)}km（直線）・${a.direction} ／ 走りやすさ仮評価 ${a.ease}/10</span><span class="bar"><i style="width:${a.score}%"></i></span></span><span class="c-score">${a.score}<small>比較点</small></span></button>`).join(''):'<p>比較できる候補がありません。距離優先を解除して再評価してください。</p>';
+if(!picks.length){$('recommendTitle').textContent='候補なし';$('recommendAction').textContent='検証条件を変更';$('recommendWhy').textContent='対象内の地点がありません。';$('candidateDetail').textContent='候補なし';return;}
+const best=picks[0];let action,why;
+if(best.km<1.2){action='近隣を維持し、GO受付を継続';why='近い候補の評価が最も高いため、大きく移動する根拠はありません。降車地点の周辺で安全な走行・停車を優先。';}
+else if(best.km<4){action=`${best.direction}へ短距離移動を検討`;why=`現在地から近い候補です。${round(best.km)}kmは直線距離で、実際の道路移動はこれより長い可能性があります。`}
+else{action='長距離移動は慎重に判断';why=`候補まで直線約${round(best.km)}kmあります。途中のGO配車と移動ロスを優先し、目的地への移動を確定しないでください。`}
+$('recommendTitle').textContent=best.name;$('recommendAction').textContent=action;$('recommendWhy').textContent=why;$('recommendDistance').textContent=`直線 約${round(best.km)} km`;$('recommendTime').textContent=`${clock.time}・${period(h)}`;
+$('nextStep').textContent=empty>=20?'空車20分以上の設定です。近隣にとどまるか短距離で移るかを再検討。GO受付状況を確認し、安全な停車場所で再評価してください。':'降車後に更新してください。GO配車が入らない場合は10〜15分を目安に再評価。受注待ちの無目的な長距離移動を避けてください。';
+showDetail(0);
+}
+function showDetail(idx){const a=lastCandidates[idx];if(!a)return;selectedName=a.name;document.querySelectorAll('.candidate').forEach((node,i)=>{node.classList.toggle('active',i===idx);node.setAttribute('aria-pressed',String(i===idx))});const dist=a.km<1.2?'現位置付近のため、大きな空車移動を避けやすい。':a.km<4?'比較的近いが、実走行距離・迎車位置は未評価。':'空車で向かうには距離があるため、移動に慎重な判断が必要。';$('candidateDetail').innerHTML=`<b>${escapeHtml(a.name)} — 評価理由</b><ul><li>${escapeHtml(a.ap.explanation)}（需要の実測ではありません）</li><li>${escapeHtml(dist)}</li><li>道路の走りやすさ：テスト用の仮評価 ${a.ease}/10</li><li>交通規制・催事・電車の遅延・GOの注文状況：未確認</li></ul><span class="muted">比較点 ${a.score}/100 は独自の仮ルールであり、配車成功率ではありません。</span>`;}
+$('candidateList').addEventListener('click',e=>{const b=e.target.closest('[data-idx]');if(b)showDetail(Number(b.dataset.idx))});
+function resetGPS(){gps=null;$('gpsBtn').disabled=false;$('gpsBtn').textContent='◎ GPSで現在地を取得'}
+sel.addEventListener('change',()=>{resetGPS();compute()});['clockSelect','daySelect','emptySelect','weatherSelect','limitDistance'].forEach(id=>$(id).addEventListener('change',compute));$('refreshBtn').addEventListener('click',compute);
+$('gpsBtn').addEventListener('click',()=>{if(!navigator.geolocation){$('gpsText').textContent='このブラウザでは位置情報に対応していません。手動で検証してください。';return;}$('gpsBtn').disabled=true;$('gpsBtn').textContent='位置を取得中…';navigator.geolocation.getCurrentPosition(pos=>{gps={lat:pos.coords.latitude,lon:pos.coords.longitude,name:'現在地'};sel.value='manual';$('gpsBtn').disabled=false;$('gpsBtn').textContent='◎ GPSを再取得';compute();$('gpsText').textContent+=` ／ 精度の目安 ±${Math.round(pos.coords.accuracy)}m`;},error=>{$('gpsBtn').disabled=false;$('gpsBtn').textContent='◎ GPSで再試行';$('gpsText').textContent='GPS取得不可：'+(error.code===1?'位置情報の許可を確認':error.code===2?'位置情報を取得できません':error.code===3?'タイムアウト':'利用できません')+'。手動テストは使用できます。';},{enableHighAccuracy:true,timeout:12000,maximumAge:15000})});
+compute();
+})();
+</script>
+</body>
+</html>
