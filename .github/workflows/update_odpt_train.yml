@@ -1,1 +1,38 @@
 
+name: Update ODPT train summary
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every 10 minutes, avoid the top of the hour. Runs can be delayed by GitHub.
+    - cron: '3,13,23,33,43,53 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: odpt-summary-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Obtain ODPT and write non-secret summary
+        env:
+          ODPT_ACCESS_TOKEN: ${{ secrets.ODPT_ACCESS_TOKEN }}
+        run: python3 scripts/update_odpt_summary.py
+
+      - name: Publish JSON if changed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/odpt_train_summary.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update ODPT train summary'
+            git push
+          fi
+
