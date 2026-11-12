@@ -339,7 +339,7 @@ html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 }
 </style>
 </head><body><header><div id="v041-top-spacer" aria-hidden="true"></div><div class="head"><div class="brand-group"><div class="brand-title-line"><div class="brand">🚕 東京タクシー・コックピット v8.0</div><div class="dash-gps-buttons"><button id="dash-gps-on" class="dash-blue" type="button">GPS ON</button><button id="dash-gps-off" type="button">GPS OFF</button></div></div><div class="muted">東京23区 営業支援｜iPad mini / iPhone対応</div></div><div class="dash-header-controls"><div class="pill clock" id="clock">--:--</div></div></div><nav class="tabs" aria-label="機能"><button class="tab active" data-tab="home">🏠 総合</button><button class="tab" data-tab="salesQuick">🚕 営業クイック</button><button class="tab" data-tab="places">🔎 場所検索</button><button class="tab" data-tab="weather">🌦 天気</button><button class="tab" data-tab="intel">🚦 交通・鉄道</button><button class="tab" data-tab="events">🎪 イベント</button><button class="tab" data-tab="hereTraffic">🚦 HERE Traffic</button><button class="tab" data-tab="stationFinder">🚉 周辺駅</button><button class="tab" data-tab="expresswayFinder">🛣️ 高速出入口</button><button class="tab" data-tab="railDatabase">🚆 鉄道DB</button><button class="tab" data-tab="rests">🅿️ 休憩マップ</button><button class="tab" data-tab="go">🚕 営業戦略・GO分析</button><button class="tab" data-tab="flow">👥 人流分析</button><button class="tab" data-tab="monitor">📊 動作モニター</button><button class="tab" data-tab="settings">⚙️ 設定</button><button class="tab" data-tab="nextIntegration">🧪 総合NEXT統合テスト</button><button class="tab" data-tab="drivingDashboard">🚕 営業統合</button><button class="tab" data-tab="integratedSalesV01">🧪 統合営業判断 v0.1</button><button class="tab" data-tab="portraitGoV01">📱 縦置き営業予測</button></nav></header><main><section id="portraitGoV01" class="section" aria-label="縦置き GO営業予測 v0.2.8">
- <div class="pg-head"><strong>📱 GO営業予測｜縦置き v0.4.4</strong><button id="pgRefresh" type="button" class="pg-btn">↻ 最新表示・接続確認</button></div>
+ <div class="pg-head"><strong>📱 GO営業予測｜縦置き v0.4.5</strong><button id="pgRefresh" type="button" class="pg-btn">↻ 最新表示・接続確認</button></div>
  <div class="pg-panel pg-primary pg-compact">
   <h2>📍 現在地・GPS走行 <span id="pgGpsState" class="pg-muted">未確認</span></h2>
   <div class="pg-line"><span>道路：<strong id="pgRoad">取得待ち</strong></span></div>
@@ -369,7 +369,7 @@ html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
  <div class="pg-panel pg-v035-rail" aria-label="鉄道・終電情報">
   <h2>🚆 鉄道運行・終電 <span class="pg-muted" id="v035RailFresh">未取得</span></h2>
   <div id="v035RailMini" class="pg-v035-meta">ODPT運行情報：未確認</div>
-  <div class="pg-line"><span>鉄道情報</span><span id="pgRail">リアルタイム自動取得：未接続</span></div>
+  <div class="pg-line pg-v045-legacy-rail-status" aria-hidden="true"><span>鉄道情報</span><span id="pgRail">リアルタイム自動取得：未接続</span></div>
   <div class="pg-line"><span>近隣駅・終電</span><span id="pgLastTrain">確認待ち</span></div>
   <div id="v044OdptAuto" class="v044-auto" role="status" aria-live="polite">
     <div><strong>🚆 ODPT取得済みデータ</strong> <span id="v044OdptState">接続前／未取得</span></div>
@@ -3391,6 +3391,13 @@ update();
 setInterval(()=>{if(!document.hidden&&root.classList.contains('active'))update();},60000);
 })();
 </script>
+<style id="v045OdptUnifiedStatusStyle">
+/* v0.4.5: eliminate duplicated legacy manual-ODPT badges on portrait panel only.
+   The v0.4.4 public JSON cache status below remains the single source of truth. */
+#portraitGoV01 .pg-v035-rail #v035RailFresh,
+#portraitGoV01 .pg-v035-rail #v035RailMini,
+#portraitGoV01 .pg-v035-rail .pg-v045-legacy-rail-status{display:none!important}
+</style>
 <style id="v044OdptAutoStyle">
 #portraitGoV01 .v044-auto{margin:8px 0;padding:9px;border:1px solid #405e76;border-radius:8px;background:#142c3f;color:#dcecf7;font-size:12px;line-height:1.5}
 #portraitGoV01 .v044-auto>div{margin:0 0 5px}
@@ -3447,6 +3454,7 @@ async function load(force){
  finally{busy=false;}
 }
 document.getElementById('v044OdptReload')?.addEventListener('click',()=>load(true));
+document.getElementById('pgRefresh')?.addEventListener('click',()=>load(true));
 document.querySelector('.tab[data-tab="portraitGoV01"]')?.addEventListener('click',()=>load(false));
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&tab?.classList.contains('active'))load(false);});
 setInterval(()=>{if(!document.hidden&&tab?.classList.contains('active')){if(loaded)render(loaded);load(false);}},60000);
