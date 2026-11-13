@@ -339,7 +339,7 @@ html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 }
 </style>
 </head><body><header><div id="v041-top-spacer" aria-hidden="true"></div><div class="head"><div class="brand-group"><div class="brand-title-line"><div class="brand">🚕 東京タクシー・コックピット v8.0</div><div class="dash-gps-buttons"><button id="dash-gps-on" class="dash-blue" type="button">GPS ON</button><button id="dash-gps-off" type="button">GPS OFF</button></div></div><div class="muted">東京23区 営業支援｜iPad mini / iPhone対応</div></div><div class="dash-header-controls"><div class="pill clock" id="clock">--:--</div></div></div><nav class="tabs" aria-label="機能"><button class="tab active" data-tab="home">🏠 総合</button><button class="tab" data-tab="salesQuick">🚕 営業クイック</button><button class="tab" data-tab="places">🔎 場所検索</button><button class="tab" data-tab="weather">🌦 天気</button><button class="tab" data-tab="intel">🚦 交通・鉄道</button><button class="tab" data-tab="events">🎪 イベント</button><button class="tab" data-tab="hereTraffic">🚦 HERE Traffic</button><button class="tab" data-tab="stationFinder">🚉 周辺駅</button><button class="tab" data-tab="expresswayFinder">🛣️ 高速出入口</button><button class="tab" data-tab="railDatabase">🚆 鉄道DB</button><button class="tab" data-tab="rests">🅿️ 休憩マップ</button><button class="tab" data-tab="go">🚕 営業戦略・GO分析</button><button class="tab" data-tab="flow">👥 人流分析</button><button class="tab" data-tab="monitor">📊 動作モニター</button><button class="tab" data-tab="settings">⚙️ 設定</button><button class="tab" data-tab="nextIntegration">🧪 総合NEXT統合テスト</button><button class="tab" data-tab="drivingDashboard">🚕 営業統合</button><button class="tab" data-tab="integratedSalesV01">🧪 統合営業判断 v0.1</button><button class="tab" data-tab="portraitGoV01">📱 縦置き営業予測</button></nav></header><main><section id="portraitGoV01" class="section" aria-label="縦置き GO営業予測 v0.2.8">
- <div class="pg-head"><strong>📱 GO営業予測｜縦置き v0.4.6</strong><button id="pgRefresh" type="button" class="pg-btn">↻ 最新表示・接続確認</button></div>
+ <div class="pg-head"><strong>📱 GO営業予測｜縦置き v0.4.7</strong><button id="pgRefresh" type="button" class="pg-btn">↻ 最新表示・接続確認</button></div>
  <div class="pg-panel pg-primary pg-compact">
   <h2>📍 現在地・GPS走行 <span id="pgGpsState" class="pg-muted">未確認</span></h2>
   <div class="pg-line"><span>道路：<strong id="pgRoad">取得待ち</strong></span></div>
@@ -3303,8 +3303,50 @@ function readLocal(){return new Promise((resolve,reject)=>{if(!window.indexedDB)
 function parseTiles(tiles,c,range){const ways=[],seen=new Set();let total=0;for(const tile of tiles){for(const road of Array.isArray(tile?.roads)?tile.roads:[]){total++;const way=toWay(road);if(!way||!nearBBox(way.pts,c,range))continue;const id=String(road.id??way.name+way.pts[0].lat+way.pts[0].lon);if(seen.has(id))continue;seen.add(id);ways.push(way);if(ways.length>=5000)return {ways,total,cap:true}}}return {ways,total,cap:false}}
 function parseOverpass(d,c){const ways=[];for(const item of d?.elements||[]){if(item.type!=='way'||!item.tags?.name||!item.tags?.highway)continue;const way=toWay({name:item.tags.name,geometry:item.geometry,kind:item.tags.highway,layer:item.tags.layer});if(way&&nearBBox(way.pts,c,800))ways.push(way)}return ways}
 async function run(kind){if(busy)return;if(!last||!Array.isArray(last.results)||!last.results.length){st.textContent='先にHERE Traffic Flowをshape形式で取得してください。';return;}if(!last.results.some(r=>r?.location?.shape?.links)){st.textContent='HEREの取得形式をshapeにしてください。';return;}const c=last.center;if(!c||!num(c.lat)||!num(c.lon)){st.textContent='HERE検索中心が確認できません。';return;}busy=true;local.disabled=online.disabled=true;const id=++requestId;try{if(kind==='local'){st.textContent='保存済み道路DBを読み込み中（読み取り専用）…';const tiles=await readLocal();const parsed=parseTiles(tiles,c,last.radius||3000);if(id!==requestId)return;if(!parsed.ways.length){st.textContent='検索範囲に保存済みの名称付き道路がありません（保存タイル '+tiles.length+'件）。必要ならオンライン700mを試してください。';out.textContent='この画面では道路データの保存・書き換えは行いません。';return;}match(parsed.ways,'端末保存DB '+tiles.length+'タイル、抽出 '+parsed.ways.length+'道路'+(parsed.cap?'（処理上限5000件）':''));}
-else{st.textContent='Overpassから半径700mの名称付き道路を取得中…';const r=700,dl=r/111000,dn=r/(111000*Math.max(.4,Math.cos(c.lat*DEG)));const bbox=[c.lat-dl,c.lon-dn,c.lat+dl,c.lon+dn].map(x=>x.toFixed(5)).join(',');const query='[out:json][timeout:12];way["highway"]["name"]('+bbox+');out geom;';let error=null,data=null;for(const base of ['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter']){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),14000);try{const resp=await fetch(base,{method:'POST',body:new URLSearchParams({data:query}),mode:'cors',referrerPolicy:'origin',signal:controller.signal});if(!resp.ok)throw Error('HTTP '+resp.status);data=await resp.json();break}catch(e){error=e}finally{clearTimeout(timer)}}if(id!==requestId)return;if(!data)throw error||Error('OSM通信不可');const ways=parseOverpass(data,c);if(!ways.length){st.textContent='半径700mに名称付き道路がありません。';return;}match(ways,'公開Overpass 半径700m '+ways.length+'道路（HERE全範囲の照合ではありません）');}}
-catch(e){if(id===requestId)st.textContent=(kind==='local'?'保存DB':'OSMオンライン')+'取得失敗：'+(e?.name==='AbortError'?'タイムアウト':String(e?.message||'不明').slice(0,120))+'。HERE取得データは保持します。';}finally{busy=false;local.disabled=online.disabled=false}}
+else {
+  // v0.4.7: Safari can leave fetch()/response.json() pending despite AbortController.
+  // A Promise.race watchdog guarantees UI recovery after each attempt, without writing DBs.
+  const r=700,dl=r/111000,dn=r/(111000*Math.max(.4,Math.cos(c.lat*DEG)));
+  const bbox=[c.lat-dl,c.lon-dn,c.lat+dl,c.lon+dn].map(x=>x.toFixed(5)).join(',');
+  const query='[out:json][timeout:12];way["highway"]["name"]('+bbox+');out geom;';
+  let error=null,data=null;
+  const hosts=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter'];
+  for(let index=0;index<hosts.length;index++){
+    if(id!==requestId)return;
+    st.textContent='Overpass 半径700mを照会中（接続先 '+(index+1)+'/2・最大12秒）…';
+    const controller=new AbortController();
+    let timer=null;
+    const timedOut=new Promise((_,reject)=>{
+      timer=setTimeout(()=>{
+        controller.abort();
+        const e=new Error('12秒経過：通信または応答読み込みが完了しませんでした');
+        e.name='TimeoutError';reject(e);
+      },12000);
+    });
+    const request=(async()=>{
+      const resp=await fetch(hosts[index],{
+        method:'POST',body:new URLSearchParams({data:query}),mode:'cors',
+        referrerPolicy:'origin',signal:controller.signal
+      });
+      if(!resp.ok)throw Error('HTTP '+resp.status);
+      // Count response body parsing against the same deadline.
+      const payload=await resp.text();
+      const parsed=JSON.parse(payload);
+      if(!Array.isArray(parsed?.elements))throw Error('道路データの形式が想定外です');
+      return parsed;
+    })();
+    try{data=await Promise.race([request,timedOut]);break;}
+    catch(e){error=e;if(index+1<hosts.length)st.textContent='接続先1に失敗：'+String(e?.message||e).slice(0,90)+'。接続先2を試します…';}
+    finally{if(timer!==null)clearTimeout(timer);controller.abort();}
+  }
+  if(id!==requestId)return;
+  if(!data)throw error||Error('OSM通信不可');
+  st.textContent='Overpassの応答を受信。道路名を照合中…';
+  const ways=parseOverpass(data,c);
+  if(!ways.length){st.textContent='半径700mに名称付き道路がありません（OSM応答は正常）。';return;}
+  match(ways,'公開Overpass 半径700m '+ways.length+'道路（HERE全範囲の照合ではありません）');
+}}
+catch(e){if(id===requestId)st.textContent=(kind==='local'?'保存DB':'OSMオンライン')+'取得失敗：'+((e?.name==='AbortError'||e?.name==='TimeoutError')?'タイムアウト：'+String(e?.message||'応答なし').slice(0,85):String(e?.message||'不明').slice(0,120))+'。HERE取得データは保持します。';}finally{busy=false;local.disabled=online.disabled=false}}
 document.addEventListener('taxi:here-flow-manual-v030',e=>{const d=e?.detail;if(!Array.isArray(d?.results))return;last=d;requestId++;st.textContent='HERE '+d.results.length+'区間取得。まず「保存済み道路DBで照合」を選んでください。';out.textContent='HERE取得成功（道路名照合は未実施）';const tb=by('v032Top3');if(tb)tb.textContent='🚦 一般道混雑候補TOP3：新しいHEREデータを取得。道路名照合待ち（古い表示は消去）';if(by('portraitGoV01')?.getAttribute('data-v034-auto')==='yes'){by('portraitGoV01').removeAttribute('data-v034-auto');by('pgGpsHereStatus034').textContent='HERE取得済み。保存済み道路DBで照合中…';run('local');}});
 by('v030Clear')?.addEventListener('click',()=>{requestId++;last=null;st.textContent='照合表示を消去しました。';out.textContent='道路名照合は未実施です。';const tb=by('v032Top3');if(tb)tb.textContent='🚦 一般道混雑候補TOP3：未確認（照合結果を消去しました）';});local.addEventListener('click',()=>run('local'));online.addEventListener('click',()=>run('online'));
 })();
