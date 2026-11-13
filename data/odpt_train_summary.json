@@ -1,149 +1,149 @@
 {
   "schema": 1,
   "ok": true,
-  "fetchedAt": "2026-11-12T23:50:38Z",
+  "fetchedAt": "2026-11-13T00:30:56Z",
   "provider": "ODPT TrainInformation",
   "note": "Provider coverage is limited. An empty result does not imply normal operation.",
   "entries": [
     {
       "operator": "TokyoMetro",
-      "railway": "TokyoMetro.Hanzomon",
-      "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
-    },
-    {
-      "operator": "TokyoMetro",
-      "railway": "TokyoMetro.Namboku",
-      "message": "7時47分頃、白金高輪駅で荷物挟まりのため、遅れが出ています。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
-    },
-    {
-      "operator": "TokyoMetro",
-      "railway": "TokyoMetro.Fukutoshin",
-      "message": "一部の列車に遅れが出ています。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
-    },
-    {
-      "operator": "Toei",
-      "railway": "Toei.Asakusa",
-      "message": "現在、１５分以上の遅延はありません。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
-    },
-    {
-      "operator": "Toei",
-      "railway": "Toei.Mita",
-      "message": "現在、１５分以上の遅延はありません。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
-    },
-    {
-      "operator": "Toei",
-      "railway": "Toei.Shinjuku",
-      "message": "現在、１５分以上の遅延はありません。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
-    },
-    {
-      "operator": "Toei",
-      "railway": "Toei.Oedo",
-      "message": "現在、１５分以上の遅延はありません。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
-    },
-    {
-      "operator": "Toei",
-      "railway": "Toei.Arakawa",
-      "message": "現在、１５分以上の遅延はありません。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
-    },
-    {
-      "operator": "Toei",
-      "railway": "Toei.NipporiToneri",
-      "message": "現在、１５分以上の遅延はありません。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
-    },
-    {
-      "operator": "TWR",
-      "railway": "TWR.Rinkai",
-      "message": "平常通り運転しています。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
-    },
-    {
-      "operator": "TamaMonorail",
-      "railway": "TamaMonorail.TamaMonorail",
-      "message": "平常通り運転しております。",
-      "sourceUpdated": "2026-11-13T08:50:03+09:00",
-      "validUntil": "2026-11-13T08:55:03+09:00"
-    },
-    {
-      "operator": "YokohamaMunicipal",
-      "railway": "YokohamaMunicipal.Blue",
-      "message": "平常運行",
-      "sourceUpdated": "2026-11-13T08:50:04+09:00",
-      "validUntil": "2026-11-13T08:55:04+09:00"
-    },
-    {
-      "operator": "YokohamaMunicipal",
-      "railway": "YokohamaMunicipal.Green",
-      "message": "平常運行",
-      "sourceUpdated": "2026-11-13T08:50:04+09:00",
-      "validUntil": "2026-11-13T08:55:04+09:00"
-    },
-    {
-      "operator": "TokyoMetro",
       "railway": "TokyoMetro.Ginza",
       "message": "一部の列車に遅れが出ています。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Marunouchi",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.MarunouchiBranch",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Hibiya",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Tozai",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Chiyoda",
-      "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
+      "message": "一部の列車に遅れが出ています。",
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Yurakucho",
       "message": "一部の列車に遅れが出ています。",
-      "sourceUpdated": "2026-11-13T08:50:00+09:00",
-      "validUntil": "2026-11-13T08:55:00+09:00"
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
+    },
+    {
+      "operator": "TokyoMetro",
+      "railway": "TokyoMetro.Hanzomon",
+      "message": "現在、平常どおり運転しています。",
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
+    },
+    {
+      "operator": "TokyoMetro",
+      "railway": "TokyoMetro.Namboku",
+      "message": "7時47分頃、白金高輪駅で荷物挟まりのため、遅れが出ています。",
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
+    },
+    {
+      "operator": "TokyoMetro",
+      "railway": "TokyoMetro.Fukutoshin",
+      "message": "一部の列車に遅れが出ています。",
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
+    },
+    {
+      "operator": "Toei",
+      "railway": "Toei.Asakusa",
+      "message": "現在、１５分以上の遅延はありません。",
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
+    },
+    {
+      "operator": "Toei",
+      "railway": "Toei.Mita",
+      "message": "現在、１５分以上の遅延はありません。",
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
+    },
+    {
+      "operator": "Toei",
+      "railway": "Toei.Shinjuku",
+      "message": "現在、１５分以上の遅延はありません。",
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
+    },
+    {
+      "operator": "Toei",
+      "railway": "Toei.Oedo",
+      "message": "現在、１５分以上の遅延はありません。",
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
+    },
+    {
+      "operator": "Toei",
+      "railway": "Toei.Arakawa",
+      "message": "現在、１５分以上の遅延はありません。",
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
+    },
+    {
+      "operator": "Toei",
+      "railway": "Toei.NipporiToneri",
+      "message": "現在、１５分以上の遅延はありません。",
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
+    },
+    {
+      "operator": "TWR",
+      "railway": "TWR.Rinkai",
+      "message": "遅れが出ています。JR埼京線新宿駅での荷物挟まり対応のためです。",
+      "sourceUpdated": "2026-11-13T09:30:00+09:00",
+      "validUntil": "2026-11-13T09:35:00+09:00"
+    },
+    {
+      "operator": "TamaMonorail",
+      "railway": "TamaMonorail.TamaMonorail",
+      "message": "平常通り運転しております。",
+      "sourceUpdated": "2026-11-13T09:30:04+09:00",
+      "validUntil": "2026-11-13T09:35:04+09:00"
+    },
+    {
+      "operator": "YokohamaMunicipal",
+      "railway": "YokohamaMunicipal.Blue",
+      "message": "平常運行",
+      "sourceUpdated": "2026-11-13T09:30:04+09:00",
+      "validUntil": "2026-11-13T09:35:04+09:00"
+    },
+    {
+      "operator": "YokohamaMunicipal",
+      "railway": "YokohamaMunicipal.Green",
+      "message": "平常運行",
+      "sourceUpdated": "2026-11-13T09:30:04+09:00",
+      "validUntil": "2026-11-13T09:35:04+09:00"
     }
   ]
 }
