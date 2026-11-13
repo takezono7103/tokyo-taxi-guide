@@ -1,149 +1,149 @@
 {
   "schema": 1,
   "ok": true,
-  "fetchedAt": "2026-11-13T07:08:01Z",
+  "fetchedAt": "2026-11-13T15:19:47Z",
   "provider": "ODPT TrainInformation",
   "note": "Provider coverage is limited. An empty result does not imply normal operation.",
   "entries": [
     {
+      "operator": "Toei",
+      "railway": "Toei.Asakusa",
+      "message": "現在、１５分以上の遅延はありません。",
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
+    },
+    {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Ginza",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Marunouchi",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.MarunouchiBranch",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Hibiya",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Tozai",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Chiyoda",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Yurakucho",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Hanzomon",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Namboku",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "TokyoMetro",
       "railway": "TokyoMetro.Fukutoshin",
       "message": "現在、平常どおり運転しています。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
-    },
-    {
-      "operator": "Toei",
-      "railway": "Toei.Asakusa",
-      "message": "現在、１５分以上の遅延はありません。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "Toei",
       "railway": "Toei.Mita",
       "message": "現在、１５分以上の遅延はありません。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "Toei",
       "railway": "Toei.Shinjuku",
       "message": "現在、１５分以上の遅延はありません。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "Toei",
       "railway": "Toei.Oedo",
       "message": "現在、１５分以上の遅延はありません。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "Toei",
       "railway": "Toei.Arakawa",
       "message": "現在、１５分以上の遅延はありません。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "Toei",
       "railway": "Toei.NipporiToneri",
       "message": "現在、１５分以上の遅延はありません。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "TWR",
       "railway": "TWR.Rinkai",
       "message": "平常通り運転しています。",
-      "sourceUpdated": "2026-11-13T16:07:00+09:00",
-      "validUntil": "2026-11-13T16:12:00+09:00"
+      "sourceUpdated": "2026-11-14T00:19:00+09:00",
+      "validUntil": "2026-11-14T00:24:00+09:00"
     },
     {
       "operator": "TamaMonorail",
       "railway": "TamaMonorail.TamaMonorail",
       "message": "平常通り運転しております。",
-      "sourceUpdated": "2026-11-13T16:07:03+09:00",
-      "validUntil": "2026-11-13T16:12:03+09:00"
+      "sourceUpdated": "2026-11-14T00:19:04+09:00",
+      "validUntil": "2026-11-14T00:24:04+09:00"
     },
     {
       "operator": "YokohamaMunicipal",
       "railway": "YokohamaMunicipal.Blue",
       "message": "平常運行",
-      "sourceUpdated": "2026-11-13T16:07:04+09:00",
-      "validUntil": "2026-11-13T16:12:04+09:00"
+      "sourceUpdated": "2026-11-14T00:19:05+09:00",
+      "validUntil": "2026-11-14T00:24:05+09:00"
     },
     {
       "operator": "YokohamaMunicipal",
       "railway": "YokohamaMunicipal.Green",
       "message": "平常運行",
-      "sourceUpdated": "2026-11-13T16:07:04+09:00",
-      "validUntil": "2026-11-13T16:12:04+09:00"
+      "sourceUpdated": "2026-11-14T00:19:05+09:00",
+      "validUntil": "2026-11-14T00:24:05+09:00"
     }
   ]
 }
