@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HERE中継 独立接続診断｜東京タクシー</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0b1829;color:#f0f5ff;font:16px/1.55 -apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',Meiryo,sans-serif}main{max-width:780px;margin:auto;padding:24px 18px 64px}h1{font-size:21px;margin:4px 0 18px}h2{font-size:17px;margin:0 0 10px}.card{border:1px solid #45667e;border-radius:13px;background:#20354b;padding:16px;margin:13px 0}.dim{color:#b8cce0;font-size:14px}button{appearance:none;border:0;border-radius:10px;background:#8ce1bb;color:#082f21;font-size:17px;font-weight:700;min-height:54px;padding:11px 16px;width:100%}button:disabled{opacity:.6}code{font-size:13px;overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0e2638;border-radius:9px;padding:12px;min-height:90px;font-size:13px;line-height:1.7}.ok{color:#8ce1bb}.bad{color:#ffa6a6}.warn{color:#ffd887}hr{border:0;border-top:1px solid #45667e;margin:15px 0}
+</style>
+</head>
+<body><main>
+<h1>🚕 HERE Traffic 中継・独立接続診断</h1>
+<p class="dim">コックピット本体には変更を加えません。GitHub Pages上のブラウザからCloudflare Workerへ1回だけGET通信します。APIキーは入力・保存・表示しません。</p>
+<div class="card">
+<h2>試験条件</h2>
+<p>📍 東京駅付近（固定）／半径3km／shape</p>
+<div class="dim">送信元のページ：<code id="origin">確認中</code></div>
+<div class="dim">送信先：<code id="target">確認中</code></div>
+<hr>
+<button type="button" id="run">🚦 HERE接続を1回テスト</button>
+</div>
+<div class="card">
+<h2>通信結果</h2>
+<div id="status" aria-live="polite">未実施</div>
+<pre id="details">テストボタンを押すと通信結果を表示します。</pre>
+</div>
+<p class="dim">通信成功でも特定道路の安全性・通行可否は保証しません。Originヘッダーはブラウザが自動設定します。Cloudflareの管理画面にある手動のOrigin入力は不要です。</p>
+</main>
+<script>
+(() => {
+  'use strict';
+  const endpoint = 'https://tokyo-taxi-here.h-zono-jy0.workers.dev/flow?lat=35.681236&lon=139.767125&radius=3000&locationReferencing=shape';
+  const by = id => document.getElementById(id);
+  by('origin').textContent = location.origin;
+  by('target').textContent = endpoint.replace(/\?.*/, '/flow?［固定地点・半径3km］');
+  by('run').addEventListener('click', async () => {
+    by('run').disabled = true;
+    const started = performance.now();
+    by('status').textContent = '通信中…';
+    by('details').textContent = 'GitHub PagesからWorkersへ問い合わせています。';
+    const ac = new AbortController();
+    const timer = setTimeout(() => ac.abort(), 22000);
+    try {
+      const res = await fetch(endpoint, {
+        method: 'GET', mode: 'cors', credentials: 'omit', cache: 'no-store',
+        headers: { 'Accept': 'application/json' }, signal: ac.signal
+      });
+      const duration = ((performance.now() - started)/1000).toFixed(1);
+      let data;
+      try { data = await res.json(); } catch (e) {
+        by('status').className='bad';
+        by('status').textContent='HTTP '+res.status+'／JSON解析失敗';
+        by('details').textContent='HTTP応答はありますが、JSONを読み込めません。所要 '+duration+'秒。';
+        return;
+      }
+      if (!res.ok) {
+        const known = ['origin_not_allowed','invalid_area_or_options','worker_secret_not_configured','here_request_failed','not_found','upstream_unavailable','response_too_large','unexpected_upstream_format'];
+        const reason = known.includes(data?.error) ? data.error : '詳細非公開';
+        by('status').className='bad';
+        by('status').textContent='HTTP '+res.status+'／中継エラー';
+        by('details').textContent='種類: '+reason+'\nHERE側のHTTP番号: '+(Number.isInteger(data?.status)?data.status:'不明')+'\n所要: '+duration+'秒';
+        return;
+      }
+      const n = Array.isArray(data?.results) ? data.results.length : null;
+      if (n === null) {
+        by('status').className='bad';
+        by('status').textContent='HTTP 200／results配列なし';
+        by('details').textContent='応答形式が想定と違います。所要 '+duration+'秒。';
+        return;
+      }
+      const first = data.results[0] || {};
+      by('status').className='ok';
+      by('status').textContent='HTTP 200／交通情報 '+n+'区間取得';
+      by('details').textContent=[
+        '通信経路: GitHub Pages → Cloudflare Worker → HERE',
+        '所要: '+duration+'秒',
+        '取得件数: '+n+'区間',
+        '提供元更新日時: '+(typeof data.sourceUpdated==='string'?data.sourceUpdated:'記録なし'),
+        '応答項目: '+Object.keys(data).slice(0,10).join(', '),
+        '先頭区間の項目: '+Object.keys(first).slice(0,10).join(', '),
+        '※ 結果0件でも正常運行を保証しません。'
+      ].join('\n');
+    } catch (e) {
+      by('status').className='bad';
+      by('status').textContent=e?.name === 'AbortError' ? '22秒でタイムアウト' : 'ブラウザ通信失敗（CORS・ネットワーク等）';
+      by('details').textContent='HTTP番号を受け取れませんでした。\nエラー種別: '+(e?.name==='TypeError'?'TypeError':e?.name==='AbortError'?'AbortError':'不明')+'\n送信元: '+location.origin+'\nCloudflare HTTPテストが200でも、ブラウザではCORSなどの別条件があります。';
+    } finally {clearTimeout(timer);by('run').disabled=false;}
+  });
+})();
+</script>
+</body></html>
