@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "operator": "TokyoMetro",
-  "generated_at": "2026-11-20T00:44:53.591384+00:00",
+  "generated_at": "2026-11-21T00:04:25.610730+00:00",
   "note": "Scheduled final departures, not live train positions or destination arrival times. Verify calendar and current timetable before use.",
   "timetable_count": 704,
   "last_departure_count": 704,
