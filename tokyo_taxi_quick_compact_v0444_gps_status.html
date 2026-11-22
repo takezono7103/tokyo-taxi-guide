@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#102235">
+<title>営業クイック｜GPS状態表示 v0.4.44</title>
+<style>
+:root{color-scheme:dark;font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN','Yu Gothic',system-ui,sans-serif;--bg:#112235;--card:#1b3047;--line:#4c6881;--muted:#bcd0de}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f6faff;-webkit-text-size-adjust:100%;font-size:13px}
+.shell{padding:6px 8px calc(7px + env(safe-area-inset-bottom));max-width:950px;margin:auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:0 0 5px}
+.top strong{font-size:13px;white-space:nowrap}.tag{font-size:10px;background:#375573;color:#e3f4ff;padding:4px 6px;border-radius:7px;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.btn{appearance:none;-webkit-appearance:none;border:1px solid #ffffff55;color:white;display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center;border-radius:10px;font-size:clamp(13px,3vw,18px);font-weight:800;min-height:66px;touch-action:manipulation;cursor:pointer}
+.btn small{font-variant-numeric:tabular-nums;font-size:clamp(11px,2.2vw,14px);font-weight:700}.btn:focus-visible{outline:3px solid white;outline-offset:2px}
+.free{background:#b8373e}.ride{background:#276eb6}.pickup{background:#94603d}.rest{background:#217c4a}.btn.sel{background:#586878!important;border:2px solid white}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:5px}
+.metric{background:var(--card);border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:52px;padding:4px 1px;gap:2px}
+.metric span{font-size:clamp(10px,2vw,12px);color:var(--muted);white-space:nowrap}
+.metric b{font-variant-numeric:tabular-nums;font-size:clamp(13px,3vw,19px);letter-spacing:.1px;white-space:nowrap}
+.status{margin-top:5px;min-height:19px;color:#d4e4f1;font-size:11px;line-height:1.45}
+.details{margin-top:5px;background:#172e44;border:1px solid #38556f;border-radius:8px;padding:5px 8px;font-size:11px}
+.details summary{cursor:pointer;touch-action:manipulation}.detail-body{display:flex;flex-wrap:wrap;gap:6px;padding:7px 0 4px;align-items:center}
+button.link,.detail-body button{background:#3b5c76;border:1px solid #6e869d;color:white;border-radius:7px;padding:7px 10px;font-size:12px;cursor:pointer;touch-action:manipulation}
+a{color:#a4dfff}.hint{margin:4px 0;font-size:10px;color:#bed0dc;line-height:1.4}
+.alert{color:#ffcb82}.ok{color:#a9f2c6}
+.gps-metric small{font-size:clamp(9px,1.8vw,11px);font-variant-numeric:tabular-nums;color:#bdd0de;white-space:nowrap}
+.gps-metric{gap:0}.gps-ok{color:#a5f6c7}.gps-wait{color:#ffda88}.gps-off{color:#b9c4d0}.gps-bad{color:#ff9e92}.gps-unknown{color:#b9c4d0}
+@media(max-width:540px){.gps-metric small{font-size:9px}}
+
+@media(max-height:270px){.top{display:none}.status{font-size:10px}.details{display:none}.shell{padding:3px 6px}.btn{min-height:51px}.metric{min-height:42px}}
+@media(min-width:720px){.shell{max-width:none}.btn{min-height:64px}}
+</style>
+</head><body><div class="shell">
+<div class="top"><strong>🚕 営業クイック</strong><span class="tag">v0.4.44｜GPS更新確認</span></div>
+<div class="grid" aria-label="営業クイック・参考状態">
+<button type="button" class="btn free" data-kind="free" aria-pressed="false">空車<small>—</small></button>
+<button type="button" class="btn ride" data-kind="ride" aria-pressed="false">実車<small>—</small></button>
+<button type="button" class="btn pickup" data-kind="return" aria-pressed="false">回送<small>—</small></button>
+<button type="button" class="btn rest" data-kind="rest" aria-pressed="false">休憩<small>—</small></button>
+</div>
+<div class="metrics"><div class="metric"><span>回送累計</span><b id="returnTotal">00:00:00</b></div>
+<div class="metric"><span>休憩累積</span><b id="restTotal">00:00:00</b></div>
+<div class="metric gps-metric" id="gpsMetric" aria-label="メインGPS更新状態"><span>メインGPS</span><b id="gpsStatus" class="gps-unknown">● 未確認</b><small id="gpsAge">更新時刻なし</small></div></div>
+<div id="status" class="status" role="status" aria-live="polite">休憩は15分以内は累積0、15分を超えると全時間を加算します。</div>
+<details class="details"><summary>連携確認・操作ログ・注意事項</summary>
+<div class="detail-body"><button id="check" type="button">保存・連携確認</button><button id="export" type="button">操作ログJSON保存</button>
+<a id="mainLink" href="tokyo_taxi_main_v0444_gps_sync_test.html" target="_blank" rel="noopener">メイン画面を開く</a></div>
+<div id="info">この小窓とメインは、同じSafariの同じGitHub Pagesでメインv0.4.44と併用してください。</div>
+<p class="hint">時間・休憩管理のみ。GPS欄はメイン画面の位置更新の新しさを確認する参考表示で、GPSの動作を独自に測位・記録しません。NAVITIME前面やSafariのバックグラウンド停止で「更新途絶」になる場合があります。営業状態や空車距離は日報・ルート履歴を優先します。営業終了と次乗務リセットはメイン画面で行います。</p>
+<p class="hint">Safariとホーム画面追加版など、保存領域が異なる表示方法では自動共有できない場合があります。別ウインドウの配置・前面固定はiPadOS側の機能です。HTMLから画面位置を固定できません。</p>
+</details>
+</div>
+<script>
+(()=>{'use strict';
+const K={mode:'taxi_go_mode_v426',rest:'taxi_actual_rest_v427',timer:'taxi_go_active_timer_v1',audit:'taxi_quick_action_audit_v0419',state:'taxi_state_audit_v611',heartbeat:'taxi_quick_ext_heartbeat_v0443',mainGps:'taxi_main_gps_heartbeat_v0444',shiftHistory:'taxi_rest_shift_history_v0419'};
+const THRESH=15*60*1000,GOAL=180*60*1000;
+const $=id=>document.getElementById(id);
+const buttons=[...document.querySelectorAll('[data-kind]')];
+const modes={free:'start',ride:'call',return:'break',rest:'rest'};
+const valid=['idle','start','call','break','rest','finish','cancel'];
+function parse(key,fb){try{const s=localStorage.getItem(key);return s===null?fb:JSON.parse(s);}catch(e){return fb;}}
+function persist(key,value){localStorage.setItem(key,JSON.stringify(value));const chk=parse(key,null);if(!chk||JSON.stringify(chk)!==JSON.stringify(value))throw Error('保存後の確認失敗');}
+function remove(key){localStorage.removeItem(key);if(localStorage.getItem(key)!==null)throw Error('タイマー停止の保存失敗');}
+function read(){const m=parse(K.mode,{}),r=parse(K.rest,{}),t=parse(K.timer,null);
+ return {mode:valid.includes(m?.mode)?m.mode:'idle',since:Number.isFinite(m?.since)&&m.since>0?m.since:0,
+  breakTotalMs:Number.isFinite(m?.breakTotalMs)&&m.breakTotalMs>=0?m.breakTotalMs:0,
+  shiftDay:typeof m?.shiftDay==='string'?m.shiftDay:'',
+  startedAt:r?.startedAt===null||r?.startedAt===undefined?null:(Number.isFinite(r.startedAt)&&r.startedAt<=Date.now()?r.startedAt:null),
+  totalMs:Number.isFinite(r?.totalMs)&&r.totalMs>=0?r.totalMs:0,
+  shiftDate:typeof r?.shiftDate==='string'?r.shiftDate:'',
+  timer:t&&Number.isFinite(t.start)?t:null}; }
+function currentDay(){return new Date().toLocaleDateString('sv-SE',{timeZone:'Asia/Tokyo'});}
+function duration(at){const t=Math.max(0,Math.floor(at/1000));return [Math.floor(t/3600),Math.floor((t%3600)/60),t%60].map(v=>String(v).padStart(2,'0')).join(':');}
+function credited(t){return t>THRESH?t:0;}
+function notify(t,kind=''){const node=$('status');node.textContent=t;node.className='status '+kind;}
+function audit(kind,prev,next,msg){try{let a=parse(K.audit,[]);if(!Array.isArray(a))a=[];
+ a.push({at:new Date().toISOString(),button:kind,ok:true,mode:next.mode,shiftDate:next.shiftDate||'',reason:msg,source:'external-quick-v0443'});
+ persist(K.audit,a.slice(-500));
+ let sa=parse(K.state,[]);if(!Array.isArray(sa))sa=[];
+ sa.push({at:new Date().toISOString(),type:'external-quick-v0443',button:kind,from:prev.mode,to:next.mode});
+ persist(K.state,sa.slice(-500));
+ }catch(e){notify('⚠ タイマーは保存済みですが操作履歴の保存に失敗：'+e.message,'alert');}}
+function vehicleVoice(){
+ try{if(!window.speechSynthesis||!window.SpeechSynthesisUtterance)throw Error('音声非対応');
+ window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance('車両の実車確認');u.lang='ja-JP';u.rate=1.0;window.speechSynthesis.speak(u);}
+ catch(e){notify('⚠ 車両の実車ボタンを確認してください（音声未対応）。','alert');}
+}
+function switchMode(kind){
+ if(!modes[kind])return;
+ // Re-read every time; never use a stale timer from a suspended window.
+ let before=read(),now=Date.now(),target=modes[kind];
+ if(target===before.mode&&(kind!=='rest'||before.startedAt!==null)){
+  notify('すでに「'+({free:'空車',ride:'実車',return:'回送',rest:'休憩'}[kind])+'」を計測中です。');render();return;
+ }
+ try{
+  const prevRest=before.startedAt;
+  let msg='';
+  if(prevRest!==null&&kind!=='rest'){
+   const elapsed=Math.max(0,now-prevRest),delta=credited(elapsed);
+   const nextRest={startedAt:null,totalMs:before.totalMs+delta,shiftDate:before.shiftDate||currentDay()};
+   persist(K.rest,nextRest);
+   msg=delta>0?'休憩'+duration(delta)+'を全時間加算':'休憩'+duration(elapsed)+'は15分以内のため加算なし';
+  }
+  if(kind==='rest'&&prevRest===null){
+   persist(K.rest,{startedAt:now,totalMs:before.totalMs,shiftDate:before.shiftDate||currentDay()});
+   msg='休憩を開始（15分以内は累積0）';
+  }
+  // Re-use the original GO return-drive timer state; break ends upon rest.
+  const total=before.breakTotalMs+((before.mode==='break'&&before.since>0)?Math.max(0,now-before.since):0);
+  const nextMode={mode:target,since:now,breakTotalMs:total,shiftDay:before.shiftDay||currentDay()};
+  persist(K.mode,nextMode);
+  if(kind==='free')persist(K.timer,{start:now});else remove(K.timer);
+  const after=read();
+  audit(kind,before,after,msg);
+  notify('✓ '+({free:'空車タイマー',ride:'実車タイマー',return:'回送タイマー',rest:'休憩タイマー'}[kind])+'開始'+(msg?'／'+msg:''),'ok');
+  render();
+ }catch(e){notify('⚠ 保存できませんでした：'+e.message+'。総合画面で確認してください。','alert');render();}
+}
+function renderGps(){
+ const data=parse(K.mainGps,null),label=$('gpsStatus'),ageEl=$('gpsAge');
+ const now=Date.now();let s='● 未確認',info='メインとの連携待ち',cls='gps-unknown';
+ const valid=data&&data.schema===1&&Number.isFinite(data.at)&&data.at>0&&data.at<=now+10000&&now-data.at<24*3600000;
+ if(valid){
+  const mode=data.mode,fix=data.fixAt,ms=(Number.isFinite(fix)&&fix>0&&fix<=now+10000)?Math.max(0,now-fix):null;
+  const elapsed=ms===null?'':ms<60000?Math.floor(ms/1000)+'秒前':Math.floor(ms/60000)+'分前';
+  if(mode==='off'&&now-data.at<600000){s='● GPS OFF';info='メイン停止中';cls='gps-off';}
+  else if(mode==='error'&&now-data.at<600000){s='● 取得エラー';info='メイン画面で確認';cls='gps-bad';}
+  else if(mode==='waiting'&&now-data.at<600000){s='● 測位待ち';info='位置情報の更新待ち';cls='gps-wait';}
+  else if(mode==='on'){
+    if(ms===null){s='● 測位待ち';info='測位の成功記録なし';cls='gps-wait';}
+    else if(ms<=60000){s='● 更新あり';info='最終 '+elapsed;cls='gps-ok';}
+    else if(ms<=120000){s='● 更新待ち';info='最終 '+elapsed;cls='gps-wait';}
+    else {s='● 更新途絶';info='最終 '+elapsed;cls='gps-bad';}
+  }
+ }
+ label.textContent=s;label.className=cls;ageEl.textContent=info;
+ label.title='メイン画面のGPS測位更新時刻を共有表示。端末GPSの故障や移動の有無を判定しません。';
+}
+function render(){let s=read(),now=Date.now(),ongoing=s.startedAt!==null?Math.max(0,now-s.startedAt):0;
+ const rest=s.totalMs+credited(ongoing),ret=s.breakTotalMs+(s.mode==='break'&&s.since>0?Math.max(0,now-s.since):0);
+ buttons.forEach(b=>{const kind=b.dataset.kind,selected=(s.mode===modes[kind])&&(kind!=='rest'||s.startedAt!==null);
+  b.classList.toggle('sel',selected);b.setAttribute('aria-pressed',String(selected));
+  b.querySelector('small').textContent=selected?duration(now-(kind==='rest'?s.startedAt:s.since)):'—';});
+ $('restTotal').textContent=duration(rest);$('returnTotal').textContent=duration(ret);renderGps();
+ $('restTotal').style.color=rest>=GOAL?'#b9ffca':'white';
+ $('info').textContent='記録上の乗務日：'+(s.shiftDate||'未設定')+' ／ GPS状態はメイン画面からの測位更新を表示。ボタンは日報を修正しません。';
+}
+buttons.forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.kind;if(k==='ride')vehicleVoice();switchMode(k); }));
+$('check').addEventListener('click',()=>{try{const s=read();persist(K.heartbeat,{at:Date.now(),kind:'manual-check',day:currentDay()});
+ notify('✓ 共有キーへ書き込み確認。メインの営業クイックでも同じ休憩累積が見えるか確認してください。','ok');}
+ catch(e){notify('⚠ ブラウザ保存不可：'+e.message,'alert');}});
+$('export').addEventListener('click',()=>{try{const v=JSON.stringify({schema:1,exportedAt:new Date().toISOString(),records:parse(K.audit,[])},null,2);
+ const url=URL.createObjectURL(new Blob([v],{type:'application/json;charset=utf-8'}));
+ const a=document.createElement('a');a.href=url;a.download='taxi_quick_audit_v0444.json';document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),2000);notify('✓ 操作ログを書き出しました。','ok');}catch(e){notify('⚠ 書き出せませんでした。','alert');}});
+window.addEventListener('storage',ev=>{if(!ev.key||[K.mode,K.rest,K.timer,K.mainGps].includes(ev.key))render();});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)render();});
+window.addEventListener('focus',render);
+let timer=setInterval(()=>{if(!document.hidden)render();},1000);
+try{localStorage.setItem(K.heartbeat,JSON.stringify({at:Date.now(),kind:'load',day:currentDay()}));}
+catch(e){notify('⚠ Safariの保存領域を利用できません。通常Safariで開いてください。','alert');}
+render();
+})();
+</script></body></html>
