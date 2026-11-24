@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>東京タクシー・コックピット 締め作業 v0.4.48</title>
+<style>
+:root{color-scheme:dark;font:16px system-ui;background:#0b171d;color:#eef6f7}
+[hidden]{display:none!important}*{box-sizing:border-box}body{margin:0}main{max-width:960px;margin:auto;padding:24px 18px 40px}
+h1{font-size:clamp(26px,5vw,38px);margin:4px 0 18px}h2{font-size:20px;margin:0 0 14px}
+header p,small,.muted{color:#aac3ca}header p{margin:0}
+section{background:#14262e;border:1px solid #2b434c;border-radius:14px;margin:16px 0;padding:18px}
+.inputs,.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:14px}
+label{display:block}input,select{display:block;margin-top:7px;width:100%;padding:10px;border:1px solid #4b6670;border-radius:8px;background:#0d1d24;color:inherit;font:inherit}
+input::file-selector-button{font:inherit}dl{margin:0}dt{color:#aac3ca;font-size:14px}dd{margin:3px 0 0;font-size:23px;font-weight:650;font-variant-numeric:tabular-nums}
+canvas{width:100%;height:clamp(280px,55vw,525px);display:block;border:1px solid #37545f;border-radius:12px;background:#0c1a21}
+#selected{line-height:1.65}#issues{color:#ffbd84;white-space:pre-line}p:last-child{margin-bottom:0}
+</style>
+<main>
+<header><p>東京タクシー・コックピット · v0.4.48 独立テスト版 · 修正版</p><h1>締め作業</h1></header>
+<section aria-labelledby="load-title">
+<h2 id="load-title">ファイルを読み込む</h2>
+<div class="inputs">
+<label>日報明細 CSV<input id="csv" type="file" accept=".csv,text/csv"></label>
+<label>走行記録 GPX<input id="gpx" type="file" accept=".gpx,application/gpx+xml,text/xml"></label>
+<label id="paper-field" hidden>日報の税込収入（円）<input id="paper" type="number" min="0" step="1" inputmode="numeric" placeholder="日報の集計欄から入力"></label>
+</div>
+<p id="status" class="muted" aria-live="polite">日報CSVとGPXを選択してください。</p>
+<p id="issues" role="alert" hidden></p>
+</section>
+<section id="summary" hidden aria-labelledby="summary-title">
+<h2 id="summary-title">乗務集計 <small id="date"></small></h2>
+<dl class="stats" id="stats"></dl>
+</section>
+<section id="route" hidden aria-labelledby="route-title">
+<h2 id="route-title">走行軌跡</h2>
+<label>表示区間<select id="interval"></select></label>
+<p id="selected" aria-live="polite"></p>
+<canvas id="track" role="img" aria-label="GPS走行軌跡。上が北です。"></canvas>
+<p class="muted">上が北。水色は選択区間、灰色は全走行です。距離はGPS測位点間の概算です。</p>
+</section>
+</main>
+<script>
+'use strict';
+const byId = id => document.getElementById(id);
+const yen = number => number.toLocaleString('ja-JP') + ' 円';
+const clock = new Intl.DateTimeFormat('ja-JP', {
+  timeZone: 'Asia/Tokyo', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit',
+  hourCycle:'h23'
+});
+const timeLabel = time => clock.format(time);
+const duration = minutes => minutes >= 60
+  ? Math.floor(minutes / 60) + '時間' + minutes % 60 + '分'
+  : minutes + '分';
+
+function parseCsv(source) {
+  const rows = [];
+  let row = [], cell = '', quoted = false;
+  for (let index = 0; index < source.length; index++) {
+    const character = source[index];
+    if (character === '"') {
+      if (quoted && source[index + 1] === '"') {
+        cell += '"';
+        index++;
+      } else {
+        quoted = !quoted;
+      }
+    } else if (!quoted && character === ',') {
+      row.push(cell);
+      cell = '';
+    } else if (!quoted && (character === '\r' || character === '\n')) {
+      if (character === '\r' && source[index + 1] === '\n') index++;
+      rows.push([...row, cell]);
+      row = [];
+      cell = '';
+    } else {
+      cell += character;
+    }
+  }
+  if (quoted) throw new Error('CSV内の引用符が閉じていません。');
+  if (row.length || cell) rows.push([...row, cell]);
+  return rows.filter(columns => columns.some(value => value.trim()));
+}
+
+function parseReport(source) {
+  const [header, ...rows] = parseCsv(source.replace(/^\uFEFF/, ''));
+  const required = ['乗務日','区分','No','開始日時JST','終了日時JST','開始地点','終了地点',
+    '現金円','未収円','通常乗車税込金額円','休憩分'];
+  if (!header || !rows.length || required.some(name => !header.includes(name))) {
+    throw new Error('DR261123.csvと同じ列構成の明細CSVを選択してください。');
+  }
+  const columns = new Map(header.map((name, index) => [name, index]));
+  const number = (value, label) => {
+    const result = Number(value);
+    if (!Number.isSafeInteger(result)) throw new Error(label + 'の数値を確認してください。');
+    return result;
+  };
+  const records = rows.map((row, index) => {
+    const get = name => row[columns.get(name)]?.trim() ?? '';
+    const start = Date.parse(get('開始日時JST'));
+    const end = Date.parse(get('終了日時JST'));
+    const kind = get('区分');
+    if (row.length !== header.length || !['実車','休','回','迎C'].includes(kind)
+        || !Number.isFinite(start) || !Number.isFinite(end) || end < start) {
+      throw new Error('明細行 ' + (index + 2) + ' の区分・日時・列数を確認してください。');
+    }
+    return {
+      date:get('乗務日'), kind, id:get('No'), start, end,
+      from:get('開始地点'), to:get('終了地点'),
+      cash:number(get('現金円'), '現金'), unpaid:number(get('未収円'), '未収'),
+      revenue:number(get('通常乗車税込金額円'), '売上'),
+      rest:number(get('休憩分'), '休憩'),
+      paper:get('日報税込収入円') ? number(get('日報税込収入円'), '日報税込収入') : null
+    };
+  });
+  if (new Set(records.map(record => record.date)).size !== 1) {
+    throw new Error('1乗務分の明細CSVを選択してください。');
+  }
+  const paperTotals = new Set(records.map(record => record.paper).filter(total => total !== null));
+  if (paperTotals.size > 1 || [...paperTotals].some(total => total < 0)) {
+    throw new Error('CSVの「日報税込収入円」を確認してください。');
+  }
+  return records;
+}
+
+function parseTrack(source) {
+  const document = new DOMParser().parseFromString(source, 'application/xml');
+  if (document.querySelector('parsererror') || document.documentElement.localName !== 'gpx') {
+    throw new Error('GPXファイルを読み取れません。');
+  }
+  const tracks = [...document.getElementsByTagNameNS('*', 'trkseg')].map(segment =>
+    [...segment.getElementsByTagNameNS('*', 'trkpt')].map(point => ({
+      lat:Number(point.getAttribute('lat')), lon:Number(point.getAttribute('lon')),
+      time:Date.parse(point.getElementsByTagNameNS('*','time')[0]?.textContent),
+      located:point.hasAttribute('lat') && point.hasAttribute('lon')
+    }))).filter(segment => segment.length);
+  if (!tracks.length || tracks.some(segment => segment.some((point, index) =>
+    !point.located || !Number.isFinite(point.time) || !Number.isFinite(point.lat)
+    || !Number.isFinite(point.lon) || Math.abs(point.lat) > 90 || Math.abs(point.lon) > 180
+    || (index > 0 && point.time < segment[index - 1].time)))) {
+    throw new Error('GPXの時刻または座標を確認してください。');
+  }
+  return tracks;
+}
+
+const radians = Math.PI / 180;
+function distance(a, b) {
+  const halfLat = Math.sin((b.lat - a.lat) * radians / 2);
+  const halfLon = Math.sin((b.lon - a.lon) * radians / 2);
+  const h = halfLat ** 2 + Math.cos(a.lat * radians) * Math.cos(b.lat * radians) * halfLon ** 2;
+  return 12742 * Math.asin(Math.sqrt(Math.min(1, h)));
+}
+
+function interpolate(a, b, time) {
+  if (a.time === b.time) return a;
+  const fraction = (time - a.time) / (b.time - a.time);
+  return {lat:a.lat + (b.lat - a.lat) * fraction, lon:a.lon + (b.lon - a.lon) * fraction, time};
+}
+
+function clipTrack(tracks, start, end) {
+  const lines = [];
+  let km = 0;
+  let skipped = false;
+  for (const segment of tracks) {
+    let line = [];
+    for (let index = 1; index < segment.length; index++) {
+      const a = segment[index - 1], b = segment[index];
+      if (b.time < start || a.time > end) continue;
+      if (b.time - a.time > 120000 && distance(a, b) > 0.1) {
+        if (line.length) lines.push(line);
+        line = [];
+        skipped = true;
+        continue;
+      }
+      const from = interpolate(a, b, Math.max(start, a.time));
+      const to = interpolate(a, b, Math.min(end, b.time));
+      if (!line.length) line.push(from);
+      line.push(to);
+      km += distance(from, to);
+    }
+    if (line.length) lines.push(line);
+  }
+  if (lines.length > 1) skipped = true;
+  return {lines, km, skipped};
+}
+
+let records = [], tracks = [], intervals = [];
+const errors = {};
+const select = byId('interval'), canvas = byId('track');
+function renderSummary() {
+  byId('summary').hidden = !records.length;
+  const importedTotal = records.find(record => record.paper !== null)?.paper;
+  byId('paper-field').hidden = !records.length || importedTotal !== undefined;
+  if (!records.length) return;
+  const rides = records.filter(record => record.kind === '実車');
+  const sum = (items, field) => items.reduce((total, item) => total + item[field], 0);
+  const paper = byId('paper');
+  byId('date').textContent = records[0].date;
+  byId('stats').replaceChildren(...[
+    ['日報の税込収入', importedTotal !== undefined ? yen(importedTotal) :
+      (paper.value && paper.validity.valid ? yen(Number(paper.value)) : '未入力')],
+    ['通常乗車の明細合計', yen(sum(rides,'revenue'))],
+    ['明細の現金＋未収', yen(sum(records,'cash') + sum(records,'unpaid'))],
+    ['通常乗車', rides.length + ' 件'],
+    ['迎車キャンセル', records.filter(record => record.kind === '迎C').length + ' 件'],
+    ['日報の休憩合計', duration(sum(records.filter(record => record.kind === '休'),'rest'))]
+  ].map(([label, value]) => {
+    const group = document.createElement('div');
+    const title = document.createElement('dt'), detail = document.createElement('dd');
+    title.textContent = label;
+    detail.textContent = value;
+    group.append(title, detail);
+    return group;
+  }));
+}
+
+function drawTrack() {
+  if (!tracks.length) return;
+  const selection = intervals[Number(select.value) - 1];
+  const clipped = selection ? clipTrack(tracks, selection.start, selection.end) : null;
+  const totalPoints = tracks.reduce((total, segment) => total + segment.length, 0);
+  const first = Math.min(...tracks.map(segment => segment[0].time));
+  const last = Math.max(...tracks.map(segment => segment[segment.length - 1].time));
+  let details = timeLabel(first) + '〜' + timeLabel(last) + ' · ' + totalPoints.toLocaleString() + ' 点';
+  if (selection) {
+    const info = [duration(Math.round((selection.end - selection.start) / 60000))];
+    if (!clipped.lines.length) info.push('該当するGPX区間なし');
+    else {
+      info.push('GPS概算 ' + clipped.km.toFixed(2) + ' km');
+      if (clipped.skipped || clipped.lines[0][0].time > selection.start ||
+          clipped.lines.at(-1).at(-1).time < selection.end) info.push('GPS未記録区間あり');
+    }
+    details = selection.label + ' · ' + info.join(' · ');
+  }
+  byId('selected').textContent = details;
+  canvas.setAttribute('aria-label', details + '。上が北です。');
+
+  const ratio = window.devicePixelRatio || 1;
+  const width = canvas.clientWidth, height = canvas.clientHeight;
+  if (!width || !height) return;
+  canvas.width = Math.round(width * ratio);
+  canvas.height = Math.round(height * ratio);
+  const context = canvas.getContext('2d');
+  context.scale(ratio, ratio);
+  let left = Infinity, right = -Infinity, bottom = Infinity, top = -Infinity;
+  for (const segment of tracks) for (const point of segment) {
+    left = Math.min(left, point.lon);
+    right = Math.max(right, point.lon);
+    bottom = Math.min(bottom, point.lat);
+    top = Math.max(top, point.lat);
+  }
+  const longitudeScale = Math.cos((bottom + top) * radians / 2);
+  const scale = Math.min((width - 52) / (Math.max(right - left, 0.001) * longitudeScale),
+    (height - 52) / Math.max(top - bottom, 0.001));
+  const xy = point => [width / 2 + (point.lon - (left + right) / 2) * longitudeScale * scale,
+    height / 2 - (point.lat - (bottom + top) / 2) * scale];
+  context.strokeStyle = '#20353e';
+  context.lineWidth = 1;
+  context.beginPath();
+  for (let x = 24; x < width; x += 32) {context.moveTo(x, 0); context.lineTo(x, height);}
+  for (let y = 24; y < height; y += 32) {context.moveTo(0, y); context.lineTo(width, y);}
+  context.stroke();
+
+  function linework(lines, color, weight) {
+    context.strokeStyle = color;
+    context.lineWidth = weight;
+    context.lineJoin = 'round';
+    context.lineCap = 'round';
+    for (const line of lines) {
+      context.beginPath();
+      context.moveTo(...xy(line[0]));
+      for (let index = 1; index < line.length; index++) context.lineTo(...xy(line[index]));
+      context.stroke();
+    }
+  }
+  linework(tracks, selection ? '#5b717c' : '#59e2ec', selection ? 1.4 : 2);
+  if (clipped?.lines.length) {
+    linework(clipped.lines, '#59e2ec', 4);
+    const marks = [[clipped.lines[0][0], '#91f0b4'],[clipped.lines.at(-1).at(-1), '#ffc584']];
+    for (const [point, color] of marks) {
+      context.fillStyle = color;
+      context.beginPath();
+      context.arc(...xy(point), 6, 0, 2 * Math.PI);
+      context.fill();
+    }
+  }
+  context.fillStyle = '#c9dadd';
+  context.font = '600 14px system-ui';
+  context.fillText('↑ 北', 14, 24);
+}
+
+function render() {
+  renderSummary();
+  const rides = records.filter(record => record.kind === '実車').sort((a,b) => a.start - b.start);
+  intervals = rides.slice(1).flatMap((ride, index) => {
+    const previous = rides[index];
+    if (ride.start < previous.end) return [];
+    const label = timeLabel(previous.end) + ' ' + previous.to + ' → ' +
+      timeLabel(ride.start) + ' ' + ride.from;
+    return [{start:previous.end, end:ride.start, label}];
+  });
+  select.replaceChildren(new Option('全走行', '0'),
+    ...intervals.map((interval,index) => new Option(interval.label,String(index + 1))));
+  byId('route').hidden = !tracks.length;
+  const messages = Object.values(errors).filter(Boolean);
+  if (records.length && tracks.length && !rides.some(ride => tracks.some(segment =>
+    segment[0].time <= ride.end && segment.at(-1).time >= ride.start))) {
+    messages.push('日報の乗車時刻とGPXの記録範囲が重なっていません。ファイルの日付を確認してください。');
+  }
+  byId('issues').hidden = !messages.length;
+  byId('issues').textContent = messages.join('\n');
+  byId('status').textContent = [
+    records.length ? '日報 ' + records.length + ' 行' : '日報CSV 未読込',
+    tracks.length ? 'GPX 読込済み' : 'GPX 未読込'
+  ].join(' ／ ');
+  drawTrack();
+}
+
+function addFileInput(id, parse, apply) {
+  const input = byId(id);
+  let revision = 0;
+  input.addEventListener('change', async () => {
+    const current = ++revision;
+    apply([]);
+    delete errors[id];
+    render();
+    const file = input.files[0];
+    if (!file) return;
+    try {
+      const data = parse(await file.text());
+      if (current !== revision) return;
+      apply(data);
+    } catch (error) {
+      if (current !== revision) return;
+      errors[id] = error.message;
+    }
+    render();
+  });
+}
+
+addFileInput('csv', parseReport, data => {
+  records = data;
+  byId('paper').value = '';
+});
+addFileInput('gpx', parseTrack, data => { tracks = data; });
+byId('paper').addEventListener('input', renderSummary);
+select.addEventListener('change', drawTrack);
+window.addEventListener('resize', drawTrack);
+</script>
+</html>
