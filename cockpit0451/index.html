@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1524"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><title>東京タクシー・コックピット v0.4.57｜営業運用</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1524"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><title>東京タクシー・コックピット v0.4.58｜営業運用</title><style>
 :root{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',Meiryo,sans-serif;color:#eaf2ff;background:#0b1524;font-size:16px}*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button{cursor:pointer;border:0}a{color:#91d4ff}header{padding:18px 22px 12px;background:#101e31;position:sticky;top:0;z-index:4;border-bottom:1px solid #34445a}.head{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:clamp(19px,2.4vw,28px);font-weight:800}.muted{color:#b1c2d8;font-size:13px}.pill{padding:7px 11px;border-radius:100px;background:#26394e;font-size:12px;white-space:nowrap}.tabs{display:flex;gap:8px;overflow:auto;padding:12px 0 0}.tab{background:#213248;color:#d2e1f5;padding:10px 16px;border-radius:10px;white-space:nowrap}.tab.active{background:#9de9bd;color:#10241a;font-weight:800}main{max-width:1250px;margin:auto;padding:16px 20px 80px}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}.card{background:#19293d;border:1px solid #2d425b;border-radius:16px;padding:18px;min-width:0}.span6{grid-column:span 6}.span4{grid-column:span 4}.span8{grid-column:span 8}.span12{grid-column:span 12}h2{margin:0 0 14px;font-size:18px}h3{margin:0 0 8px;font-size:16px}.big{font-size:clamp(23px,3.2vw,38px);font-weight:800;line-height:1.3;overflow-wrap:anywhere}.medium{font-size:22px;font-weight:750}.value{font-weight:750;color:#a9f2c8}.sub{color:#b8c9de;font-size:14px;line-height:1.7}.btn{padding:12px 15px;border-radius:11px;background:#344a65;color:white;font-weight:700}.btn.primary{background:#a3ebc1;color:#10271c}.btn.warn{background:#6d4141}.btn:disabled{opacity:.45}.controls{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}.stat{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0}.linkgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.link{display:block;text-decoration:none;background:#263b54;padding:13px;border-radius:11px;font-weight:700;color:#e6f3ff}.link small{display:block;color:#b2c8df;font-size:12px;font-weight:400;margin-top:5px}.notice{border-left:4px solid #e8c77d;background:#293044;padding:11px 14px;border-radius:7px;font-size:13px;line-height:1.7;margin:10px 0}.ok{color:#9cebc2}.error{color:#ffb4a9}.section{display:none}.section.active{display:block}select,input{background:#263b54;border:1px solid #516985;color:white;border-radius:9px;padding:10px;max-width:100%}label{display:block;font-size:13px;color:#c8d6e8;margin:8px 0}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{padding:10px;background:#22364d;border-radius:9px}.metric b{display:block;font-size:22px}.metric span{font-size:12px;color:#b5c9e1}table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:10px 6px;border-bottom:1px solid #3a4a60;text-align:left}#map{width:100%;height:275px;border:0;border-radius:12px;background:#26394e}.footer{margin-top:20px;font-size:12px;color:#a9bad0;line-height:1.8}.clock{font-variant-numeric:tabular-nums}@media(max-width:720px){main{padding:12px 11px 60px}.card{padding:14px}.span6,.span4,.span8{grid-column:span 12}.linkgrid{grid-template-columns:1fr 1fr}header{padding:12px}.brand{font-size:19px}}
 
 /* 終電ダッシュボード */
@@ -467,14 +467,36 @@ header nav.tabs>.tab[data-tab="salesQuick"] {order:9999;}
 #shiftChecklistV0433 .scl-audit-list{font-size:11px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;border-radius:6px;border:1px solid #456076;padding:9px;margin:8px 0;background:#172c3e;color:#e7f1fa;max-height:350px;overflow:auto}
 #shiftChecklistV0433 .scl-audit-emphasis{color:#ffd9a0;font-size:11px;line-height:1.55}
 </style>
-</head><body><header><div id="v041-top-spacer" aria-hidden="true"></div><div class="head"><div class="brand-group"><div class="brand-title-line"><div class="brand">🚕 東京タクシー・コックピット v0.4.57 <small id="v0445BridgeBadge" style="font-size:10px;white-space:nowrap;font-weight:600;color:#b6e9ce" title="v0.4.45 GPS同期試験版">GPS連携 v0.4.46</small></div><div class="dash-gps-buttons"><button id="dash-gps-on" class="dash-blue" type="button">GPS ON</button><button id="dash-gps-off" type="button">GPS OFF</button><button id="dash-open-portrait-quick" type="button" aria-label="営業クイック画面へ移動">🚕 営業クイック</button></div></div><div class="v048-head-status" aria-label="交通と鉄道の取得状態">
+<script id="v0458SharedData">
+window.taxiDataUrl = function(name) {
+  return new URL(name, 'https://takezono7103.github.io/tokyo-taxi-guide/data/').href;
+};
+window.taxiWithDeadline = function(task, ms, label) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(label + '（' + Math.round(ms/1000) + '秒で終了）')), ms);
+  });
+  return Promise.race([Promise.resolve().then(task), timeout]).finally(() => clearTimeout(timer));
+};
+window.taxiDataJson = function(name, cache = 'no-cache') {
+  const controller = new AbortController();
+  return window.taxiWithDeadline(async () => {
+    const response = await fetch(window.taxiDataUrl(name), {cache, signal: controller.signal});
+    if (!response.ok) throw new Error(name + ' HTTP ' + response.status);
+    return response.json();
+  }, 10000, '公開道路DB通信タイムアウト').finally(() => controller.abort());
+};
+</script></head><body><header><div id="v041-top-spacer" aria-hidden="true"></div><div class="head"><div class="brand-group"><div class="brand-title-line"><div class="brand">🚕 東京タクシー・コックピット v0.4.58 <small id="v0445BridgeBadge" style="font-size:10px;white-space:nowrap;font-weight:600;color:#b6e9ce" title="v0.4.45 GPS同期試験版">GPS連携 v0.4.46</small></div><div class="dash-gps-buttons"><button id="dash-gps-on" class="dash-blue" type="button">GPS ON</button><button id="dash-gps-off" type="button">GPS OFF</button><button id="dash-open-portrait-quick" type="button" aria-label="営業クイック画面へ移動">🚕 営業クイック</button></div></div><div class="v048-head-status" aria-label="交通と鉄道の取得状態">
  <button type="button" class="v048-head-chip" data-v048-open="road" aria-label="道路交通情報へ"><span>🚦</span><span id="v048HeaderRoad">交通：未取得</span></button>
  <button type="button" class="v048-head-chip" data-v048-open="rail" aria-label="鉄道運行情報へ"><span>🚆</span><span id="v048HeaderRail">鉄道：未取得</span></button>
  <span class="v048-head-info">情報は取得時のみ表示・確認前は未取得</span>
 </div></div><div class="dash-header-controls"><div class="pill clock" id="clock">--:--</div></div></div><nav class="tabs" aria-label="機能"><button class="tab active" data-tab="home">🏠 総合</button><button class="tab" data-tab="portraitQuickV01">🚕 営業クイック</button><button class="tab" data-tab="portraitGoV01">📱 営業予測</button><button class="tab" data-tab="shiftReconcileV0430">📊 乗務照合</button><button class="tab" data-tab="places">🔎 場所検索</button><button class="tab" data-tab="weather">🌦 天気</button><button class="tab" data-tab="intel">🚦 交通・鉄道</button><button class="tab" data-tab="events">🎪 イベント</button><button class="tab" data-tab="hereTraffic">🚦 HERE Traffic</button><button class="tab" data-tab="stationFinder">🚉 周辺駅</button><button class="tab" data-tab="expresswayFinder">🛣️ 高速出入口</button><button class="tab" data-tab="railDatabase">🚆 鉄道DB</button><button class="tab" data-tab="rests">🅿️ 休憩マップ</button><button class="tab" data-tab="go">🚕 営業戦略・GO分析</button><button class="tab" data-tab="flow">👥 人流分析</button><button class="tab" data-tab="monitor">📊 動作モニター</button><button class="tab" data-tab="settings">⚙️ 設定</button><button class="tab" data-tab="nextIntegration">🧪 総合NEXT統合テスト</button><button class="tab" data-tab="drivingDashboard">🚕 営業統合</button><button class="tab" data-tab="integratedSalesV01">🧪 統合営業判断 v0.1</button><button class="tab" data-tab="salesQuick">🚕 営業クイック(旧)</button></nav></header><main><div id="taxiOperatingNav" style="padding:6px 10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-<strong>営業運用 v0.4.57</strong>
+<strong>営業運用 v0.4.58</strong>
 <button class="btn" type="button" data-embedded-view="quick" aria-expanded="false" aria-controls="taxiQuickPanel">営業クイック小窓</button>
+<a class="btn" href="./quick.html?v=0458" target="taxiCockpit0451Quick">小窓を別画面</a>
 <button class="btn" type="button" data-embedded-view="closing" aria-expanded="false" aria-controls="taxiClosingPanel">締め作業</button>
+<a class="btn" href="./closing.html?v=0458" target="taxiCockpit0451Closing">締めを別画面</a>
+<button type="button" class="btn" id="taxiPeerCheck">連携再確認</button>
 <span id="taxiOperatingStatus" style="font-size:13px" aria-live="polite"></span><span id="taxiPeerStatus" style="font-size:13px;color:#b8d9d4" aria-live="polite">連携確認中</span>
 </div>
 <style>
@@ -488,19 +510,19 @@ header nav.tabs>.tab[data-tab="salesQuick"] {order:9999;}
 </style>
 <div id="taxiQuickPanel" class="taxi-linked-panel" hidden>
  <div class="linked-tools"><button type="button" class="btn" data-embedded-close="quick">小窓を閉じる</button>
- <a class="btn" href="./quick.html" target="taxiCockpit0451Quick">別ウインドウで開く</a>
+ <a class="btn" href="./quick.html?v=0458" target="taxiCockpit0451Quick">別ウインドウで開く</a>
  <span id="taxiQuickLinkStatus" role="status"></span></div>
  <iframe id="taxiQuickFrame" title="営業クイック小窓"></iframe>
 </div>
 <div id="taxiClosingPanel" class="taxi-linked-panel" hidden>
  <div class="linked-tools"><button type="button" class="btn" data-embedded-close="closing">締め作業を閉じる</button>
- <a class="btn" href="./closing.html" target="taxiCockpit0451Closing">別ウインドウで開く</a></div>
+ <a class="btn" href="./closing.html?v=0458" target="taxiCockpit0451Closing">別ウインドウで開く</a></div>
  <iframe id="taxiClosingFrame" title="締め作業"></iframe>
 </div><section id="portraitQuickV01" class="section" aria-label="縦置き営業クイック v0.4.43 共通計測">
  <div class="pq-wrap">
   <div id="pqExternalLaunchV0443" style="border:1px solid #58738a;background:#183950;border-radius:10px;padding:9px;margin-bottom:9px;font-size:12px;line-height:1.5">
-  <strong>v0.4.57｜営業クイック小窓</strong>
-  <a href="./quick.html" target="taxiCockpit0451Quick" style="display:inline-block;background:#2c6993;color:white;border-radius:7px;padding:8px;margin-left:6px;text-decoration:none;font-weight:700">別ウインドウで開く</a>
+  <strong>v0.4.58｜営業クイック小窓</strong>
+  <a href="./quick.html?v=0458" target="taxiCockpit0451Quick" style="display:inline-block;background:#2c6993;color:white;border-radius:7px;padding:8px;margin-left:6px;text-decoration:none;font-weight:700">別ウインドウで開く</a>
   <div>同じSafariで開くと、メインと小窓の回送・休憩計測を共有します。</div>
 </div>
   <div class="pq-grid" role="group" aria-label="営業状態を選択">
@@ -1205,9 +1227,8 @@ const staticLoaded=new Set();
 async function getStaticManifest(){
  if(staticManifest)return staticManifest;
  if(!staticManifestPromise)staticManifestPromise=(async()=>{
-  const r=await fetch('./data/manifest.json',{cache:'no-cache'});
-  if(!r.ok)throw Error('manifest.json HTTP '+r.status);
-  const d=await r.json();
+  const r=await window.taxiDataJson('manifest.json');
+  const d=r;
   if(!Array.isArray(d.bounds)||!Number.isFinite(d.step)||!d.tiles)throw Error('manifestの形式が異なります');
   return staticManifest=d;
  })().catch(e=>{staticManifestPromise=null;throw e});
@@ -1234,12 +1255,11 @@ async function loadStaticAround(p,force=false){
   let ok=0,failed=0;
   for(const t of selected){
    try{
-    const r=await fetch('./data/'+t.key+'.json');if(!r.ok)throw Error('HTTP '+r.status);
-    const d=await r.json();if(!Array.isArray(d.roads)||!Array.isArray(d.intersections))throw Error('道路データ形式不正');
+    const d=await window.taxiDataJson(t.key+'.json');if(!Array.isArray(d.roads)||!Array.isArray(d.intersections))throw Error('道路データ形式不正');
     const item={id:'static_'+t.key,lat:t.lat,lon:t.lon,roads:d.roads,intersections:d.intersections,staticTile:true,savedAt:new Date().toISOString()};
     const i=cacheTiles.findIndex(z=>z.id===item.id);
     if(i>=0)cacheTiles[i]=item;else cacheTiles.push(item);
-    try{await putTile(item)}catch(e){$('cacheState').textContent='道路データを読み込みました（端末への保存は不可：'+e.message+'）'}
+    try{await window.taxiWithDeadline(()=>putTile(item),3000,'道路DB保存タイムアウト')}catch(e){$('cacheState').textContent='道路データを読み込みました（端末への保存は不可：'+e.message+'）'}
     staticLoaded.add(t.key);ok++;
    }catch(e){failed++;}
   }
@@ -1262,6 +1282,7 @@ $('exportRoads').onclick=async()=>{const tiles=await getTiles();if(!tiles.length
 $('importRoads').onchange=async e=>{try{const f=e.target.files[0];if(!f)return;const obj=JSON.parse(await f.text());if(obj.format!=='tokyo-taxi-roads-v2'||!Array.isArray(obj.tiles))throw Error('このアプリのバックアップJSONを選んでください');if(obj.tiles.length>500)throw Error('ファイルが大きすぎます');for(const t of obj.tiles){if(typeof t.id!=='string'||!Number.isFinite(t.lat)||!Number.isFinite(t.lon)||!Array.isArray(t.roads)||!Array.isArray(t.intersections))throw Error('不正なデータ形式');await putTile(t)}await refreshTiles();setCacheStatus('復元完了')}catch(e){$('cacheState').textContent='復元失敗：'+e.message}finally{e.target.value=''}};
 function fetchMap(p){if(!cacheTiles.length){$('mapData').textContent='保存データなし'}const tile=tileId(p.lat,p.lon);if(activeTile!==tile){activeTile=tile;activateNearby(p)}loadStaticAround(p).catch(e=>{roadError='GitHub道路データ：'+e.message;$('roadStatus').textContent=roadError})}
 refreshTiles();
+document.addEventListener('taxi:road-cache-updated',()=>refreshTiles());
 // v3.5: named road crossings inferred from locally cached OSM way geometry.
 let crossingMemo={at:0,key:'',value:null};
 function xyCross(p,origin){const k=111320*Math.cos(rad(origin.lat));return {x:(p.lon-origin.lon)*k,y:(p.lat-origin.lat)*111320}}
@@ -1453,7 +1474,7 @@ async function loadAuto(){
   if(local){try{showFeed(JSON.parse(local),'端末内の検証済みJSON');return;}catch(e){elStatus.textContent='旧形式の端末内データをスキップし、公開データを確認します：'+e.message;}}
  }catch(e){elStatus.textContent='端末内JSONを読み込めません：'+e.message;}
  try{
-  const res=await fetch('./data/last_trains.json',{cache:'no-store'});
+  const res=await fetch(window.taxiDataUrl('last_trains.json'),{cache:'no-store'});
   if(!res.ok){if(res.status===404){showFeed({schema:1,stations:{}},'未配置');return;}throw Error('HTTP '+res.status)}
   showFeed(await res.json(),'GitHub Pages');
  }catch(err){try{const bundled=document.getElementById('ltBundledOdpt');if(!bundled)throw err;showFeed(JSON.parse(bundled.textContent),'同梱ODPTスナップショット（2026-10-23生成）');}catch(e){autoData={};autoDate=null;elStatus.textContent='自動終電データが利用できません（'+e.message+'）。未確認の時刻は表示しません。';draw();}}
@@ -2596,7 +2617,7 @@ if(homeClosingButton){
   });
 }
 
-close.innerHTML=`<div class="grid"><div class="card span12"><h2>🧾 乗務終了・締め作業</h2><p><a class="btn primary" href="./closing.html" target="taxiCockpit0451Closing">日報PDF・CSVと走行記録の締め作業を開く</a></p><p class="sub">営業終了後に登録してください。日報PDF・GPXは選択確認のみです。この版ではファイル本体の永続保存や日報の自動読み取りは行いません。元の営業ログには触れません。</p><div class="controls"><label>乗務日 <input type="date" id="d67Date"></label><label>総走行距離（km）<input type="number" min="0" step="0.1" id="d67Km" placeholder="例：215"></label></div><div class="controls"><label>日報PDF <input type="file" accept=".pdf,application/pdf" id="d67Pdf"></label><label>ルートGPX <input type="file" id="d67Gpx"></label></div><p class="sub">実車距離・税込売上・乗車回数は日報から取得する予定です。現在は自動抽出していません。入力しないで保存できます。</p><div class="controls"><button type="button" class="btn primary" id="d67Check">🔎 入力内容を確認</button><button type="button" class="btn primary" id="d67Export" disabled>⬇ 締め作業メモJSON保存</button></div><pre id="d67Result" style="white-space:pre-wrap;overflow-wrap:anywhere">未確認</pre><p class="sub">⚠️ このJSONにはPDF・GPXのファイル名のみが記録され、ファイル本体は含まれません。必ずPDF・GPX・全データバックアップを別々に保管してください。</p></div></div>`;
+close.innerHTML=`<div class="grid"><div class="card span12"><h2>🧾 乗務終了・締め作業</h2><p><a class="btn primary" href="./closing.html?v=0458" target="taxiCockpit0451Closing">日報PDF・CSVと走行記録の締め作業を開く</a></p><p class="sub">営業終了後に登録してください。日報PDF・GPXは選択確認のみです。この版ではファイル本体の永続保存や日報の自動読み取りは行いません。元の営業ログには触れません。</p><div class="controls"><label>乗務日 <input type="date" id="d67Date"></label><label>総走行距離（km）<input type="number" min="0" step="0.1" id="d67Km" placeholder="例：215"></label></div><div class="controls"><label>日報PDF <input type="file" accept=".pdf,application/pdf" id="d67Pdf"></label><label>ルートGPX <input type="file" id="d67Gpx"></label></div><p class="sub">実車距離・税込売上・乗車回数は日報から取得する予定です。現在は自動抽出していません。入力しないで保存できます。</p><div class="controls"><button type="button" class="btn primary" id="d67Check">🔎 入力内容を確認</button><button type="button" class="btn primary" id="d67Export" disabled>⬇ 締め作業メモJSON保存</button></div><pre id="d67Result" style="white-space:pre-wrap;overflow-wrap:anywhere">未確認</pre><p class="sub">⚠️ このJSONにはPDF・GPXのファイル名のみが記録され、ファイル本体は含まれません。必ずPDF・GPX・全データバックアップを別々に保管してください。</p></div></div>`;
 // v7.9.10: navigation-only controls; do not alter save or operational data.
 const closeNav=document.createElement('div');closeNav.className='controls';closeNav.style.cssText='position:sticky;top:78px;z-index:5;background:#182d42;padding:10px;border-radius:12px;border:1px solid #56738a';
 const closeHome=document.createElement('button');closeHome.type='button';closeHome.className='btn primary';closeHome.textContent='✕ 閉じる・総合へ戻る';
@@ -3113,7 +3134,7 @@ document.getElementById('ttPause').addEventListener('click',function(){paused=!p
 timer=setInterval(()=>{if(!paused&&!document.hidden)move(1)},8000);
 render();
 // Optional future feed: a separate verified JSON file; no localStorage writes.
-fetch('./data/traffic_ticker.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('not available');return r.json()}).then(data=>{
+fetch(window.taxiDataUrl('traffic_ticker.json'),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('not available');return r.json()}).then(data=>{
 if(!data||!Array.isArray(data.items)||!data.updated_at)return;
 const age=Date.now()-Date.parse(data.updated_at);
 if(!Number.isFinite(age)||age<0||age>15*60*1000)return;
@@ -3126,7 +3147,7 @@ status.textContent='外部提供データ：'+new Date(data.updated_at).toLocale
 </script><script id="approxExpressV797">
 (()=>{'use strict';
 const $=id=>document.getElementById(id);
-const DATA_URL='./data/tokyo_express_access_points_approx_v1.json';
+const DATA_URL=window.taxiDataUrl('tokyo_express_access_points_approx_v1.json');
 let points=[],center=[35.6812,139.7671],map=null,layer=null,libPromise=null,ready=false;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const rad=x=>x*Math.PI/180;
@@ -3201,8 +3222,8 @@ if(el('nextShowStations').checked)for(const p of stations){if(!within(p)||sq&&!p
 if(el('nextShowExpress').checked)for(const p of express){if(!within(p)||eq&&!p.name.toLocaleLowerCase('ja').includes(eq))continue;const m=L.circleMarker([p.lat,p.lon],{radius:7,color:'#9b6900',fillColor:'#f9c846',fillOpacity:.9,weight:2,dashArray:'3,2'}).bindPopup('<b>🛣 '+esc(p.name)+'</b><br>位置：概算地点<br>入口・出口／進入方向：未確認<br><small>経路案内には使用できません</small>');if(showExpressLabels&&map.getZoom()>=14)m.bindTooltip(esc(p.name),{permanent:true,direction:'top',offset:[0,-8],className:'next033ExpressLabel'});m.addTo(expressLayer);b++}
 status('表示：駅 '+a+'件 / 高速道路概算地点 '+b+'件（駅DB '+stations.length+'件［'+sourceStation+'］、高速 '+express.length+'件［'+sourceExpress+'］）'+((showLabels||showExpressLabels)&&map.getZoom()<14?'｜名称はズーム14以上で表示':'')+(sq||eq?'｜名称で絞り込み中':''));}
 async function init(){try{status('地図と既存DBを読み込み中…');await leaflet();if(!map){map=L.map('nextUnifiedMap').setView(center,12);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(map);stationLayer=L.layerGroup().addTo(map);expressLayer=L.layerGroup().addTo(map);map.on('click',e=>{center=[e.latlng.lat,e.latlng.lng];draw()});map.on('zoomend',draw)}setTimeout(()=>map.invalidateSize(),150);let errs=[];
-try{express=await fetchData('./data/tokyo_express_access_points_approx_v1.json',normExpress);sourceExpress='既存GitHub JSON'}catch(e){errs.push('高速DB: '+e.message)}
-try{stations=await fetchData('./data/tokyo_station_all.json',normStation);sourceStation='既存GitHub JSON'}catch(e){stations=embeddedStations;sourceStation='同梱の提供済み駅DB';errs.push('駅DB: 外部取得失敗のため同梱データを使用（'+e.message+'）')}loaded=true;draw();if(errs.length)status(el('nextMapStatus').textContent+'｜取得できないDB: '+errs.join('、')+'（下の手動読込も利用可能）')}catch(e){status('地図起動エラー: '+e.message)}}
+try{express=await fetchData(window.taxiDataUrl('tokyo_express_access_points_approx_v1.json'),normExpress);sourceExpress='既存GitHub JSON'}catch(e){errs.push('高速DB: '+e.message)}
+try{stations=await fetchData(window.taxiDataUrl('tokyo_station_all.json'),normStation);sourceStation='既存GitHub JSON'}catch(e){stations=embeddedStations;sourceStation='同梱の提供済み駅DB';errs.push('駅DB: 外部取得失敗のため同梱データを使用（'+e.message+'）')}loaded=true;draw();if(errs.length)status(el('nextMapStatus').textContent+'｜取得できないDB: '+errs.join('、')+'（下の手動読込も利用可能）')}catch(e){status('地図起動エラー: '+e.message)}}
 el('nextMapLoad').addEventListener('click',init);el('nextMapTokyo').addEventListener('click',()=>{center=[35.6812,139.7671];if(map){map.setView(center,13);draw()}else status('先に地図を読み込んでください')});el('nextMapGps').addEventListener('click',()=>{navigator.geolocation?.getCurrentPosition(p=>{center=[p.coords.latitude,p.coords.longitude];if(map){map.setView(center,13);draw()}},e=>status('GPS取得失敗: '+e.message),{enableHighAccuracy:true,timeout:12000})});
 const layerToggle=el('nextLayerToggle'),layerMenu=el('nextLayerMenu');
 layerToggle.addEventListener('click',()=>{layerMenu.hidden=!layerMenu.hidden;layerToggle.setAttribute('aria-expanded',String(!layerMenu.hidden))});
@@ -3390,7 +3411,7 @@ el('nextRestrictionImport').addEventListener('change',async e=>{
  try{if(file.size>12000000)throw Error('12MBを超えるファイルは読み込めません');const data=JSON.parse(await file.text());renderRestrictionJSON(data,'ファイル読込：'+file.name)}catch(err){restrictionStatus('JSON読込失敗：'+err.message)}finally{e.target.value=''}
 });
 el('nextRestrictionGitHub').addEventListener('click',async()=>{
- try{restrictionStatus('GitHubの規制JSONを取得中…');const response=await fetch('data/tokyo_turn_restrictions.json',{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status+'（data/tokyo_turn_restrictions.json の配置を確認）');const data=await response.json();renderRestrictionJSON(data,'GitHub JSON読込')}
+ try{restrictionStatus('GitHubの規制JSONを取得中…');const response=await fetch(window.taxiDataUrl('tokyo_turn_restrictions.json'),{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status+'（data/tokyo_turn_restrictions.json の配置を確認）');const data=await response.json();renderRestrictionJSON(data,'GitHub JSON読込')}
  catch(err){restrictionStatus('GitHub JSON読込失敗：'+err.message)}
 });
 el('nextRestrictionExport').addEventListener('click',()=>{
@@ -3919,7 +3940,7 @@ document.addEventListener('visibilitychange',function(){if(!document.hidden&&roo
 (function(){'use strict';
 const by=id=>document.getElementById(id),st=by('v030OsmStatus'),out=by('v030MatchResults'),online=by('v030FetchOsm'),local=by('v030Local');
 if(!st||!out||!online||!local)return;
-const R=6371000,DEG=Math.PI/180;let last=null,busy=false,requestId=0;
+const R=6371000,DEG=Math.PI/180;let last=null,busy=false,requestId=0,queuedKind=null;
 const num=n=>typeof n==='number'&&Number.isFinite(n);
 const coord=v=>{const lat=Number(v?.lat),lon=Number(v?.lon??v?.lng);return Number.isFinite(lat)&&Number.isFinite(lon)&&Math.abs(lat)<=90&&Math.abs(lon)<=180?{lat,lon}:null};
 function distance(a,b){return Math.hypot((b.lon-a.lon)*DEG*Math.cos((a.lat+b.lat)*DEG/2)*R,(b.lat-a.lat)*DEG*R)}
@@ -4009,7 +4030,33 @@ function match(ways,source){
 function readLocal(){return new Promise((resolve,reject)=>{if(!window.indexedDB){reject(new Error('このブラウザにIndexedDBがありません'));return;}const r=indexedDB.open('tokyo_taxi_road_v2');r.onerror=()=>reject(r.error||Error('道路DBを開けません'));r.onsuccess=()=>{const db=r.result;if(!db.objectStoreNames.contains('tiles')){db.close();resolve([]);return}const tx=db.transaction('tiles','readonly'),q=tx.objectStore('tiles').getAll();q.onsuccess=()=>resolve(q.result||[]);q.onerror=()=>reject(q.error||Error('読み取り失敗'));tx.oncomplete=()=>db.close()}})}
 function parseTiles(tiles,c,range){const ways=[],seen=new Set();let total=0;for(const tile of tiles){for(const road of Array.isArray(tile?.roads)?tile.roads:[]){total++;const way=toWay(road);if(!way||!nearBBox(way.pts,c,range))continue;const id=String(road.id??way.name+way.pts[0].lat+way.pts[0].lon);if(seen.has(id))continue;seen.add(id);ways.push(way);if(ways.length>=5000)return {ways,total,cap:true}}}return {ways,total,cap:false}}
 function parseOverpass(d,c){const ways=[];for(const item of d?.elements||[]){if(item.type!=='way'||!item.tags?.name||!item.tags?.highway)continue;const way=toWay({name:item.tags.name,geometry:item.geometry,kind:item.tags.highway,layer:item.tags.layer});if(way&&nearBBox(way.pts,c,800))ways.push(way)}return ways}
-async function run(kind){if(busy)return;if(!last||!Array.isArray(last.results)||!last.results.length){st.textContent='先にHERE Traffic Flowをshape形式で取得してください。';return;}if(!last.results.some(r=>r?.location?.shape?.links)){st.textContent='HEREの取得形式をshapeにしてください。';return;}const c=last.center;if(!c||!num(c.lat)||!num(c.lon)){st.textContent='HERE検索中心が確認できません。';return;}busy=true;local.disabled=online.disabled=true;const id=++requestId;try{if(kind==='local'){st.textContent='保存済み道路DBを読み込み中（読み取り専用）…';const tiles=await readLocal();const parsed=parseTiles(tiles,c,last.radius||3000);if(id!==requestId)return;if(!parsed.ways.length){st.textContent='検索範囲に保存済みの名称付き道路がありません（保存タイル '+tiles.length+'件）。必要ならオンライン700mを試してください。';out.textContent='この画面では道路データの保存・書き換えは行いません。';return;}match(parsed.ways,'端末保存DB '+tiles.length+'タイル、抽出 '+parsed.ways.length+'道路'+(parsed.cap?'（処理上限5000件）':''));}
+function matchFailure(message){
+ st.textContent=message;
+ out.textContent=message+'。HERE受信結果は保持しています。';
+ by('v032Top3').textContent='🚦 一般道混雑候補TOP3：照合未完了／'+message;
+ by('pgGpsHereStatus034').textContent='HERE取得済み／'+message;
+ document.dispatchEvent(new CustomEvent('taxi:v035-traffic-failed',{detail:{code:'road-match',message:'HERE取得済み／'+message}}));
+}
+async function run(kind){if(busy){queuedKind=kind;return;}if(!last||!Array.isArray(last.results)||!last.results.length){matchFailure('HERE対象区間なし、道路名未確認');return;}if(!last.results.some(r=>r?.location?.shape?.links)){matchFailure('HEREの道路形状を取得できません');return;}const c=last.center;if(!c||!num(c.lat)||!num(c.lon)){matchFailure('HERE検索中心が確認できません');return;}busy=true;local.disabled=online.disabled=true;const id=++requestId;try{if(kind==='local'){st.textContent='保存済み道路DBを読み込み中（読み取り専用）…';let tiles=[];
+  let cacheNote='';
+  try{tiles=await window.taxiWithDeadline(readLocal,5000,'端末道路DB読込タイムアウト');}catch(error){cacheNote=error.message;}
+  if(id!==requestId)return;
+  let parsed=parseTiles(tiles,c,last.radius||3000);
+  if(parsed.ways.length<40){
+    st.textContent='公開道路DBから現在地付近を補充中…';
+    by('pgGpsHereStatus034').textContent='HERE取得済み／公開道路DBから道路名を照合中…';
+    const result=await window.taxiWithDeadline(()=>window.taxiV0424RoadCache.ensure(c,last.radius||3000),60000,'道路DB補充タイムアウト');
+    if(id!==requestId)return;
+    cacheNote=result.reason||cacheNote;
+    if(by('v0424DbStatus'))by('v0424DbStatus').textContent='道路DB：'+cacheNote;
+    if(Array.isArray(result.tiles))tiles=[...tiles,...result.tiles];
+    try{tiles=[...tiles,...await window.taxiWithDeadline(readLocal,5000,'端末道路DB読込タイムアウト')];}catch(_){}
+    parsed=parseTiles(tiles,c,last.radius||3000);
+  }
+  if(id!==requestId)return;
+  if(!parsed.ways.length)throw Error(cacheNote||'検索範囲に名称付き道路がありません');
+  match(parsed.ways,'公開・端末道路DB／抽出 '+parsed.ways.length+'道路'+(parsed.cap?'（処理上限5000件）':''));
+}
 else {
   // v0.4.7: Safari can leave fetch()/response.json() pending despite AbortController.
   // A Promise.race watchdog guarantees UI recovery after each attempt, without writing DBs.
@@ -4053,8 +4100,8 @@ else {
   if(!ways.length){st.textContent='半径700mに名称付き道路がありません（OSM応答は正常）。';return;}
   match(ways,'公開Overpass 半径700m '+ways.length+'道路（HERE全範囲の照合ではありません）');
 }}
-catch(e){if(id===requestId)st.textContent=(kind==='local'?'保存DB':'OSMオンライン')+'取得失敗：'+((e?.name==='AbortError'||e?.name==='TimeoutError')?'タイムアウト：'+String(e?.message||'応答なし').slice(0,85):String(e?.message||'不明').slice(0,120))+'。HERE取得データは保持します。';}finally{busy=false;local.disabled=online.disabled=false}}
-document.addEventListener('taxi:here-flow-manual-v030',e=>{const d=e?.detail;if(!Array.isArray(d?.results))return;last=d;requestId++;st.textContent='HERE '+d.results.length+'区間取得。まず「保存済み道路DBで照合」を選んでください。';out.textContent='HERE取得成功（道路名照合は未実施）';const tb=by('v032Top3');if(tb)tb.textContent='🚦 一般道混雑候補TOP3：新しいHEREデータを取得。道路名照合待ち（古い表示は消去）';if(by('portraitGoV01')?.getAttribute('data-v034-auto')==='yes'){by('portraitGoV01').removeAttribute('data-v034-auto');by('pgGpsHereStatus034').textContent='HERE取得済み。保存済み道路DBで照合中…';run('local');}});
+catch(e){if(id===requestId)matchFailure('道路DB照合未完了：'+String(e?.message||e).slice(0,160));}finally{busy=false;local.disabled=online.disabled=false;if(queuedKind){const next=queuedKind;queuedKind=null;if(last)run(next);}}}
+document.addEventListener('taxi:here-flow-manual-v030',e=>{const d=e?.detail;if(!Array.isArray(d?.results))return;last=d;requestId++;st.textContent='HERE '+d.results.length+'区間取得。まず「保存済み道路DBで照合」を選んでください。';out.textContent='HERE取得成功（道路名照合は未実施）';const tb=by('v032Top3');if(tb)tb.textContent='🚦 一般道混雑候補TOP3：新しいHEREデータを取得。道路名照合待ち（古い表示は消去）';if(by('portraitGoV01')?.getAttribute('data-v034-auto')==='yes'){by('portraitGoV01').removeAttribute('data-v034-auto');by('pgGpsHereStatus034').textContent='HERE取得済み。保存済み道路DBで照合中…';setTimeout(()=>run('local'),0);}});
 by('v030Clear')?.addEventListener('click',()=>{requestId++;last=null;st.textContent='照合表示を消去しました。';out.textContent='道路名照合は未実施です。';const tb=by('v032Top3');if(tb)tb.textContent='🚦 一般道混雑候補TOP3：未確認（照合結果を消去しました）';});local.addEventListener('click',()=>run('local'));online.addEventListener('click',()=>run('online'));
 })();
 </script>
@@ -4301,7 +4348,7 @@ function candidates(){
  const worker=configuredWorker();
  if(worker)list.push({name:'Cloudflare Worker',url:worker+'/odpt_train_summary.json'});
  if(location.protocol==='https:'||location.protocol==='http:'){
-   try{list.push({name:'同一サイト',url:new URL('./data/odpt_train_summary.json',location.href).href});}catch(e){}
+   try{list.push({name:'公開データ',url:window.taxiDataUrl('odpt_train_summary.json')});}catch(e){}
  }
  list.push({name:'GitHub Pages',url:'https://takezono7103.github.io/tokyo-taxi-guide/data/odpt_train_summary.json'});
  list.push({name:'GitHub公開JSON',url:'https://raw.githubusercontent.com/takezono7103/tokyo-taxi-guide/main/data/odpt_train_summary.json'});
@@ -4462,7 +4509,7 @@ document.querySelectorAll('[data-v0420-manual-fetch]').forEach(button=>button.ad
  const tstr=t=>new Date(t).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
  let road={received:0,source:0,area:'',segments:null},railManual=null,trafficFailure='';
  // The sourceUpdated timestamp is essential: a late road-name match does not make old HERE flow current.
- function resetRoad(){trafficFailure='';render();}
+ function resetRoad(){trafficFailure='';road={received:0,source:0,area:'',segments:null};render();}
  document.addEventListener('taxi:v035-traffic-failed',ev=>{trafficFailure=String(ev.detail?.message||'GPS測位失敗');render();});
  document.addEventListener('taxi:v035-traffic-request',resetRoad);
  document.addEventListener('taxi:here-flow-manual-v030',resetRoad);
@@ -4849,12 +4896,10 @@ render();
  }
  async function importStatic(){
   load.disabled=true;check.disabled=true;
-  output.textContent='公開済み静的道路DBを確認しています。Safari上では同一GitHub Pagesのdata/が必要です…';
+  output.textContent='公開済み静的道路DBを確認しています。GitHub Pagesの共通data/を確認中…';
   try{
    // read manifest in same origin as original v3 loader. No Overpass required.
-   const res=await fetch('./data/manifest.json',{cache:'no-store'});
-   if(!res.ok)throw Error('data/manifest.json が見つかりません（HTTP '+res.status+'）。GitHub Pagesで公開されたHTMLを開いてください');
-   const m=await res.json();
+   const m=await window.taxiDataJson('manifest.json','no-store');
    if(!Array.isArray(m.bounds)||m.bounds.length!==4||!Number.isFinite(m.step)||m.step<=0||!m.tiles||typeof m.tiles!=='object')throw Error('manifest.jsonが既存道路DB形式ではありません');
    const [south,west,north,east]=m.bounds,step=m.step;
    if(TOKYO.lat<south||TOKYO.lat>north||TOKYO.lon<west||TOKYO.lon>east)throw Error('公開道路DBに東京駅のエリアが含まれません');
@@ -4868,9 +4913,7 @@ render();
    const rows=[];let failed=0,totalRoads=0;
    for(const n of names){
     try{
-      const resp=await fetch('./data/'+n.key+'.json',{cache:'no-cache'});
-      if(!resp.ok)throw Error('HTTP '+resp.status);
-      const d=await resp.json();
+      const d=await window.taxiDataJson(n.key+'.json');
       if(!Array.isArray(d.roads)||!Array.isArray(d.intersections))throw Error('道路データ形式不正');
       rows.push({id:'static_'+n.key,lat:n.lat,lon:n.lon,roads:d.roads,intersections:d.intersections,staticTile:true,savedAt:new Date().toISOString()});
       totalRoads+=d.roads.length;
@@ -4925,22 +4968,18 @@ render();
        named++;hit=true;
      }
    }if(hit)found++;}return {named,found};}
- function getManifest(){if(!manifestPromise)manifestPromise=(async()=>{
-   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),13000);
-   try{const resp=await fetch('./data/manifest.json',{cache:'no-store',signal:controller.signal});
-     if(!resp.ok)throw Error('公開道路DB一覧 HTTP '+resp.status);
-     const m=await resp.json();
+ function getManifest(){
+   if(!manifestPromise)manifestPromise=window.taxiDataJson('manifest.json','no-store').then(m=>{
      if(!Array.isArray(m.bounds)||m.bounds.length!==4||!Number.isFinite(Number(m.step))||Number(m.step)<=0||!m.tiles||typeof m.tiles!=='object')throw Error('公開道路DBの一覧形式が不正');
      return m;
-   }finally{clearTimeout(timer);}
-  })().catch(e=>{manifestPromise=null;throw e;});
-  return manifestPromise;}
- async function fetchTile(item){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),13000);
-   try{const resp=await fetch('./data/'+item.key+'.json',{cache:'no-cache',signal:controller.signal});
-    if(!resp.ok)throw Error('HTTP '+resp.status);
-    const d=await resp.json();if(!Array.isArray(d.roads)||!Array.isArray(d.intersections)||d.roads.length>30000)throw Error('道路JSON形式が不正');
-    return {id:'static_'+item.key,lat:item.lat,lon:item.lon,roads:d.roads,intersections:d.intersections,staticTile:true,savedAt:new Date().toISOString()};
-   }finally{clearTimeout(timer);}}
+   }).catch(e=>{manifestPromise=null;throw e;});
+   return manifestPromise;
+ }
+ async function fetchTile(item){
+   const d=await window.taxiDataJson(item.key+'.json');
+   if(!Array.isArray(d.roads)||!Array.isArray(d.intersections)||d.roads.length>30000)throw Error('道路JSON形式が不正');
+   return {id:'static_'+item.key,lat:item.lat,lon:item.lon,roads:d.roads,intersections:d.intersections,staticTile:true,savedAt:new Date().toISOString()};
+ }
  async function saveUnlessExists(db,tile){return new Promise((resolve,reject)=>{
    const tx=db.transaction(STORE,'readwrite'),os=tx.objectStore(STORE),q=os.get(tile.id);let action='skip';
    q.onsuccess=()=>{if(!q.result){os.add(tile);action='saved';}};
@@ -4961,23 +5000,31 @@ render();
  async function ensure(c,radius=3000){
    if(!safeCenter(c))return {ok:false,reason:'試験地点の座標が不正です'};
    let db;try{
-    db=await open();const before=await allTiles(db),first=summary(before,c,radius);
-    if(first.named>=40)return {ok:true,reason:'保存済み道路DBを使用（'+before.length+'タイル／近傍名付き道路'+first.named+'本）',added:0};
+    let before=[];
+    try{db=await window.taxiWithDeadline(open,5000,'道路DB接続タイムアウト');before=await window.taxiWithDeadline(()=>allTiles(db),5000,'道路DB読込タイムアウト');}catch(_){try{db?.close();}catch(_){}db=null;}
+    const first=summary(before,c,radius);
+    if(first.named>=40)return {ok:true,reason:'保存済み道路DBを使用（'+before.length+'タイル／近傍名付き道路'+first.named+'本）',added:0,tiles:before};
     const m=await getManifest(),wanted=choices(m,c);
     if(!wanted.length)return {ok:false,reason:'公開道路DBに付近のタイルがありません'};
     const had=new Set(before.map(t=>String(t?.id||''))),todo=wanted.filter(x=>!had.has('static_'+x.key));
-    let added=0,already=0,errors=0,loaded=0;
+    let added=0,already=0,errors=0,loaded=0;const fetched=[];
     // Three concurrent bounded requests. Never overwrite pre-existing road data.
     for(let i=0;i<todo.length;i+=3){
       const results=await Promise.all(todo.slice(i,i+3).map(async item=>{
-        try{const tile=await fetchTile(item);const action=await saveUnlessExists(db,tile);return {action,roads:tile.roads.length};}
+        try{
+          const tile=await fetchTile(item);fetched.push(tile);
+          let action='memory';
+          if(db)try{action=await window.taxiWithDeadline(()=>saveUnlessExists(db,tile),3000,'道路DB保存タイムアウト');}catch(_){}
+          return {action,roads:tile.roads.length};
+        }
         catch(_){return {action:'error',roads:0};}
       }));
-      for(const q of results){if(q.action==='saved'){added++;loaded+=q.roads;}else if(q.action==='skip')already++;else errors++;}
+      for(const q of results){if(q.action==='saved'){added++;loaded+=q.roads;}else if(q.action==='skip')already++;else if(q.action==='memory')loaded+=q.roads;else errors++;}
     }
-    const after=await allTiles(db),now=summary(after,c,radius);
+    const after=[...before,...fetched],now=summary(after,c,radius);
+    if(added)document.dispatchEvent(new CustomEvent('taxi:road-cache-updated'));
     if(now.named<1)return {ok:false,reason:'公開道路DBの補充後も付近に名称付き道路なし（失敗'+errors+'件）',added};
-    return {ok:true,reason:'道路DB自動補充 '+added+'件／既存'+(wanted.length-todo.length+already)+'件／取得失敗'+errors+'件／現在'+after.length+'タイル・近傍名付き道路'+now.named+'本',added,loaded,errors};
+    return {ok:true,reason:'道路DB自動補充 '+added+'件／既存'+(wanted.length-todo.length+already)+'件／取得失敗'+errors+'件／現在'+after.length+'タイル・近傍名付き道路'+now.named+'本',added,loaded,errors,tiles:after};
    }catch(e){return {ok:false,reason:'道路DB自動補充不可：'+String(e?.message||e).slice(0,120)};}
    finally{try{db?.close();}catch(_){}}
  }
@@ -5053,13 +5100,8 @@ render();
        testArea.value='gps';
      }else testArea.value='tokyo';
      radius.value='3000';shape.value='shape';
-     phase='roads';set('保存済み道路DBを確認（不足時のみ公開道路データを補充）…');
-     const auto=window.taxiV0424RoadCache;
-     if(!auto?.ensure){roadNote='道路DB補充機能が利用できません';}
-     else {const chk=await auto.ensure(center,3000);roadNote=chk.reason||'道路DB確認不可';}
-     if(dbDisplay)dbDisplay.textContent='道路DB：'+roadNote;
-     if(seq!==id||!busy)return;
-     set('HERE交通情報を取得します… ／ '+roadNote,roadNote.includes('不可')?'warn':'');
+     roadNote='道路DBはHERE受信後に照合します';
+     set('HERE交通情報を取得します…');
      if(seq!==id||!busy)return;
      if(flow.disabled){done('別のHERE取得処理が実行中です。二重送信を避けました。',false);return;}
      phase='flow';
@@ -5097,6 +5139,9 @@ render();
    lastSource=String(d.sourceUpdated||'');
    if(!n){done('HERE取得成功・対象区間0件（正常走行とは断定しません）',true);return;}
    phase='match';set('HERE '+n+'区間取得。保存済みOSM道路DBと照合中…');
+ });
+ document.addEventListener('taxi:v035-traffic-failed',e=>{
+   if(busy&&phase==='match')done(String(e.detail?.message||'道路照合未完了'),false);
  });
  document.addEventListener('taxi:v035-match-completed',e=>{
    if(!busy||phase!=='match')return;
@@ -6679,8 +6724,8 @@ wire();window.taxiReconV0431ReplayTest={gather,prepareTracks,classify,positionAt
 })();
 </script>
 <script src="./shift-link.js"></script>
-<script src="./cockpit-sync.js"></script>
-<script src="./main-links.js"></script>
-<script src="./window-links.js"></script>
-<script src="./embedded-views.js"></script>
+<script src="./cockpit-sync.js?v=0458"></script>
+<script src="./main-links.js?v=0458"></script>
+<script src="./window-links.js?v=0458"></script>
+<script src="./embedded-views.js?v=0458"></script>
 </body></html>

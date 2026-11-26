@@ -16,7 +16,7 @@
     }
     if (visible && !child.hasAttribute('src')) {
       if(name==='quick')get('taxiQuickLinkStatus').textContent='小窓を読み込み中…';
-      child.src = new URL('./' + page + '?embed=1', location.href).href;
+      child.src = new URL('./' + page + '?embed=1&v=0458', location.href).href;
     }
   }
   for (const button of toggles) button.addEventListener('click', () => {

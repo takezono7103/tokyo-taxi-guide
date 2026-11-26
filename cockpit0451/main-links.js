@@ -26,11 +26,14 @@
     const report=link.latestClosing();
     return {...shift,registeredDate:report?.date||'',registeredAt:report?.savedAt||0};
   },(get,saved)=>{
-    const quick=get('quick'),closing=get('closing');
+    const sync=window.taxiCockpitSync;
     document.getElementById('taxiPeerStatus').textContent=saved?
-      '小窓 '+(quick?'接続済':'応答待ち')+' ／ 締め '+(closing?'接続済':'応答待ち'):'3画面の共有保存エラー';
+      '小窓 '+sync.describe('quick')+' ／ 締め '+sync.describe('closing'):'3画面の共有保存エラー';
     render();
   });
   document.addEventListener('taxi:shift-gps-updated-v0429',publish);
+  document.getElementById('taxiPeerCheck')?.addEventListener('click',()=>{
+    publish();window.taxiCockpitSync.request();
+  });
   window.addEventListener('storage',event=>{if(event.key===link.closeKey)publish();});
 })();

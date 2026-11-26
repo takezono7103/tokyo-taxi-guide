@@ -2,7 +2,7 @@
 <html lang="ja">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>東京タクシー・コックピット 締め作業 v0.4.57</title>
+<title>東京タクシー・コックピット 締め作業 v0.4.58</title>
 <style>
 :root{color-scheme:dark;font:16px system-ui;background:#0b171d;color:#eef6f7}
 [hidden]{display:none!important}*{box-sizing:border-box}body{margin:0}main{max-width:960px;margin:auto;padding:24px 18px 40px}
@@ -27,10 +27,10 @@ button:disabled{opacity:.5;cursor:default}.pdf-tools{display:flex;gap:10px;flex-
 </style>
 <main>
 <nav class="pdf-tools" aria-label="営業画面" id="closing-navigation">
-<a class="action" href="./index.html" target="taxiCockpit0451Main" data-focus-main>メイン画面</a>
-<a class="action" href="./quick.html" target="taxiCockpit0451Quick">営業クイック小窓</a>
+<a class="action" href="./index.html?v=0458" target="taxiCockpit0451Main" data-focus-main>メイン画面</a>
+<a class="action" href="./quick.html?v=0458" target="taxiCockpit0451Quick">営業クイック小窓</a>
 </nav>
-<header><p>東京タクシー・コックピット · v0.4.57 営業運用版</p><h1>締め作業</h1><p id="closingPeerStatus" aria-live="polite">メイン・営業クイック連携確認中</p></header>
+<header><p>東京タクシー・コックピット · v0.4.58 営業運用版</p><h1>締め作業</h1><p id="closingPeerStatus" aria-live="polite">メイン・営業クイック連携確認中</p></header>
 <section aria-labelledby="pdf-title">
 <h2 id="pdf-title">日報PDFをCSVに変換</h2>
 <p class="muted">飛鳥交通・品川営業所の運転日報向けです。読み取った時刻・金額・地点は原本と照合してください。</p>
@@ -93,7 +93,7 @@ button:disabled{opacity:.5;cursor:default}.pdf-tools{display:flex;gap:10px;flex-
 </section>
 </main>
 <script src="./shift-link.js"></script>
-<script src="./cockpit-sync.js"></script>
+<script src="./cockpit-sync.js?v=0458"></script>
 <script>
 'use strict';
 const byId = id => document.getElementById(id);
@@ -536,10 +536,10 @@ const publishClosingPeer=window.taxiCockpitSync.attach('closing',()=>{
 },(get,saved)=>{
  const main=get('main'),quick=get('quick');
  const status=byId('closingPeerStatus');
- const statusText=main?'メイン接続済'+(main.active?'・GPS営業記録中':'・GPS記録停止'):'メイン応答待ち';
+ const statusText=main?'メイン接続済'+(main.active?'・GPS営業記録中':'・GPS記録停止'):'メイン'+window.taxiCockpitSync.describe('main');
  const report=shiftLink.latestClosing();
  const ack=report&&main?.registeredAt===report.savedAt?' ／ 締め登録受信済 '+report.date:'';
- status.textContent=(saved?statusText:'共有保存エラー')+' ／ 小窓'+(quick?'接続済':'応答待ち')+ack;
+ status.textContent=(saved?statusText:'共有保存エラー')+' ／ 小窓'+window.taxiCockpitSync.describe('quick')+ack;
 });
 refreshShifts();
 window.addEventListener('focus',refreshShifts);
@@ -552,5 +552,5 @@ window.addEventListener('resize', drawTrack);
 </script>
 <script defer src="./ocr/tesseract.min.js"></script>
 <script type="module" src="./pdf-report.mjs"></script>
-<script src="./window-links.js"></script>
+<script src="./window-links.js?v=0458"></script>
 </html>

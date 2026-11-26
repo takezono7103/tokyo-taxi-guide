@@ -12,7 +12,8 @@
         else {
           const current=new URL(other.location.href);
           const normalize=url=>url.pathname.replace(/index\.html$/,'');
-          if(current.origin!==destination.origin||normalize(current)!==normalize(destination)||current.search!==destination.search)other.location.assign(destination.href);
+          const needsVersion=current.origin===destination.origin&&destination.searchParams.get('v')==='0458'&&!other.document.title.includes('v0.4.58');
+          if(current.origin!==destination.origin||normalize(current)!==normalize(destination)||current.searchParams.has('embed')!==destination.searchParams.has('embed')||needsVersion)other.location.assign(destination.href);
         }
         other.focus();
       }catch(_){}
