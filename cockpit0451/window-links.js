@@ -12,7 +12,7 @@
         else {
           const current=new URL(other.location.href);
           const normalize=url=>url.pathname.replace(/index\.html$/,'');
-          const needsVersion=current.origin===destination.origin&&destination.searchParams.get('v')==='0458'&&!other.document.title.includes('v0.4.58');
+          const needsVersion=current.origin===destination.origin&&destination.searchParams.get('v')==='0459'&&!other.document.title.includes('v0.4.59');
           if(current.origin!==destination.origin||normalize(current)!==normalize(destination)||current.searchParams.has('embed')!==destination.searchParams.has('embed')||needsVersion)other.location.assign(destination.href);
         }
         other.focus();

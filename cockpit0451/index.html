@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1524"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><title>東京タクシー・コックピット v0.4.58｜営業運用</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1524"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><title>東京タクシー・コックピット v0.4.59｜営業運用</title><style>
 :root{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',Meiryo,sans-serif;color:#eaf2ff;background:#0b1524;font-size:16px}*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button{cursor:pointer;border:0}a{color:#91d4ff}header{padding:18px 22px 12px;background:#101e31;position:sticky;top:0;z-index:4;border-bottom:1px solid #34445a}.head{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:clamp(19px,2.4vw,28px);font-weight:800}.muted{color:#b1c2d8;font-size:13px}.pill{padding:7px 11px;border-radius:100px;background:#26394e;font-size:12px;white-space:nowrap}.tabs{display:flex;gap:8px;overflow:auto;padding:12px 0 0}.tab{background:#213248;color:#d2e1f5;padding:10px 16px;border-radius:10px;white-space:nowrap}.tab.active{background:#9de9bd;color:#10241a;font-weight:800}main{max-width:1250px;margin:auto;padding:16px 20px 80px}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}.card{background:#19293d;border:1px solid #2d425b;border-radius:16px;padding:18px;min-width:0}.span6{grid-column:span 6}.span4{grid-column:span 4}.span8{grid-column:span 8}.span12{grid-column:span 12}h2{margin:0 0 14px;font-size:18px}h3{margin:0 0 8px;font-size:16px}.big{font-size:clamp(23px,3.2vw,38px);font-weight:800;line-height:1.3;overflow-wrap:anywhere}.medium{font-size:22px;font-weight:750}.value{font-weight:750;color:#a9f2c8}.sub{color:#b8c9de;font-size:14px;line-height:1.7}.btn{padding:12px 15px;border-radius:11px;background:#344a65;color:white;font-weight:700}.btn.primary{background:#a3ebc1;color:#10271c}.btn.warn{background:#6d4141}.btn:disabled{opacity:.45}.controls{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}.stat{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0}.linkgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.link{display:block;text-decoration:none;background:#263b54;padding:13px;border-radius:11px;font-weight:700;color:#e6f3ff}.link small{display:block;color:#b2c8df;font-size:12px;font-weight:400;margin-top:5px}.notice{border-left:4px solid #e8c77d;background:#293044;padding:11px 14px;border-radius:7px;font-size:13px;line-height:1.7;margin:10px 0}.ok{color:#9cebc2}.error{color:#ffb4a9}.section{display:none}.section.active{display:block}select,input{background:#263b54;border:1px solid #516985;color:white;border-radius:9px;padding:10px;max-width:100%}label{display:block;font-size:13px;color:#c8d6e8;margin:8px 0}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{padding:10px;background:#22364d;border-radius:9px}.metric b{display:block;font-size:22px}.metric span{font-size:12px;color:#b5c9e1}table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:10px 6px;border-bottom:1px solid #3a4a60;text-align:left}#map{width:100%;height:275px;border:0;border-radius:12px;background:#26394e}.footer{margin-top:20px;font-size:12px;color:#a9bad0;line-height:1.8}.clock{font-variant-numeric:tabular-nums}@media(max-width:720px){main{padding:12px 11px 60px}.card{padding:14px}.span6,.span4,.span8{grid-column:span 12}.linkgrid{grid-template-columns:1fr 1fr}header{padding:12px}.brand{font-size:19px}}
 
 /* 終電ダッシュボード */
@@ -486,16 +486,16 @@ window.taxiDataJson = function(name, cache = 'no-cache') {
     return response.json();
   }, 10000, '公開道路DB通信タイムアウト').finally(() => controller.abort());
 };
-</script></head><body><header><div id="v041-top-spacer" aria-hidden="true"></div><div class="head"><div class="brand-group"><div class="brand-title-line"><div class="brand">🚕 東京タクシー・コックピット v0.4.58 <small id="v0445BridgeBadge" style="font-size:10px;white-space:nowrap;font-weight:600;color:#b6e9ce" title="v0.4.45 GPS同期試験版">GPS連携 v0.4.46</small></div><div class="dash-gps-buttons"><button id="dash-gps-on" class="dash-blue" type="button">GPS ON</button><button id="dash-gps-off" type="button">GPS OFF</button><button id="dash-open-portrait-quick" type="button" aria-label="営業クイック画面へ移動">🚕 営業クイック</button></div></div><div class="v048-head-status" aria-label="交通と鉄道の取得状態">
+</script></head><body><header><div id="v041-top-spacer" aria-hidden="true"></div><div class="head"><div class="brand-group"><div class="brand-title-line"><div class="brand">🚕 東京タクシー・コックピット v0.4.59 <small id="v0445BridgeBadge" style="font-size:10px;white-space:nowrap;font-weight:600;color:#b6e9ce" title="v0.4.45 GPS同期試験版">GPS連携 v0.4.46</small></div><div class="dash-gps-buttons"><button id="dash-gps-on" class="dash-blue" type="button">GPS ON</button><button id="dash-gps-off" type="button">GPS OFF</button><button id="dash-open-portrait-quick" type="button" aria-label="営業クイック画面へ移動">🚕 営業クイック</button></div></div><div class="v048-head-status" aria-label="交通と鉄道の取得状態">
  <button type="button" class="v048-head-chip" data-v048-open="road" aria-label="道路交通情報へ"><span>🚦</span><span id="v048HeaderRoad">交通：未取得</span></button>
  <button type="button" class="v048-head-chip" data-v048-open="rail" aria-label="鉄道運行情報へ"><span>🚆</span><span id="v048HeaderRail">鉄道：未取得</span></button>
  <span class="v048-head-info">情報は取得時のみ表示・確認前は未取得</span>
 </div></div><div class="dash-header-controls"><div class="pill clock" id="clock">--:--</div></div></div><nav class="tabs" aria-label="機能"><button class="tab active" data-tab="home">🏠 総合</button><button class="tab" data-tab="portraitQuickV01">🚕 営業クイック</button><button class="tab" data-tab="portraitGoV01">📱 営業予測</button><button class="tab" data-tab="shiftReconcileV0430">📊 乗務照合</button><button class="tab" data-tab="places">🔎 場所検索</button><button class="tab" data-tab="weather">🌦 天気</button><button class="tab" data-tab="intel">🚦 交通・鉄道</button><button class="tab" data-tab="events">🎪 イベント</button><button class="tab" data-tab="hereTraffic">🚦 HERE Traffic</button><button class="tab" data-tab="stationFinder">🚉 周辺駅</button><button class="tab" data-tab="expresswayFinder">🛣️ 高速出入口</button><button class="tab" data-tab="railDatabase">🚆 鉄道DB</button><button class="tab" data-tab="rests">🅿️ 休憩マップ</button><button class="tab" data-tab="go">🚕 営業戦略・GO分析</button><button class="tab" data-tab="flow">👥 人流分析</button><button class="tab" data-tab="monitor">📊 動作モニター</button><button class="tab" data-tab="settings">⚙️ 設定</button><button class="tab" data-tab="nextIntegration">🧪 総合NEXT統合テスト</button><button class="tab" data-tab="drivingDashboard">🚕 営業統合</button><button class="tab" data-tab="integratedSalesV01">🧪 統合営業判断 v0.1</button><button class="tab" data-tab="salesQuick">🚕 営業クイック(旧)</button></nav></header><main><div id="taxiOperatingNav" style="padding:6px 10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-<strong>営業運用 v0.4.58</strong>
+<strong>営業運用 v0.4.59</strong>
 <button class="btn" type="button" data-embedded-view="quick" aria-expanded="false" aria-controls="taxiQuickPanel">営業クイック小窓</button>
-<a class="btn" href="./quick.html?v=0458" target="taxiCockpit0451Quick">小窓を別画面</a>
+<a class="btn" href="./quick.html?v=0459" target="taxiCockpit0451Quick">小窓を別画面</a>
 <button class="btn" type="button" data-embedded-view="closing" aria-expanded="false" aria-controls="taxiClosingPanel">締め作業</button>
-<a class="btn" href="./closing.html?v=0458" target="taxiCockpit0451Closing">締めを別画面</a>
+<a class="btn" href="./closing.html?v=0459" target="taxiCockpit0451Closing">締めを別画面</a>
 <button type="button" class="btn" id="taxiPeerCheck">連携再確認</button>
 <span id="taxiOperatingStatus" style="font-size:13px" aria-live="polite"></span><span id="taxiPeerStatus" style="font-size:13px;color:#b8d9d4" aria-live="polite">連携確認中</span>
 </div>
@@ -510,19 +510,19 @@ window.taxiDataJson = function(name, cache = 'no-cache') {
 </style>
 <div id="taxiQuickPanel" class="taxi-linked-panel" hidden>
  <div class="linked-tools"><button type="button" class="btn" data-embedded-close="quick">小窓を閉じる</button>
- <a class="btn" href="./quick.html?v=0458" target="taxiCockpit0451Quick">別ウインドウで開く</a>
+ <a class="btn" href="./quick.html?v=0459" target="taxiCockpit0451Quick">別ウインドウで開く</a>
  <span id="taxiQuickLinkStatus" role="status"></span></div>
  <iframe id="taxiQuickFrame" title="営業クイック小窓"></iframe>
 </div>
 <div id="taxiClosingPanel" class="taxi-linked-panel" hidden>
  <div class="linked-tools"><button type="button" class="btn" data-embedded-close="closing">締め作業を閉じる</button>
- <a class="btn" href="./closing.html?v=0458" target="taxiCockpit0451Closing">別ウインドウで開く</a></div>
+ <a class="btn" href="./closing.html?v=0459" target="taxiCockpit0451Closing">別ウインドウで開く</a></div>
  <iframe id="taxiClosingFrame" title="締め作業"></iframe>
 </div><section id="portraitQuickV01" class="section" aria-label="縦置き営業クイック v0.4.43 共通計測">
  <div class="pq-wrap">
   <div id="pqExternalLaunchV0443" style="border:1px solid #58738a;background:#183950;border-radius:10px;padding:9px;margin-bottom:9px;font-size:12px;line-height:1.5">
-  <strong>v0.4.58｜営業クイック小窓</strong>
-  <a href="./quick.html?v=0458" target="taxiCockpit0451Quick" style="display:inline-block;background:#2c6993;color:white;border-radius:7px;padding:8px;margin-left:6px;text-decoration:none;font-weight:700">別ウインドウで開く</a>
+  <strong>v0.4.59｜営業クイック小窓</strong>
+  <a href="./quick.html?v=0459" target="taxiCockpit0451Quick" style="display:inline-block;background:#2c6993;color:white;border-radius:7px;padding:8px;margin-left:6px;text-decoration:none;font-weight:700">別ウインドウで開く</a>
   <div>同じSafariで開くと、メインと小窓の回送・休憩計測を共有します。</div>
 </div>
   <div class="pq-grid" role="group" aria-label="営業状態を選択">
@@ -549,29 +549,34 @@ window.taxiDataJson = function(name, cache = 'no-cache') {
   <p class="pq-footnote">回送合計は回送開始から停車・実休憩開始までの時間を集計します。実休憩は1回15分以内なら累積対象外、15分を超えた場合は休憩開始からの全時間を加算。操作は安全に停車してから行ってください。</p>
  </div>
 </section>
-<section id="portraitGoV01" class="section" aria-label="縦置き GO営業予測 v0.2.8">
- <div class="pg-head"><strong>📱 GO営業予測｜縦置き v0.4.10</strong><button id="pgRefresh" type="button" class="pg-btn">↻ 最新表示・接続確認</button></div>
+<section id="portraitGoV01" class="section" aria-label="縦置き GO営業予測 v0.4.59">
+ <div class="pg-head v0459-heading"><strong>🚕 営業予測</strong><span id="v0459Clock">—</span><button id="pgRefresh" type="button" class="pg-btn">↻ 更新</button></div>
  <div class="pg-panel pg-primary pg-compact">
-  <h2>📍 現在地・GPS走行 <span id="pgGpsState" class="pg-muted">未確認</span></h2>
+  <div class="v0459-location">
+   <div><span>📍 現在地（参照エリア）</span><strong id="v0459Area">未取得</strong></div>
+   <div><span>進行方向</span><strong id="v0459Heading">未確認</strong></div>
+   <div><span>GPS</span><strong id="pgGpsState" class="pg-muted">未確認</strong></div>
+  </div>
   <div class="pg-line"><span>道路：<strong id="pgRoad">取得待ち</strong></span></div>
   <div class="pg-gps-stats">精度 <b id="pgAccuracy">—</b> ｜ 速度 <b id="pgSpeed">—</b> ｜ 更新 <b id="pgGpsTime">—</b></div>
   <details><summary>座標を表示</summary><div id="pgCoords" class="pg-muted">座標：未取得</div><div class="pg-muted">方角：<span id="pgHeading">—</span> ／ <span id="pgLocation">位置情報未取得</span></div></details>
  </div>
  <div class="v048-quick" aria-label="交通・鉄道の簡易状況" role="region">
- <div class="v048-quick-title"><strong>🚦 交通・鉄道｜自動表示</strong><span>前面時更新／取得時刻を確認</span></div>
+ <div class="v048-quick-title"><strong>交通・鉄道</strong><span>取得時刻を確認</span></div>
  <div class="v048-twocol">
   <article class="v048-quickcard" aria-label="道路交通状況">
    <div class="v048-qhead"><strong>🚦 周辺道路</strong><span class="v048-status v048RoadStatus">未取得</span></div>
-   <div class="v048-keyline v048RoadLine">HERE交通データ未取得</div>
+   <div class="v048-keyline v048RoadLine">HERE交通データ未取得</div><div id="v0459RoadMore" class="v0459-more"></div>
    <div class="v048-caption v048RoadSub">周辺の渋滞状況は未確認</div>
    <div class="v048-buttons"><button type="button" data-v048-action="refresh-road">📍 現在地3kmを取得</button><button type="button" class="v048-ghost" data-v048-open="road">詳細</button></div>
   </article>
   <article class="v048-quickcard" aria-label="鉄道運行状況">
-   <div class="v048-qhead"><strong>🚆 鉄道運行</strong><span class="v048-status v048RailStatus">未取得</span></div>
-   <div class="v048-keyline v048RailLine">ODPT運行情報未取得</div>
+   <div class="v048-qhead"><strong>🚆 鉄道・終電</strong><span class="v048-status v048RailStatus">未取得</span></div>
+   <div class="v048-keyline v048RailLine">ODPT運行情報未取得</div><div id="v0459RailMore" class="v0459-more"></div>
    <div class="v048-caption v048RailSub">全事業者・全路線を網羅しません</div>
+   <div class="v0459-lasttrain"><span>終電（保存DB）</span><strong id="v0459LastTrain">未確認</strong><button type="button" class="v048-ghost" id="v0459TrainDetail">終電詳細</button></div>
    <div class="v048-buttons"><button type="button" data-v048-action="refresh-rail">↻ 鉄道データ再読込</button><button type="button" class="v048-ghost" data-v048-open="rail">詳細</button></div>
-   <details class="v0420-manual" data-v0421-worker-box>
+   <details class="v0459-connection"><summary>接続設定</summary><details class="v0420-manual" data-v0421-worker-box>
      <summary>☁️ Cloudflare自動取得（接続先を設定）</summary>
      <div class="v0420-manual-status">Cloudflare Workerの公開URLを入力します。トークンは入力しません。</div>
      <div class="v0420-manual-row">
@@ -588,7 +593,7 @@ window.taxiDataJson = function(name, cache = 'no-cache') {
       <button type="button" data-v0420-manual-fetch>1回取得</button>
     </div>
     <div class="v0420-manual-status" data-v0420-manual-result role="status">入力したトークンは保存せず、リクエスト後に消去します。</div>
-   </details>
+   </details></details>
 
   </article>
  </div>
@@ -596,9 +601,22 @@ window.taxiDataJson = function(name, cache = 'no-cache') {
 </div>
 <!-- v0.4.41: read-only GO area comparison. No dispatch/order data; no road-routing integration. -->
 <div class="pg-panel v0440-panel" id="v0440GoPanel" aria-label="GO営業・現在地近接候補TOP3">
- <div class="v0440-title"><strong>🎯 次のGO営業候補 TOP3</strong><span class="v0440-small">直線距離＋小標本の日報参考</span></div>
+ <div class="v0440-title"><strong>🎯 次のGO営業候補 TOP3</strong><span class="v0440-small">現在地近接＋過去実績の参考順位</span></div>
  <div id="v0440Head" class="v0440-summary" role="status">GPS現在地を確認中です。</div>
+ <div class="v0459-column-head" aria-hidden="true"><span>候補エリア</span><span>平均売上／記録日</span><span>次の乗車まで</span><span>実績信頼度</span></div>
  <div id="v0440List" class="v0440-list"><p class="v0440-empty">GPSが取得できると候補を表示します。</p></div>
+ <p class="v0459-note">同じ時間帯に乗車記録がある日の税込売上平均。移動時間は降車から次乗車まで。距離はGPS観測分（観測時間80%以上）。</p>
+ <section class="v0459-hourly" id="v0459Hourly" aria-label="同時間帯の過去実績">
+  <h2><span id="v0459HourTitle">同時間帯</span>の過去実績</h2>
+  <div class="v0459-stats">
+   <div><span>対象乗務日</span><strong id="v0459Days">—</strong></div>
+   <div><span>乗車件数</span><strong id="v0459Rides">—</strong></div>
+   <div><span>平均乗車単価</span><strong id="v0459Fare">—</strong></div>
+   <div><span>平均売上／記録日</span><strong id="v0459Sales">—</strong></div>
+  </div>
+  <div id="v0459Chart" class="v0459-chart" aria-label="時間帯別平均売上"></div>
+  <p class="v0459-note" id="v0459HistoryNote">日報明細を確認中</p>
+ </section>
  <details id="v0442GpsEvidence" class="v0442-gps-panel">
  <summary>🛰️ 過去GPS実績・降車後の移動（2乗務日の照合）</summary>
  <div id="v0442GpsInfo" class="v0442-gps-summary" role="status">11月16・21日の照合済みデータを表示します。</div>
@@ -616,14 +634,14 @@ window.taxiDataJson = function(name, cache = 'no-cache') {
  <button type="button" id="v0441Clear" class="pg-btn">追加取り込み分のみ消去</button>
  <div role="status" id="v0441HistoryStatus" class="v0440-small">読み込んだCSVは端末内で処理します。元の日報・計測ログは変更しません。</div>
  </details>
- <p class="v0440-disclaimer">※GOの注文・空車台数・受注率は取得していません。順位はGPS直線距離と時間帯の一般的な条件を中心とし、複数日の同時間帯の乗車記録がある場合だけ参考加点する<strong>移動候補</strong>です。3日分の町名分類は標本が少なく、配車確率・最適経路ではありません。道路名は目的地周辺の目安であり、経路・交通規制はNAVITIMEと公式情報で確認してください。Safariが背面にある間は更新されません。操作は安全に停車中のみ。</p>
+ <p class="v0440-disclaimer">※GOの注文・空車台数・受注率は取得していません。順位はGPS直線距離と時間帯の一般的な条件を中心とし、複数日の同時間帯の乗車記録がある場合だけ参考加点する<strong>移動候補</strong>です。同時刻の実績信頼度は明細日数・件数とGPS照合数による参考区分です。配車確率・最適経路ではありません。道路名は目的地周辺の目安であり、経路・交通規制はNAVITIMEと公式情報で確認してください。Safariが背面にある間は更新されません。操作は安全に停車中のみ。</p>
 </div>
- <div class="pg-panel">
-  <h2>🚕 GO営業参考判断 <span class="pg-muted" id="pgPeriod">時間帯</span></h2>
+ <details class="pg-panel"><summary>従来のGO営業参考判断 <span class="pg-muted" id="pgPeriod">時間帯</span></summary>
   <div id="pgRecommendation" class="pg-place" style="font-size:15px">保存済みデータを確認中</div>
   <div id="pgReason" class="pg-muted" style="margin-top:4px">実際のGO需要・空車台数は取得していません。</div>
   <div class="pg-line"><span>根拠の確かさ</span><span id="pgConfidence" class="pg-warn">未評価</span></div>
- </div>
+ </details>
+ <nav class="v0459-nav" aria-label="営業予測下部ナビゲーション"><button type="button" data-v0459-nav="home">総合</button><button type="button" data-v0459-nav="quick">営業クイック</button><button type="button" class="selected" aria-current="page" data-v0459-nav="forecast">営業予測</button><button type="button" data-v0459-nav="closing">締め作業</button></nav>
  <details class="v048-detail-wrap" id="v048Details"><summary>交通・鉄道の取得結果／詳細設定を表示</summary>
  <div class="pg-panel pg-v035-traffic" aria-label="道路・高速交通状況">
   <h2>🚦 周辺道路・高速道路 <span class="pg-muted" id="v035TrafficFresh">未取得</span></h2>
@@ -1406,6 +1424,19 @@ function ltWindow(time){const left=remain(time);if(left===null||left<0||left>120
 function remain(time){const match=/^(\d{2}):(\d{2})$/.exec(time||'');if(!match)return null;const now=tokyoNow(),service=new Date(now);if(service.getHours()<4)service.setDate(service.getDate()-1);service.setHours(0,0,0,0);let target=new Date(service);target.setMinutes(Number(match[1])*60+Number(match[2]));if(Number(match[1])<4)target.setDate(target.getDate()+1);return Math.ceil((target-now)/60000)}
 function record(station){return saved[station+'|'+el('ltDay').value]||null}
 function autoRecords(station){const day=el('ltDay').value;return (autoData[station]?.[day]||[]).filter(r=>r&&/^([01]\d|2[0-9]):[0-5]\d$/.test(r.time)).slice(0,16)}
+// Read-only forecast feed. Today's service-day category is independent of the detail filter.
+window.taxiForecastLastTrain=function(point){
+  if(!point||!Number.isFinite(point.lat)||!Number.isFinite(point.lon))return null;
+  const nearestStation=stations.map(station=>({...station,distance:meters(point,station)})).sort((a,b)=>a.distance-b.distance)[0];
+  if(!nearestStation||nearestStation.distance>1500)return null;
+  const day=currentService();
+  const manual=saved[nearestStation.name+'|'+day];
+  const records=(manual?[manual]:(autoData[nearestStation.name]?.[day]||[])).filter(r=>r&&/^([01]\d|2[0-9]):[0-5]\d$/.test(r.time));
+  const future=records.map(r=>({...r,left:remain(r.time)})).filter(r=>r.left!==null&&r.left>=0).sort((a,b)=>a.left-b.left);
+  const r=future[0];
+  return {station:nearestStation.name,stationDistance:nearestStation.distance,time:r?r.time.replace(/^(2[4-9]):/,(_,hour)=>String(Number(hour)-24).padStart(2,'0')+':'):null,
+    line:r?ltLine(r.line):null,direction:r?ltDirection(r.direction):null,hasRecords:records.length>0,manual:!!manual};
+};
 const dataCacheKey='taxi_last_trains_verified_v411';
 // v4.24: GitHubのODPT抽出形式(schema_version/last_trains)を表示専用に変換。
 // ODPTの方面識別子を終着駅と混同せず、未確認の情報は未確認のまま残す。
@@ -2617,7 +2648,7 @@ if(homeClosingButton){
   });
 }
 
-close.innerHTML=`<div class="grid"><div class="card span12"><h2>🧾 乗務終了・締め作業</h2><p><a class="btn primary" href="./closing.html?v=0458" target="taxiCockpit0451Closing">日報PDF・CSVと走行記録の締め作業を開く</a></p><p class="sub">営業終了後に登録してください。日報PDF・GPXは選択確認のみです。この版ではファイル本体の永続保存や日報の自動読み取りは行いません。元の営業ログには触れません。</p><div class="controls"><label>乗務日 <input type="date" id="d67Date"></label><label>総走行距離（km）<input type="number" min="0" step="0.1" id="d67Km" placeholder="例：215"></label></div><div class="controls"><label>日報PDF <input type="file" accept=".pdf,application/pdf" id="d67Pdf"></label><label>ルートGPX <input type="file" id="d67Gpx"></label></div><p class="sub">実車距離・税込売上・乗車回数は日報から取得する予定です。現在は自動抽出していません。入力しないで保存できます。</p><div class="controls"><button type="button" class="btn primary" id="d67Check">🔎 入力内容を確認</button><button type="button" class="btn primary" id="d67Export" disabled>⬇ 締め作業メモJSON保存</button></div><pre id="d67Result" style="white-space:pre-wrap;overflow-wrap:anywhere">未確認</pre><p class="sub">⚠️ このJSONにはPDF・GPXのファイル名のみが記録され、ファイル本体は含まれません。必ずPDF・GPX・全データバックアップを別々に保管してください。</p></div></div>`;
+close.innerHTML=`<div class="grid"><div class="card span12"><h2>🧾 乗務終了・締め作業</h2><p><a class="btn primary" href="./closing.html?v=0459" target="taxiCockpit0451Closing">日報PDF・CSVと走行記録の締め作業を開く</a></p><p class="sub">営業終了後に登録してください。日報PDF・GPXは選択確認のみです。この版ではファイル本体の永続保存や日報の自動読み取りは行いません。元の営業ログには触れません。</p><div class="controls"><label>乗務日 <input type="date" id="d67Date"></label><label>総走行距離（km）<input type="number" min="0" step="0.1" id="d67Km" placeholder="例：215"></label></div><div class="controls"><label>日報PDF <input type="file" accept=".pdf,application/pdf" id="d67Pdf"></label><label>ルートGPX <input type="file" id="d67Gpx"></label></div><p class="sub">実車距離・税込売上・乗車回数は日報から取得する予定です。現在は自動抽出していません。入力しないで保存できます。</p><div class="controls"><button type="button" class="btn primary" id="d67Check">🔎 入力内容を確認</button><button type="button" class="btn primary" id="d67Export" disabled>⬇ 締め作業メモJSON保存</button></div><pre id="d67Result" style="white-space:pre-wrap;overflow-wrap:anywhere">未確認</pre><p class="sub">⚠️ このJSONにはPDF・GPXのファイル名のみが記録され、ファイル本体は含まれません。必ずPDF・GPX・全データバックアップを別々に保管してください。</p></div></div>`;
 // v7.9.10: navigation-only controls; do not alter save or operational data.
 const closeNav=document.createElement('div');closeNav.className='controls';closeNav.style.cssText='position:sticky;top:78px;z-index:5;background:#182d42;padding:10px;border-radius:12px;border:1px solid #56738a';
 const closeHome=document.createElement('button');closeHome.type='button';closeHome.className='btn primary';closeHome.textContent='✕ 閉じる・総合へ戻る';
@@ -6429,6 +6460,75 @@ wire();window.taxiReconV0431ReplayTest={gather,prepareTracks,classify,positionAt
 #portraitGoV01 .v0441-history button{margin-top:8px}
 @media(max-width:550px){#portraitGoV01 .v0441-import{grid-template-columns:1fr}}
 </style>
+<style id="v0459ForecastLayout">
+#portraitGoV01{max-width:none;margin-inline:auto}
+#portraitGoV01 .v0459-heading{display:flex;align-items:center;gap:12px;border:1px solid #52738c;background:#10273e;border-radius:10px;padding:10px 14px}
+#portraitGoV01 .v0459-heading strong{font-size:clamp(20px,3.1vw,30px);flex:1}
+#portraitGoV01 #v0459Clock{font-size:clamp(20px,3vw,28px);font-weight:800;font-variant-numeric:tabular-nums}
+#portraitGoV01 .v0459-location{display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:8px}
+#portraitGoV01 .v0459-location>div{display:flex;flex-direction:column;min-width:0;border-right:1px solid #436278;padding-right:6px;gap:4px}
+#portraitGoV01 .v0459-location>div:last-child{border:0}
+#portraitGoV01 .v0459-location span,#portraitGoV01 .v0459-stats span{font-size:12px;color:#c1d7e8}
+#portraitGoV01 .v0459-location strong{font-size:clamp(14px,2vw,19px);overflow-wrap:anywhere}
+#portraitGoV01 .v048-quick{max-width:none;padding:8px 10px}
+#portraitGoV01 .v048-twocol{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#portraitGoV01 .v048-quickcard{min-width:0;padding:10px}
+#portraitGoV01 .v048-qhead strong{font-size:clamp(14px,2.3vw,20px)}
+#portraitGoV01 .v048-keyline{min-height:0;font-size:13px;margin-bottom:4px}
+#portraitGoV01 .v048-caption{min-height:0;margin-top:3px;font-size:11px}
+#portraitGoV01 .v048-buttons{margin-top:5px}
+#portraitGoV01 .v048-buttons button,#portraitGoV01 .v0459-lasttrain button{min-height:32px;padding:5px 8px;background:#315b76;color:#eef6ff;border:1px solid #557b91;border-radius:5px}
+#portraitGoV01 .v0459-more{font-size:12px;color:#d6e7f2;line-height:1.35;white-space:pre-line}
+#portraitGoV01 .v0459-more:empty{display:none}
+#portraitGoV01 .v0459-connection{font-size:11px;color:#accbdd;margin-top:7px}
+#portraitGoV01 .v0459-connection>summary{cursor:pointer}
+#portraitGoV01 .v0459-lasttrain{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px}
+#portraitGoV01 .v0459-lasttrain>span{grid-column:1/-1}
+#portraitGoV01 .v0459-lasttrain{display:grid;grid-template-columns:1fr auto;gap:3px;font-size:12px;border-top:1px solid #44667a;margin-top:5px;padding-top:6px}
+#portraitGoV01 .v0459-lasttrain strong{font-size:13px;color:#e8f0f9}
+#portraitGoV01 .v0459-lasttrain button{align-self:center;padding:5px 8px;min-height:32px;background:#315b76;color:#eef6ff;border:1px solid #557b91;border-radius:5px}
+#portraitGoV01 .v048-disclaimer{font-size:11px}
+#portraitGoV01 .v0440-title strong{font-size:clamp(18px,2.7vw,24px)}
+#portraitGoV01 .v0459-column-head,#portraitGoV01 .v0459-candidate-row{display:grid;grid-template-columns:1.45fr 1fr 1.3fr .8fr;gap:8px;align-items:center}
+#portraitGoV01 .v0459-column-head{padding:7px 9px;background:#213950;border-radius:6px;color:#c7def0;font-weight:650;font-size:12px;margin-bottom:6px;text-align:center}
+#portraitGoV01 .v0459-column-head span:first-child{text-align:left}
+#portraitGoV01 .v0459-candidate{background:#142b40;padding:9px 10px}
+#portraitGoV01 .v0459-candidate:first-child{border:2px solid #65e4be;background:#153c40}
+#portraitGoV01 .v0459-candidate-row .v0440-candidate-head{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+#portraitGoV01 .v0459-candidate-row .v0440-candidate-head strong{font-size:clamp(15px,2.3vw,20px);line-height:1.25}
+#portraitGoV01 .v0459-cell{min-width:0;text-align:center;border-left:1px solid #466981;padding-left:5px;display:flex;flex-direction:column;gap:3px}
+#portraitGoV01 .v0459-cell strong{font-size:clamp(13px,1.8vw,18px);white-space:normal;overflow-wrap:anywhere}
+#portraitGoV01 .v0459-cell small{font-size:10px;color:#bad0e2;line-height:1.2}
+#portraitGoV01 .v0459-cell-label{display:none;color:#b8d2df;font-size:11px}
+#portraitGoV01 .v0459-reason{font-size:12px;display:flex;gap:7px;align-items:baseline;margin-top:7px;color:#cce9e6}
+#portraitGoV01 .v0459-reason b{background:#2b655c;padding:1px 6px;border-radius:4px;white-space:nowrap}
+#portraitGoV01 .v0459-note{font-size:11px;color:#bed0dd;line-height:1.45;margin:7px 0}
+#portraitGoV01 .v0459-hourly{border:1px solid #4f7186;background:#10283f;padding:12px;border-radius:9px;margin-top:12px}
+#portraitGoV01 .v0459-hourly h2{display:block;font-size:clamp(16px,2.5vw,21px);margin:0 0 9px}
+#portraitGoV01 .v0459-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+#portraitGoV01 .v0459-stats>div{border:1px solid #4d6c83;border-radius:7px;padding:8px 3px;background:#1d364c;display:flex;flex-direction:column;gap:5px;text-align:center}
+#portraitGoV01 .v0459-stats strong{font-size:clamp(16px,2.6vw,24px);font-variant-numeric:tabular-nums}
+#portraitGoV01 .v0459-chart{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}
+#portraitGoV01 .v0459-chart-cell{display:flex;flex-direction:column;align-items:center;gap:3px;color:#c8dbed;min-width:0}
+#portraitGoV01 .v0459-chart-cell.current{color:#8bf1cd;font-weight:700}
+#portraitGoV01 .v0459-chart-cell b{font-size:12px;white-space:nowrap}
+#portraitGoV01 .v0459-chart-cell small{font-size:10px;color:#bbd0e0}
+#portraitGoV01 .v0459-chart-track{height:62px;width:100%;border-bottom:1px solid #7691aa;display:flex;align-items:flex-end;justify-content:center;background:#132b40;border-radius:3px}
+#portraitGoV01 .v0459-chart-bar{width:55%;background:#578fa7;border-radius:4px 4px 0 0;min-height:0}
+#portraitGoV01 .current .v0459-chart-bar{background:#6be5bd}
+#portraitGoV01 .v0459-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}
+#portraitGoV01 .v0459-nav button{padding:10px 3px;min-height:44px;font-size:clamp(12px,1.8vw,16px);background:#233b53;color:#e9f3fe;border:1px solid #4e728a;border-radius:8px;font-weight:700}
+#portraitGoV01 .v0459-nav button.selected{background:#9ae9c5;color:#112b2c}
+@media(max-width:520px){
+ #portraitGoV01 .v0459-column-head{display:none}
+ #portraitGoV01 .v0459-candidate-row{grid-template-columns:repeat(3,minmax(0,1fr))}
+ #portraitGoV01 .v0459-candidate-row .v0440-candidate-head{grid-column:1/-1;flex-direction:row;align-items:baseline;flex-wrap:wrap}
+ #portraitGoV01 .v0459-cell{border-left:0;padding:3px 0;border-top:1px solid #466981}
+ #portraitGoV01 .v0459-cell-label{display:block}
+ #portraitGoV01 .v0459-stats{grid-template-columns:repeat(2,1fr)}
+ #portraitGoV01 .v048-twocol{grid-template-columns:1fr}
+}
+</style>
 <script id="v0440GoPredictionScript">
 /* v0.4.41: source-backed historical ride samples in additive area candidate explorer.
  * Not GO-order data, route optimization, or live demand prediction.
@@ -6495,6 +6595,54 @@ wire();window.taxiReconV0431ReplayTest={gather,prepareTracks,classify,positionAt
   const histRead=()=>{try{const arr=JSON.parse(localStorage.getItem(HIST_STORAGE)||'[]');return Array.isArray(arr)?arr:[];}catch{return [];}};
   let extraRides=histRead();
   function allHistory(){const unique=new Map();for(const row of VERIFIED_RIDES.concat(extraRides)){if(!Array.isArray(row)||row.length<7)continue;const k=String(row[0])+'#'+String(row[1]);if(!unique.has(k))unique.set(k,row);}return [...unique.values()];}
+  function hourOf(value){
+    const raw=String(value||'');const local=raw.match(/^20\d{2}[/-]\d{1,2}[/-]\d{1,2}\s+(\d{1,2}):\d{2}/);
+    if(local)return Number(local[1])<24?Number(local[1]):null;
+    const date=new Date(raw);if(!Number.isFinite(date.valueOf()))return null;
+    return Number(new Intl.DateTimeFormat('en-US',{hour:'2-digit',hour12:false,timeZone:'Asia/Tokyo'}).format(date))%24;
+  }
+  function hourStats(hour,area=null){
+    const rides=allHistory().filter(r=>hourOf(r[2])===hour&&(!area||r[5]===area)&&Number.isFinite(Number(r[3]))&&Number(r[3])>0);
+    const days=new Set(rides.map(r=>r[0])).size, sum=rides.reduce((n,r)=>n+Number(r[3]),0);
+    return {n:rides.length,days,meanFare:rides.length?sum/rides.length:null,meanSales:days?sum/days:null};
+  }
+  let routeRows=null;
+  function routeStats(hour,area){
+    if(!routeRows){try{routeRows=JSON.parse(by('v0442RouteEvidenceData')?.textContent||'[]');}catch(_){routeRows=[];}}
+    const rows=routeRows.filter(r=>r.a===area&&hourOf(r.e)===hour&&!r.cc&&Number.isFinite(r.min)&&r.min>0);
+    const covered=rows.filter(r=>Number.isFinite(r.km)&&r.km>=0&&Number.isFinite(r.obs)&&r.obs/r.min>=.8);
+    return {n:rows.length,days:new Set(rows.map(r=>r.d)).size,meanMin:rows.length?rows.reduce((s,r)=>s+r.min,0)/rows.length:null,
+      distanceN:covered.length,meanKm:covered.length?covered.reduce((s,r)=>s+r.km,0)/covered.length:null};
+  }
+  function sampleConfidence(h,g){
+    if(!h.n)return '未算出';
+    if(h.days>=5&&h.n>=10&&g.days>=3&&g.distanceN>=5)return '比較可';
+    return '低';
+  }
+  const yen=value=>value===null?'— 円':Math.round(value).toLocaleString('ja-JP')+'円';
+  const valueUnit=(v,unit)=>v===null?'— '+unit:v.toFixed(1)+unit;
+  function paintHourly(h){
+    const model=hourStats(h),total=new Set(allHistory().map(r=>r[0])).size;
+    by('v0459Clock').textContent=stamp();
+    by('v0459HourTitle').textContent=h+'時台';
+    by('v0459Days').textContent=model.days?model.days+'日':'— 日';
+    by('v0459Rides').textContent=model.n?model.n+'件':'— 件';
+    by('v0459Fare').textContent=yen(model.meanFare);
+    by('v0459Sales').textContent=yen(model.meanSales);
+    by('v0459HistoryNote').textContent='明細登録 '+total+'乗務日／乗車記録のある日のみ集計。未記録日は平均に含めません。';
+    const hours=[(h+22)%24,(h+23)%24,h,(h+1)%24],stats=hours.map(x=>hourStats(x));
+    const max=Math.max(1,...stats.map(x=>x.meanSales||0));
+    const chart=by('v0459Chart');chart.replaceChildren();
+    stats.forEach((data,i)=>{
+      const cell=document.createElement('div');cell.className='v0459-chart-cell'+(i===2?' current':'');
+      const amount=document.createElement('b');amount.textContent=yen(data.meanSales);
+      const track=document.createElement('div');track.className='v0459-chart-track';
+      const bar=document.createElement('div');bar.className='v0459-chart-bar';bar.style.height=data.meanSales===null?'0%':Math.max(4,100*data.meanSales/max)+'%';
+      track.append(bar);const label=document.createElement('span');label.textContent=hours[i]+'時';
+      const detail=document.createElement('small');detail.textContent=data.days?data.days+'日':'記録なし';
+      cell.append(amount,track,label,detail);chart.append(cell);
+    });
+  }
   function getEvidence(area,period){const rs=allHistory().filter(r=>r[5]===area&&r[6]===period);return {n:rs.length,days:new Set(rs.map(r=>r[0])).size,fares:rs.reduce((sum,r)=>sum+(Number(r[3])||0),0)};}
   function historyMessage(area,period){const h=getEvidence(area,period);return h.n?'過去の同時間帯の乗車記録：'+h.n+'件／'+h.days+'乗務日（運賃平均約'+Math.round(h.fares/h.n).toLocaleString('ja-JP')+'円）。町名による参考分類。':'過去の同時間帯の乗車明細は未確認（需要がない意味ではありません）。';}
   function historyBonus(area,period){const h=getEvidence(area,period);return h.days>=2&&h.n>=2?Math.min(.45,.12*Math.log2(h.n+1)):0;}
@@ -6536,15 +6684,19 @@ wire();window.taxiReconV0431ReplayTest={gather,prepareTracks,classify,positionAt
   const rail=freshState('#portraitGoV01 .v048RailStatus');
   health.textContent='交通：'+road+' ／ 鉄道：'+rail+'。これらの取得状況は確認用で、候補順位には未反映。';
  }
- function clear(reason){summary.textContent=reason;list.replaceChildren();const p=document.createElement('p');p.className='v0440-empty';p.textContent='GPS現在地が確定するまでは営業候補を表示しません。';list.appendChild(p);paintHealth();}
+ function clear(reason){by('v0459Area').textContent='未取得';by('v0459Heading').textContent='未確認';summary.textContent=reason;list.replaceChildren();const p=document.createElement('p');p.className='v0440-empty';p.textContent='GPS現在地が確定するまでは営業候補を表示しません。';list.appendChild(p);paintHealth();}
  function paint(){
-  paintHealth();
+  const h=jstHour();paintHourly(h);
+  paintHealth();paintTrain();
   if(!mainGpsActive()){clear('総合GPSがOFFです。GPSをONにしてから営業予測を確認してください。');return;}
-  const p=point(),h=jstHour();
+  const p=point();
   if(!p){clear('現在地未取得｜GPSをONにして「最新表示・接続確認」で測位してください');return;}
   if(p.accuracy!==null&&p.accuracy>250){clear('GPS精度が低いため候補を保留（約'+Math.round(p.accuracy)+'m）');return;}
   // Coarse operating bounding box, not an administrative ward boundary check.
   if(p.lat<35.48||p.lat>35.85||p.lon<139.52||p.lon>139.96){clear('東京23区・三鷹・武蔵野の参考範囲外です。移動候補は表示しません。');return;}
+  const nearby=AREAS.map(a=>({name:a.name,distance:km(p.lat,p.lon,a.lat,a.lon)})).sort((a,b)=>a.distance-b.distance)[0];
+  by('v0459Area').textContent=nearby&&nearby.distance<=1.5?nearby.name+'付近':'参照エリア外／道路名を確認';
+  by('v0459Heading').textContent=Number.isFinite(p.heading)?compass(p.heading)+'向き '+Math.round(p.heading)+'°':'未確認';
   const matched=AREAS.map(a=>({...a,distance:km(p.lat,p.lon,a.lat,a.lon),direction:compass(bearing(p.lat,p.lon,a.lat,a.lon)),fit:hourFit(a,h)}))
     .filter(x=>x.distance<=6).sort((a,b)=>{
       // Distance dominates. Time-of-day tie-breaks only among nearby areas.
@@ -6556,14 +6708,30 @@ wire();window.taxiReconV0431ReplayTest={gather,prepareTracks,classify,positionAt
   summary.textContent=band(h)+'｜'+stamp()+'表示更新｜GPS '+(p.at?new Date(p.at).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Tokyo'}):'更新時刻未確認')+'｜'+(p.accuracy===null?'精度未確認':'精度 約'+Math.round(p.accuracy)+'m')+'｜実GO需要は未取得';
   if(!matched.length){const em=document.createElement('p');em.className='v0440-empty';em.textContent='半径6km以内に登録済みの候補エリアがありません。無理な遠距離移動は提案しません。';list.appendChild(em);return;}
   matched.forEach((a,i)=>{
-   const card=document.createElement('div');card.className='v0440-candidate';
+   const card=document.createElement('div');card.className='v0440-candidate v0459-candidate';card.dataset.v0459='yes';
+   const row=document.createElement('div');row.className='v0459-candidate-row';
    const top=document.createElement('div');top.className='v0440-candidate-head';
    const name=document.createElement('strong');name.textContent=(i+1)+'. '+a.name;
    const distance=document.createElement('span');distance.className='v0440-distance';distance.textContent=a.distance<.7?'現在地付近':'約'+a.distance.toFixed(1)+'km・'+a.direction+'方面';
    top.append(name,distance);
-   const desc=document.createElement('div');desc.className='v0440-details';desc.textContent=periodNote(a,h)+'。周辺の幹線例：'+a.road+'。';
-    const ev=document.createElement('div');ev.className='v0440-details v0441-evidence';ev.textContent=historyMessage(a.name,band(h));
-   card.append(top,desc,ev);
+   const history=hourStats(h,a.name),gps=routeStats(h,a.name),confidence=sampleConfidence(history,gps);
+   function metric(label,value,sub){
+     const box=document.createElement('div');box.className='v0459-cell';
+     const title=document.createElement('span');title.className='v0459-cell-label';title.textContent=label;
+     const main=document.createElement('strong');main.textContent=value;
+     const note=document.createElement('small');note.textContent=sub;
+     box.append(title,main,note);return box;
+   }
+   row.append(top,metric('平均売上／記録日',yen(history.meanSales),history.n?history.n+'件／'+history.days+'日':'明細なし'),
+    metric('次の乗車まで',valueUnit(gps.meanMin,'分')+' / '+valueUnit(gps.meanKm,'km'),gps.n?'時間'+gps.n+'／距離'+gps.distanceN+'区間':'GPX照合なし'),
+    metric('実績信頼度',confidence,confidence==='比較可'?'標本基準を満たす':confidence==='低'?'標本が少ない':'根拠不足'));
+   const desc=document.createElement('div');desc.className='v0459-reason';
+   const reason=document.createElement('b');reason.textContent='理由';
+   const explanation=document.createElement('span');
+   const broader=getEvidence(a.name,band(h));
+   const evidence=history.n?h+'時台 '+history.n+'件／'+history.days+'日。':broader.n?'同時間の明細なし。'+band(h)+'帯 '+broader.n+'件／'+broader.days+'日（参考）。':'同時間の明細なし。';
+   explanation.textContent=periodNote(a,h)+'。'+evidence+' 幹線例：'+a.road+'。';
+   desc.append(reason,explanation);card.append(row,desc);
    if(a.ease==='busy'){
     const warn=document.createElement('div');warn.className='v0440-details v0440-caution';warn.textContent='交差点・停車場所・混雑に注意。道路習熟度を優先。';card.append(warn);
    }
@@ -6581,7 +6749,7 @@ wire();window.taxiReconV0431ReplayTest={gather,prepareTracks,classify,positionAt
     busy=false;
     if(!active())return;
     const c=pos.coords;
-    if(Number.isFinite(c.latitude)&&Number.isFinite(c.longitude))lastFix={lat:c.latitude,lon:c.longitude,at:pos.timestamp||Date.now(),accuracy:Number.isFinite(c.accuracy)?c.accuracy:null,source:'端末測位'};
+    if(Number.isFinite(c.latitude)&&Number.isFinite(c.longitude))lastFix={lat:c.latitude,lon:c.longitude,at:pos.timestamp||Date.now(),accuracy:Number.isFinite(c.accuracy)?c.accuracy:null,source:'端末測位',heading:Number.isFinite(c.heading)?c.heading:null};
     paint();
   },err=>{busy=false;lastFix=null;if(active()){if(!point())clear('GPSを取得できません（権限・位置情報設定・通信を確認）');else paint();}},{enableHighAccuracy:true,maximumAge:10000,timeout:12000});
  }
@@ -6592,9 +6760,37 @@ wire();window.taxiReconV0431ReplayTest={gather,prepareTracks,classify,positionAt
  by('pgRefresh')?.addEventListener('click',()=>{paint();refreshLocation(true);});
  document.addEventListener('visibilitychange',()=>{if(active()){paint();refreshLocation(true);}});
  document.addEventListener('taxi:v035-match-completed',()=>{if(active())paintHealth();});
- const watch=new MutationObserver(()=>{if(active())paintHealth();});
+ function paintTrafficRows(){
+    const roadState=freshState('#portraitGoV01 .v048RoadStatus'),range=text('v035TrafficRange');
+    const roadLines=text('v032Top3').split('\n').filter(line=>/^\s*[23][.．]\s/.test(line));
+    by('v0459RoadMore').textContent=/取得済み|更新推奨/.test(roadState)&&/GPS現在地周辺/.test(range)?roadLines.join('\n'):'';
+    const railState=text('v044OdptState');
+    const railLines=text('v044OdptText').split('\n').filter(line=>/^・/.test(line));
+    by('v0459RailMore').textContent=/^(直近|更新済み|更新推奨)/.test(railState)?railLines.slice(1,2).join(''):'';
+ }
+ for(const id of ['v032Top3','v035TrafficRange','v044OdptState','v044OdptText']){
+    const el=by(id);if(el)new MutationObserver(paintTrafficRows).observe(el,{childList:true,subtree:true,characterData:true});
+ }
+ paintTrafficRows();
+ function paintTrain(){
+    const current=point(),result=window.taxiForecastLastTrain?.(current);
+    by('v0459LastTrain').textContent=!result?'近隣駅・時刻未確認':result.time?
+       result.station+'駅 '+result.line+' '+result.direction+' '+result.time+'（曜日区分・参考）':
+       result.station+'駅 '+(result.hasRecords?'本日の参考終電は経過':'時刻未登録');
+ }
+ by('v0459TrainDetail')?.addEventListener('click',()=>by('pgRailTab')?.click());
+ root.querySelectorAll('[data-v0459-nav]').forEach(button=>button.addEventListener('click',()=>{
+   const nav=button.dataset.v0459Nav;
+   if(nav==='closing')document.querySelector('[data-embedded-view="closing"]')?.click();
+   else if(nav==='forecast')root.scrollIntoView({block:'start'});
+   else document.querySelector('.tab[data-tab="'+(nav==='quick'?'portraitQuickV01':'home')+'"]')?.click();
+ }));
+ const trainEl=by('pgLastTrain');if(trainEl)new MutationObserver(paintTrain).observe(trainEl,{childList:true,subtree:true,characterData:true});
+ const areaEl=by('v0459Area');if(areaEl)new MutationObserver(paintTrain).observe(areaEl,{childList:true,subtree:true,characterData:true});
+ paintTrain();
+ const watch=new MutationObserver(()=>{if(active()){paintHealth();paintTrafficRows();}});
  for(const sel of ['.v048RoadStatus','.v048RailStatus']){const el=root.querySelector(sel);if(el)watch.observe(el,{childList:true,subtree:true,characterData:true});}
- setInterval(()=>{if(active()){paint();refreshLocation(false);}},90000);
+ setInterval(()=>{if(active()){paint();refreshLocation(false);}},60000);
  paint();
 })();
 </script>
@@ -6632,6 +6828,7 @@ wire();window.taxiReconV0431ReplayTest={gather,prepareTracks,classify,positionAt
   const p=period();
   const cards=[...target.querySelectorAll('.v0440-candidate')];
   for(const card of cards){
+   if(card.dataset.v0459==='yes')continue;
    const title=card.querySelector('strong')?.textContent||'';const area=title.replace(/^\d+\.\s*/, '').trim();
    const existing=card.querySelector('.v0442-gps-card');if(existing)existing.remove();
    if(!p)continue;
@@ -6726,6 +6923,6 @@ wire();window.taxiReconV0431ReplayTest={gather,prepareTracks,classify,positionAt
 <script src="./shift-link.js"></script>
 <script src="./cockpit-sync.js?v=0458"></script>
 <script src="./main-links.js?v=0458"></script>
-<script src="./window-links.js?v=0458"></script>
-<script src="./embedded-views.js?v=0458"></script>
+<script src="./window-links.js?v=0459"></script>
+<script src="./embedded-views.js?v=0459"></script>
 </body></html>
