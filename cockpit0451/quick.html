@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#102235">
-<title>営業クイック｜次乗務タイマークリア v0.4.61</title>
+<title>営業クイック｜次乗務タイマークリア v0.4.63</title>
 <style>
 :root{color-scheme:dark;font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN','Yu Gothic',system-ui,sans-serif;--bg:#112235;--card:#1b3047;--line:#4c6881;--muted:#bcd0de}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f6faff;-webkit-text-size-adjust:100%;font-size:13px}
@@ -31,7 +31,7 @@ a{color:#a4dfff}.hint{margin:4px 0;font-size:10px;color:#bed0dc;line-height:1.4}
 .quick-nav a{display:inline-flex;align-items:center;min-height:34px;padding:2px 10px;border:1px solid #6e869d;border-radius:7px;color:#fff;background:#263f55;font-size:13px;font-weight:700;text-decoration:none;touch-action:manipulation}
 </style>
 </head><body><div class="shell">
-<div class="top"><strong>🚕 営業クイック</strong><span class="tag">v0.4.61｜GPS独立確認＋計測クリア</span></div>
+<div class="top"><strong>🚕 営業クイック</strong><span class="tag">v0.4.63｜GPS独立確認＋計測クリア</span></div>
 <div class="grid" aria-label="営業クイック・参考状態">
 <button type="button" class="btn free" data-kind="free" aria-pressed="false">空車<small>—</small></button>
 <button type="button" class="btn ride" data-kind="ride" aria-pressed="false">実車<small>—</small></button>
@@ -43,8 +43,8 @@ a{color:#a4dfff}.hint{margin:4px 0;font-size:10px;color:#bed0dc;line-height:1.4}
 <div class="metric gps-metric" id="gpsMetric" aria-label="GPSの更新状態・メイン連携状況"><span id="gpsSourceLabel">小窓GPS</span><b id="gpsStatus" class="gps-unknown">● 未確認</b><small id="gpsAge">更新時刻なし</small></div></div>
 <div class="status-row"><div id="status" class="status" role="status" aria-live="polite">休憩は15分以内は累積0、15分を超えると全時間を加算します。</div><button id="resetTimer" class="reset-btn" type="button" title="乗務開始前に回送・休憩の累積を保存して0に戻す">↻ 計測クリア</button></div>
 <nav class="quick-nav" aria-label="コックピット画面">
-<a href="./index.html?v=0461" target="taxiCockpit0451Main" data-quick-destination="main">メイン</a>
-<a href="./closing.html?v=0461" target="taxiCockpit0451Closing" data-quick-destination="closing">締め作業</a>
+<a href="./index.html?v=0463" target="taxiCockpit0451Main" data-quick-destination="main">メイン</a>
+<a href="./closing.html?v=0463" target="taxiCockpit0451Closing" data-quick-destination="closing">締め作業</a>
 <span id="quickPeerStatus" style="align-self:center;flex:1;min-width:0;font-size:11px;color:#a9e3cb" aria-live="polite">メイン連携確認中</span>
 </nav>
 <details class="details"><summary>連携確認・操作ログ・注意事項</summary>
@@ -146,7 +146,7 @@ function switchMode(kind){
   render();
  }catch(e){notify('⚠ 保存できませんでした：'+e.message+'。総合画面で確認してください。','alert');render();}
 }
-// v0.4.61: Safe, explicit next-shift clearing from the independent small window.
+// v0.4.63: Safe, explicit next-shift clearing from the independent small window.
 // Same keys as the main cockpit; DO NOT clear the official diary, GPS logs,
 // GO ride logs, audit history, or the small window's independent GPS watcher.
 function resetTimersForNextShift(){
@@ -173,7 +173,7 @@ function resetTimersForNextShift(){
    const ident=String(before.shiftDate||'日付不明')+'|'+Math.round(before.totalMs);
    if(!oldHistory.some(x=>x.id===ident)){
     const entry={id:ident,shiftDate:before.shiftDate||null,totalMs:before.totalMs,
-     archivedAt:new Date(now).toISOString(),reason:'独立営業クイックv0.4.61：次乗務クリア'};
+     archivedAt:new Date(now).toISOString(),reason:'独立営業クイックv0.4.63：次乗務クリア'};
     persist(K.shiftHistory,oldHistory.concat([entry]).slice(-120));
    }
   }
@@ -295,5 +295,5 @@ else {
  window.parent.postMessage({type:'taxi-quick-ready-v0453',available},location.origin);
 }
 })();
-</script><script src="./window-links.js?v=0461"></script>
+</script><script src="./window-links.js?v=0463"></script>
 </body></html>
