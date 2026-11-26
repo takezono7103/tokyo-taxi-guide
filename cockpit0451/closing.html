@@ -2,7 +2,7 @@
 <html lang="ja">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>東京タクシー・コックピット 締め作業 v0.4.64</title>
+<title>東京タクシー・コックピット 締め作業 v0.4.66</title>
 <style>
 :root{color-scheme:dark;font:16px system-ui;background:#0b171d;color:#eef6f7}
 [hidden]{display:none!important}*{box-sizing:border-box}body{margin:0}main{max-width:960px;margin:auto;padding:24px 18px 40px}
@@ -27,10 +27,10 @@ button:disabled{opacity:.5;cursor:default}.pdf-tools{display:flex;gap:10px;flex-
 </style>
 <main>
 <nav class="pdf-tools" aria-label="営業画面" id="closing-navigation">
-<a class="action" href="./index.html?v=0464" target="taxiCockpit0451Main" data-focus-main>メイン画面</a>
-<a class="action" href="./quick.html?v=0464" target="taxiCockpit0451Quick">営業クイック小窓</a>
+<a class="action" href="./index.html?v=0466" target="taxiCockpit0451Main" data-focus-main>メイン画面</a>
+<a class="action" href="./quick.html?v=0466" target="taxiCockpit0451Quick">営業クイック小窓</a>
 </nav>
-<header><p>東京タクシー・コックピット · v0.4.64 営業運用版</p><h1>締め作業</h1><p id="closingPeerStatus" aria-live="polite">メイン・営業クイック連携確認中</p></header>
+<header><p>東京タクシー・コックピット · v0.4.66 営業運用版</p><h1>締め作業</h1><p id="closingPeerStatus" aria-live="polite">メイン・営業クイック連携確認中</p></header>
 <section aria-labelledby="pdf-title">
 <h2 id="pdf-title">日報PDFをCSVに変換</h2>
 <p class="muted">飛鳥交通・品川営業所の運転日報向けです。読み取った時刻・金額・地点は原本と照合してください。</p>
@@ -42,6 +42,11 @@ button:disabled{opacity:.5;cursor:default}.pdf-tools{display:flex;gap:10px;flex-
 <label>乗務日<input id="pdf-date" type="date"></label>
 <label>出庫時刻<input id="pdf-departure" type="time"></label>
 <label>日報の税込収入（円）<input id="pdf-paper" type="text" inputmode="numeric"></label>
+<label>帰庫時刻<input id="pdf-arrival" type="time"></label>
+<label>税抜営収（円）<input id="pdf-net" type="number" min="0" step="1"></label>
+<label>実車率（％）<input id="pdf-rate" type="number" min="0" max="100" step="0.1"></label>
+<label>日報休憩合計（分）<input id="pdf-rest-total" type="number" min="0" step="1"></label>
+<p class="muted">OCR結果を原本で確認し、空欄・誤読のみ修正してください。</p>
 </div>
 <div class="pdf-tools">
 <a id="pdf-original" href="#" target="_blank" rel="noopener">元の日報PDFを開く</a>
@@ -83,6 +88,15 @@ button:disabled{opacity:.5;cursor:default}.pdf-tools{display:flex;gap:10px;flex-
 <dl class="stats" id="stats"></dl>
 <div class="pdf-tools"><button id="confirm-closing" class="action" type="button">締め集計をメインに登録</button></div>
 <p id="closing-status" aria-live="polite"></p>
+<h3>営業予測への登録</h3>
+<p class="muted">日報から取得した値を確認してください。空欄のみ手入力できます。既存乗務日への重複登録は行いません。</p>
+<label>税抜営収（円）<input id="forecast-net" type="number" min="0" step="1" inputmode="numeric"></label>
+<label>休憩を除く乗務時間（分）<input id="forecast-minutes" type="number" min="1" max="2880" step="1"></label>
+<label>日報実車率（％・任意）<input id="forecast-rate" type="number" min="0" max="100" step="0.1"></label>
+<label>乗務区分<select id="forecast-kind"><option>通常</option><option>途中終了</option></select></label>
+<label><input id="forecast-confirm" type="checkbox">日報原本と全明細を照合し、GPXがある場合は同一乗務の記録であることを確認しました</label>
+<button id="forecast-save" class="action" type="button">確認済み実績を営業予測へ登録</button>
+<p id="forecast-status" role="status"></p>
 </section>
 <section id="route" hidden aria-labelledby="route-title">
 <h2 id="route-title">走行軌跡</h2>
@@ -93,6 +107,7 @@ button:disabled{opacity:.5;cursor:default}.pdf-tools{display:flex;gap:10px;flex-
 </section>
 </main>
 <script src="./shift-link.js"></script>
+<script src="./forecast-archive.js?v=0466"></script>
 <script src="./cockpit-sync.js?v=0458"></script>
 <script>
 'use strict';
@@ -165,7 +180,8 @@ function parseReport(source) {
       cash:number(get('現金円'), '現金'), unpaid:number(get('未収円'), '未収'),
       revenue:number(get('通常乗車税込金額円'), '売上'),
       rest:number(get('休憩分'), '休憩'),
-      paper:get('日報税込収入円') ? number(get('日報税込収入円'), '日報税込収入') : null
+      paper:get('日報税込収入円') ? number(get('日報税込収入円'), '日報税込収入') : null,
+      net:get('日報税抜営収円'),departure:get('日報出庫時刻'),arrival:get('日報帰庫時刻'),rate:get('日報実車率'),restTotal:get('日報休憩合計分')
     };
   });
   if (new Set(records.map(record => record.date)).size !== 1) {
@@ -250,8 +266,22 @@ function validateLinkedDate(){
   if(!externalTrackName)tracks=[];
   byId('linked-shift-status').textContent='日報とGPS乗務の日付が異なるため、GPSの引き継ぎを解除しました。';
 }
+function calculateWorkMinutes(departure,arrival,rest,total){
+ const clock=s=>/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(s)?Number(s.slice(0,2))*60+Number(s.slice(3)):null;
+ const a=clock(departure),b=clock(arrival);if(a===null||b===null||a===b||!/^\d+$/.test(rest)||Number(rest)!==total)return null;
+ const m=(b-a+1440)%1440-total;return m>0?m:null;
+}
 function applyReport(data){
+  byId('forecast-confirm').checked=false;
   records=data;
+  for(const id of ['forecast-net','forecast-minutes','forecast-rate'])byId(id).value='';
+  const meta=data.find(r=>r.net||r.departure||r.arrival||r.rate||r.restTotal);
+  if(meta){
+    if(/^\d+$/.test(meta.net))byId('forecast-net').value=meta.net;
+    if(/^\d{1,3}(?:\.\d)?$/.test(meta.rate)&&Number(meta.rate)<=100)byId('forecast-rate').value=meta.rate;
+    const minutes=calculateWorkMinutes(meta.departure,meta.arrival,meta.restTotal,data.filter(r=>r.kind==='休').reduce((a,r)=>a+r.rest,0));
+    if(minutes!==null)byId('forecast-minutes').value=minutes;
+  }
   byId('paper').value='';
   byId('closing-status').textContent='';
   validateLinkedDate();
@@ -390,6 +420,7 @@ function render() {
 
 function addFileInput(id, parse, apply) {
   const input = byId(id);
+  input.addEventListener('change',()=>{byId('forecast-confirm').checked=false;});
   let revision = 0;
   input.addEventListener('change', async () => {
     const current = ++revision;
@@ -459,6 +490,7 @@ async function refreshShifts(){
   }
 }
 async function loadLinkedTrack(){
+  byId('forecast-confirm').checked=false;
   const status=byId('linked-shift-status');
   if(updatingTrack)return;
   const shift=finishedShifts.find(item=>item.id===byId('linked-shift').value);
@@ -530,6 +562,51 @@ byId('confirm-closing').addEventListener('click',async()=>{
     publishClosingPeer();
   }catch(error){status.textContent='締め集計を保存できません。'+error.message;}
 });
+function forecastStamp(ms){return new Date(ms+32400000).toISOString().replace('Z','+09:00');}
+function forecastObserve(tracks,start,end){
+ let km=0,obs=0,nightKm=0,lastEnd=-Infinity;
+ const pairs=[];for(const segment of tracks)for(let i=1;i<segment.length;i++)pairs.push([segment[i-1],segment[i]]);
+ pairs.sort((a,b)=>a[0].time-b[0].time);
+ for(const [a,b] of pairs){
+  const dt=b.time-a.time;if(dt<=0||dt>120000||distance(a,b)*3600000/dt>145)continue;
+  const lo=Math.max(start,a.time,lastEnd),hi=Math.min(end,b.time);if(hi<=lo)continue;
+  const d=distance(interpolate(a,b,lo),interpolate(a,b,hi));km+=d;obs+=(hi-lo)/60000;lastEnd=hi;
+  const h=new Date((lo+hi)/2+32400000).getUTCHours();if(h>=22||h<5)nightKm+=d;
+ }return {km,obs,nightKm};
+}
+function buildClosingForecast(records,tracks,fields){
+ const d=records[0]?.date;if(!d||!/^20\d{2}-\d{2}-\d{2}$/.test(d))throw Error('乗務日を確認');
+ const rs=records.filter(r=>r.kind==='実車').sort((a,b)=>a.start-b.start);
+ if(!rs.length||rs.some(r=>!r.from||!r.id||r.revenue<=0||!Number.isFinite(r.start)||!Number.isFinite(r.end)))throw Error('通常乗車明細を確認');
+ if(new Set(rs.map(r=>Number(r.id))).size!==rs.length)throw Error('乗車Noが重複');
+ if(records.reduce((a,r)=>a+r.cash+r.unpaid,0)!==fields.gross)throw Error('現金＋未収が日報税込収入と一致しません');
+ const rides=rs.map(r=>({d,n:String(r.id),at:forecastStamp(r.start),fare:r.revenue,place:r.from,scope:'full'}));
+ const transitions=[];
+ for(let i=1;i<rs.length;i++){
+  const a=rs[i-1],b=rs[i];if(b.start<=a.end)continue;
+  const g=forecastObserve(tracks,a.end,b.start);
+  transitions.push({d,n:String(b.id),s:forecastStamp(a.end),e:forecastStamp(b.start),min:(b.start-a.end)/60000,km:g.obs?g.km:null,obs:g.obs||null,dest:b.from,cc:records.some(r=>r.kind==='迎C'&&r.start<b.start&&r.end>a.end)});
+ }
+ const start=Math.min(...records.map(r=>r.start)),end=Math.max(...records.map(r=>r.end)),g=forecastObserve(tracks,start,end);
+ return {schema:'tokyo-taxi-forecast-archive-v1',through:d,source:'締め作業・原本照合済',daily:[{d,kind:fields.kind,group:'未分類',gross:fields.gross,net:fields.net,rides:rs.length,rest:records.filter(r=>r.kind==='休').reduce((a,r)=>a+r.rest,0),minutes:fields.minutes,rate:fields.rate}],routeDays:g.obs?[{d,km:g.km,nightKm:g.nightKm,coverage:'日報明細の始終時刻内・観測分'}]:[],rides,transitions};
+}
+byId('forecast-save').addEventListener('click',()=>{
+ const status=byId('forecast-status');
+ try{
+  if(!byId('forecast-confirm').checked)throw Error('原本照合の確認が必要です');
+  if(updatingTrack||Object.values(errors).some(Boolean))throw Error('読込状態を確認してください');
+  validateLinkedDate();
+  const d=records[0]?.date;
+  if(!d)throw Error('日報を読み込んでください');
+  const archive=window.taxiForecastArchive;
+  if(archive.error())throw Error('既存営業データを読み込めません');
+  if(['daily','routeDays','rides','transitions'].some(k=>archive.get()[k].some(r=>r.d===d)))throw Error('この乗務日は登録済みです。既存データを維持します');
+  const val=id=>{const x=byId(id);if(!x.value||!x.validity.valid)throw Error('日報の集計値を入力してください');return Number(x.value);};
+  const gross=records.find(r=>r.paper!==null)?.paper??val('paper');
+  const bundle=buildClosingForecast(records,tracks,{gross,net:val('forecast-net'),minutes:val('forecast-minutes'),rate:byId('forecast-rate').value?val('forecast-rate'):null,kind:byId('forecast-kind').value});
+  archive.load(JSON.stringify(bundle),{appendOnly:true});status.textContent=d+' 営業予測に登録済み（通常乗車'+bundle.rides.length+'件／区間'+bundle.transitions.length+'件）。同じサイトのメインに反映されます。';byId('forecast-confirm').checked=false;
+ }catch(e){status.textContent='未登録：'+e.message;}
+});
 const publishClosingPeer=window.taxiCockpitSync.attach('closing',()=>{
  const latest=shiftLink.latestClosing();
  return {registeredDate:latest?.date||'',registeredAt:latest?.savedAt||0};
@@ -551,6 +628,6 @@ select.addEventListener('change', drawTrack);
 window.addEventListener('resize', drawTrack);
 </script>
 <script defer src="./ocr/tesseract.min.js"></script>
-<script type="module" src="./pdf-report.mjs"></script>
-<script src="./window-links.js?v=0464"></script>
+<script type="module" src="./pdf-report.mjs?v=0466"></script>
+<script src="./window-links.js?v=0466"></script>
 </html>

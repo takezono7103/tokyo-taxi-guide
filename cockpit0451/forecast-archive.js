@@ -55,8 +55,11 @@
       loadError='';
     } catch(error) { state=empty();loadError=String(error.message||error); }
   }
-  function load(text) {
+  function load(text,options={}) {
+    read();
+    on(!loadError,'既存データ読込失敗');
     const incoming=validate(JSON.parse(String(text).replace(/^\uFEFF/,'')));
+    if(options.appendOnly){for(const type of ['daily','routeDays','rides','transitions']){const dates=new Set(state[type].map(r=>r.d));on(!incoming[type].some(r=>dates.has(r.d)),'登録済み乗務日');}}
     const merged={schema,through:[state.through,incoming.through].sort().pop(),source:incoming.source};
     for (const type of ['daily','routeDays','rides','transitions']) {
       const rows=new Map(state[type].map(row=>[rowKey(row,type),row]));

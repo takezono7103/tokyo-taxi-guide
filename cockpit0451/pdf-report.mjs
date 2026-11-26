@@ -3,7 +3,7 @@ import {extractCells,collectCells,numbersOnly,summaryImage} from './pdf-grid.mjs
 const columns=['区分','No','開始','終了','迎','開始地点','終了地点','営業km','現金','未収','ETC','人員','備考'];
 const headers=['乗務日','日報行順','区分','No','開始日時JST','終了日時JST','迎コード','開始地点',
  '終了地点','営業距離km','現金円','未収円','ETC円','日報人員','備考','迎C調整円',
- '通常乗車税込金額円','休憩分','日報税込収入円'];
+ '通常乗車税込金額円','休憩分','日報税込収入円','日報税抜営収円','日報出庫時刻','日報帰庫時刻','日報実車率','日報休憩合計分'];
 const kinds=['実車','迎C','休','回'];
 const text=value=>value.normalize('NFKC').trim();
 const digits=value=>text(value).replace(/\D/g,'');
@@ -52,18 +52,30 @@ export function parseSummary(tsv) {
     departure:readClock(parts[1].join('')), paper:digits(parts[2].join(''))};
 }
 
+export function parseExtraSummary(key,raw){
+ const v=text(raw).replace(/\s/g,'');
+ if(key==='arrival')return /^\d{1,2}:\d{2}$/.test(v)?readClock(v):'';
+ if(key==='net')return /^(?:\d{1,3}(?:,\d{3})+|\d{1,8})$/.test(v)?digits(v):'';
+ if(key==='rate'){const m=v.match(/^(\d{1,3}\.\d)%?$/);return m&&Number(m[1])<=100?m[1]:'';}
+ if(key==='restTotal'){const m=v.match(/^(\d{1,2}):([0-5]\d)$/);return m?String(Number(m[1])*60+Number(m[2])):'';}
+ return '';
+}
 const csvCell=value=>{
   const raw=String(value??'');
   const safe=/^[=+@\t\r]|^-(?!\d+$)/.test(raw)?"'"+raw:raw;
   return /[",\r\n]/.test(safe)?'"'+safe.replaceAll('"','""')+'"':safe;
 };
 
-export function makeCsv({date,departure,paper},rows) {
+export function makeCsv({date,departure,paper,net='',arrival='',rate='',restTotal=''},rows) {
   const errors=[];
   if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||!Number.isFinite(Date.parse(date))||
     new Date(date).toISOString().slice(0,10)!==date) errors.push('乗務日を確認してください。');
   if(!/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(departure)) errors.push('出庫時刻を確認してください。');
   if(!/^\d{1,8}$/.test(paper)) errors.push('日報の税込収入を確認してください。');
+  if(net!==''&&(!/^\d{1,8}$/.test(net)||Number(net)>Number(paper)))errors.push('税抜営収を確認してください。');
+  if(arrival!==''&&readClock(arrival)!==arrival)errors.push('帰庫時刻を確認してください。');
+  if(rate!==''&&(!/^\d{1,3}(?:\.\d)?$/.test(rate)||Number(rate)>100))errors.push('実車率を確認してください。');
+  if(restTotal!==''&&(!/^\d{1,4}$/.test(restTotal)||Number(restTotal)>2880))errors.push('日報休憩合計を確認してください。');
   if(!rows.length) errors.push('明細を1行以上入力してください。');
   if(errors.length)return {errors};
   const dayAfter=new Date(Date.parse(date)+86400000).toISOString().slice(0,10);
@@ -93,8 +105,9 @@ export function makeCsv({date,departure,paper},rows) {
     rest+=Number(minutes);
     return [date,index+1,kind,ride?no:'',startAt,endAt,code,from,to,ride?km:'',ride?cash:'',
       ride?credit:'',ride?etc:'',ride?people:'',notes,ride?-canceled:'',ride?gross-canceled:'',
-      minutes,index===0?paper:''];
+      minutes,index===0?paper:'',index===0?net:'',index===0?departure:'',index===0?arrival:'',index===0?rate:'',index===0?restTotal:''];
   });
+  if(restTotal!==''&&Number(restTotal)!==rest)errors.push('日報休憩合計と明細休憩合計が一致しません。');
   return {errors,subtotal,rest,cancellations,number:lastNumber,
     csv:[headers,...records].map(row=>row.map(csvCell).join(',')).join('\r\n')+'\r\n'};
 }
@@ -136,7 +149,7 @@ function invalidate() {
   byId('pdf-check-result').textContent='';
 }
 function getReview() {
-  const info={date:byId('pdf-date').value,departure:byId('pdf-departure').value,paper:byId('pdf-paper').value};
+  const info={date:byId('pdf-date').value,departure:byId('pdf-departure').value,paper:byId('pdf-paper').value,net:byId('pdf-net').value,arrival:byId('pdf-arrival').value,rate:byId('pdf-rate').value,restTotal:byId('pdf-rest-total').value};
   const values=rows.map(row=>[...row.querySelectorAll('input,select')].map(input=>input.value));
   return {info,values};
 }
@@ -188,6 +201,14 @@ async function recognize(file) {
         if(number===1){
           await worker.setParameters({tessedit_pageseg_mode:'11',tessedit_char_whitelist:'0123456789/:.,-'});
           summary=parseSummary((await worker.recognize(summaryImage(rendered,canvas),{}, {tsv:true})).data.tsv);
+          // Numeric cells on the same report form; do not infer a missing value.
+          await worker.setParameters({tessedit_pageseg_mode:'7',tessedit_char_whitelist:'0123456789:,.%'});
+          for(const [key,x,y,w,h] of [['arrival',1050,200,128,49],['net',1228,350,99,26],['rate',1228,469,99,26],['restTotal',1228,503,99,24]]){
+            const c=canvas(w*3,h*3),ctx=c.getContext('2d');
+            ctx.drawImage(rendered,x/1409*rendered.width,y/2000*rendered.height,w/1409*rendered.width,h/2000*rendered.height,0,0,c.width,c.height);
+            const raw=(await worker.recognize(c)).data.text.trim();
+            summary[key]=parseExtraSummary(key,raw);c.width=1;
+          }
         }
         extracted.push(...mergePage(japanese,numeric));
         for(const image of [rendered,layout.canvas]) image.width=1;
@@ -225,6 +246,7 @@ if(form){
       byId('pdf-date').value=summary.date;
       byId('pdf-departure').value=summary.departure;
       byId('pdf-paper').value=summary.paper;
+      for(const [id,key] of [['pdf-net','net'],['pdf-arrival','arrival'],['pdf-rate','rate'],['pdf-rest-total','restTotal']])byId(id).value=summary[key]||'';
       byId('pdf-confirm').checked=false;
       extracted.forEach(editRow);
       form.hidden=false;
