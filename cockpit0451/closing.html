@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>東京タクシー・コックピット 締め作業 v0.4.57</title>
+<style>
+:root{color-scheme:dark;font:16px system-ui;background:#0b171d;color:#eef6f7}
+[hidden]{display:none!important}*{box-sizing:border-box}body{margin:0}main{max-width:960px;margin:auto;padding:24px 18px 40px}
+h1{font-size:clamp(26px,5vw,38px);margin:4px 0 18px}h2{font-size:20px;margin:0 0 14px}
+header p,small,.muted{color:#aac3ca}header p{margin:0}
+section{background:#14262e;border:1px solid #2b434c;border-radius:14px;margin:16px 0;padding:18px}
+.inputs,.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:14px}
+label{display:block}input,select{display:block;margin-top:7px;width:100%;padding:10px;border:1px solid #4b6670;border-radius:8px;background:#0d1d24;color:inherit;font:inherit}
+input::file-selector-button{font:inherit}dl{margin:0}dt{color:#aac3ca;font-size:14px}dd{margin:3px 0 0;font-size:23px;font-weight:650;font-variant-numeric:tabular-nums}
+canvas{width:100%;height:clamp(280px,55vw,525px);display:block;border:1px solid #37545f;border-radius:12px;background:#0c1a21}
+#selected{line-height:1.65}#issues{color:#ffbd84;white-space:pre-line}p:last-child{margin-bottom:0}
+
+button.action,a.action{padding:10px 14px;border:1px solid #587880;border-radius:8px;background:#215360;color:#fff;font:inherit;cursor:pointer;text-decoration:none}
+button:disabled{opacity:.5;cursor:default}.pdf-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0}
+#pdf-original{color:#91e7f1}#pdf-table-wrap{overflow:auto;max-height:520px;border:1px solid #37545f;border-radius:8px}
+#pdf-table{border-collapse:collapse;width:max-content;min-width:100%}
+#pdf-table th,#pdf-table td{text-align:left;padding:5px;border-bottom:1px solid #37545f}
+#pdf-table th{position:sticky;top:0;background:#14262e}
+#pdf-table input,#pdf-table select{margin:0;padding:5px;font-size:16px}
+#pdf-check-result{white-space:pre-line;max-height:260px;overflow:auto}
+#pdf-review label input[type=checkbox]{display:inline-block;width:auto;margin-right:6px}
+</style>
+<main>
+<nav class="pdf-tools" aria-label="営業画面" id="closing-navigation">
+<a class="action" href="./index.html" target="taxiCockpit0451Main" data-focus-main>メイン画面</a>
+<a class="action" href="./quick.html" target="taxiCockpit0451Quick">営業クイック小窓</a>
+</nav>
+<header><p>東京タクシー・コックピット · v0.4.57 営業運用版</p><h1>締め作業</h1><p id="closingPeerStatus" aria-live="polite">メイン・営業クイック連携確認中</p></header>
+<section aria-labelledby="pdf-title">
+<h2 id="pdf-title">日報PDFをCSVに変換</h2>
+<p class="muted">飛鳥交通・品川営業所の運転日報向けです。読み取った時刻・金額・地点は原本と照合してください。</p>
+<label>運転日報 PDF<input id="pdf-file" type="file" accept=".pdf,application/pdf"></label>
+<div class="pdf-tools"><button class="action" id="pdf-start" type="button" disabled>PDFを読み取る</button></div>
+<p id="pdf-status" role="status"></p>
+<div id="pdf-review" hidden>
+<div class="inputs">
+<label>乗務日<input id="pdf-date" type="date"></label>
+<label>出庫時刻<input id="pdf-departure" type="time"></label>
+<label>日報の税込収入（円）<input id="pdf-paper" type="text" inputmode="numeric"></label>
+</div>
+<div class="pdf-tools">
+<a id="pdf-original" href="#" target="_blank" rel="noopener">元の日報PDFを開く</a>
+<button id="pdf-add" class="action" type="button">末尾に明細を追加</button>
+</div>
+<div id="pdf-table-wrap" tabindex="0" aria-label="読み取った明細（横スクロール）">
+<table id="pdf-table"><thead><tr><th scope="col">区分</th><th scope="col">No</th><th scope="col">開始</th><th scope="col">終了</th><th scope="col">迎</th><th scope="col">開始地点</th><th scope="col">終了地点</th><th scope="col">営業km</th><th scope="col">現金</th><th scope="col">未収</th><th scope="col">ETC</th><th scope="col">人員</th><th scope="col">備考</th><th scope="col">操作</th></tr></thead>
+<tbody id="pdf-rows"></tbody></table>
+</div>
+<div class="pdf-tools"><button id="pdf-check" class="action" type="button">明細を検算する</button></div>
+<p id="pdf-check-result" aria-live="polite"></p>
+<label><input id="pdf-confirm" type="checkbox">原本と読み取り結果を照合しました</label>
+<div class="pdf-tools">
+<button id="pdf-apply" class="action" type="button">照合済み明細を締め集計に反映</button>
+<button id="pdf-save" class="action" type="button">照合済みCSVを保存</button>
+<button id="pdf-draft" class="action" type="button">OCR下書きCSVを保存</button>
+</div>
+<p class="muted">誤読や未入力が残る場合も、下書きCSVに書き出せます。</p>
+<p id="pdf-save-status" aria-live="polite"></p>
+</div>
+</section>
+<section aria-labelledby="load-title">
+<h2 id="load-title">ファイルを読み込む</h2>
+<div class="inputs">
+<label>日報明細 CSV<input id="csv" type="file" accept=".csv,text/csv"></label>
+<label>走行記録 GPX<input id="gpx" type="file" accept=".gpx,application/gpx+xml,text/xml"></label>
+<label id="paper-field" hidden>日報の税込収入（円）<input id="paper" type="number" min="0" step="1" inputmode="numeric" placeholder="日報の集計欄から入力"></label>
+</div>
+<div class="pdf-tools">
+<label>メインの保存済みGPS乗務<select id="linked-shift"><option value="">乗務を選択</option></select></label>
+<button id="load-linked-track" class="action" type="button">GPS記録を引き継ぐ</button>
+</div>
+<p id="linked-shift-status" aria-live="polite"></p>
+<p id="status" class="muted" aria-live="polite">日報CSVとGPXを選択してください。</p>
+<p id="issues" role="alert" hidden></p>
+</section>
+<section id="summary" hidden aria-labelledby="summary-title">
+<h2 id="summary-title">乗務集計 <small id="date"></small></h2>
+<dl class="stats" id="stats"></dl>
+<div class="pdf-tools"><button id="confirm-closing" class="action" type="button">締め集計をメインに登録</button></div>
+<p id="closing-status" aria-live="polite"></p>
+</section>
+<section id="route" hidden aria-labelledby="route-title">
+<h2 id="route-title">走行軌跡</h2>
+<label>表示区間<select id="interval"></select></label>
+<p id="selected" aria-live="polite"></p>
+<canvas id="track" role="img" aria-label="GPS走行軌跡。上が北です。"></canvas>
+<p class="muted">上が北。水色は選択区間、灰色は全走行です。距離はGPS測位点間の概算です。</p>
+</section>
+</main>
+<script src="./shift-link.js"></script>
+<script src="./cockpit-sync.js"></script>
+<script>
+'use strict';
+const byId = id => document.getElementById(id);
+if(window.parent!==window && new URLSearchParams(location.search).get('embed')==='1')byId('closing-navigation').hidden=true;
+const yen = number => number.toLocaleString('ja-JP') + ' 円';
+const clock = new Intl.DateTimeFormat('ja-JP', {
+  timeZone: 'Asia/Tokyo', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit',
+  hourCycle:'h23'
+});
+const timeLabel = time => clock.format(time);
+const duration = minutes => minutes >= 60
+  ? Math.floor(minutes / 60) + '時間' + minutes % 60 + '分'
+  : minutes + '分';
+
+function parseCsv(source) {
+  const rows = [];
+  let row = [], cell = '', quoted = false;
+  for (let index = 0; index < source.length; index++) {
+    const character = source[index];
+    if (character === '"') {
+      if (quoted && source[index + 1] === '"') {
+        cell += '"';
+        index++;
+      } else {
+        quoted = !quoted;
+      }
+    } else if (!quoted && character === ',') {
+      row.push(cell);
+      cell = '';
+    } else if (!quoted && (character === '\r' || character === '\n')) {
+      if (character === '\r' && source[index + 1] === '\n') index++;
+      rows.push([...row, cell]);
+      row = [];
+      cell = '';
+    } else {
+      cell += character;
+    }
+  }
+  if (quoted) throw new Error('CSV内の引用符が閉じていません。');
+  if (row.length || cell) rows.push([...row, cell]);
+  return rows.filter(columns => columns.some(value => value.trim()));
+}
+
+function parseReport(source) {
+  const [header, ...rows] = parseCsv(source.replace(/^\uFEFF/, ''));
+  const required = ['乗務日','区分','No','開始日時JST','終了日時JST','開始地点','終了地点',
+    '現金円','未収円','通常乗車税込金額円','休憩分'];
+  if (!header || !rows.length || required.some(name => !header.includes(name))) {
+    throw new Error('DR261123.csvと同じ列構成の明細CSVを選択してください。');
+  }
+  const columns = new Map(header.map((name, index) => [name, index]));
+  const number = (value, label) => {
+    const result = Number(value);
+    if (!Number.isSafeInteger(result)) throw new Error(label + 'の数値を確認してください。');
+    return result;
+  };
+  const records = rows.map((row, index) => {
+    const get = name => row[columns.get(name)]?.trim() ?? '';
+    const start = Date.parse(get('開始日時JST'));
+    const end = Date.parse(get('終了日時JST'));
+    const kind = get('区分');
+    if (row.length !== header.length || !['実車','休','回','迎C'].includes(kind)
+        || !Number.isFinite(start) || !Number.isFinite(end) || end < start) {
+      throw new Error('明細行 ' + (index + 2) + ' の区分・日時・列数を確認してください。');
+    }
+    return {
+      date:get('乗務日'), kind, id:get('No'), start, end,
+      from:get('開始地点'), to:get('終了地点'),
+      cash:number(get('現金円'), '現金'), unpaid:number(get('未収円'), '未収'),
+      revenue:number(get('通常乗車税込金額円'), '売上'),
+      rest:number(get('休憩分'), '休憩'),
+      paper:get('日報税込収入円') ? number(get('日報税込収入円'), '日報税込収入') : null
+    };
+  });
+  if (new Set(records.map(record => record.date)).size !== 1) {
+    throw new Error('1乗務分の明細CSVを選択してください。');
+  }
+  const paperTotals = new Set(records.map(record => record.paper).filter(total => total !== null));
+  if (paperTotals.size > 1 || [...paperTotals].some(total => total < 0)) {
+    throw new Error('CSVの「日報税込収入円」を確認してください。');
+  }
+  return records;
+}
+
+function parseTrack(source) {
+  const document = new DOMParser().parseFromString(source, 'application/xml');
+  if (document.querySelector('parsererror') || document.documentElement.localName !== 'gpx') {
+    throw new Error('GPXファイルを読み取れません。');
+  }
+  const tracks = [...document.getElementsByTagNameNS('*', 'trkseg')].map(segment =>
+    [...segment.getElementsByTagNameNS('*', 'trkpt')].map(point => ({
+      lat:Number(point.getAttribute('lat')), lon:Number(point.getAttribute('lon')),
+      time:Date.parse(point.getElementsByTagNameNS('*','time')[0]?.textContent),
+      located:point.hasAttribute('lat') && point.hasAttribute('lon')
+    }))).filter(segment => segment.length);
+  if (!tracks.length || tracks.some(segment => segment.some((point, index) =>
+    !point.located || !Number.isFinite(point.time) || !Number.isFinite(point.lat)
+    || !Number.isFinite(point.lon) || Math.abs(point.lat) > 90 || Math.abs(point.lon) > 180
+    || (index > 0 && point.time < segment[index - 1].time)))) {
+    throw new Error('GPXの時刻または座標を確認してください。');
+  }
+  return tracks;
+}
+
+const radians = Math.PI / 180;
+function distance(a, b) {
+  const halfLat = Math.sin((b.lat - a.lat) * radians / 2);
+  const halfLon = Math.sin((b.lon - a.lon) * radians / 2);
+  const h = halfLat ** 2 + Math.cos(a.lat * radians) * Math.cos(b.lat * radians) * halfLon ** 2;
+  return 12742 * Math.asin(Math.sqrt(Math.min(1, h)));
+}
+
+function interpolate(a, b, time) {
+  if (a.time === b.time) return a;
+  const fraction = (time - a.time) / (b.time - a.time);
+  return {lat:a.lat + (b.lat - a.lat) * fraction, lon:a.lon + (b.lon - a.lon) * fraction, time};
+}
+
+function clipTrack(tracks, start, end) {
+  const lines = [];
+  let km = 0;
+  let skipped = false;
+  for (const segment of tracks) {
+    let line = [];
+    for (let index = 1; index < segment.length; index++) {
+      const a = segment[index - 1], b = segment[index];
+      if (b.time < start || a.time > end) continue;
+      if (b.time - a.time > 120000 && distance(a, b) > 0.1) {
+        if (line.length) lines.push(line);
+        line = [];
+        skipped = true;
+        continue;
+      }
+      const from = interpolate(a, b, Math.max(start, a.time));
+      const to = interpolate(a, b, Math.min(end, b.time));
+      if (!line.length) line.push(from);
+      line.push(to);
+      km += distance(from, to);
+    }
+    if (line.length) lines.push(line);
+  }
+  if (lines.length > 1) skipped = true;
+  return {lines, km, skipped};
+}
+
+let records = [], tracks = [], intervals = [];
+let linkedShift = null, finishedShifts = [], externalTrackName = '';
+let updatingTrack = false, routeRevision = 0;
+const shiftLink = window.taxiShiftLink;
+const getDutyDate = shift => shift.dutyDate || shiftLink.tokyo(shift.startAt);
+function validateLinkedDate(){
+  if(!linkedShift || !records.length || getDutyDate(linkedShift)===records[0].date) return;
+  linkedShift=null;
+  if(!externalTrackName)tracks=[];
+  byId('linked-shift-status').textContent='日報とGPS乗務の日付が異なるため、GPSの引き継ぎを解除しました。';
+}
+function applyReport(data){
+  records=data;
+  byId('paper').value='';
+  byId('closing-status').textContent='';
+  validateLinkedDate();
+  if(data.length)refreshShifts();
+}
+const errors = {};
+const select = byId('interval'), canvas = byId('track');
+function renderSummary() {
+  byId('summary').hidden = !records.length;
+  const importedTotal = records.find(record => record.paper !== null)?.paper;
+  byId('paper-field').hidden = !records.length || importedTotal !== undefined;
+  if (!records.length) return;
+  const rides = records.filter(record => record.kind === '実車');
+  const sum = (items, field) => items.reduce((total, item) => total + item[field], 0);
+  const paper = byId('paper');
+  byId('date').textContent = records[0].date;
+  byId('stats').replaceChildren(...[
+    ['日報の税込収入', importedTotal !== undefined ? yen(importedTotal) :
+      (paper.value && paper.validity.valid ? yen(Number(paper.value)) : '未入力')],
+    ['通常乗車の明細合計', yen(sum(rides,'revenue'))],
+    ['明細の現金＋未収', yen(sum(records,'cash') + sum(records,'unpaid'))],
+    ['通常乗車', rides.length + ' 件'],
+    ['迎車キャンセル', records.filter(record => record.kind === '迎C').length + ' 件'],
+    ['日報の休憩合計', duration(sum(records.filter(record => record.kind === '休'),'rest'))]
+  ].map(([label, value]) => {
+    const group = document.createElement('div');
+    const title = document.createElement('dt'), detail = document.createElement('dd');
+    title.textContent = label;
+    detail.textContent = value;
+    group.append(title, detail);
+    return group;
+  }));
+}
+
+function drawTrack() {
+  if (!tracks.length) return;
+  const selection = intervals[Number(select.value) - 1];
+  const clipped = selection ? clipTrack(tracks, selection.start, selection.end) : null;
+  const totalPoints = tracks.reduce((total, segment) => total + segment.length, 0);
+  const first = Math.min(...tracks.map(segment => segment[0].time));
+  const last = Math.max(...tracks.map(segment => segment[segment.length - 1].time));
+  let details = timeLabel(first) + '〜' + timeLabel(last) + ' · ' + totalPoints.toLocaleString() + ' 点';
+  if (selection) {
+    const info = [duration(Math.round((selection.end - selection.start) / 60000))];
+    if (!clipped.lines.length) info.push('該当するGPX区間なし');
+    else {
+      info.push('GPS概算 ' + clipped.km.toFixed(2) + ' km');
+      if (clipped.skipped || clipped.lines[0][0].time > selection.start ||
+          clipped.lines.at(-1).at(-1).time < selection.end) info.push('GPS未記録区間あり');
+    }
+    details = selection.label + ' · ' + info.join(' · ');
+  }
+  byId('selected').textContent = details;
+  canvas.setAttribute('aria-label', details + '。上が北です。');
+
+  const ratio = window.devicePixelRatio || 1;
+  const width = canvas.clientWidth, height = canvas.clientHeight;
+  if (!width || !height) return;
+  canvas.width = Math.round(width * ratio);
+  canvas.height = Math.round(height * ratio);
+  const context = canvas.getContext('2d');
+  context.scale(ratio, ratio);
+  let left = Infinity, right = -Infinity, bottom = Infinity, top = -Infinity;
+  for (const segment of tracks) for (const point of segment) {
+    left = Math.min(left, point.lon);
+    right = Math.max(right, point.lon);
+    bottom = Math.min(bottom, point.lat);
+    top = Math.max(top, point.lat);
+  }
+  const longitudeScale = Math.cos((bottom + top) * radians / 2);
+  const scale = Math.min((width - 52) / (Math.max(right - left, 0.001) * longitudeScale),
+    (height - 52) / Math.max(top - bottom, 0.001));
+  const xy = point => [width / 2 + (point.lon - (left + right) / 2) * longitudeScale * scale,
+    height / 2 - (point.lat - (bottom + top) / 2) * scale];
+  context.strokeStyle = '#20353e';
+  context.lineWidth = 1;
+  context.beginPath();
+  for (let x = 24; x < width; x += 32) {context.moveTo(x, 0); context.lineTo(x, height);}
+  for (let y = 24; y < height; y += 32) {context.moveTo(0, y); context.lineTo(width, y);}
+  context.stroke();
+
+  function linework(lines, color, weight) {
+    context.strokeStyle = color;
+    context.lineWidth = weight;
+    context.lineJoin = 'round';
+    context.lineCap = 'round';
+    for (const line of lines) {
+      context.beginPath();
+      context.moveTo(...xy(line[0]));
+      for (let index = 1; index < line.length; index++) context.lineTo(...xy(line[index]));
+      context.stroke();
+    }
+  }
+  linework(tracks, selection ? '#5b717c' : '#59e2ec', selection ? 1.4 : 2);
+  if (clipped?.lines.length) {
+    linework(clipped.lines, '#59e2ec', 4);
+    const marks = [[clipped.lines[0][0], '#91f0b4'],[clipped.lines.at(-1).at(-1), '#ffc584']];
+    for (const [point, color] of marks) {
+      context.fillStyle = color;
+      context.beginPath();
+      context.arc(...xy(point), 6, 0, 2 * Math.PI);
+      context.fill();
+    }
+  }
+  context.fillStyle = '#c9dadd';
+  context.font = '600 14px system-ui';
+  context.fillText('↑ 北', 14, 24);
+}
+
+function render() {
+  renderSummary();
+  const rides = records.filter(record => record.kind === '実車').sort((a,b) => a.start - b.start);
+  intervals = rides.slice(1).flatMap((ride, index) => {
+    const previous = rides[index];
+    if (ride.start < previous.end) return [];
+    const label = timeLabel(previous.end) + ' ' + previous.to + ' → ' +
+      timeLabel(ride.start) + ' ' + ride.from;
+    return [{start:previous.end, end:ride.start, label}];
+  });
+  select.replaceChildren(new Option('全走行', '0'),
+    ...intervals.map((interval,index) => new Option(interval.label,String(index + 1))));
+  byId('route').hidden = !tracks.length;
+  const messages = Object.values(errors).filter(Boolean);
+  if (records.length && tracks.length && !rides.some(ride => tracks.some(segment =>
+    segment[0].time <= ride.end && segment.at(-1).time >= ride.start))) {
+    messages.push('日報の乗車時刻とGPXの記録範囲が重なっていません。ファイルの日付を確認してください。');
+  }
+  byId('issues').hidden = !messages.length;
+  byId('issues').textContent = messages.join('\n');
+  byId('status').textContent = [
+    records.length ? '日報 ' + records.length + ' 行' : '日報CSV 未読込',
+    tracks.length ? (linkedShift&&!externalTrackName?'メインのGPS 読込済み':'GPX 読込済み') : 'GPX 未読込'
+  ].join(' ／ ');
+  drawTrack();
+}
+
+function addFileInput(id, parse, apply) {
+  const input = byId(id);
+  let revision = 0;
+  input.addEventListener('change', async () => {
+    const current = ++revision;
+    apply([]);
+    delete errors[id];
+    render();
+    const file = input.files[0];
+    if (!file) return;
+    try {
+      const data = parse(await file.text());
+      if (current !== revision || (id==='csv'&&!input.value)) return;
+      apply(data);
+    } catch (error) {
+      if (current !== revision || (id==='csv'&&!input.value)) return;
+      errors[id] = error.message;
+    }
+    render();
+  });
+}
+
+addFileInput('csv', parseReport, data => {
+  applyReport(data);
+});
+addFileInput('gpx', parseTrack, data => {
+  routeRevision++;
+  externalTrackName=byId('gpx').files[0]?.name||'';
+  tracks=data;
+  if(!linkedShift)byId('linked-shift-status').textContent='';
+});
+document.addEventListener('taxi:confirmed-report-v0451',event=>{
+  try {
+      byId('csv').value='';
+    applyReport(parseReport(event.detail.csv));
+    delete errors.csv;
+  } catch(error) {
+    errors.csv=error.message;
+  }
+  render();
+  if(records.length && !errors.csv)byId('summary').scrollIntoView({block:'start'});
+});
+function suggestedShift(choices) {
+  return choices.find(shift=>getDutyDate(shift)===records[0]?.date)||
+    (!records.length?choices[0]:null);
+}
+let listRevision=0;
+async function refreshShifts(){
+  const revision=++listRevision;
+  const picker=byId('linked-shift');
+  try{
+    const sessions=await shiftLink.listFinished();
+    if(revision!==listRevision)return;
+    const previous=picker.value;
+    finishedShifts=sessions;
+    picker.replaceChildren(new Option('乗務を選択',''),...sessions.map(shift=>
+      new Option(shiftLink.displayShift(shift),shift.id)));
+    const day=records[0]?.date;
+    const matching=day?sessions.filter(shift=>getDutyDate(shift)===day):[];
+    const selected=sessions.find(shift=>shift.id===previous);
+    picker.value=selected&&(!day||getDutyDate(selected)===day)?previous:
+      day&&matching.length===1?matching[0].id:!day?suggestedShift(sessions)?.id||'':'';
+    if(matching.length===1&&!linkedShift&&!updatingTrack)
+      await loadLinkedTrack();
+    else if(matching.length>1&&!linkedShift)
+      byId('linked-shift-status').textContent='同じ乗務日のGPS記録が複数あります。対象を選んで引き継いでください。';
+  }catch(error){
+    if(revision===listRevision)byId('linked-shift-status').textContent='保存済みGPSを確認できません。'+error.message;
+  }
+}
+async function loadLinkedTrack(){
+  const status=byId('linked-shift-status');
+  if(updatingTrack)return;
+  const shift=finishedShifts.find(item=>item.id===byId('linked-shift').value);
+  if(!shift){status.textContent='メインで営業を終了した乗務を選択してください。';return;}
+  if(records.length&&records[0].date!==getDutyDate(shift)){
+    status.textContent='日報の乗務日と同じGPS乗務を選択してください。';return;
+  }
+  const revision=routeRevision;
+  updatingTrack=true;
+  try{
+    const segments=await shiftLink.trackFor(shift);
+    if(revision!==routeRevision || byId('linked-shift').value!==shift.id)return;
+    if(records.length&&records[0].date!==getDutyDate(shift)){
+      status.textContent='日報の乗務日と同じGPS乗務を選択してください。';return;
+    }
+    linkedShift=shift;
+    if(!externalTrackName||!tracks.length){
+      externalTrackName='';
+      tracks=segments;
+      byId('gpx').value='';
+      delete errors.gpx;
+    }
+    const totals=shift.quickTotalsAtFinish;
+    const rest=totals?.restTotalMs;
+    const ret=totals?.returnTotalMs;
+    const timing=[
+      '営業状態切替 '+(shift.states||[]).filter(state=>state.source!=='start-snapshot'&&['start','call','break','rest'].includes(state.mode)).length+'回',
+      Number.isFinite(rest)?'小窓・メインの休憩計測 '+duration(Math.floor(rest/60000)):'',
+      Number.isFinite(ret)?'回送計測 '+duration(Math.floor(ret/60000)):''
+    ].filter(Boolean).join(' ／ ');
+    status.textContent=shiftLink.displayShift(shift)+(timing?' ／ '+timing:'')+
+      (externalTrackName?' ／ 軌跡は選択済みGPXを使用します。':
+        segments.length?' を引き継ぎました。':' ／ GPS地点がありません。ルートヒストリーのGPXを選べます。');
+    render();
+  }catch(error){status.textContent=error.message;}
+  finally{updatingTrack=false;}
+}
+byId('load-linked-track').addEventListener('click',loadLinkedTrack);
+byId('confirm-closing').addEventListener('click',async()=>{
+  const status=byId('closing-status');
+  const paper=byId('paper');
+  const date=records[0]?.date;
+  const total=records.find(record=>record.paper!==null)?.paper ??
+    (paper.value&&paper.validity.valid?Number(paper.value):null);
+  const rides=records.filter(record=>record.kind==='実車');
+  if(!date||!rides.length||!Number.isSafeInteger(total)||total<0){
+    status.textContent='乗務日と日報の税込収入を確認してください。';return;
+  }
+  if(updatingTrack){status.textContent='GPS記録を引き継ぎ中です。完了後にもう一度登録してください。';return;}
+  if(tracks.length&&!rides.some(ride=>tracks.some(segment=>
+    segment[0].time<=ride.end&&segment.at(-1).time>=ride.start))){
+    status.textContent='日報と走行記録の時刻が重なっていません。GPXを確認してください。';return;
+  }
+  try {
+    const old=shiftLink.readClosings()[date];
+    if(old&&!window.confirm(date+'の締め集計を更新しますか？'))return;
+    shiftLink.saveClosing({
+      date,paperTotal:total,rideCount:rides.length,
+      cancellationCount:records.filter(record=>record.kind==='迎C').length,
+      reportRestMinutes:records.filter(record=>record.kind==='休').reduce((sum,record)=>sum+record.rest,0),
+      gpsSessionId:linkedShift?.id??null,
+      gpsName:externalTrackName||null,
+      gpsPoints:tracks.reduce((sum,segment)=>sum+segment.length,0),
+      quickTotalsAtFinish:linkedShift?.quickTotalsAtFinish??null,
+      quickOperationCount:linkedShift?(linkedShift.states||[]).filter(state=>state.source!=='start-snapshot'&&['start','call','break','rest'].includes(state.mode)).length:null,
+      savedAt:Date.now()
+    });
+    status.textContent=date+'の締め集計をメインに登録しました。';
+    publishClosingPeer();
+  }catch(error){status.textContent='締め集計を保存できません。'+error.message;}
+});
+const publishClosingPeer=window.taxiCockpitSync.attach('closing',()=>{
+ const latest=shiftLink.latestClosing();
+ return {registeredDate:latest?.date||'',registeredAt:latest?.savedAt||0};
+},(get,saved)=>{
+ const main=get('main'),quick=get('quick');
+ const status=byId('closingPeerStatus');
+ const statusText=main?'メイン接続済'+(main.active?'・GPS営業記録中':'・GPS記録停止'):'メイン応答待ち';
+ const report=shiftLink.latestClosing();
+ const ack=report&&main?.registeredAt===report.savedAt?' ／ 締め登録受信済 '+report.date:'';
+ status.textContent=(saved?statusText:'共有保存エラー')+' ／ 小窓'+(quick?'接続済':'応答待ち')+ack;
+});
+refreshShifts();
+window.addEventListener('focus',refreshShifts);
+window.addEventListener('storage',event=>{
+  if(event.key==='taxi_shift_gps_active_v0428')refreshShifts();
+});
+byId('paper').addEventListener('input', renderSummary);
+select.addEventListener('change', drawTrack);
+window.addEventListener('resize', drawTrack);
+</script>
+<script defer src="./ocr/tesseract.min.js"></script>
+<script type="module" src="./pdf-report.mjs"></script>
+<script src="./window-links.js"></script>
+</html>
