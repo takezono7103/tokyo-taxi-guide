@@ -3,7 +3,7 @@
   const key = 'taxi_forecast_archive_v0460';
   const schema = 'tokyo-taxi-forecast-archive-v1';
   const empty = () => ({schema,through:'',source:'',daily:[],routeDays:[],rides:[],transitions:[]});
-  let state = empty(), loadError = '';
+  let state = empty(), loadError = '', lastRaw;
   const on = (condition, message) => { if (!condition) throw new Error(message); };
   const string = (value, max = 200) => typeof value === 'string' && value.length <= max;
   const date = value => string(value,10) && /^20\d{2}-\d{2}-\d{2}$/.test(value) &&
@@ -51,7 +51,7 @@
   function read() {
     try {
       const raw=localStorage.getItem(key);
-      state=raw?validate(JSON.parse(raw)):empty();
+      state=raw?validate(JSON.parse(raw)):empty();lastRaw=raw;
       loadError='';
     } catch(error) { state=empty();loadError=String(error.message||error); }
   }
@@ -59,7 +59,7 @@
     read();
     on(!loadError,'既存データ読込失敗');
     const incoming=validate(JSON.parse(String(text).replace(/^\uFEFF/,'')));
-    if(options.appendOnly){for(const type of ['daily','routeDays','rides','transitions']){const dates=new Set(state[type].map(r=>r.d));on(!incoming[type].some(r=>dates.has(r.d)),'登録済み乗務日');}}
+    if(options.appendOnly){const types=['daily','routeDays','rides','transitions'];const dates=new Set(types.flatMap(type=>state[type].map(r=>r.d)));on(!types.some(type=>incoming[type].some(r=>dates.has(r.d))),'登録済み乗務日');}
     const merged={schema,through:[state.through,incoming.through].sort().pop(),source:incoming.source};
     for (const type of ['daily','routeDays','rides','transitions']) {
       const rows=new Map(state[type].map(row=>[rowKey(row,type),row]));
@@ -68,7 +68,7 @@
     }
     const next=validate(merged);
     // Store all four datasets atomically, without touching any existing cockpit data.
-    localStorage.setItem(key,JSON.stringify(next));
+    const serialized=JSON.stringify(next);localStorage.setItem(key,serialized);lastRaw=serialized;
     state=next;loadError='';
     document.dispatchEvent(new CustomEvent('taxi:forecast-archive-updated'));
     return {daily:next.daily.length,routeDays:next.routeDays.length,rides:next.rides.length,transitions:next.transitions.length};
@@ -76,6 +76,13 @@
   window.addEventListener('storage',event=>{
     if(event.key===key){read();document.dispatchEvent(new CustomEvent('taxi:forecast-archive-updated'));}
   });
+  function refresh(){
+    try{if(localStorage.getItem(key)===lastRaw&&!loadError)return;}catch(_){}
+    read();document.dispatchEvent(new CustomEvent('taxi:forecast-archive-updated'));
+  }
+  window.addEventListener('focus',refresh);
+  window.addEventListener('pageshow',refresh);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
   read();
   window.taxiForecastArchive=Object.freeze({get:()=>state,load,error:()=>loadError});
 })();

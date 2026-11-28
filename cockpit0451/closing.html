@@ -2,7 +2,7 @@
 <html lang="ja">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>東京タクシー・コックピット 締め作業 v0.4.66</title>
+<title>東京タクシー・コックピット 締め作業 v0.5.0</title>
 <style>
 :root{color-scheme:dark;font:16px system-ui;background:#0b171d;color:#eef6f7}
 [hidden]{display:none!important}*{box-sizing:border-box}body{margin:0}main{max-width:960px;margin:auto;padding:24px 18px 40px}
@@ -27,10 +27,10 @@ button:disabled{opacity:.5;cursor:default}.pdf-tools{display:flex;gap:10px;flex-
 </style>
 <main>
 <nav class="pdf-tools" aria-label="営業画面" id="closing-navigation">
-<a class="action" href="./index.html?v=0466" target="taxiCockpit0451Main" data-focus-main>メイン画面</a>
-<a class="action" href="./quick.html?v=0466" target="taxiCockpit0451Quick">営業クイック小窓</a>
+<a class="action" href="./index.html?v=0500" target="taxiCockpit0451Main" data-focus-main>メイン画面</a>
+<a class="action" href="./quick.html?v=0500" target="taxiCockpit0451Quick">営業クイック小窓</a>
 </nav>
-<header><p>東京タクシー・コックピット · v0.4.66 営業運用版</p><h1>締め作業</h1><p id="closingPeerStatus" aria-live="polite">メイン・営業クイック連携確認中</p></header>
+<header><p>東京タクシー・コックピット · v0.5.0 営業運用版</p><h1>締め作業</h1><p id="closingPeerStatus" aria-live="polite">メイン・営業クイック連携確認中</p></header>
 <section aria-labelledby="pdf-title">
 <h2 id="pdf-title">日報PDFをCSVに変換</h2>
 <p class="muted">飛鳥交通・品川営業所の運転日報向けです。読み取った時刻・金額・地点は原本と照合してください。</p>
@@ -86,7 +86,7 @@ button:disabled{opacity:.5;cursor:default}.pdf-tools{display:flex;gap:10px;flex-
 <section id="summary" hidden aria-labelledby="summary-title">
 <h2 id="summary-title">乗務集計 <small id="date"></small></h2>
 <dl class="stats" id="stats"></dl>
-<div class="pdf-tools"><button id="confirm-closing" class="action" type="button">締め集計をメインに登録</button></div>
+
 <p id="closing-status" aria-live="polite"></p>
 <h3>営業予測への登録</h3>
 <p class="muted">日報から取得した値を確認してください。空欄のみ手入力できます。既存乗務日への重複登録は行いません。</p>
@@ -95,7 +95,10 @@ button:disabled{opacity:.5;cursor:default}.pdf-tools{display:flex;gap:10px;flex-
 <label>日報実車率（％・任意）<input id="forecast-rate" type="number" min="0" max="100" step="0.1"></label>
 <label>乗務区分<select id="forecast-kind"><option>通常</option><option>途中終了</option></select></label>
 <label><input id="forecast-confirm" type="checkbox">日報原本と全明細を照合し、GPXがある場合は同一乗務の記録であることを確認しました</label>
-<button id="forecast-save" class="action" type="button">確認済み実績を営業予測へ登録</button>
+<div class="pdf-tools"><button id="confirm-closing" class="action" type="button">締め確定・営業予測へ一括登録</button></div>
+<p class="muted">原本照合済みの明細を一度の操作で登録します。未確認の場合は締め集計のみ保存できます。</p>
+<button id="forecast-save" class="action" type="button">営業予測のみ登録・再試行</button>
+<button id="closing-only" class="action" type="button">締め集計のみ登録</button>
 <p id="forecast-status" role="status"></p>
 </section>
 <section id="route" hidden aria-labelledby="route-title">
@@ -107,7 +110,7 @@ button:disabled{opacity:.5;cursor:default}.pdf-tools{display:flex;gap:10px;flex-
 </section>
 </main>
 <script src="./shift-link.js"></script>
-<script src="./forecast-archive.js?v=0466"></script>
+<script src="./forecast-archive.js?v=0500"></script>
 <script src="./cockpit-sync.js?v=0458"></script>
 <script>
 'use strict';
@@ -481,7 +484,7 @@ async function refreshShifts(){
     const selected=sessions.find(shift=>shift.id===previous);
     picker.value=selected&&(!day||getDutyDate(selected)===day)?previous:
       day&&matching.length===1?matching[0].id:!day?suggestedShift(sessions)?.id||'':'';
-    if(matching.length===1&&!linkedShift&&!updatingTrack)
+    if(matching.length===1&&!linkedShift&&!updatingTrack&&!externalTrackName)
       await loadLinkedTrack();
     else if(matching.length>1&&!linkedShift)
       byId('linked-shift-status').textContent='同じ乗務日のGPS記録が複数あります。対象を選んで引き継いでください。';
@@ -529,7 +532,7 @@ async function loadLinkedTrack(){
   finally{updatingTrack=false;}
 }
 byId('load-linked-track').addEventListener('click',loadLinkedTrack);
-byId('confirm-closing').addEventListener('click',async()=>{
+function saveClosingSummary(){
   const status=byId('closing-status');
   const paper=byId('paper');
   const date=records[0]?.date;
@@ -559,9 +562,10 @@ byId('confirm-closing').addEventListener('click',async()=>{
       savedAt:Date.now()
     });
     status.textContent=date+'の締め集計をメインに登録しました。';
-    publishClosingPeer();
+    publishClosingPeer();return true;
   }catch(error){status.textContent='締め集計を保存できません。'+error.message;}
-});
+ return false;
+}
 function forecastStamp(ms){return new Date(ms+32400000).toISOString().replace('Z','+09:00');}
 function forecastObserve(tracks,start,end){
  let km=0,obs=0,nightKm=0,lastEnd=-Infinity;
@@ -590,11 +594,11 @@ function buildClosingForecast(records,tracks,fields){
  const start=Math.min(...records.map(r=>r.start)),end=Math.max(...records.map(r=>r.end)),g=forecastObserve(tracks,start,end);
  return {schema:'tokyo-taxi-forecast-archive-v1',through:d,source:'締め作業・原本照合済',daily:[{d,kind:fields.kind,group:'未分類',gross:fields.gross,net:fields.net,rides:rs.length,rest:records.filter(r=>r.kind==='休').reduce((a,r)=>a+r.rest,0),minutes:fields.minutes,rate:fields.rate}],routeDays:g.obs?[{d,km:g.km,nightKm:g.nightKm,coverage:'日報明細の始終時刻内・観測分'}]:[],rides,transitions};
 }
-byId('forecast-save').addEventListener('click',()=>{
+function registerForecast(){
  const status=byId('forecast-status');
  try{
   if(!byId('forecast-confirm').checked)throw Error('原本照合の確認が必要です');
-  if(updatingTrack||Object.values(errors).some(Boolean))throw Error('読込状態を確認してください');
+  if(updatingTrack||Object.values(errors).some(Boolean)||!byId('issues').hidden)throw Error('読込状態・日報とGPSの日時を確認してください');
   validateLinkedDate();
   const d=records[0]?.date;
   if(!d)throw Error('日報を読み込んでください');
@@ -604,9 +608,17 @@ byId('forecast-save').addEventListener('click',()=>{
   const val=id=>{const x=byId(id);if(!x.value||!x.validity.valid)throw Error('日報の集計値を入力してください');return Number(x.value);};
   const gross=records.find(r=>r.paper!==null)?.paper??val('paper');
   const bundle=buildClosingForecast(records,tracks,{gross,net:val('forecast-net'),minutes:val('forecast-minutes'),rate:byId('forecast-rate').value?val('forecast-rate'):null,kind:byId('forecast-kind').value});
-  archive.load(JSON.stringify(bundle),{appendOnly:true});status.textContent=d+' 営業予測に登録済み（通常乗車'+bundle.rides.length+'件／区間'+bundle.transitions.length+'件）。同じサイトのメインに反映されます。';byId('forecast-confirm').checked=false;
- }catch(e){status.textContent='未登録：'+e.message;}
+  archive.load(JSON.stringify(bundle),{appendOnly:true});status.textContent=d+' 営業予測に登録済み（通常乗車'+bundle.rides.length+'件／区間'+bundle.transitions.length+'件）。同じサイトのメインに反映されます。';byId('forecast-confirm').checked=false;return true;
+ }catch(e){status.textContent='未登録：'+e.message;return false;}
+}
+byId('forecast-save').addEventListener('click',registerForecast);
+byId('closing-only').addEventListener('click',()=>{if(saveClosingSummary())byId('forecast-status').textContent='締め集計のみ保存済み。今回は営業予測へ追加していません。';});
+byId('confirm-closing').addEventListener('click',()=>{
+ if(!byId('forecast-confirm').checked){byId('forecast-status').textContent='日報原本と全明細を照合してから一括登録してください。';return;}
+ if(updatingTrack||Object.values(errors).some(Boolean)||!byId('issues').hidden){byId('forecast-status').textContent='読込状態を確認してください。';return;}
+ if(saveClosingSummary()&&!registerForecast())byId('closing-status').textContent='締め集計は保存済み。今回は営業予測へ追加していません。下の理由を確認してください。';
 });
+for(const id of ['paper','forecast-net','forecast-minutes','forecast-rate','forecast-kind'])byId(id).addEventListener('input',()=>{byId('forecast-confirm').checked=false;});
 const publishClosingPeer=window.taxiCockpitSync.attach('closing',()=>{
  const latest=shiftLink.latestClosing();
  return {registeredDate:latest?.date||'',registeredAt:latest?.savedAt||0};
@@ -628,6 +640,6 @@ select.addEventListener('change', drawTrack);
 window.addEventListener('resize', drawTrack);
 </script>
 <script defer src="./ocr/tesseract.min.js"></script>
-<script type="module" src="./pdf-report.mjs?v=0466"></script>
-<script src="./window-links.js?v=0466"></script>
+<script type="module" src="./pdf-report.mjs?v=0500"></script>
+<script src="./window-links.js?v=0500"></script>
 </html>
